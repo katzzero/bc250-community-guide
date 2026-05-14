@@ -10,7 +10,7 @@
 |--------|---------|-------|--------------|
 | **Native DisplayPort** | Best | ✅ Full audio | ✅ Best option if your monitor supports DP |
 | **Passive DP-to-HDMI** | Good (4K30 / 1080p60) | ✅ Works (usually) | ✅ Good — cheap (~$2 on AliExpress) |
-| **Active DP-to-HDMI** | Varies | ⚠️ Often garbled/no audio | ❌ Not recommended |
+| **Active DP-to-HDMI** | Varies | ⚠️ Often garbled/no audio | ❌ Not recommended for BIOS, ✅ works with MST hubs |
 | **DP-to-USB-C** | Good | ✅ Works | ✅ Good for USB-C monitors |
 
 ### Recommended Cable/Adapter
@@ -35,6 +35,8 @@ If you can't see the BIOS screen but the OS boots fine:
 
 Audio is transmitted natively through DisplayPort. If your monitor has speakers or you use a DP-to-HDMI passive adapter, audio should work automatically.
 
+**DP audio fix:** The DP audio delay issue is fixed in **Linux 6.19.10+** (included in CachyOS). Bazzite users need a custom kernel or must wait for a kernel update. This is the most frequently asked question about audio.
+
 ### Option 2: USB Sound Card (Most Reliable Fix)
 
 If audio over DP isn't working, use a USB audio adapter:
@@ -53,7 +55,7 @@ If audio over DP isn't working, use a USB audio adapter:
 
 | Method | Notes |
 |--------|-------|
-| **DisplayPort MST Hub** | Works on Bazzite. Does NOT work with DP→HDMI adapters on hub outputs. |
+| **DisplayPort MST Hub** | Works on Bazzite. Active DP→HDMI adapters work on hub outputs. ⚠️ More than 2 monitors on an MST hub can crash the amdgpu driver. |
 | **DisplayLink Dock** | V7 Universal works (Best Buy `10872445`) — dual HDMI on Bazzite |
 | **Dell ACP075EU** | Docking station with DisplayLink + USB DAC — works |
 

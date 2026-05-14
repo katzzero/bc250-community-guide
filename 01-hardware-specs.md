@@ -89,5 +89,5 @@ A GPU governor saves **20–30W at idle** alone. See [06-GPU Governor](06-gpu-go
 1. **IOMMU is broken** — always disable in BIOS or face display failures
 2. **No VCN firmware** — hardware video encode/decode permanently unavailable
 3. **PCIe 2.0 ×2 only** — SSD limited to ~1 GB/s (don't overspend on NVMe)
-4. **A68H southbridge** — cheap chipset, single PCIe lane for GPU
+4. **A68H southbridge** — low-end chipset; Ethernet and USB 2.0 run through it, **not the GPU** (GPU is direct to APU)
 5. **GDDR6 runs hot** — backplate VRAM has no temperature sensor; ensure case airflow

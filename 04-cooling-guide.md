@@ -124,12 +124,12 @@ The P12 Pro is **NOT sold individually** by Arctic. Available configurations:
 
 ### Thermal Paste Rankings (if not using PTM7950)
 
-| Paste | Performance | Notes |
+| Paste | Conductivity | Notes |
 |-------|-------------|-------|
-| Thermal Grizzly Duronaut 17.3W/mK | ⭐ Best paste | 15°C drop reported |
-| Thermal Grizzly Kryonaut 12.5W/mK | Better | 3–5°C drop vs MX-6 |
-| Arctic MX-5 8.5W/mK | Good | 6°C better than MX-6 on BC-250 |
-| Arctic MX-6 6.0W/mK | Mediocre | Worse than MX-5 on this board |
+| Thermal Grizzly Duronaut | 17.3 W/mK | ⭐ Best paste — 15°C drop reported |
+| Thermal Grizzly Kryonaut | 12.5 W/mK | Better — 3–5°C drop vs MX-6 |
+| Arctic MX-6 | 10.0 W/mK | Good — MX-6 is the current version, MX-5 is discontinued |
+| Arctic MX-5 | 8.5 W/mK | Discontinued — replaced by MX-6 |
 
 ---
 

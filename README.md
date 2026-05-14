@@ -44,7 +44,7 @@
 1. **No Windows GPU drivers** — Linux is required
 2. **Always clear CMOS** after USB BIOS flash (settings won't stick otherwise)
 3. **Disable IOMMU** in BIOS — it is broken and causes display failures
-4. **Avoid kernels 6.15.0–6.15.6 and 6.17.8–6.17.10** — known GPU breakage
+4. **Avoid older broken kernels** — 6.15.0–6.15.6 and 6.17.8–6.17.10 were known-bad; these ranges are now outdated for current distros
 5. **Governor minimum voltage: 700 mV** — below that GPU locks to 1500 MHz
 6. **Do NOT use Smokeless_UMAF** — can cause permanent damage
 7. **VRAM chips have no temperature sensor** — ensure backplate airflow
