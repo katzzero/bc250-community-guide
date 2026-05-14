@@ -1,0 +1,25 @@
+# Resume/BC-250 Guide
+
+## Generated files
+*.log
+*.tmp
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Editor files
+*.swp
+*.swo
+*~
+
+## Python
+__pycache__/
+*.pyc
+
+## Node
+node_modules/
+
+## Archives
+*.zip
+*.tar.gz

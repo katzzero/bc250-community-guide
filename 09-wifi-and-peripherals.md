@@ -10,7 +10,7 @@
 
 | Adapter | Chipset | WiFi | Bluetooth | Price | ASIN | Notes |
 |---------|---------|------|-----------|-------|------|-------|
-| **TP-Link Archer TX10UB Nano** | MT7921AU | WiFi 6 (AX900) | **BT 5.3** | ~$20 | `B0DZCC95G6` | ⭐ Best overall — tiny, dual-band, excellent Linux support |
+| **TP-Link Archer TX10UB Nano** | MT7921AU | WiFi 6 (AX900) | **BT 5.3** | ~$20 | `B0DQXSRGQ4` | ⭐ Best overall — tiny, dual-band, excellent Linux support |
 | **Fenvi FU-AX1800** | MediaTek | WiFi 6 (AX1800) | BT 5.0+ | ~$20 | Various | "Works perfectly" on Bazzite, highly recommended |
 | **EDUP AX3000M** | MT7921AU | WiFi 6E (AX3000) | BT 5.0+ | ~$25 | Various | Good Linux support, 6E band |
 | **TP-Link Archer T2UB Nano** | — | WiFi 5 + BT 4.2 | BT 4.2 | ~$15 | `B0BMX82Y3J` | Budget option |

@@ -135,7 +135,7 @@ The BC-250 has **two** SPI flash chips — flash the correct one!
 | PUA11 etc. | Intersil ISL99360 | Smart Power Stage |
 | PUA1 | Intersil ISL69247 | Main PMIC |
 | U30 | Realtek RTL8111H | Ethernet NIC |
-| BIOS_A1 | Winbond 25Q168JVSQ | 16 MiB SPI flash |
+| BIOS_A1 | Winbond W25Q128JVSQ | 16 MiB SPI flash |
 | SU1 | AMD 218-0844029 | A68H Bolton-D2H FCH |
 | UIO1 | Nuvoton NCT6686D | SuperIO controller |
 
