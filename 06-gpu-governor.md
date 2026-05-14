@@ -1,7 +1,7 @@
 # 06 — GPU Governor
 
 > **The GPU governor is essential.** Without it, the GPU is locked at 1500 MHz and idle power is 85–105W.
-> With it, the GPU dynamically scales from ~1000 MHz (idle) to 2000–2300 MHz (gaming), and idle power drops to 65–85W.
+> With it, the GPU dynamically scales from ~1000 MHz (idle) to 2000–2230 MHz (gaming), and idle power drops to 65–85W.
 
 ---
 
@@ -9,24 +9,33 @@
 
 | Governor | Type | Kernel Patch? | Recommended? | Notes |
 |----------|------|---------------|--------------|-------|
-| **cyan-skillfish-governor-smu** | SMU-based | ❌ No (works on any distro) | ✅ **YES — Best choice** | Most efficient, best scaling, no kernel mods needed |
-| **cyan-skillfish-governor-tt** | Multi-step | ✅ Yes (pre-included in Bazzite) | Good alternative | Thermal throttling aware |
-| **oberon-governor** | Two-state | ✅ Yes | Legacy / No longer recommended | Simple but limited to 1000/2000 MHz |
+| **cyan-skillfish-governor-smu** | SMU-based | No (works on any distro) | YES — Best choice | Most efficient, best scaling, no kernel mods needed |
+| **cyan-skillfish-governor-tt** | Multi-step | Yes (pre-included in Bazzite) | Good alternative | Thermal throttling aware |
+| **oberon-governor** | Two-state | Yes | Legacy / No longer recommended | Simple but limited to 1000/2000 MHz |
 
 ---
 
 ## Installation: cyan-skillfish-governor-smu (Recommended)
 
-### Fedora / Bazzite
+### Fedora
 
 ```bash
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-smu      # Fedora
-rpm-ostree install cyan-skillfish-governor-smu     # Bazzite
+sudo dnf install cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-### Arch / CachyOS / Manjaro
+### Bazzite (rpm-ostree)
+
+```bash
+sudo dnf copr enable filippor/bazzite
+rpm-ostree install cyan-skillfish-governor-smu
+systemctl reboot
+# After reboot:
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
+```
+
+### Arch / CachyOS (need confirmation: Manjaro)
 
 ```bash
 yay -S cyan-skillfish-governor-smu
@@ -36,8 +45,6 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ### Debian / Ubuntu
 
 ```bash
-# Download .deb from GitHub releases page:
-# https://github.com/Magnap/cyan-skillfish-governor/releases
 wget https://github.com/Magnap/cyan-skillfish-governor/releases/latest/download/cyan-skillfish-governor-smu_amd64.deb
 sudo dpkg -i cyan-skillfish-governor-smu_amd64.deb
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
@@ -48,7 +55,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```bash
 git clone https://github.com/filippor/cyan-skillfish-governor.git
 cd cyan-skillfish-governor
-# See repo README for build instructions
+# See repo README for build instructions (SMU variant is on smu branch)
 ```
 
 ---
@@ -65,7 +72,7 @@ safe-points = [
     [1500, 900],   # 1500 MHz @ 900 mV
     [2000, 1000],  # 2000 MHz @ 1000 mV (gaming)
     [2175, 1025],  # 2175 MHz @ 1025 mV (boost)
-    [2230, 1060],  # 2230 MHz @ 1060 mV (OC — needs good cooling)
+    [2300, 1075],  # 2300 MHz @ 1075 mV (OC, good air cooling)
 ]
 
 [load_target]
@@ -93,7 +100,7 @@ interval_ms = 50
 burst_samples = 20
 ```
 
-> 💡 **Minimum voltage is 700 mV.** Going below this locks the GPU to 1500 MHz and defeats the purpose.
+> Minimum voltage is 700 mV. Going below this locks the GPU to 1500 MHz and defeats the purpose. (source: governor.md:36)
 
 ### After Changing Config
 
@@ -112,7 +119,10 @@ To test a specific frequency/voltage combination before adding it to the config:
 sudo systemctl stop cyan-skillfish-governor-smu
 
 # Manually set frequency (in MHz) and voltage (in mV)
-echo vc 0 2100 1050 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_voltage
+echo "vc 0 2100 1050" | sudo tee /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
+
+# Commit changes
+echo "c" | sudo tee /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
 
 # Run a game or benchmark (30+ minutes for stability test)
 
@@ -125,15 +135,30 @@ sudo systemctl start cyan-skillfish-governor-smu
 
 ---
 
+## SMU Performance Profile Tuning (Power Savings)
+
+Changing the SMU performance profile index can reduce idle power:
+
+```bash
+# Profile 3 (default): ~75W idle
+# Profile 2: ~55W idle
+# Profile 1: ~49W idle
+# Profile 0: ~49W idle (gennro reports ~60W from 75W, saving ~15W)
+```
+
+Note: perfprofileindex works on BIOS v3 but NOT on BIOS v5. This is an advanced tuning step — test stability carefully.
+
 ## Known Stable Frequency / Voltage Points
 
 | Frequency | Voltage | Cooling Needed | Stability |
 |-----------|---------|----------------|-----------|
-| 2000 MHz | 1000 mV | Stock air cooling | ✅ Safe for all boards |
-| 2100 MHz | 1025–1050 mV | Good air cooling | ✅ Most boards |
-| 2230 MHz | 1060 mV | Good air cooling required | ✅ Tested by community |
-| 2300 MHz | 1075 mV | High-end air / AIO | ⚠️ Depends on silicon lottery |
-| 2400 MHz | 1125 mV | Liquid cooling only | ⚠️ NexGen3D testing only |
+| 2000 MHz | 1000 mV | Stock air cooling | Safe for all boards |
+| 2100 MHz | 1025-1050 mV | Good air cooling | Most boards |
+| 2230 MHz | 1060 mV | Good air cooling required | Tested by community |
+| 2300 MHz | 1075 mV | High-end air / AIO | Depends on silicon lottery |
+| 2400 MHz | 1125 mV | Liquid cooling only | NexGen3D testing only |
+
+(source: governor.md:577-583)
 
 ---
 
@@ -157,24 +182,27 @@ sudo systemctl enable bc250-smu-oc
 
 ### Verified Results (Fedora 43, Kernel 6.19.8)
 
+(source: governor.md:610-619)
+
 | CPU Freq | Voltage | 7zip Score | Temp | vs Stock |
 |----------|---------|-----------|------|----------|
-| 3500 MHz (stock) | Auto | 26,062 | 60°C | Baseline |
-| 3600 MHz | 1150 mV | 26,518 | 65°C | +1.7% |
-| 3700 MHz | 1199 mV | 27,212 | 68°C | +4.4% |
-| 3800 MHz | 1250 mV | 27,919 | 72°C | +7.1% |
-| 3900 MHz | 1275 mV | 28,410 | 75°C | +9.0% |
-| 4000 MHz | — | Throttles | 77°C | ❌ Not stable |
+| 3500 MHz (stock) | Auto | 26,062 | 60C | Baseline |
+| 3600 MHz | 1150 mV | 26,518 | 65C | +1.7% |
+| 3700 MHz | 1199 mV | 27,212 | 68C | +4.4% |
+| 3800 MHz | 1250 mV | 27,919 | 72C | +7.1% |
+| 3900 MHz | 1275 mV | 28,410 | 75C | +9.0% |
+| 4000 MHz | -- | Throttles | 77C | Not stable |
 
 ---
 
 ## PS5GPU-BC250 (GUI Controller)
 
-A visual GPU controller like MSI Afterburner for Windows:
+A visual Qt-based GPU controller like MSI Afterburner for Windows:
 
 - **Repository:** https://github.com/ZEROAESQUERDA/PS5GPU-BC250
 - Features: Automatic + manual modes, temperature limits, 4 boost stages
-- **Must disable any other governor** before using
+- Works on KDE and GNOME
+- Must disable any other governor before using (source: governor.md:117-119)
 
 ---
 
@@ -183,9 +211,57 @@ A visual GPU controller like MSI Afterburner for Windows:
 The [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) enables proper CPU idle and frequency scaling:
 
 - **SSDT-CST:** Enables C1/C2/C3 CPU sleep states (lower idle power)
-- **SSDT-PST:** Enables CPU frequency scaling (800 MHz – 3200 MHz)
+- **SSDT-PST:** Enables CPU frequency scaling (800 MHz - 3200 MHz) via standard Linux cpufreq governors (schedutil, powersave, etc.)
 
-Recommended for all users. See the full installation in the [governor documentation](https://github.com/filippor/cyan-skillfish-governor).
+Confirmed working on kernel 6.19.8. Both tables loaded via initrd override. See the bc250-acpi-fix repo for full installation instructions. (source: governor.md:640-706)
+
+---
+
+## Verification
+
+### Check Governor is Running
+
+```bash
+systemctl status cyan-skillfish-governor-smu
+# Should show: active (running)
+```
+
+### Check Frequency Scaling
+
+```bash
+cat /sys/class/drm/card1/device/pp_dpm_sclk
+
+# Example output:
+# 0: 1000Mhz
+# 1: 1500Mhz
+# 2: 2000Mhz *
+#
+# The * indicates active frequency
+```
+
+Test dynamic scaling: check frequency at idle (~1000 MHz), start a game, check frequency under load (2000+ MHz).
+
+### Monitoring Tools
+
+**CoolerControl (GUI):**
+```bash
+# Fedora
+sudo dnf copr enable terra/terra
+sudo dnf install coolercontrol
+
+# Bazzite
+ujust install-coolercontrol
+```
+
+**MangoHud (In-Game Overlay):**
+```bash
+sudo dnf install mangohud  # Fedora
+sudo pacman -S mangohud    # Arch
+
+# Steam launch option: mangohud %command%
+```
+
+(source: governor.md:294-322)
 
 ---
 
@@ -194,40 +270,81 @@ Recommended for all users. See the full installation in the [governor documentat
 | Governor | Idle Freq | Max Freq | CPU Usage | Response Time | Kernel Patch? |
 |----------|-----------|----------|-----------|---------------|---------------|
 | **None** | 1500 MHz (locked) | 1500 MHz | 0% | N/A | No |
-| **SMU ⭐** | Variable (~1000 MHz) | 2300+ MHz | 0.9–1.3% | 24 ms | No |
-| **TT** | Variable | 2175+ MHz | 0.9–1.3% | 24 ms | Yes |
+| **SMU** | Variable (~1000 MHz) | 2300+ MHz | 0.9-1.3% | 24 ms | No |
+| **TT** | Variable | 2175+ MHz | 0.9-1.3% | 24 ms | Yes |
 | **Oberon (legacy)** | 1000 MHz | 2000 MHz | 0.4% | 100 ms | Yes |
+
+(source: governor.md:504-511)
 
 ---
 
 ## Troubleshooting
 
 ### Governor Won't Start
+
 ```bash
-# Check if service exists
+# Check service status
 sudo systemctl status cyan-skillfish-governor-smu
 
-# Reinstall
-sudo dnf reinstall cyan-skillfish-governor-smu
+# Check logs
+sudo journalctl -u cyan-skillfish-governor-smu
+
+# Enable and restart
+sudo systemctl enable cyan-skillfish-governor-smu
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ### GPU Stuck at 1500 MHz
+
+Check: governor is running, minimum voltage is not below 700 mV, config file exists.
+
 ```bash
-# Check governor is running
+# Check governor status
 systemctl status cyan-skillfish-governor-smu
 
-# Check minimum voltage isn't below 700 mV
+# Check minimum voltage
 cat /etc/cyan-skillfish-governor-smu/config.toml
 
-# Check if kernel is limiting frequency
+# Check kernel frequency range
 cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
 ```
 
 ### Black Screen During GPU Reset
+
 If the governor causes crashes during GPU-intensive games, temporarily disable it:
+
 ```bash
 sudo systemctl stop cyan-skillfish-governor-smu
 # Play the game, then re-enable
 sudo systemctl start cyan-skillfish-governor-smu
 ```
-Consider lowering max frequency or increasing voltage in your config.
+
+Long-term fix: use stable voltage/frequency settings that don't cause GPU crashes. Increase voltage or reduce max frequency for problematic games.
+
+### Governor High CPU Usage
+
+Normal CPU usage: 0.9-1.3%. If usage exceeds 2%, increase polling interval:
+
+```toml
+# /etc/cyan-skillfish-governor-smu/config.toml
+[timing]
+interval_ms = 100  # Increase from 50
+```
+
+(source: governor.md:482-502)
+
+---
+
+## Community Resources
+
+- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup (governor + swap/zram + CPU mitigations)
+- [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
+- [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
+- [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
+
+(source: governor.md:711-716)
+
+---
+
+**Source of truth:** elektricM docs/system/governor.md, docs/system/power.md, docs/bios/overclocking.md
+**Last updated:** 2026-05-14
