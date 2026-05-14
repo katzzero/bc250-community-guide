@@ -64,7 +64,7 @@ The BC-250 has a **single M.2 2280 slot** running at **PCIe 2.0 ×2 (~1 GB/s max
 | **USB-C Front Panel** | Duttek Type-E to USB-C (`B09M8J7CNW`) | ✅ Works | 10 Gbps USB 3.1 |
 | **ATX Breakout Board** | JMT 6Pin (`B0CTCLV6Y1`) | ✅ Works | For server PSUs, includes 4× USB 2.0 |
 | **USB Audio** | Creative Sound Blaster Play! 3 (`B06XBZ38ZJ`) | ✅ Works | Plug and play — see [08-Display](08-display-and-audio.md) |
-| **USB Audio** | SABRENT USB Stereo Adapter | ✅ Works | Budget plug-and-play option |
+| **USB Audio** | SABRENT AU-EMCB (`B00XM883BK`) | ✅ Works | Budget plug-and-play option |
 | **DisplayLink Dock** | V7 Universal (Best Buy `10872445`) | ✅ Works | Dual HDMI on Bazzite |
 | **Dell ACP075EU** | Docking station | ✅ Works | Has DisplayLink + USB DAC |
 | **2.5 GbE Adapter** | Generic | ⚠️ Finicky | May need manual Linux driver |

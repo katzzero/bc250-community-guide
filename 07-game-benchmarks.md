@@ -93,6 +93,23 @@
 |----------|-----|-------|
 | 1080p High | 60 (capped) | GPU OC 2100 MHz, CachyOS with Proton-Cachy |
 
+### Borderlands 3
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 1080p Medium, 8x AA | ~62 | Eden-6 benchmark; inventory has black box background (cosmetic only) |
+
+### Starfield
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 1080p Medium | 48–60 | 60 FPS capped with frame gen |
+| 1080p High | 39–60 | FG: 58–60 FPS |
+| 1080p Ultra | 35–60 | FG: 58–60 FPS, temps 64°C max |
+| 1080p Medium (New Atlantis) | 48–53 | Most demanding location |
+
+> Starfield is surprisingly playable with frame gen. Medium or High preset with FG gives a smooth 60 FPS experience. GPU OC 1000–2220 MHz, P12 Pro fan.
+
 ---
 
 ### Alan Wake 2
@@ -188,6 +205,7 @@ Expected good performance (not extensively tested; anti-cheat may have Linux cha
 | Half-Life: Alyx | ~80 FPS | CachyOS |
 | Hellblade: Senua's Sacrifice | ~180 FPS | High FPS, well-optimized |
 | Arc Raiders | ~100 on practice range | High settings |
+| Ghost of Tsushima | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
 | Horizon: Zero Dawn | Great at 1080p High | No upscaling needed |
 | Horizon: Forbidden West | 45–60 (70–90 with FG) | FSR + frame gen, low settings |
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without | |

@@ -50,7 +50,7 @@ Boot → Boot Mode:
 | 8 GB fixed | 8 GB | 8 GB | Balanced workload |
 | 12 GB fixed | 12 GB | 4 GB | Light gaming, more system RAM |
 
-> 💡 **512 MB dynamic is best for most users.** Linux dynamically allocates more VRAM as needed. Fixed allocations above 6 GB can starve the CPU and cause instability.
+> 💡 **512 MB dynamic is best for most users.** Linux dynamically allocates more VRAM as needed. This gives ~11.5 GB GTT (total usable ~12 GB) while keeping most RAM as system RAM when not gaming. For gaming-only setups, 4 GB or 6 GB fixed avoids edge cases that 512 MB can trigger. 8/8 split is generally overkill.
 
 ### Override for Full 16 GB Access (Advanced)
 

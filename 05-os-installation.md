@@ -14,6 +14,7 @@
 | **CachyOS** | Maximum performance | Medium | Arch-based, optimized packages, BORE scheduler |
 | **Arch Linux** | Full control, latest packages | Advanced | Manual setup but cutting-edge |
 | **Debian / PikaOS** | Stability, low power | Medium | Requires newer Mesa repos |
+| **Nobara** | Gaming, Bazzite alternative | Medium | Fedora-based with Cachy kernel optimizations, easier governor installation |
 | **Ubuntu 26.04+** | Familiar Ubuntu experience | Easy | Needs Mesa PPA |
 | **Manjaro** | User-friendly Arch | Easy | KDE Plasma recommended |
 
@@ -132,6 +133,24 @@ sudo reboot
 
 # Install gaming tools
 sudo dnf install steam mangohud goverlay
+```
+
+---
+
+## Nobara (Gaming-Focused Fedora Alternative)
+
+> Fedora-based with Cachy kernel optimizations, not immutable — easier governor installation.
+
+**Installation:**
+1. Download [Nobara](https://nobaraproject.org/) (GNOME or KDE)
+2. Flash to USB, boot normally (add `nomodeset` if black screen)
+3. Complete installation
+
+**Post-install:**
+```bash
+sudo dnf update
+sudo dnf install steam mangohud goverlay
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 ---

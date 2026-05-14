@@ -42,8 +42,8 @@ If audio over DP isn't working, use a USB audio adapter:
 | Product | ASIN | Notes |
 |---------|------|-------|
 | **Creative Sound Blaster Play! 3** | `B06XBZ38ZJ` | ⭐ Best quality — 24-bit/96 kHz, ~$25–30 |
-| SABRENT USB Stereo Adapter | Various | Budget option, plug and play |
-| Cheap USB-C phone dongle | Various | Works with USB-C to A adapter |
+| **SABRENT AU-EMCB** | `B00XM883BK` | Budget option, confirmed working, plug and play |
+| Cheap USB-C phone dongle | Various | Works with USB-C to A adapter; Apple USB-C adapter + A-C adapter confirmed |
 
 > ⚠️ The ASIN `B0BQ5VJVWB` that appeared in some older guides is an **Amazon Renewed listing** and may not always be available. The standard retail ASIN is **`B06XBZ38ZJ`**.
 

@@ -119,6 +119,47 @@ amdgpu: device wedged, but recovered through reset
 
 ---
 
+## 🟡 High RAM Usage / OOM Crashes (Alternative to zram)
+
+If zram isn't enough for RAM-hungry games, use **zswap + swapfile** — it dumps cold memory pages to disk, freeing RAM for games.
+
+**On Bazzite:**
+```bash
+# Disable zram
+echo "" | sudo tee /etc/systemd/zram-generator.conf
+
+# Create swapfile (32 GB)
+sudo btrfs subvolume create /var/swap
+sudo semanage fcontext -a -t var_t /var/swap
+sudo restorecon /var/swap
+SIZE=32G
+sudo btrfs filesystem mkswapfile --size $SIZE /var/swap/swapfile
+sudo semanage fcontext -a -t swapfile_t /var/swap/swapfile
+sudo restorecon /var/swap/swapfile
+sudo swapon /var/swap/swapfile
+
+# Add to fstab
+echo "/var/swap/swapfile none swap defaults,nofail 0 0" | sudo tee -a /etc/fstab
+
+# Enable zswap with lz4 (best compressor for BC-250 per community benchmarks)
+rpm-ostree initramfs --enable \
+  --arg=--add-drivers \
+  --arg=lz4 \
+  --arg=--add-drivers \
+  --arg=lz4_compress
+
+rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
+sudo reboot
+```
+
+Verify with:
+```bash
+grep -r . /sys/module/zswap/parameters/
+```
+Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
+
+---
+
 ## 🟡 KDE Plasma / Qt Crashes
 
 **Cause:** Broken RDSEED instruction on BC-250 hardware (fixed in kernel 6.16+).

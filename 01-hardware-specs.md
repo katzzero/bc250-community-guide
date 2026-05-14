@@ -73,8 +73,8 @@
 
 | State | Power Draw | Notes |
 |-------|-----------|-------|
-| Idle (no governor) | 85–105 W | GPU stuck at 1500 MHz |
-| Idle (with governor) | 65–85 W | GPU idles at ~1000 MHz |
+| Idle (no governor) | 85–100 W | GPU stuck at 1500 MHz |
+| Idle (with governor) | 60–70 W | GPU idles at ~1000 MHz; down to 48W with perfprofile tweak |
 | Desktop use | 70–90 W | Web browsing, office tasks |
 | Light gaming | 120–150 W | Older/esports titles |
 | AAA gaming | 160–200 W | Modern titles at 1080p |
