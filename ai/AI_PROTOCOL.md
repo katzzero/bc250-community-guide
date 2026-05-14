@@ -91,40 +91,10 @@ old/
 4. Update the documentation file with correction + attribution
 5. Commit with descriptive message referencing the correction source
 
-### Discord Export Procedure
-Use DiscordChatExporter CLI to export messages. General commands:
+### Discord Export Usage
+Community Discord exports are stored locally in the `export/` directory. When cross-referencing documentation against Discord data, reference the source file name and line number in changelog entries.
 
-```bash
-# Export recent messages from a channel
-DiscordChatExporter.Cli export \
-  -t "TOKEN" \
-  -c CHANNEL_ID \
-  -f PlainText \
-  -o /path/to/export/new/ \
-  --after YYYY-MM-DD \
-  --partition 100
-
-# Export a specific thread
-DiscordChatExporter.Cli export \
-  -t "TOKEN" \
-  -c THREAD_ID \
-  -f PlainText \
-  -o /path/to/export/FILENAME.txt
-
-# List channels in a guild
-DiscordChatExporter.Cli channels \
-  -t "TOKEN" \
-  -g GUILD_ID
-
-# Export all guild channels
-DiscordChatExporter.Cli exportguild \
-  -t "TOKEN" \
-  -g GUILD_ID \
-  -f PlainText \
-  -o /path/to/export/new/ \
-  --include-threads All \
-  --parallel 3
-```
+For new exports, use DiscordChatExporter CLI (install separately — not included in repo). Refer to its documentation for command usage.
 
 ---
 
@@ -222,20 +192,7 @@ V2: Full cross-check against elektricM source of truth. Every claim verified. Co
 
 ---
 
-## VI. Channel ID Reference
-
-| Channel | ID |
-|---------|-----|
-| bc250-chat | [REDACTED] |
-| bc250-flex-chat | [REDACTED] |
-| bc250-resources (forum) | [REDACTED] |
-| benchmarks (forum) | [REDACTED] |
-| help-thread (forum) | [REDACTED] |
-| BC250 Guild | [REDACTED] |
-
----
-
-## VII. Attribution Registry
+## VI. Attribution Registry
 
 Every community member who has contributed corrections:
 
