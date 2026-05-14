@@ -19,6 +19,16 @@
 
 ---
 
+## Power On For 1 Second Then Off (No POST)
+
+**Symptoms:** Board powers on for about 1 second, then shuts off. No display, no USB power.
+
+**Cause:** Most commonly a faulty PSU. A Metalfish 500W unit was confirmed as the cause in one case -- swapping to a Corsair SF750 resolved it immediately (gredzikk).
+
+**Fix:** Try a different known-working PSU before assuming the board is dead. BIOS reflash via CH341 programmer did not help in this case -- the PSU was the root cause.
+
+---
+
 ## VCN Still Not Working
 
 **Status:** Active research underway. Users Angablade and holde have successfully engaged the VCN block via SMU commands and achieved partial decode (one frame before crash). The VCN block is confirmed NOT fused off. Work continues via cyan-skillfish-governor-smu as injection point.
@@ -74,6 +84,20 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 
 ---
 
+## Bazzite Installer Freezes at Second Phase
+
+**Fix:** Install CachyOS Deck version instead. User .moosi confirmed: "Fixed after I installed CachyOS deck version" -- the Bazzite installer consistently froze at the second phase, and switching to CachyOS resolved it completely.
+
+---
+
+## Green Screen During Bazzite Install (Or Repeatedly)
+
+**Warning:** If you get a green screen (or black screen with proper DP cable) during Bazzite installation or repeatedly during use, this may indicate **hardware failure** -- broken solder balls under the GDDR6 memory ICs.
+
+**Fix:** Requires reballing all GDDR6 ICs and replacing any shorted ICs. jayawesome completed this repair successfully: after reballing and replacing one shorted IC, the board ran stable 24/7. This is advanced hardware repair, not a software fix.
+
+---
+
 ## "Press ESC to Skip Startup.nsh"
 
 **Cause:** Normal UEFI shell prompt during BIOS flash.
@@ -125,6 +149,16 @@ amdgpu: device wedged, but recovered through reset
 2. **Lower texture detail** in games
 3. **Disable ZRAM or use fixed VRAM allocation** (source: stability.md)
 4. **For OpenGL:** `MESA_LOADER_DRIVER_OVERRIDE=zink` -- (need confirmation; not found in source docs)
+
+---
+
+## GPU Hang After 1-2h of Gaming (VRAM Overheating)
+
+**Symptoms:** After 1-2 hours of AAA gaming (Resident Evil, Arc Raiders, etc.), the GPU hangs or freezes. System may recover or require reboot.
+
+**Cause:** VRAM chips on the backplate overheat during extended gaming. They have no temperature sensor, so the overheating goes undetected until the GPU hangs (gdong0921_04971, baramin, help-thread).
+
+**Fix:** Add heatsinks to the GDDR6 modules behind the backplate. gdong0921_04971 confirmed: "put a heatsink and that fix it" -- GPU hang stopped after adding VRAM heatsinks.
 
 ---
 
@@ -200,6 +234,16 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 1. Enable **Force Composition** in Steam GameScope settings (disables direct scan-out)
 2. Bump lowest governor safe point -- e.g. `350 MHz @ 720 mV`
 3. Change monitor refresh rate
+
+---
+
+## Blue Artifacts in Many Games (Poor GPU Bin)
+
+**Symptoms:** Diagonal blue artifacts in multiple games (Sekiro, Cyberpunk, Satisfactory) at default governor settings. No crashes or overheating.
+
+**Cause:** Poorly binned GPU chip that cannot sustain high clocks without artifacts. sajonsmk tested extensively: at 1000MHz/700mV no artifacts, at 1500MHz/1065mV FurMark ran 1.5h without artifacts at 74C, but higher clocks consistently produced blue diagonal artifacts (sajonsmk, help-thread).
+
+**Fix:** This is a hardware limitation -- the chip cannot reliably run above ~1500MHz. Lock the governor to a lower max frequency or accept the artifacts.
 
 ---
 

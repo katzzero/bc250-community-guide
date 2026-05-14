@@ -53,7 +53,7 @@ If audio over DP isn't working, use a USB audio adapter:
 
 VRR is now achievable through multiple paths:
 
-1. **CachyOS**: VRR works natively (Discord user). Tested with UGREEN 8K DP-to-HDMI 2.1 adapter.
+1. **CachyOS** (kernel 6.19): VRR works natively (steffman_, help-thread). Tested with UGREEN 8K DP-to-HDMI 2.1 adapter at 4K 120Hz with VRR and sound all working simultaneously via USB sound card.
 2. **Bazzite testing branch**: VRR working on Deck build (Discord user).
 3. **Custom Bazzite image**: Community image with AMD VRR kernel patches (fforduck, confirmed on OLED).
 4. **Kernel 6.19+**: Built-in VRR fixes (gennro).

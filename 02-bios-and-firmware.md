@@ -82,7 +82,7 @@ amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 5. **Or** edit `Flash.nsh` to point to your filename
 6. Unplug all drives and SSDs (forces EFI Shell boot), insert USB, power on
 7. At the yellow `Shell>` prompt, type `blk0:` (with a space after the colon) then **Enter**
-8. Type `Flash.nsh` then **Enter**
+8. Type `Flash.nsh` then **Enter**. Note: some keyboard layouts may cause typos (e.g., French keyboards type `Flqsh.nsh`) -- najibc, help-thread. If it fails, wait a few minutes and try again.
 9. **WAIT.** Do NOT interrupt. If the flash appears to hang, wait at least 15 minutes.
 10. System will reboot — power off immediately, remove USB stick
 11. **Clear CMOS** (see below)

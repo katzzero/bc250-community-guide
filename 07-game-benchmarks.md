@@ -262,9 +262,10 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 
 | Game | Reason | Source |
 |------|--------|--------|
-| Fortnite | Easy Anti-Cheat on Linux — cannot run | elektricM docs |
-| Final Fantasy VII Rebirth | "DX12 is not supported on your system" — game checks for specific GPU compatibility, no fix for BC-250 yet | elektricM docs |
-| Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM — use 6 GB static allocation or `RADV_DEBUG=nohiz` (need confirmation) | Community report |
+| Fortnite | Easy Anti-Cheat on Linux -- cannot run | elektricM docs |
+| Final Fantasy VII Rebirth | "DX12 is not supported on your system" -- game checks for specific GPU compatibility, no fix for BC-250 yet | elektricM docs |
+| Spider-Man 2 | Out-of-memory crash with 512MB VRAM. Fixes (help-thread): set 6GB static VRAM in BIOS (_nk10), add TTM kernel params (hojnikb), run 32GB swap script from NexGen3D repo, lower in-game settings (zerosumpr), or add DXVK config overrides (newgbaxl) |
+| Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz` (need confirmation) | Community report |
 | Palia | Crashes even with swap enabled (need confirmation) | Community report |
 
 ---

@@ -217,6 +217,23 @@ Every community member who has contributed corrections:
 | safwyl | Force Composition fix for gamescope artifacts |
 | snodrat | PCIe topology speculation, PS5 schematic analysis |
 | nydendard | zswap configuration and lz4 benchmarks |
+| astrocast | FSP500-30AS PSU recommendation (help-thread) |
+| hojnikb | TTM kernel params for Spider-Man 2 OOM fix (help-thread) |
+| _nk10 | 6GB static VRAM fix for Spider-Man 2 (help-thread) |
+| newgbaxl | DXVK config override for Spider-Man 2 (help-thread) |
+| gdong0921_04971 | VRAM heatsink fix for GPU hang after 1-2h gaming (help-thread) |
+| baramin | Identified VRAM overheating as GPU hang cause (help-thread) |
+| gredzikk | PSU swap fix for 1-second power-off (help-thread) |
+| najibc | French keyboard Flash.nsh typo report (help-thread) |
+| steffman_ | CachyOS 6.19 + UGREEN VRR at 4K 120Hz working (help-thread) |
+| sajonsmk | Poor GPU bin -- blue artifacts at high clocks (help-thread) |
+| jayawesome | GDDR6 reball fix for green screen hardware failure (help-thread) |
+| .moosi | CachyOS Deck as Bazzite freeze workaround (help-thread) |
+| fjo4453 | Governor not starting -- clean reinstall fix (help-thread) |
+| land_and_air | NexGen3D script for governor install (help-thread) |
+| renatocartesio | Active DP-to-HDMI for BIOS display on TV (help-thread) |
+| sparkling_lynx_08984 | Faulty keyboard fix for repeating keys (help-thread) |
+| selectivelygood_16010 | AmazonBasics DP cable recommendation (help-thread) |
 | katzzero | Repository maintainer, original compilation author |
 
 ---
