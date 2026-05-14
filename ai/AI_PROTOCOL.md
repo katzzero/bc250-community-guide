@@ -278,4 +278,4 @@ This ensures traceability across AI-assisted edits.
 
 *End of AI_PROTOCOL. All AI agents are expected to follow these rules when maintaining the BC-250 Community Guide.*
 
-Last modified by: AI_PROTOCOL (initial creation) on 2026-05-14
+Last modified by: Claude (Anthropic) via opencode on 2026-05-14
