@@ -2,7 +2,6 @@
 
 **Codename:** ATHENA (Goddess of Wisdom, Crafts, and Strategic Warfare)
 **Purpose:** Standard operating procedure for AI agents maintaining the BC-250 Community Guide
-**Root:** `/Users/toneves/Documents/resume/`
 **Repository:** `https://github.com/katzzero/bc250-community-guide`
 **Last Updated:** 2026-05-14
 
@@ -18,13 +17,12 @@ When conflicting information exists, resolve using this hierarchy:
 
 ```
 1. elektricM/amd-bc250-docs (GitHub repo) — PRIMARY SOURCE
-   Local clone: /Users/toneves/Documents/resume/export/elektricM-docs/
+   Local clone: export/elektricM-docs/
    Online: https://github.com/elektricM/amd-bc250-docs
    Site: https://elektricM.github.io/amd-bc250-docs/
 
 2. Live Discord community exports — SECONDARY SOURCE
-   Export directory: /Users/toneves/Documents/resume/export/
-   DiscordChatExporter: /Users/toneves/Documents/resume/exporter/DiscordChatExporter.Cli
+   Export directory: export/
    Exports may contain newer info that supersedes elektricM
 
 3. Verified web sources — TERTIARY SOURCE
@@ -41,37 +39,28 @@ Idle power: 60-70W (gennro, dantistnfs)
 Generic "Discord user" is acceptable only when the username is not available in the export.
 
 ### 4. File Structure Rules
+Repository root contents:
+
 ```
-/Users/toneves/Documents/resume/
-  export/
-    elektricM-docs/          # Cloned source of truth repo
-    bc250-chat/              # Discord exports (352 files)
-    bc250-resources/         # Discord forum exports (139 files)
-    bc250-flex-chat/         # Discord flex chat exports (47 files)
-    benchmarks/              # Discord benchmark exports (104 files)
-    new/                     # Recently exported Discord messages
-  exporter/                  # DiscordChatExporter binary (gitignored)
-  Revised/                   # Git repository root
-    .git/
-    old/
-      2026-05-14/            # Archived previous version
-    README.md                # Current V2 docs (community-attributed)
-    01-hardware-specs.md     # Current V2 docs
-    02-bios-and-firmware.md
-    03-power-supply-guide.md
-    04-cooling-guide.md
-    05-os-installation.md
-    06-gpu-governor.md
-    07-game-benchmarks.md
-    08-display-and-audio.md
-    09-wifi-and-peripherals.md
-    10-troubleshooting.md
-    11-community-and-resources.md
-    changelog.md             # Full audit trail
-    .gitignore
-    CONTRIBUTING.md
-  ai/
-    ATHENA.md                # This file
+README.md                  # Community-attributed documentation
+01-hardware-specs.md       # Board specifications
+02-bios-and-firmware.md    # BIOS flashing and configuration
+03-power-supply-guide.md   # PSU options and wiring
+04-cooling-guide.md        # Cooling solutions
+05-os-installation.md      # OS installation guides
+06-gpu-governor.md         # GPU governor setup
+07-game-benchmarks.md      # Game performance database
+08-display-and-audio.md    # Display and audio solutions
+09-wifi-and-peripherals.md # WiFi and accessories
+10-troubleshooting.md      # Error reference and fixes
+11-community-and-resources.md # Links and timeline
+changelog.md               # Full audit trail
+.gitignore
+CONTRIBUTING.md
+ai/
+  ATHENA.md                # This file
+old/
+  YYYY-MM-DD/              # Archived previous versions
 ```
 
 ### 5. Documentation Conventions
@@ -88,7 +77,7 @@ Generic "Discord user" is acceptable only when the username is not available in 
 ## II. Verification Protocol
 
 ### When Adding New Information
-1. Check elektricM docs first (local clone at export/elektricM-docs/)
+1. Check elektricM docs first (cloned repo in export/ directory)
 2. If not found, search Discord exports in export/ directory
 3. If found in Discord, attribute to the user who posted it
 4. If neither source has it, mark as `(need confirmation)`
@@ -103,34 +92,36 @@ Generic "Discord user" is acceptable only when the username is not available in 
 5. Commit with descriptive message referencing the correction source
 
 ### Discord Export Procedure
+Use DiscordChatExporter CLI to export messages. General commands:
+
 ```bash
-# Export recent messages from bc250-chat (channel ID: [REDACTED])
-/Users/toneves/Documents/resume/exporter/DiscordChatExporter.Cli export \
+# Export recent messages from a channel
+DiscordChatExporter.Cli export \
   -t "TOKEN" \
   -c CHANNEL_ID \
   -f PlainText \
-  -o /Users/toneves/Documents/resume/export/new/ \
+  -o /path/to/export/new/ \
   --after YYYY-MM-DD \
   --partition 100
 
 # Export a specific thread
-/Users/toneves/Documents/resume/exporter/DiscordChatExporter.Cli export \
+DiscordChatExporter.Cli export \
   -t "TOKEN" \
   -c THREAD_ID \
   -f PlainText \
-  -o /Users/toneves/Documents/resume/export/FILENAME.txt
+  -o /path/to/export/FILENAME.txt
 
-# List channels in guild (guild ID: [REDACTED])
-/Users/toneves/Documents/resume/exporter/DiscordChatExporter.Cli channels \
+# List channels in a guild
+DiscordChatExporter.Cli channels \
   -t "TOKEN" \
-  -g [REDACTED]
+  -g GUILD_ID
 
-# Export all guild channels (can be slow)
-/Users/toneves/Documents/resume/exporter/DiscordChatExporter.Cli exportguild \
+# Export all guild channels
+DiscordChatExporter.Cli exportguild \
   -t "TOKEN" \
-  -g [REDACTED] \
+  -g GUILD_ID \
   -f PlainText \
-  -o /Users/toneves/Documents/resume/export/new/ \
+  -o /path/to/export/new/ \
   --include-threads All \
   --parallel 3
 ```
@@ -221,39 +212,26 @@ V2: Full cross-check against elektricM source of truth. Every claim verified. Co
 
 ## V. Critical Warnings
 
-1. **Smokeless_UMAF can permanently damage the board** — must be in every file that mentions BIOS tools
+1. **Smokeless_UMAF can permanently damage the board**
 2. **No Windows GPU drivers exist** — Linux is required for any graphics
 3. **IOMMU must be disabled** — causes display failures
 4. **SIO1_R chip must NOT be flashed** — will brick SuperIO
 5. **6-pin to 8-pin adapters are fire hazards** — SATA is rated for 54W, board draws 235W
-6. **Do not use Smokeless_UMAF**
-7. **Minimum governor voltage is 700 mV** — below that GPU locks to 1500 MHz
-8. **Do NOT drill holes in heatsink** — zip ties or 3D printed shrouds only
+6. **Minimum governor voltage is 700 mV** — below that GPU locks to 1500 MHz
+7. **Do NOT drill holes in heatsink** — zip ties or 3D printed shrouds only
 
 ---
 
-## VI. Export Directory Contents Reference
+## VI. Channel ID Reference
 
-```
-export/
-├── elektricM-docs/        # 36 markdown files, primary source of truth
-├── bc250-chat/            # 352 exports, main chat channel
-├── bc250-flex-chat/       # 47 exports, flex/build showcase channel
-├── bc250-resources/       # 139 exports, forum threads (knowledge base)
-├── benchmarks/            # 104 exports, game-specific benchmark threads
-├── new/                   # Recently exported data
-├── thread-corrections.txt (deleted - contained token data)
-├── discord-export.txt     (deleted - contained token data)
-└── channel-export [part X].txt (2795 files, older export format)
-```
-
-**Key Channel IDs:**
-- bc250-chat: [REDACTED]
-- bc250-flex-chat: [REDACTED]
-- bc250-resources (forum): [REDACTED]
-- benchmarks (forum): [REDACTED]
-- help-thread (forum): [REDACTED]
-- Guild ID: [REDACTED]
+| Channel | ID |
+|---------|-----|
+| bc250-chat | [REDACTED] |
+| bc250-flex-chat | [REDACTED] |
+| bc250-resources (forum) | [REDACTED] |
+| benchmarks (forum) | [REDACTED] |
+| help-thread (forum) | [REDACTED] |
+| BC250 Guild | [REDACTED] |
 
 ---
 
