@@ -3,6 +3,9 @@
 ## DiscordChatExporter
 /exporter/
 
+## Local configuration (local paths, tokens, machine-specific data)
+ai/AI_PROTOCOL.local.md
+
 ## Generated files
 *.log
 *.tmp

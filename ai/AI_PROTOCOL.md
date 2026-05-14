@@ -1,6 +1,6 @@
 # COMPASS — Comprehensive Operating Manual for AI System Standards
 
-**Codename:** COMPASS (Comprehensive Operating Manual for AI System Standards)
+**Codename:** AI_PROTOCOL (AI Operating Standards for Documentation Maintenance)
 **Purpose:** Standard operating procedure for AI agents maintaining the BC-250 Community Guide
 **Repository:** `https://github.com/katzzero/bc250-community-guide`
 **Last Updated:** 2026-05-14
@@ -58,7 +58,7 @@ changelog.md               # Full audit trail
 .gitignore
 CONTRIBUTING.md
 ai/
-  COMPASS.md               # This file
+  AI_PROTOCOL.md            # This file
 old/
   YYYY-MM-DD/              # Archived previous versions
 ```
@@ -276,6 +276,6 @@ This ensures traceability across AI-assisted edits.
 
 ---
 
-*End of COMPASS protocol. All AI agents are expected to follow these rules when maintaining the BC-250 Community Guide.*
+*End of AI_PROTOCOL. All AI agents are expected to follow these rules when maintaining the BC-250 Community Guide.*
 
-Last modified by: COMPASS (initial creation) on 2026-05-14
+Last modified by: AI_PROTOCOL (initial creation) on 2026-05-14
