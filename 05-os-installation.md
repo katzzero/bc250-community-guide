@@ -99,6 +99,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 - Install EmuDeck for emulation: use the Bazzite portal
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
+- **VRR on Deck:** A custom Bazzite image with AMD VRR kernel patches exists — search community for `bazzite-vrr` images. Confirm working on OLED displays. DP audio fix not yet included.
 
 ---
 

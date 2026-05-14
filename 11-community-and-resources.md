@@ -71,6 +71,7 @@ When searching for help, use these identifiers:
 | Dec 2025 | CPU SMU overclocking tool released (4 GHz achieved!) |
 | Jan 2026 | cyan-skillfish-governor-smu v0.4.0 released (SMU-based, no kernel patch) |
 | Mar 2026 | All docs updated to latest state |
+| May 2026 | VRR working on Bazzite Deck via custom kernel patch image |
 
 ---
 
@@ -82,8 +83,9 @@ When searching for help, use these identifiers:
 | Mid 2025 | $80–100 | 📈 Rising |
 | Oct 2025 | $100–130 | 📈 YouTube coverage increased demand |
 | Early 2026 | $150–200+ | 📈 Current — still climbing |
+| May 2026  | ~$130–140 | 📈 Some deals at $130–140, trending up |
 
-> ⚠️ Prices continue to rise as supply dwindles and demand grows from the gaming community.
+> ⚠️ Prices continue to rise as supply dwindles and demand grows from the gaming community. Expect $150–200+ in active listings.
 
 ---
 

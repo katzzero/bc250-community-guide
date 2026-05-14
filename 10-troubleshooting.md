@@ -183,6 +183,17 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 
 ---
 
+## 🟡 Gamescope Artifacts / Visual Glitches
+
+**Symptoms:** Artifacts on GameScope windows and games; not visible in desktop mode.
+
+**Fixes:**
+1. Enable **Force Composition** in Steam GameScope settings (disables direct scan-out)
+2. Bump lowest governor safe point — e.g. `350 MHz @ 720 mV`
+3. Change monitor refresh rate
+
+---
+
 ## 🟡 High Temperatures (85°C+)
 
 **Causes and fixes:**

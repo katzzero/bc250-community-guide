@@ -168,6 +168,12 @@
 |----------|-----|-------|
 | Max graphics | **100** | Spanish community benchmark |
 
+### Forza Horizon 6
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 1080p High + FSR 3.1.5 | 40–60 | Preset High, FSR helped fix pixelated textures |
+
 ### Genshin Impact
 
 | Settings | FPS | Notes |
@@ -206,6 +212,8 @@ Expected good performance (not extensively tested; anti-cheat may have Linux cha
 | Hellblade: Senua's Sacrifice | ~180 FPS | High FPS, well-optimized |
 | Arc Raiders | ~100 on practice range | High settings |
 | Ghost of Tsushima | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
+| Forza Horizon 6 | 40–60 at 1080p High | FSR 3.1.5, preset High |
+| Final Fantasy VII Remake | Playable | Original runs fine; **Rebirth still broken** (mesh shader) |
 | Horizon: Zero Dawn | Great at 1080p High | No upscaling needed |
 | Horizon: Forbidden West | 45–60 (70–90 with FG) | FSR + frame gen, low settings |
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without | |
