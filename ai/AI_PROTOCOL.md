@@ -231,6 +231,32 @@ Last modified by: [YOUR_AGENT_NAME] on [DATE]
 
 This ensures traceability across AI-assisted edits.
 
+### Repo vs Local File Policy
+
+This repository has TWO versions of the AI protocol:
+
+| File | Pushed? | Contents |
+|------|---------|----------|
+| `ai/AI_PROTOCOL.md` | YES — public repo | Clean rules only. No local paths, no Discord IDs, no export tools/commands, no tokens. Safe for public. |
+| `ai/AI_PROTOCOL.local.md` | NO — gitignored | Full version with absolute local paths, Discord channel IDs, export CLI commands, file counts, machine-specific config. NEVER push this. |
+
+**Rules for what stays local only (never in repo files):**
+- Absolute file paths (e.g., `/Users/...`)
+- Discord channel IDs, guild IDs, user IDs
+- Authentication tokens or secrets
+- DiscordChatExporter binary paths or CLI invocation examples
+- Local file counts or export directory structure details
+- Any machine-specific configuration
+
+**Rules for what is safe in repo files:**
+- Relative paths (e.g., `export/`, `ai/`)
+- General methodology and procedures
+- Attribution registries
+- Key facts and reference data
+- Git commit conventions
+
+If you need to reference something that should stay local, put it in `AI_PROTOCOL.local.md` instead.
+
 ---
 
 *End of AI_PROTOCOL. All AI agents are expected to follow these rules when maintaining the BC-250 Community Guide.*
