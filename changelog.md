@@ -222,3 +222,21 @@ Extracted 13 resolved FAQs from 120 help-thread exports. Added to documentation:
 | Spider-Man 2 OOM fixes | 07-game-benchmarks.md | hojnikb, _nk10, zerosumpr, newgbaxl |
 | Flash.nsh keyboard typo | 02-bios-and-firmware.md | najibc |
 | Attribution registry updated | ai/AI_PROTOCOL.md | 17 new users added |
+
+---
+
+## AI Inference Addendum (2026-05-15)
+
+Created `12-ai-inference.md` with cross-verified data from Discord exports and internet sources:
+
+| Section | Key Claims Verified |
+|---------|-------------------|
+| llama.cpp Vulkan (quick start) | Pre-built vulkan zips, `-ngl 999`, `-cram`, `GGML_VK_FORCE_MAX_ALLOCATION_SIZE` |
+| Performance benchmarks | Discord data (hammercoral, __nightfox, xseol) + llama.cpp GitHub benchmark thread #10879 |
+| ROCm status | Confirmed gfx1013 not in ROCm matrix; partial work (hammercoral, n3oney) |
+| Model compatibility | Fits Qwen-9B, Gemma-12B, MoE-30B; needs 5+ boards for 70B |
+| Ollama limitations | ~56% slower due to vendored llama.cpp b7437 (Ollama issue #15601) |
+| Multi-board RPC | Only PP, not TP; 1GbE bottleneck (xseol data) |
+| Stable Diffusion | stablediffusion.cpp + Vulkan confirmed; 2x vs RX 6600 |
+
+Web sources used: elektricM radv.md, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix (Mesa 25.1 RADV), llama.cpp issue #10879/#15601/#20934.
