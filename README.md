@@ -19,6 +19,7 @@
 | 09 | [WiFi & Peripherals](09-wifi-and-peripherals.md) | WiFi/BT adapters, USB accessories, storage |
 | 10 | [Troubleshooting](10-troubleshooting.md) | Error messages, fixes, debugging commands |
 | 11 | [Community & Resources](11-community-and-resources.md) | Links, Discord, timeline, credits |
+| 12 | [AI Inference & LLMs](12-ai-inference.md) | llama.cpp, Ollama, Stable Diffusion, ROCm status |
 
 ---
 
