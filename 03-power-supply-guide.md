@@ -143,6 +143,16 @@ ________________________
 
 ---
 
+## ATX Power Control Community Projects
+
+**BC250 ATX PSU Control Adapter** (pilimmm) — Add-on board for FSP500 10-pin that handles PS_ON automatically. No soldering for basic use. Press button to boot, OS shutdown turns PSU off. Optional isolated button output for BC250's internal power button. Focused on FSP500; 24-pin ATX version planned.
+*Discord project-forums, March 2026.*
+
+**BC-250 Remote PSU Controller** (wisserbasser / PetteriLah) — ESP32-based remote power control with web interface and PS5 controller support. Momentary press = power on, hold 5s = force off. OS shutdown puts ATX PSU in standby.
+*GitHub: [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control)*
+
+---
+
 ## ATX Power Control Mod (Advanced)
 
 By iamdarkyoshi: Allows full ATX PSU standby and sleep/wake support.
