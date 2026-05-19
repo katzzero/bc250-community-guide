@@ -105,7 +105,13 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
 - **VRR on Deck:** A custom Bazzite image with AMD VRR kernel patches exists - search community for `bazzite-vrr` images. Confirm working on OLED displays. DP audio fix not yet included.
-- **40 CU Unlock on Bazzite:** Bazzite is immutable, so the kernel patch requires a custom kernel in a COPR repo. The Bazzite image recipe must then be cloned and modified to include that COPR repo (essdee4336). Alternatively, get vietsman to add the patch to his already-patched repo. Not recommended for normal users until CU health testing matures. See [02-BIOS & Firmware](02-bios-and-firmware.md) for procedure details.
+- **40 CU Unlock on Bazzite:** erewego posted pre-built RPMs against the ba29 Deck kernel (Bazzite handheld/Deck uses ba29; desktop uses OGC kernel). Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums, unpack, then:
+  ```bash
+  sudo rpm-ostree override replace ./*.rpm
+  sudo rpm-ostree kargs --append=amdgpu.bc250_cc_write_mode=3
+  sudo systemctl reboot
+  ```
+  Reduce GPU governor clocks to ~1850 MHz. For desktop Bazzite (OGC kernel), kernel packages are not yet available — check Discord for updates. Not recommended for normal users until CU health testing matures. See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedure details.
 
 ---
 
