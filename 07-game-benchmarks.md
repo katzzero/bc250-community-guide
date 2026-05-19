@@ -314,3 +314,40 @@ __GL_SHADER_DISK_CACHE_SIZE=10737418240
     sudo systemctl disable --now hhd && sudo systemctl mask hhd
     ```
 11. **CachyOS may be ~5–10% faster** than Bazzite in raw benchmarks (need confirmation)
+12. **40 CU unlock: more CUs at lower clocks** match higher clocks at stock 24 CU — cooler and less power (big_trov: 40 CU at 1200 MHz = 60 FPS at 73C, 30W less than 24 CU at 2000 MHz achieving same FPS). See [02-BIOS](02-bios-and-firmware.md).
+
+---
+
+## 40 CU Unlock — Gaming Benchmarks
+
+Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fan, opened mid fins, PTM7950, 80mm back fan unless noted.
+
+### Furmark (Vulkan, 1080p)
+
+| Config | FPS | Temp | Power | User |
+|--------|-----|------|-------|------|
+| 24 CU, 2000 MHz stock | 57 | 77C | — | big_trov |
+| 40 CU, 2000 MHz | 91 | 90C | — | big_trov |
+| 40 CU, 1850 MHz / 910 mV | 137 | 71C | — | essdee4336 |
+| 40 CU, 2000 MHz / 950 mV | 145 | 75C | — | essdee4336 |
+| 40 CU, 2150 MHz / 990 mV | 153 | 79C | ~200W | essdee4336 |
+| 40 CU, 2200 MHz | — | 98C (instant) | — | big_trov |
+| 40 CU, 2300 MHz | 150 | 85C | ~288W | big_trov |
+
+### Superposition (40 CU @ 2200 MHz)
+
+| Preset | Score | User |
+|--------|-------|------|
+| Medium | 13507 | big_trov |
+| High | 12491 | big_trov |
+| Medium (4 GHz CPU) | 14004 | big_trov |
+| Extreme (2300 MHz) | 5759 | big_trov |
+
+### Gaming (40 CU)
+
+| Game | Config | FPS | User |
+|------|--------|-----|------|
+| Furmark VK 1080p | 1200 MHz | 60 FPS at 73C | big_trov |
+| Furmark VK 1440p | 2000 MHz | 91 FPS at 90C | big_trov |
+
+> **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at lower temperature and power. 40 CU @ 1200 MHz = 60 FPS (73C, 30W less than 24 CU @ 2000 MHz achieving same FPS).**Hard limit:** 2300 MHz at 40 CU = ~288W. 2400 MHz locked up the board even at 1100 mV. Stay at or below 2200 MHz for safety.

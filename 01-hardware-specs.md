@@ -106,4 +106,8 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 | 40 CU unlocked | 372 | 125W | 83C | 1500 MHz (governor) |
 | 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
 
-1500 MHz / 900 mV is the recommended sweet spot for 40 CUs (duggasco, scallion_9883). 40 CU at 2 GHz requires upgraded cooling. See [12-AI Inference](12-ai-inference.md) for LLM performance details.
+**Idle comparison (big_trov):** 75W at 40 CU vs 69W at 24 CU (only +6W overhead at idle).
+
+**Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at significantly lower temperature and power. Example: 40 CU at 1200 MHz = 60 FPS at 73C (30W less than 24 CU at 2000 MHz achieving same FPS).
+
+1500 MHz / 900 mV is the recommended sweet spot for 40 CUs (duggasco, scallion_9883). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures and [07-Game Benchmarks](07-game-benchmarks.md) for 40 CU gaming FPS.

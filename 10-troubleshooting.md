@@ -304,6 +304,22 @@ vulkaninfo | grep deviceName
 
 ---
 
+## Mangohud Shows 655% GPU Usage
+
+**Cause:** The SMU outputs a raw `FFFF` error code at offset `0x1C` inside the `gpu_metrics` binary kernel table — MangoHud interprets this as 655% GPU usage.
+
+**Fix:** A script by hassanthejust (Discord project-forums) runs a lightweight Python daemon that intercepts the live binary data stream and overwrites only those two bytes with the correctly calculated GPU utilization. It reads raw DRM hardware job execution times (fdinfo) — same method nvtop uses.
+
+Download `Gpu_usage_fix.zip` from the BC-250 Discord project-forums channel, then:
+```bash
+chmod +x ./install_gpu_usage_fix.sh
+sudo ./install_gpu_usage_fix.sh
+```
+
+Does not break VRAM or temperature readings. No MangoHud config changes needed.
+
+---
+
 ## BIOS Settings Don't Stick
 
 **Fix (source: display.md, boot.md):** Clear CMOS properly:

@@ -254,3 +254,17 @@ Community project `duggasco/bc250-40cu-unlock` re-enables all 40 CUs on the BC-2
 | README.md | Key Facts GPU line: "up to 40 via kernel patch" |
 
 Credits: duggasco (research, repo), filippor (independent testing), scallion_9883 (benchmarks), Claude/Codex (SPI register analysis), kilrah (disable_cu), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).
+
+---
+
+## 40 CU Gaming Benchmarks + Mangohud Fix (2026-05-19)
+
+Extracted from project-forums Discord channel:
+
+| File | Change |
+|------|--------|
+| 07-game-benchmarks.md | New 40 CU gaming section: Furmark 1080p/1440p (57→153 FPS scaling), Superposition scores (Medium 14004, Extreme 5759), efficiency insight (more CUs + lower clock = cooler same perf) |
+| 01-hardware-specs.md | 40 CU idle power (75W vs 69W stock), efficiency insight (big_trov) |
+| 10-troubleshooting.md | New mangohud 655% GPU usage fix (hassanthejust — Python daemon intercepts gpu_metrics at 0x1C) |
+
+Credits: big_trov (40CU gaming benchmarks, idle, efficiency), essdee4336 (40CU Furmark 1080p at multiple clocks), hassanthejust (mangohud fix), hojnikb (comparison data).
