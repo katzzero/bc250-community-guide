@@ -105,6 +105,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
 - **VRR on Deck:** A custom Bazzite image with AMD VRR kernel patches exists - search community for `bazzite-vrr` images. Confirm working on OLED displays. DP audio fix not yet included.
+- **40 CU Unlock on Bazzite:** Bazzite is immutable, so the kernel patch requires a custom kernel in a COPR repo. The Bazzite image recipe must then be cloned and modified to include that COPR repo (essdee4336). Alternatively, get vietsman to add the patch to his already-patched repo. Not recommended for normal users until CU health testing matures. See [02-BIOS & Firmware](02-bios-and-firmware.md) for procedure details.
 
 ---
 
@@ -194,6 +195,19 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
    sudo systemctl enable --now cyan-skillfish-governor-smu.service
    ```
 
+### 40 CU Unlock on CachyOS
+
+Apply the `bc250-40cu-amdgpu.patch` to the kernel PKGBUILD patch set. duggasco maintains a PR fork with the patch pre-applied.
+
+```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
+sudo ./scripts/bc250-enable-40cu.sh build
+sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
+```
+
+Or use CachyOS Kernel Manager GUI to apply the patch. See [02-BIOS & Firmware](02-bios-and-firmware.md) for CU health testing and masking.
+
 ### Legacy Method (if standard ISO won't boot)
 
 1. Install Arch Linux with `linux-lts` kernel
@@ -232,11 +246,13 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
    sudo ./Arch-setup.sh
    ```
 4. Alternative setup script:
-   ```bash
-   git clone https://github.com/pnbarbeito/bc250-arch
-   cd bc250-arch
-   ./install.sh
-   ```
+    ```bash
+    git clone https://github.com/pnbarbeito/bc250-arch
+    cd bc250-arch
+    ./install.sh
+    ```
+
+5. 40 CU unlock: apply `bc250-40cu-amdgpu.patch` to kernel PKGBUILD (duggasco). See [02-BIOS & Firmware](02-bios-and-firmware.md).
 
 ---
 

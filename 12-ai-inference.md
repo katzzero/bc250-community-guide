@@ -187,51 +187,14 @@ Stable Diffusion runs via stablediffusion.cpp with the Vulkan backend (Discord c
 
 ---
 
-## Troubleshooting
-
-### OOM Kills During Inference
-
-The BC-250's unified memory means VRAM and system RAM are the same pool. llama.cpp's `-cram` flag is essential to prevent OOM. Without it, the default 8 GB system RAM assumption triggers the OOM killer.
-
-**Fix:**
-```bash
-# Always include these flags
-./llama-server -ngl 999 -cram -c 40960
-# Set environment variable for Vulkan allocation chunks
-export GGML_VK_FORCE_MAX_ALLOCATION_SIZE=2000000000
-```
-
-### GPU Locked at 1500 MHz Under Inference Load
-
-If the GPU frequency stays at 1500 MHz during inference, the governor is not running or not configured correctly. Install the SMU governor:
-
-```bash
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
-```
-
-### Low Tokens/sec
-
-Check that `-ngl 999` is being used (offloads all layers to GPU). If `-ngl` is omitted or set too low, layers run on CPU and performance drops dramatically.
-
-### Vulkan Sees Less VRAM Than Expected
-
-The Vulkan backend may report ~10 GB of the available ~14 GB. This is a known limitation of the Vulkan memory reporting on the BC-250 (elektricM radv.md). Actual usable VRAM depends on your GTT and TTM kernel parameters.
-
-### Multi-Board RPC Limitations
-- Ethernet is a bottleneck (1 GbE maximum). The M.2 slot can be used for a 10 GbE adapter.
-- Only pipeline parallel (PP) split is supported, not tensor parallel (TP).
-- Power consumption: up to 200-220W per board under full inference load.
-
----
-
 ## 40 CU Unlock (Active Community Project)
 
 **Repository:** [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)
 **Status:** Working, 19 stars, 1 fork (May 2026). 1.61x compute scaling verified.
 
-The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch from duggasco re-enables all 40 CUs by writing two hardware registers during amdgpu driver init: `CC_GC_SHADER_ARRAY_CONFIG` (enumeration mask) and `SPI_PG_ENABLE_STATIC_WGP_MASK` (dispatch gate). Both must be modified together -- neither alone is sufficient (duggasco, scallion_9883).
+The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch from duggasco re-enables all 40 CUs. See [01-Hardware Specs](01-hardware-specs.md) for installation, CU masking, and health testing procedures.
 
-### Performance (llama.cpp Vulkan, Qwen3.5-9B Q4_K_XL)
+### LLM Performance with 40 CUs (llama.cpp Vulkan, Qwen3.5-9B Q4_K_XL)
 
 | Config | pp512 tok/s | Power | Temp | SCLK |
 |--------|-------------|-------|------|------|
@@ -240,35 +203,7 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch f
 | **Ratio** | **1.61x** | +30W | +4C | same |
 | 40 CU @ 2 GHz | 466 | 181W | 96C | 2000 MHz |
 
-**Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor. 40 CU at 2 GHz hits 96C and requires upgraded cooling (duggasco).
-
-### CU Health Testing
-
-Not all boards have 40 healthy CUs. Boards with scattered harvest patterns (`■■□□■■□□■■`) may have defective silicon that artifacts and crashes when enabled (koloses, kilrah). The project includes an automated health testing script that reboots 20 times, testing each WGP individually.
-
-CUs are disabled in pairs (WGP granularity). Selective masking via `amdgpu.disable_cu=SE.SH.CU` allows partial unlocks (e.g., 38 CUs if one WGP is bad).
-
-### Quick Install
-
-```bash
-git clone https://github.com/duggasco/bc250-40cu-unlock.git
-cd bc250-40cu-unlock
-sudo ./scripts/bc250-enable-40cu.sh build
-sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
-```
-
-Verify: `dmesg | grep active_cu_number` should show 40.
-
-### Safety
-
-- Defaults off (`bc250_cc_write_mode=0`) -- no effect unless explicitly enabled
-- Guarded by PCI device ID `0x13FE` -- only fires on BC-250
-- Non-permanent -- reboot without modprobe config returns to stock 24 CU
-- Harvested CUs have power, clocks, and matching CGTS config -- disabled by firmware policy, not silicon defects (duggasco)
-
-### Credits
-
-duggasco (research, testing, documentation), filippor (independent testing, ignore_cu_harvest patch), scallion_9883 (40 CU benchmarks), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest map analysis), koloses (bad CU testing), essdee4336 (thermal guidance), big_trov (verify stable), codyrainy (build testing).
+**Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor. 40 CU at 2 GHz hits 96C and requires upgraded cooling (duggasco, scallion_9883).
 
 ---
 

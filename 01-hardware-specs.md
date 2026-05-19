@@ -94,3 +94,16 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 3. **PCIe 2.0 x2 only** -- SSD limited to ~1 GB/s (don't overspend on NVMe)
 4. **A68H southbridge** [pops1cl] -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
 5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor (need confirmation); ensure case airflow
+6. **Expandable to 40 CUs** -- 16 harvested CUs unlockable via kernel patch ([duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
+
+---
+
+## 40 CU Power Reference (Unlocked)
+
+| Config | pp512 tok/s | Power | Temp | SCLK |
+|--------|-------------|-------|------|------|
+| Stock 24 CU | 230 | 95W | 79C | 1500 MHz (governor) |
+| 40 CU unlocked | 372 | 125W | 83C | 1500 MHz (governor) |
+| 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
+
+1500 MHz / 900 mV is the recommended sweet spot for 40 CUs (duggasco, scallion_9883). 40 CU at 2 GHz requires upgraded cooling. See [12-AI Inference](12-ai-inference.md) for LLM performance details.

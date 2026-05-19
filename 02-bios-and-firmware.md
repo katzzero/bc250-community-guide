@@ -183,3 +183,106 @@ cd BC-250
 ```
 
 > Note: Still requires the modded BIOS ROM file from TuxThePenguin0.
+
+---
+
+## 40 CU Unlock (Re-Enable Harvested CUs)
+
+**Project:** [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)
+**Status:** Working (May 2026). 1.61x compute scaling verified. 19 stars, 1 fork.
+
+The BC-250 ships with 24 of 40 RDNA2 CUs active. 16 are harvested — disabled by firmware policy, not silicon defects. The harvested CUs have power, clocks, and matching CGTS config. Non-permanent — reboot without the modprobe config returns to stock 24 CUs. Guarded to only fire on BC-250 (PCI ID `0x13FE`).
+
+### How It Works
+
+Two registers control CU availability — both must be modified together:
+
+| Register | What It Does | Stock (24 CU) | Unlocked (40 CU) |
+|----------|-------------|---------------|-------------------|
+| `CC_GC_SHADER_ARRAY_CONFIG` | Enumeration mask (tells driver how many CUs) | `0xfff80000` | `0xffe00000` |
+| `SPI_PG_ENABLE_STATIC_WGP_MASK` | Dispatch gate (tells SPI where to send waves) | `0x7` (WGP 0-2) | `0x1F` (WGP 0-4) |
+
+Neither alone is sufficient. CC alone changes driver reporting but SPI still dispatches to 24 CUs. SPI alone enables dispatch but driver only generates work for 24 CUs. The patch writes both during amdgpu driver init (duggasco, scallion_9883). On Vangogh, the equivalent is `SMU_MSG_RequestActiveWgp`. On Cyan Skillfish, that SMU message isn't exposed but the SPI register is directly writable (Claude/Codex analysis).
+
+### Performance
+
+| Config | pp512 tok/s | Power | Temp | SCLK |
+|--------|-------------|-------|------|------|
+| Stock 24 CU (governor) | 230 | 95W | 79C | 1500 MHz |
+| 40 CU unlocked (governor) | 372 | 125W | 83C | 1500 MHz |
+| 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
+
+**Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor.
+
+### Installation (Script — Any Distro)
+
+```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
+sudo ./scripts/bc250-enable-40cu.sh build
+sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
+```
+
+### Manual Kernel Patch (Any Distro)
+
+```bash
+cd /path/to/linux-source/drivers/gpu/drm/amd/amdgpu/
+curl -O https://raw.githubusercontent.com/duggasco/bc250-40cu-unlock/main/patch/bc250-40cu-amdgpu.patch
+patch -p5 < bc250-40cu-amdgpu.patch
+
+make -C /lib/modules/$(uname -r)/build M=$(pwd) -j$(nproc) modules
+sudo cp amdgpu.ko.zst /lib/modules/$(uname -r)/kernel/drivers/gpu/drm/amd/amdgpu/
+sudo depmod -a
+echo 'options amdgpu bc250_cc_write_mode=3' | sudo tee /etc/modprobe.d/bc250-40cu.conf
+sudo reboot
+```
+
+For distro-specific instructions (CachyOS PKGBUILD patch, Bazzite COPR kernel, Arch AUR), see [05-OS Installation](05-os-installation.md).
+
+### Verification
+
+```bash
+dmesg | grep active_cu_number     # Expected: active_cu_number 40
+dmesg | grep bc250-40cu           # Shows register writes
+RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu   # Expected: num_cu = 40
+```
+
+### CU Health Testing
+
+Not all CUs are healthy. Bad CUs cause immediate artifacts and shutdown when enabled (koloses). Boards with scattered harvest patterns (`■■□□■■□□■■`) likely have defective silicon. The project includes a per-WGP isolation test:
+
+```bash
+sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
+./scripts/bc250-compute-verify.sh               # quick check, no reboot
+```
+
+### Selective CU Masking
+
+CUs are disabled at WGP granularity (pairs). Disabling CU 6 also disables CU 7 (same WGP). Format: `amdgpu.disable_cu=SE.SH.CU` (comma-separated, added to `/etc/modprobe.d/bc250-40cu.conf`).
+
+```
+WGP 0 = CU 0,1   (stock active)
+WGP 1 = CU 2,3   (stock active)
+WGP 2 = CU 4,5   (stock active)
+WGP 3 = CU 6,7   (unlocked — test these)
+WGP 4 = CU 8,9   (unlocked — test these)
+```
+
+```bash
+# Mask WGP 3 in SE1/SH0 -> 38 CUs
+options amdgpu bc250_cc_write_mode=3 disable_cu=1.0.6,1.0.7
+
+# Mask WGP 4 across all arrays -> 32 CUs
+options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.8,0.0.9,0.1.8,0.1.9,1.0.8,1.0.9,1.1.8,1.1.9
+```
+
+### Disabling
+
+```bash
+sudo ./scripts/bc250-enable-40cu.sh disable   # removes config, reboots to 24 CU
+sudo ./scripts/bc250-enable-40cu.sh restore   # restores original amdgpu module
+```
+
+### Credits
+
+duggasco (research, repo), filippor (independent testing, ignore_cu_harvest), scallion_9883 (benchmarks), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).
