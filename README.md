@@ -29,7 +29,7 @@
 |------|-------|
 | **APU** | AMD BC-250 "Cyan Skillfish" (cut-down PS5 Oberon) |
 | **CPU** | 6x Zen 2 cores @ ~3.5 GHz |
-| **GPU** | 24 RDNA 2 CUs, base 1500 MHz, up to 2230 MHz (OC) |
+| **GPU** | 24 RDNA 2 CUs (up to 40 via kernel patch), base 1500 MHz, up to 2230 MHz (OC) |
 | **Memory** | 16 GB GDDR6 shared (CPU + GPU) |
 | **Storage** | 1x M.2 2280 (PCIe 2.0 x2 NVMe or SATA3) |
 | **TDP** | 220W (up to 235W under full load) |

@@ -240,3 +240,17 @@ Created `12-ai-inference.md` with cross-verified data from Discord exports and i
 | Stable Diffusion | stablediffusion.cpp + Vulkan confirmed; 2x vs RX 6600 |
 
 Web sources used: elektricM radv.md, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix (Mesa 25.1 RADV), llama.cpp issue #10879/#15601/#20934.
+
+---
+
+## 40 CU Unlock (2026-05-18)
+
+Community project `duggasco/bc250-40cu-unlock` re-enables all 40 CUs on the BC-250 via kernel patch. Key updates:
+
+| File | Change |
+|------|--------|
+| 01-hardware-specs.md | GPU CU count: 24x CUs, up to 40 unlockable. 40 CU power data at 1500 MHz (125W) and 2 GHz (181W). |
+| 12-ai-inference.md | Full 40 CU Unlock section: 1.61x compute scaling (230→372 tok/s pp512), register mechanism, health testing, install, safety, credits. |
+| README.md | Key Facts GPU line: "up to 40 via kernel patch" |
+
+Credits: duggasco (research, repo), filippor (independent testing), scallion_9883 (benchmarks), Claude/Codex (SPI register analysis), kilrah (disable_cu), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).

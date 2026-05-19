@@ -224,6 +224,54 @@ The Vulkan backend may report ~10 GB of the available ~14 GB. This is a known li
 
 ---
 
+## 40 CU Unlock (Active Community Project)
+
+**Repository:** [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)
+**Status:** Working, 19 stars, 1 fork (May 2026). 1.61x compute scaling verified.
+
+The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch from duggasco re-enables all 40 CUs by writing two hardware registers during amdgpu driver init: `CC_GC_SHADER_ARRAY_CONFIG` (enumeration mask) and `SPI_PG_ENABLE_STATIC_WGP_MASK` (dispatch gate). Both must be modified together -- neither alone is sufficient (duggasco, scallion_9883).
+
+### Performance (llama.cpp Vulkan, Qwen3.5-9B Q4_K_XL)
+
+| Config | pp512 tok/s | Power | Temp | SCLK |
+|--------|-------------|-------|------|------|
+| Stock 24 CU | 230 | 95W | 79C | 1500 MHz |
+| **40 CU unlocked** | **372** | **125W** | **83C** | **1500 MHz** |
+| **Ratio** | **1.61x** | +30W | +4C | same |
+| 40 CU @ 2 GHz | 466 | 181W | 96C | 2000 MHz |
+
+**Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor. 40 CU at 2 GHz hits 96C and requires upgraded cooling (duggasco).
+
+### CU Health Testing
+
+Not all boards have 40 healthy CUs. Boards with scattered harvest patterns (`■■□□■■□□■■`) may have defective silicon that artifacts and crashes when enabled (koloses, kilrah). The project includes an automated health testing script that reboots 20 times, testing each WGP individually.
+
+CUs are disabled in pairs (WGP granularity). Selective masking via `amdgpu.disable_cu=SE.SH.CU` allows partial unlocks (e.g., 38 CUs if one WGP is bad).
+
+### Quick Install
+
+```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
+sudo ./scripts/bc250-enable-40cu.sh build
+sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
+```
+
+Verify: `dmesg | grep active_cu_number` should show 40.
+
+### Safety
+
+- Defaults off (`bc250_cc_write_mode=0`) -- no effect unless explicitly enabled
+- Guarded by PCI device ID `0x13FE` -- only fires on BC-250
+- Non-permanent -- reboot without modprobe config returns to stock 24 CU
+- Harvested CUs have power, clocks, and matching CGTS config -- disabled by firmware policy, not silicon defects (duggasco)
+
+### Credits
+
+duggasco (research, testing, documentation), filippor (independent testing, ignore_cu_harvest patch), scallion_9883 (40 CU benchmarks), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest map analysis), koloses (bad CU testing), essdee4336 (thermal guidance), big_trov (verify stable), codyrainy (build testing).
+
+---
+
 ## Community Resources
 
 - **akandr/bc250** (GitHub) -- Ollama + Vulkan inference guide for BC-250

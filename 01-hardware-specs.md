@@ -11,7 +11,7 @@
 | **Full Name** | AMD BC-250 "Cyan Skillfish" |
 | **Origin** | Cut-down PS5 "Oberon" APU -- 2 CPU cores and 12 GPU CUs disabled |
 | **CPU** | 6x Zen 2 cores, ~3.5 GHz fixed base clock |
-| **GPU** | 24x RDNA 2 Compute Units (CUs), codename gfx1013 |
+| **GPU** | 24x RDNA 2 Compute Units (CUs), up to 40 CU unlockable via kernel patch (duggasco/bc250-40cu-unlock); codename gfx1013 |
 | **GPU Base Clock** | 1500 MHz (locked without governor) |
 | **GPU Max Clock** | 2000 MHz stock kernel - 2230 MHz with kernel patch + governor |
 | **GPU Performance** | Comparable to RX 6600 / GTX 1660 Ti |
@@ -80,6 +80,8 @@
 | AAA gaming | 160-200 W | Modern titles at 1080p |
 | Maximum (Cyberpunk RT) | 235 W | Peak gaming load |
 | Stress test (Furmark) | 250-320 W | Not realistic for daily use |
+| 40 CU unlocked @ 2 GHz | ~181 W | duggasco; 96C, needs upgraded cooling |
+| 40 CU unlocked @ 1500 MHz | ~125 W | duggasco; 83C, recommended sweet spot |
 
 A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor.md).
 
