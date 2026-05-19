@@ -69,4 +69,14 @@
 
 ---
 
-*Last updated: Based on community data through March 2026. Prices and availability change frequently -- verify before purchasing.*
+*Last updated: Based on community data through May 2026. Prices and availability change frequently -- verify before purchasing.*
+
+---
+
+## Latest Additions (May 2026)
+
+- **40 CU Unlock** — [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock). 1.61x compute scaling, 57→153 FPS gaming. Kernel patch + CU health testing (duggasco, filippor, big_trov, essdee4336, scallion_9883).
+- **AI Inference Guide** — `12-ai-inference.md`. llama.cpp Vulkan quick start, benchmarks, ROCm status, model compatibility, multi-board RPC (hammercoral, __nightfox, xseol).
+- **13 Resolved FAQs** — Sourced from help-thread; added to troubleshooting with user credits.
+- **Bazzite 40 CU RPMs** — erewego posted pre-built ba29 kernel RPMs for Deck.
+- **Community Projects** — ATX PSU Control Adapter (pilimmm), Remote ESP32 Controller (wisserbasser), AMD clip cooler adapter (bioizhere).
