@@ -83,3 +83,4 @@
 - **CU Masking Fix + Crash Behavior** — Corrected WGP-pair syntax (ungamead, greatapo), 40CU hard-lock vs soft-freeze modes (big_trov), VRM bottleneck warning (capt.cat_13).
 - **New Game Benchmarks** — Forza Horizon 6, Crimson Desert, MGS3 Delta 40CU +66%, Hitman 2 40CU 1.33x, Fatal Frame 2, Marvel Rivals, Returnal.
 - **Troubleshooting** — Low DP volume fix (dizzey0709), WiFi DKMS after 40CU kernel (devilplayer25), fan RPM/MangoHud 0% fix (fallenmask/erewego). ATX wire gauge specs (iamdarkyoshi).
+- **Superposition Leaderboard** — 24 CU (nexgen3d 4713 Extreme record) and 40 CU (big_trov 5759, +22% at lower clocks).

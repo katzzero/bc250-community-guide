@@ -357,6 +357,35 @@ Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fa
 | Medium (4 GHz CPU) | 14004 | big_trov |
 | Extreme (2300 MHz) | 5759 | big_trov |
 
+---
+
+## Superposition Leaderboard (Extreme, 1080p)
+
+### 24 CU (Stock, Unharvest Disabled)
+
+| Rank | User | Score | GPU Clock | CPU Clock | mV | Date |
+|------|------|-------|-----------|-----------|-----|------|
+| 1 | nexgen3d | 4713 | 2530 MHz | 4175 MHz | 1145 | Jan 2026 |
+| 2 | nexgen3d | 4690 | 2530 MHz | 4150 MHz | 1150 | Jan 2026 |
+| 3 | nexgen3d | 4668 | 2500 MHz | — | — | Jan 2026 |
+| 4 | nexgen3d | 4576 | 2400 MHz | 3850 MHz | — | Mar 2026 |
+| 5 | nexgen3d | 4329 | — | — | — | Jan 2026 |
+| 6 | nexgen3d | 4317 | — | — | — | Dec 2025 |
+| 7 | nexgen3d | 4280 | — | — | — | Dec 2025 |
+| 8 | big_trov | ~4200 | 2200 MHz | stock | — | Feb 2026 |
+| 9 | big_trov | 3975 | 2000 MHz | 3500 MHz | — | Apr 2026 |
+| 10 | .captainwasabi | ~3700 | — | — | — | May 2026 |
+
+nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community target is 5000 (uncracked).
+
+### 40 CU (Unharvest Enabled)
+
+| Rank | User | Score | GPU Clock | Power | Date |
+|------|------|-------|-----------|-------|------|
+| 1 | big_trov | 5759 | 2300 MHz | ~250W | May 2026 |
+
+40 CU Extreme already surpasses the 24 CU record (4713) by 22% at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.
+
 ### Gaming (40 CU)
 
 | Game | Config | FPS | User |
