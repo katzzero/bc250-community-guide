@@ -258,23 +258,30 @@ sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
 
 ### Selective CU Masking
 
-CUs are disabled at WGP granularity (pairs). Disabling CU 6 also disables CU 7 (same WGP). Format: `amdgpu.disable_cu=SE.SH.CU` (comma-separated, added to `/etc/modprobe.d/bc250-40cu.conf`).
+**Important:** `amdgpu.disable_cu=X.Y.Z` indexes WGP **pairs**, not individual CUs (ungamead, greatapo, itsanarse, thicccbacon). The GitHub readme documentation for this is incorrect. `X.Y.Z` = SE.SH.WGP-pair. Example: `1.1.1` disables WGP pair 1 on SE1 SH1 (CUs 3-4 there, NOT CUs 1-2).
+
+CUs are disabled at WGP granularity (pairs). Disabling CU 6 also disables CU 7 in the same WGP. Format: `amdgpu.disable_cu=SE.SH.WGP-pair` (comma-separated).
 
 ```
-WGP 0 = CU 0,1   (stock active)
-WGP 1 = CU 2,3   (stock active)
-WGP 2 = CU 4,5   (stock active)
-WGP 3 = CU 6,7   (unlocked — test these)
-WGP 4 = CU 8,9   (unlocked — test these)
+WGP 0 = CU 0,1   (stock active)    — disable_cu=X.Y.0
+WGP 1 = CU 2,3   (stock active)    — disable_cu=X.Y.1
+WGP 2 = CU 4,5   (stock active)    — disable_cu=X.Y.2
+WGP 3 = CU 6,7   (unlocked — test) — disable_cu=X.Y.3
+WGP 4 = CU 8,9   (unlocked — test) — disable_cu=X.Y.4
 ```
+
+Format: `amdgpu.disable_cu=SE.SH.WGP-pair` (comma-separated, added to `/etc/modprobe.d/bc250-40cu.conf`).
 
 ```bash
-# Mask WGP 3 in SE1/SH0 -> 38 CUs
-options amdgpu bc250_cc_write_mode=3 disable_cu=1.0.6,1.0.7
+# Mask WGP pair 3 on SE0 SH0 -> 38 CUs
+options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.3
 
-# Mask WGP 4 across all arrays -> 32 CUs
-options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.8,0.0.9,0.1.8,0.1.9,1.0.8,1.0.9,1.1.8,1.1.9
+# Mask WGP pair 4 across all shader arrays -> 32 CUs
+options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.4,0.1.4,1.0.4,1.1.4
 ```
+
+**Bazzite:** `rpm-ostree kargs --append="amdgpu.disable_cu=X.Y.Z"`
+**CachyOS/Arch:** Add to `/etc/modprobe.d/bc250-40cu.conf` and run `sudo mkinitcpio -P` (big_trov).
 
 ### Disabling
 
@@ -282,6 +289,25 @@ options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.8,0.0.9,0.1.8,0.1.9,1.0.8,1.
 sudo ./scripts/bc250-enable-40cu.sh disable   # removes config, reboots to 24 CU
 sudo ./scripts/bc250-enable-40cu.sh restore   # restores original amdgpu module
 ```
+
+### 40 CU Crash Behavior (big_trov, May 2026)
+
+Two distinct crash modes exist when pushing 40 CU limits:
+
+| Symptom | Voltage | Cause | Fix |
+|---------|---------|-------|-----|
+| **Hard lock**: monitor standby, reset button fails, power drops to ~20W | >1000 mV | Suspected OCP/VRM limit | Reduce voltage below 1000 mV |
+| **Soft freeze**: monitor stays on, reset works, power 130→75W | <1000 mV | Voltage unstable for clocks | Increase voltage by 10-15 mV |
+
+Higher CPU overclock lowers the voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
+
+### 40 CU Kernel Build Warnings
+
+- Default governor clocks/voltages are designed for 24 CU. Reduce clocks to ~1850 MHz for 40 CU to avoid board damage (erewego).
+- `nct6687` module often missing from custom kernels → fan RPM not reported. Reinstall governor after kernel change (erewego, fallenmask).
+- `xone-dongle` module may be missing → wireless Xbox controller broken (kurozip).
+- MangoHud may show 0% GPU usage after kernel update (fallenmask).
+- `cu_health_check.sh` causes boot loops on some boards. Use `cu_check.sh` from nonu0038 instead (realdern, lil_gabo, essdee4336).
 
 ### Credits
 

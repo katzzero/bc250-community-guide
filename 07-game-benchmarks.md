@@ -258,6 +258,20 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 
 ---
 
+## Newly Tested Games (May 2026)
+
+| Game | Performance | Notes |
+|------|-------------|-------|
+| Hitman 2 (40 CU, 1500 MHz) | 160 FPS vs 120 FPS stock | 1.33x CU scaling (itsanarse) |
+| Fatal Frame 2 (40 CU) | 60 FPS at 1400-1500 MHz | 24 CU needed 1850-2000 MHz for same -- lower temps/power (maskofsin) |
+| MGS3 Delta (40 CU) | 66% FPS boost over 24 CU | big_trov |
+| Forza Horizon 6 | Playable via Proton (CachyOS) | Low memory warning after prologue; try 512MB split + zswap (antmagl, jeffr7814); menu FPS drops to 15 (capt.cat_13) |
+| Crimson Desert (38-40 CU) | ~55 FPS FHD, no scaling | +10-15 FPS over 24 CU (pijuli.); CPU-limited in some areas (vfxmz) |
+| Marvel Rivals | Playable | Season 8 perf mod on NexusMods (graytl); up to 190 FPS |
+| Returnal | Heavy artifacts on marginal 40 CU boards | Good test game for CU health (capt.cat_13) |
+
+---
+
 ## Games That Don't Work
 
 | Game | Reason | Source |

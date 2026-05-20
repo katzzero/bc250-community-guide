@@ -157,6 +157,12 @@ ________________________
 
 By iamdarkyoshi: Allows full ATX PSU standby and sleep/wake support.
 
+**Wire gauge specs (iamdarkyoshi, May 2026):**
+- Purple (5V standby): spec for 3A max. Testing never exceeded ~2A even with USB-powered monitor.
+- Green (PSON) and Grey (PWRGOOD): logic-level signals, few milliamps, any thin wire acceptable.
+- Ground return path via main EPS12V ground wires -- no extra ground wire needed.
+- 5V standby current drops to ~500mA when powered on (BC250 reroutes main 5V to USB ports).
+
 1. Remove surface-mount inductor (internal 12V-to-5V standby converter)
 2. Solder three wires: Violet (5VSB) to inductor pad, Green (PS_ON), Grey (Power Good optional)
 3. Connect to matching ATX PSU colors

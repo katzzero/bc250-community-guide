@@ -320,6 +320,37 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 ---
 
+## Low Volume on DP Audio
+
+**Symptoms:** DP audio volume is very low, requires massive amplifier gain. Affects both Bazzite and Arch (dizzey0709).
+
+**Fixes:**
+1. Try a passive DP-to-HDMI adapter instead (pops1cl).
+2. Test with CachyOS USB boot (known-good kernel for DP audio).
+3. Use a USB audio adapter as fallback. See [08-Display & Audio](08-display-and-audio.md).
+
+---
+
+## WiFi Driver DKMS Failure After 40 CU Kernel
+
+**Symptoms:** After applying a custom 40 CU kernel, WiFi stops working. DKMS cannot build the wifi module because kernel headers don't match.
+
+**Cause:** Custom kernel lacks matching headers. DKMS requires headers matching `uname -r` exactly (devilplayer25, stingerguy). Most common on Bazzite.
+
+**Fix:** Ensure the custom kernel package includes matching headers, or use a distro with pre-built kernel packages that include headers (CachyOS/Arch).
+
+---
+
+## Fan RPM Missing / MangoHud 0% After 40 CU Kernel
+
+**Symptoms:** After installing a custom 40 CU kernel, fan RPM is not reported and MangoHud shows 0% GPU usage.
+
+**Cause:** `nct6687` module missing from the custom kernel build (fallenmask). erewego uploaded a fix for Bazzite.
+
+**Fix:** Reinstall the governor (`cyan-skillfish-governor-smu`) after kernel changes. Verify `nct6687` module is loaded: `lsmod | grep nct6687`.
+
+---
+
 ## BIOS Settings Don't Stick
 
 **Fix (source: display.md, boot.md):** Clear CMOS properly:
