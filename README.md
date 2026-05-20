@@ -80,3 +80,6 @@
 - **13 Resolved FAQs** — Sourced from help-thread; added to troubleshooting with user credits.
 - **Bazzite 40 CU RPMs** — erewego posted pre-built ba29 kernel RPMs for Deck.
 - **Community Projects** — ATX PSU Control Adapter (pilimmm), Remote ESP32 Controller (wisserbasser), AMD clip cooler adapter (bioizhere).
+- **CU Masking Fix + Crash Behavior** — Corrected WGP-pair syntax (ungamead, greatapo), 40CU hard-lock vs soft-freeze modes (big_trov), VRM bottleneck warning (capt.cat_13).
+- **New Game Benchmarks** — Forza Horizon 6, Crimson Desert, MGS3 Delta 40CU +66%, Hitman 2 40CU 1.33x, Fatal Frame 2, Marvel Rivals, Returnal.
+- **Troubleshooting** — Low DP volume fix (dizzey0709), WiFi DKMS after 40CU kernel (devilplayer25), fan RPM/MangoHud 0% fix (fallenmask/erewego). ATX wire gauge specs (iamdarkyoshi).
