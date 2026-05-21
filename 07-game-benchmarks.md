@@ -224,7 +224,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Stellar Blade [fforduck, Discord user] | 50–80 FPS at 1440p | Medium settings, FSR4 |
 | Helldivers 2 [Discord user] | 40–60 FPS | |
 | Valheim | 40–80 FPS | 80 FPS with mitigations=off (Discord user) |
-| GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 |
+| GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26) |
 | Oblivion Remaster [Discord user] | 30–75 FPS at 3440x1440 | With/without frame gen |
 | Marvel Rivals [Discord user] | 100–190 FPS | |
 | Warframe | 75 FPS at 1080p (need confirmation) | V-Sync ON, no FSR |
@@ -265,7 +265,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Hitman 2 (40 CU, 1500 MHz) | 160 FPS vs 120 FPS stock | 1.33x CU scaling (itsanarse) |
 | Fatal Frame 2 (40 CU) | 60 FPS at 1400-1500 MHz | 24 CU needed 1850-2000 MHz for same -- lower temps/power (maskofsin) |
 | MGS3 Delta (40 CU) | 66% FPS boost over 24 CU | big_trov |
-| Forza Horizon 6 | Playable via Proton (CachyOS) | Low memory warning after prologue; try 512MB split + zswap (antmagl, jeffr7814); menu FPS drops to 15 (capt.cat_13) |
+| Forza Horizon 6 | Playable via Proton (CachyOS) | Low memory warning after prologue; try 512MB split + zswap (antmagl, jeffr7814); menu FPS drops to 15 (capt.cat_13); works on Proton CachyOS |
 | Crimson Desert (38-40 CU) | ~55 FPS FHD, no scaling | +10-15 FPS over 24 CU (pijuli.); CPU-limited in some areas (vfxmz) |
 | Marvel Rivals | Playable | Season 8 perf mod on NexusMods (graytl); up to 190 FPS |
 | Returnal | Heavy artifacts on marginal 40 CU boards | Good test game for CU health (capt.cat_13) |
@@ -346,16 +346,22 @@ Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fa
 | 40 CU, 2000 MHz / 950 mV | 145 | 75C | — | essdee4336 |
 | 40 CU, 2150 MHz / 990 mV | 153 | 79C | ~200W | essdee4336 |
 | 40 CU, 2200 MHz | — | 98C (instant) | — | big_trov |
+| 40 CU, 2230 MHz / 1050 mV | — | — | — | mrfrakes |
 | 40 CU, 2300 MHz | 150 | 85C | ~288W | big_trov |
+| 40 CU, 1850 MHz / 960 mV (2x 120mm fans) | — | — | — | soulygenius |
+| 40 CU, 2000 MHz / 1000 mV (SMU_OC 78C tctl) | — | — | — | stevounit |
+| 40 CU, 2300 MHz / 4100 MHz CPU | — | — | — | adixd90 |
 
 ### Superposition (40 CU @ 2200 MHz)
 
-| Preset | Score | User |
-|--------|-------|------|
-| Medium | 13507 | big_trov |
-| High | 12491 | big_trov |
-| Medium (4 GHz CPU) | 14004 | big_trov |
-| Extreme (2300 MHz) | 5759 | big_trov |
+| Preset | Score | GPU Clock | CPU Clock | Notes | User |
+|--------|-------|-----------|-----------|-------|------|
+| Medium | 13507 | 2200 MHz | stock | — | big_trov |
+| High | 12491 | 2200 MHz | stock | — | big_trov |
+| Medium (4 GHz CPU) | 14004 | 2200 MHz | 4000 MHz | Meager boost from CPU OC | big_trov |
+| Extreme (2300 MHz) | 5759 | 2300 MHz | 3500 MHz UV | ~250W at wall | big_trov |
+| Extreme (2230 MHz) | — | 2230 MHz | — | 24CU was 235W at 2230 | big_trov |
+| Extreme (2100 MHz) | — | 2100 MHz | 4000 MHz | 1020 mV, 40CU | codyrainy |
 
 ---
 
@@ -380,11 +386,17 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 
 ### 40 CU (Unharvest Enabled)
 
-| Rank | User | Score | GPU Clock | Power | Date |
-|------|------|-------|-----------|-------|------|
-| 1 | big_trov | 5759 | 2300 MHz | ~250W | May 2026 |
+| Rank | User | Score | GPU Clock | CPU Clock | mV | Date |
+|------|------|-------|-----------|-----------|-----|------|
+| 1 | gennro | ~5900 | — | — | — | May 2026 |
+| 2 | big_trov | 5759 | 2300 MHz | 3500 MHz UV | — | May 2026 |
+| 3 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | May 2026 |
+| 4 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | May 2026 |
+| 5 | land_and_air | — | 2000 MHz | stock | — | May 2026 |
 
-40 CU Extreme already surpasses the 24 CU record (4713) by 22% at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.
+40 CU Extreme already surpasses the 24 CU record (4713) by 22%+ at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.
+
+**Max clock findings:** 2400 MHz at 40 CU causes hard OCP lockup requiring power cable pull (reset/power buttons unresponsive) across multiple boards (big_trov, codyrainy, cralant). 2100-2300 MHz is the stable range for most boards. Trimming CUs for higher clocks is not advantageous: big_trov's 32CU @ 2400 MHz scored worse than 40CU @ 2300 MHz, with similar power draw (~270W).
 
 ### Gaming (40 CU)
 
@@ -393,4 +405,7 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | Furmark VK 1080p | 1200 MHz | 60 FPS at 73C | big_trov |
 | Furmark VK 1440p | 2000 MHz | 91 FPS at 90C | big_trov |
 
-> **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at lower temperature and power. 40 CU @ 1200 MHz = 60 FPS (73C, 30W less than 24 CU @ 2000 MHz achieving same FPS).**Hard limit:** 2300 MHz at 40 CU = ~288W. 2400 MHz locked up the board even at 1100 mV. Stay at or below 2200 MHz for safety.
+> **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at lower temperature and power. 40 CU @ 1200 MHz = 60 FPS (73C, 30W less than 24 CU @ 2000 MHz achieving same FPS).
+> **OCP hard lockup (big_trov, codyrainy, cralant):** 2400 MHz at 40 CU causes hard lockup where reset and power buttons do nothing -- requires pulling power cable. Likely Over Current Protection triggering. Consistent across multiple boards regardless of cooling.
+> **CPU OC affects GPU stability (big_trov, hojnikb):** Increasing CPU from 3500 to 4000 MHz lowered the GPU voltage threshold for hard lockup. Total system power draw matters -- undervolt CPU when pushing GPU limits.
+> **Hard limit:** 2300 MHz at 40 CU = ~288W. Stay at or below 2200 MHz for safety with 40 CU.

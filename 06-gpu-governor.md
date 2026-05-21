@@ -71,7 +71,8 @@ safe-points = [
     [1000, 700],   # 1000 MHz @ 700 mV (idle)
     [1500, 900],   # 1500 MHz @ 900 mV
     [2000, 1000],  # 2000 MHz @ 1000 mV (gaming)
-    [2175, 1025],  # 2175 MHz @ 1025 mV (boost)
+    [2100, 1025],  # 2100 MHz @ 1025 mV
+    [2175, 1050],  # 2175 MHz @ 1050 mV (overclock)
     [2300, 1075],  # 2300 MHz @ 1075 mV (OC, good air cooling)
 ]
 
@@ -338,6 +339,7 @@ interval_ms = 100  # Increase from 50
 ## Community Resources
 
 - [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup (governor + swap/zram + CPU mitigations)
+- [RedBoard BC250 Toolkit](https://github.com/redbeard1083/bc250-toolkit) — setup script for CachyOS
 - [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
 - [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
 - [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)

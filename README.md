@@ -79,8 +79,11 @@
 - **AI Inference Guide** — `12-ai-inference.md`. llama.cpp Vulkan quick start, benchmarks, ROCm status, model compatibility, multi-board RPC (hammercoral, __nightfox, xseol).
 - **13 Resolved FAQs** — Sourced from help-thread; added to troubleshooting with user credits.
 - **Bazzite 40 CU RPMs** — erewego posted pre-built ba29 kernel RPMs for Deck.
-- **Community Projects** — ATX PSU Control Adapter (pilimmm), Remote ESP32 Controller (wisserbasser), AMD clip cooler adapter (bioizhere).
-- **CU Masking Fix + Crash Behavior** — Corrected WGP-pair syntax (ungamead, greatapo), 40CU hard-lock vs soft-freeze modes (big_trov), VRM bottleneck warning (capt.cat_13).
+- **Community Projects** — ATX PSU Control Adapter (pilimmm), Remote ESP32 Controller (wisserbasser), AMD clip cooler adapter (bioizhere), CachyOS Toolkit (redbeard1083).
+- **CU Masking Fix + Crash Behavior** — Corrected WGP-pair syntax (ungamead, greatapo), 40CU hard-lock vs soft-freeze modes (big_trov), VRM bottleneck warning (capt.cat_13), OCP hard lockup at 2400 MHz requiring power pull (big_trov, codyrainy, cralant).
 - **New Game Benchmarks** — Forza Horizon 6, Crimson Desert, MGS3 Delta 40CU +66%, Hitman 2 40CU 1.33x, Fatal Frame 2, Marvel Rivals, Returnal.
 - **Troubleshooting** — Low DP volume fix (dizzey0709), WiFi DKMS after 40CU kernel (devilplayer25), fan RPM/MangoHud 0% fix (fallenmask/erewego). ATX wire gauge specs (iamdarkyoshi).
-- **Superposition Leaderboard** — 24 CU (nexgen3d 4713 Extreme record) and 40 CU (big_trov 5759, +22% at lower clocks).
+- **Superposition Leaderboard** — 24 CU (nexgen3d 4713 Extreme record) and 40 CU (gennro ~5900, big_trov 5759).
+- **CU Health Scripts** — `cu_map.sh` for harvest map, `bc250-cu-mask.sh` for selective masking, `--health` overlay (sinh_28065, lux.the.cook).
+- **VRR on Bazzite Deck** — Custom image with AMD VRR patches confirmed working; cheap Aliexpress DP>HDMI adapters support VRR without audio desync.
+- **Mesa 26** — GTA V Enhanced fixed (was 3-5fps crash, now smooth); CachyOS ships Mesa 26 with RT and performance improvements.

@@ -256,6 +256,18 @@ sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
 ./scripts/bc250-compute-verify.sh               # quick check, no reboot
 ```
 
+### CU Harvest Map
+
+Check which CUs are active/harvested on your board (sinh_28065, lux.the.cook):
+
+```bash
+./scripts/cu_map.sh                              # Show current CU map
+./scripts/cu_map.sh --health results.tsv         # Show map with health overlay
+./scripts/bc250-cu-mask.sh --results results.tsv # Generate selective mask config
+```
+
+Most boards show the standard 24/40 map (first 6 CUs of each block active). Some users confirmed full 40/40 (dizzey0709, lux.the.cook). ungamead confirmed 38/40 (2 harvested in SE1 SH1).
+
 ### Selective CU Masking
 
 **Important:** `amdgpu.disable_cu=X.Y.Z` indexes WGP **pairs**, not individual CUs (ungamead, greatapo, itsanarse, thicccbacon). The GitHub readme documentation for this is incorrect. `X.Y.Z` = SE.SH.WGP-pair. Example: `1.1.1` disables WGP pair 1 on SE1 SH1 (CUs 3-4 there, NOT CUs 1-2).
@@ -290,16 +302,17 @@ sudo ./scripts/bc250-enable-40cu.sh disable   # removes config, reboots to 24 CU
 sudo ./scripts/bc250-enable-40cu.sh restore   # restores original amdgpu module
 ```
 
-### 40 CU Crash Behavior (big_trov, May 2026)
+### 40 CU Crash Behavior (big_trov, codyrainy, cralant, May 2026)
 
-Two distinct crash modes exist when pushing 40 CU limits:
+Three distinct crash modes exist when pushing 40 CU limits:
 
-| Symptom | Voltage | Cause | Fix |
-|---------|---------|-------|-----|
-| **Hard lock**: monitor standby, reset button fails, power drops to ~20W | >1000 mV | Suspected OCP/VRM limit | Reduce voltage below 1000 mV |
+| Symptom | Voltage/Freq | Cause | Fix |
+|---------|-------------|-------|-----|
+| **OCP hard lock**: monitor standby, reset/power buttons unresponsive, requires power cable pull | 2400 MHz at any voltage | Over Current Protection triggering | Stay at or below 2300 MHz |
+| **Hard lock**: monitor standby, reset button fails, power drops to ~20W | >1000 mV at 2300+ MHz | Suspected OCP/VRM limit | Reduce voltage below 1000 mV or lower clocks |
 | **Soft freeze**: monitor stays on, reset works, power 130→75W | <1000 mV | Voltage unstable for clocks | Increase voltage by 10-15 mV |
 
-Higher CPU overclock lowers the voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
+2400 MHz at 40 CU consistently causes OCP hard lockup across multiple boards regardless of cooling (big_trov, codyrainy, cralant). Higher CPU overclock lowers the GPU voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov, hojnikb). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
 
 ### 40 CU Kernel Build Warnings
 

@@ -54,11 +54,13 @@ If audio over DP isn't working, use a USB audio adapter:
 VRR is now achievable through multiple paths:
 
 1. **CachyOS** (kernel 6.19): VRR works natively (steffman_, help-thread). Tested with UGREEN 8K DP-to-HDMI 2.1 adapter at 4K 120Hz with VRR and sound all working simultaneously via USB sound card.
-2. **Bazzite testing branch**: VRR working on Deck build (Discord user).
-3. **Custom Bazzite image**: Community image with AMD VRR kernel patches (fforduck, confirmed on OLED).
-4. **Kernel 6.19+**: Built-in VRR fixes (gennro).
+2. **Custom Bazzite image**: Community image with AMD VRR kernel patches confirmed working on Bazzite Deck with OLED. Audio desyncs on expensive DP>HDMI adapters, but cheap Aliexpress 4k60hz adapters support VRR without audio issues.
+3. **Kernel 6.19+**: Built-in VRR fixes (gennro).
 
-**Recommended adapter for VRR:** UGREEN 8K DP-to-HDMI 2.1, or Cable Matters 8K (may need firmware downgrade).
+**Adapter notes for VRR:**
+- **UGREEN 8K DP-to-HDMI 2.1**: Would give 4K 120Hz HDR + VRR if audio gets sorted (currently desyncs on custom Bazzite build).
+- **Cheap Aliexpress 4K 60Hz adapters**: Support VRR and do NOT have audio desync issues -- best current option.
+- **Expensive DP>HDMI adapters**: VRR not supported, audio desync on custom Bazzite builds.
 
 ---
 
