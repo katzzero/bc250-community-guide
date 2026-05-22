@@ -312,7 +312,11 @@ Three distinct crash modes exist when pushing 40 CU limits:
 | **Hard lock**: monitor standby, reset button fails, power drops to ~20W | >1000 mV at 2300+ MHz | Suspected OCP/VRM limit | Reduce voltage below 1000 mV or lower clocks |
 | **Soft freeze**: monitor stays on, reset works, power 130→75W | <1000 mV | Voltage unstable for clocks | Increase voltage by 10-15 mV |
 
-2400 MHz at 40 CU consistently causes OCP hard lockup across multiple boards regardless of cooling (big_trov, codyrainy, cralant). Higher CPU overclock lowers the GPU voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov, hojnikb). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
+2400 MHz at 40 CU consistently causes OCP hard lockup across multiple boards regardless of cooling (big_trov, codyrainy, cralant). One user with AIO cooling reported 2400 MHz at 1120 mV stable (needs >1100 mV or loses FPS; crashes at 1050 mV). Higher CPU overclock lowers the GPU voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov, hojnikb). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
+
+### CPU Core Unlock Research
+
+duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6). They have decompiled and extracted bootrom and understand how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory is that cores may not be physically fused off but controlled by a ROM array written during manufacturing. No functional unlock yet -- active research.
 
 ### 40 CU Kernel Build Warnings
 

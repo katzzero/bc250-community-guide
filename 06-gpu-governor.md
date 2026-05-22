@@ -10,6 +10,7 @@
 | Governor | Type | Kernel Patch? | Recommended? | Notes |
 |----------|------|---------------|--------------|-------|
 | **cyan-skillfish-governor-smu** | SMU-based | No (works on any distro) | YES — Best choice | Most efficient, best scaling, no kernel mods needed |
+| **cyan-skillfish-governor-smu-plus** | SMU-based + extras | No | Emerging alternative | Adds `fix-metrics`, `set-method`, `frequency-range` -- some CachyOS issues reported |
 | **cyan-skillfish-governor-tt** | Multi-step | Yes (pre-included in Bazzite) | Good alternative | Thermal throttling aware |
 | **oberon-governor** | Two-state | Yes | Legacy / No longer recommended | Simple but limited to 1000/2000 MHz |
 
@@ -108,6 +109,23 @@ burst_samples = 20
 ```bash
 sudo systemctl restart cyan-skillfish-governor-smu
 ```
+
+### SMU-Plus Config Options (Emerging)
+
+The `cyan-skillfish-governor-smu-plus` variant adds these config options:
+
+```toml
+# /etc/cyan-skillfish-governor-smu-plus/config.toml
+fix-metrics = true            # Enables GPU usage metrics fix
+set-method = "smu"            # "smu" or "kernel"
+[frequency-range]
+min = 400                     # Minimum allowed frequency (MHz)
+max = 2200                    # Maximum allowed frequency (MHz)
+[dbus]
+enabled = false               # D-Bus service
+```
+
+Note: SMU-plus has known issues on CachyOS — the regular SMU governor is more stable.
 
 ---
 

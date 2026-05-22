@@ -404,8 +404,13 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 |------|--------|-----|------|
 | Furmark VK 1080p | 1200 MHz | 60 FPS at 73C | big_trov |
 | Furmark VK 1440p | 2000 MHz | 91 FPS at 90C | big_trov |
+| Doom TDA | 1440p, 40 CU | Same FPS as 1080p before unlock | Community report |
+| Forza Horizon 6 | 1080p Ultra, 40 CU | ~60 FPS | Community report |
+| Helldivers 2 | 40 CU, 2350 MHz | Stable | Community report |
+| RE4 Remake | 40 CU, any config | Crashes | Community report |
 
 > **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at lower temperature and power. 40 CU @ 1200 MHz = 60 FPS (73C, 30W less than 24 CU @ 2000 MHz achieving same FPS).
-> **OCP hard lockup (big_trov, codyrainy, cralant):** 2400 MHz at 40 CU causes hard lockup where reset and power buttons do nothing -- requires pulling power cable. Likely Over Current Protection triggering. Consistent across multiple boards regardless of cooling.
+> **OCP hard lockup (big_trov, codyrainy, cralant):** 2400 MHz at 40 CU causes hard lockup where reset and power buttons do nothing -- requires pulling power cable. Likely Over Current Protection triggering. Consistent across multiple boards regardless of cooling. One user with AIO reported 2400 MHz stable at 1120 mV.
 > **CPU OC affects GPU stability (big_trov, hojnikb):** Increasing CPU from 3500 to 4000 MHz lowered the GPU voltage threshold for hard lockup. Total system power draw matters -- undervolt CPU when pushing GPU limits.
+> **Game-specific instability (May 2026):** RE4 Remake crashes even with stable stress tests. Games need more voltage on GPU than synthetic benchmarks to be stable. If benchmarks pass but games crash, increase voltage by 10-15 mV.
 > **Hard limit:** 2300 MHz at 40 CU = ~288W. Stay at or below 2200 MHz for safety with 40 CU.

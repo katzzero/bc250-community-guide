@@ -87,3 +87,10 @@
 - **CU Health Scripts** — `cu_map.sh` for harvest map, `bc250-cu-mask.sh` for selective masking, `--health` overlay (sinh_28065, lux.the.cook).
 - **VRR on Bazzite Deck** — Custom image with AMD VRR patches confirmed working; cheap Aliexpress DP>HDMI adapters support VRR without audio desync.
 - **Mesa 26** — GTA V Enhanced fixed (was 3-5fps crash, now smooth); CachyOS ships Mesa 26 with RT and performance improvements.
+- **CPU Core Unlock Research** — duggasco and mrfrakes researching unlocking extra CPU cores; decompiled bootrom, understanding PSP fuse checks.
+- **Governor Plus Variant** — `cyan-skillfish-governor-smu-plus` with `fix-metrics` config option, `set-method`, `frequency-range`. Issues on CachyOS.
+- **2400 MHz 40CU confirmed with AIO** — Requires >1100 mV; crashes at 1050 mV. Still OCP hard lockup for most boards.
+- **RE4 Remake crashes** — Specific game instability even with stable stress tests; games need more voltage than benchmarks.
+- **Memory OC limited gains** — `RobinMemTiming` utility confirmed; only +80 Superposition, +1 FPS Cyberpunk.
+- **Forza H6 Ultra 60 FPS** — 40 CU runs Ultra preset at 60 FPS; RT causes crashes.
+- **Debian unsupported** — Patched 40 CU kernel does not work on Debian.
