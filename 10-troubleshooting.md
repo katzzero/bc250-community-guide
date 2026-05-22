@@ -216,7 +216,7 @@ Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
 
 ## Consistent Micro-Stuttering (Every Few Seconds)
 
-**Cause:** Bazzite's Handheld Daemon (HHD) fails to load required functionality and restarts constantly. -- (need confirmation; not found in source docs; appears to be from Discord)
+**Cause:** Bazzite's Handheld Daemon (HHD) fails to load required functionality and restarts constantly (elektricM bazzite.md, PlugWorld).
 
 **Fix:**
 ```bash

@@ -94,3 +94,9 @@
 - **Memory OC limited gains** — `RobinMemTiming` utility confirmed; only +80 Superposition, +1 FPS Cyberpunk.
 - **Forza H6 Ultra 60 FPS** — 40 CU runs Ultra preset at 60 FPS; RT causes crashes.
 - **Debian unsupported** — Patched 40 CU kernel does not work on Debian.
+- **Stock P3.00 BIOS fan curve** — Original P3.00 already has custom fan curve and IOMMU toggle (fanous_). Modded P3.00 still recommended for chipset menu.
+- **38/40 CU benchmarks** — pijuli. tested a partially harvested board: 38 CU @ 1900 MHz = 130 FPS Furmark (84C, 336W), 35% faster than 24 CU at same temp.
+- **40 CU stability variance** — nonu0038 tested 3 boards, only 1 stable at 40 CU. YMMV strongly depends on individual board quality.
+- **duggasco build script Debian-specific** — Arch/CachyOS users reported failures with the automated script (zloymalefic_76235). Manual patch required on non-Debian distros.
+- **New community repos** — mosfetparty/bc250-psu-adapter (wiring diagrams + 3D models), safwyls/BC-250_ATXCase, dyllan500/bazzite-amd-hdmi-kde (VRR fixes), GreatApo/bc250-40cu-unlock (corrected CU masking), bc250-collective/bc250_smu_oc (CPU OC tool).
+- **elektricM source sync** — elektricM docs now recommend SMU governor over TT; MST hub compatibility table added; micro-stutter fix (disable hhd) confirmed from source.

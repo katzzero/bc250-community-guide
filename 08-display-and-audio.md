@@ -69,6 +69,15 @@ VRR is now achievable through multiple paths:
 | Method | Notes |
 |--------|-------|
 | **DisplayPort MST Hub** | Works on Bazzite. Maximum 2 screens via MST on BC-250 (elektriCM). Active DP→HDMI adapters work on hub outputs (pops1cl/Discord). ⚠️ More than 2 monitors on an MST hub can crash the amdgpu driver (pops1cl/Discord). |
+
+**Tested MST Hub Compatibility (elektricM docs):**
+
+| Adapter | Display-out | DP | Display | Audio | Notes |
+|---------|-------------|----|---------|-------|-------|
+| StarTech MST14DP122DP | DP (2) | 1.4 | Yes | Yes | Worked consistently across different monitors/cables |
+| Monoprice 21972 | DP (2) | 1.2 | Mirror only | Yes | Unable to extend displays |
+| ENBUER | DP (2) | 1.2? | Mirror only | Yes | Unable to extend displays |
+| Generic | HDMI (2) | N/A | No | No | No video or audio |
 | **DisplayLink Dock** | USB DisplayLink adapter works for desktop use (not gaming). V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite (need confirmation). |
 | **Dell ACP075EU** | Docking station with DisplayLink + USB DAC — claimed works (need confirmation) |
 

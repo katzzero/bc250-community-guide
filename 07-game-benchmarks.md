@@ -323,7 +323,7 @@ __GL_SHADER_DISK_CACHE_SIZE=10737418240
 8. **Mesa 26.x recommended** — significant RT and performance improvements; 25.1+ minimum
 8. **`mitigations=off`** gives ~10–15% FPS boost in CPU-bound games (elektricM docs: "mitigations=off for +10-15% FPS")
 9. **Keep GPU under 85C** for long-term stability (elektricM docs)
-10. **Disable Handheld Daemon** if using Bazzite for gaming (need confirmation):
+10. **Disable Handheld Daemon** if using Bazzite for gaming (elektricM docs):
     ```bash
     sudo systemctl disable --now hhd && sudo systemctl mask hhd
     ```
@@ -351,6 +351,10 @@ Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fa
 | 40 CU, 1850 MHz / 960 mV (2x 120mm fans) | — | — | — | soulygenius |
 | 40 CU, 2000 MHz / 1000 mV (SMU_OC 78C tctl) | — | — | — | stevounit |
 | 40 CU, 2300 MHz / 4100 MHz CPU | — | — | — | adixd90 |
+| **38/40 CU, 1900 MHz** | **130** | **84C** | **336W wall** | **pijuli.** |
+| **24/40 CU, 2130 MHz (same board)** | **95** | **84C** | **320W wall** | **pijuli.** |
+
+pijuli. tested a 38/40 CU board (2 harvested in SE1 SH0). At 1900 MHz with 38 CUs: 130 FPS, 84C, 336W from wall. Same board at 24 CU/2130 MHz: 95 FPS, 84C, 320W. **35% FPS increase** at equivalent temps with only 16W more from wall. Cooling: P12 Max, middle fins removed, PTM7950, new thermal pads, no cage/no back fan.
 
 ### Superposition (40 CU @ 2200 MHz)
 

@@ -21,14 +21,25 @@
 | Repository | Description |
 |------------|-------------|
 | [elektricM/amd-bc250-docs](https://github.com/elektricM/amd-bc250-docs) | Main documentation (98 commits, 85 stars -- need confirmation) |
-| [bc250-collective](https://github.com/bc250-collective) | ACPI fix, SMU OC tool, and more (need confirmation) |
+| [bc250-collective](https://github.com/bc250-collective) | ACPI fix, SMU OC tool, and more |
+| [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) | SSDT tables for CPU C-States and P-States |
+| [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) | CPU SMU overclocking tool (4 GHz+) |
 | [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) | GPU governor (SMU + TT branches) (need confirmation) |
+| [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) | 40 CU unlock kernel patch |
+| [GreatApo/bc250-40cu-unlock](https://github.com/GreatApo/bc250-40cu-unlock) | 40 CU unlock fork with corrected CU masking docs |
 | [TuxThePenguin0/bc250-bios](https://gitlab.com/TuxThePenguin0/bc250-bios) | Modded BIOS files (need confirmation) |
 | [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) | Steam Machine cases + setup scripts (need confirmation) |
 | [kenavru/BC-250](https://github.com/kenavru/BC-250) | EFI flash tool (no hardware programmer needed) (need confirmation) |
 | [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | PWM fan control driver (need confirmation) |
 | [ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) | GUI GPU controller (need confirmation) |
 | [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation) | Setup scripts (Bazzite/Fedora/Ubuntu) (need confirmation) |
+| [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | ATX PSU control adapter — wiring diagrams + 3D models |
+| [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | ESP32 remote PSU controller |
+| [redbeard1083/bc250-toolkit](https://github.com/redbeard1083/bc250-toolkit) | CachyOS setup toolkit |
+| [safwyls/BC-250_ATXCase](https://github.com/safwyls/BC-250_ATXCase) | ATX case design for BC-250 |
+| [dyllan500/bazzite-amd-hdmi-kde](https://github.com/dyllan500/bazzite-amd-hdmi-kde) | VRR fixes for Bazzite KDE |
+| [tdakhran/wl-ambilight](https://github.com/tdakhran/wl-ambilight) | Wayland Ambilight project |
+| [jurkovic-nikola/OpenLinkHub](https://github.com/jurkovic-nikola/OpenLinkHub) | Open source fan/RGB controller hub |
 
 ---
 

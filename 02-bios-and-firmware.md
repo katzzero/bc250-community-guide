@@ -11,6 +11,8 @@
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
 | `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE (need confirmation)) but **easy to brick** |
 
+Stock P3.00 already includes custom fan curve and IOMMU toggle — `_fanous_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
+
 *Credits: P3.00 mod by **Segfault**. P5.00_clv is community-maintained. elektricM credits Segfault for reverse engineering and maintaining modified firmware images.*
 
 ### Where to Download
@@ -223,6 +225,8 @@ sudo ./scripts/bc250-enable-40cu.sh build
 sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
 ```
 
+Note: The build script is Debian-specific (uses `apt`). Arch/CachyOS users reported failures — use the manual kernel patch or distro-specific methods (zloymalefic_76235, Discord).
+
 ### Manual Kernel Patch (Any Distro)
 
 ```bash
@@ -267,6 +271,8 @@ Check which CUs are active/harvested on your board (sinh_28065, lux.the.cook):
 ```
 
 Most boards show the standard 24/40 map (first 6 CUs of each block active). Some users confirmed full 40/40 (dizzey0709, lux.the.cook). ungamead confirmed 38/40 (2 harvested in SE1 SH1).
+
+**YMMV on stability:** nonu0038 tested 3 boards, only 1 ran stable with all 40 CUs. The other 2 had artifacts/crashes. If your board has an irregular harvest map (e.g., `■■□□■■□□■■` pattern), the non-stock CUs are more likely to be defective. Selective masking lets you find a stable subset.
 
 ### Selective CU Masking
 
