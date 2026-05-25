@@ -74,6 +74,19 @@
 
 ---
 
+## How This Guide Is Maintained
+
+This documentation is updated continuously from community Discord activity using a semi-automated pipeline:
+
+1. **Export** — New Discord messages are exported via DiscordChatExporter
+2. **Index** — A local RAG vector database (ChromaDB + sentence-transformers) indexes all exports and reference docs
+3. **Audit** — New exports are searched for benchmarks, corrections, tools, crash data, and other updates
+4. **Cross-reference** — Every claim is verified against elektricM source-of-truth docs and existing documentation
+5. **Update** — Files are edited with attributions, uncertainty marked `(need confirmation)`, and a changelog entry is logged
+6. **Commit** — Changes are committed to `github.com/katzzero/bc250-community-guide`
+
+---
+
 ## Latest Additions (May 2026)
 
 - **Runtime 40 CU Unlock (No Kernel Patch)** — big_trov's `runtime_40cu_unlock.sh` enables 40 CU on stock kernel without rebuilding. gennro/bc250-toolkit automates module compilation for CachyOS. Results identical to patched kernel (corbanitevevo, May 2026).
