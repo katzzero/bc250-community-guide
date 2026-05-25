@@ -384,3 +384,22 @@ Reviewed 45 new bc250-chat exports (after May 20, 2026). Key findings added:
 | 01-hardware-specs.md | Idle power identical regardless of CU count (big_trov); 64W downclocked idle (pops1cl) |
 | README.md | Latest additions section updated |
 
+---
+
+## Full Guild Export + RAG Rebuild + Audit (2026-05-25)
+
+Exported all guild channels and threads after 2026-05-20 (105 new files). Rebuilt RAG index (69,591 → 72,355 chunks). Ran full audit cycle per AI_VERIFICATION_PROTOCOL:
+
+| Layer | Action | Result |
+|-------|--------|--------|
+| A | RAG queries on all key claims | Most claims score ≥0.70-0.85 — well-supported |
+| B | Cross-reference new exports vs docs | 40CU data, governor, OCP already covered |
+| C | Cross-file consistency | Fixed duplicate numbering in README warnings |
+
+**Corrections applied:**
+- README.md: Removed `(need confirmation)` from FSP500-30AS eBay ID 389522369783 — confirmed by essdee4336 (May 23, 2026)
+- README.md: Fixed duplicate "8." numbering in Important Warnings (was 8, 8, 9 → 8, 9, 10)
+- ai/rag_query.py: Unified with RAG/rag_query.py (fixed ChromaDB path, added Discord chunk merging, noise filtering, Ollama error handling, stats sampling)
+
+**New exports reviewed:** 105 files from bc250-chat, bc250-flex-chat, bc250-resources, benchmarks, help-thread, project-forums (after 2026-05-20). Key topics: big_trov 40CU efficiency data, SMU Plus troubleshooting, CPU core unlock research (scallion_9883), new Superposition/Furmark scores. All existing docs already reflect these findings.
+

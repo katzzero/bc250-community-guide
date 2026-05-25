@@ -50,8 +50,8 @@
 6. **Do NOT use Smokeless_UMAF** -- can cause permanent damage
 7. **No hardware video encode/decode** -- VCN firmware blocked by Sony, software decoding only
 8. **Never use 6-pin to 8-pin PCIe adapters** for power delivery -- fire hazard (Discord confirmed)
-8. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. Note: repo README says P-States may not work on all boards. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
-9. **VRAM chips have no temperature sensor** -- ensure backplate airflow
+9. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. Note: repo README says P-States may not work on all boards. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
+10. **VRAM chips have no temperature sensor** -- ensure backplate airflow
 
 ---
 
@@ -60,7 +60,7 @@
 | Item | Recommended | Where |
 |------|-------------|-------|
 | BC-250 Board | Any BIOS P2.00-P5.00 | AliExpress, eBay |
-| PSU (Best Value) | FSP500-30AS Flex ATX 500W, 80+ Platinum (need confirmation) | eBay -- search `389522369783` (need confirmation) |
+| PSU (Best Value) | FSP500-30AS Flex ATX 500W, 80+ Platinum | eBay -- search `389522369783` (essdee4336) |
 | Fan | Arctic P12 Max / P12 Pro 120mm (3-pack or 5-pack) | Amazon |
 | Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0DHRR78H7 (need confirmation) |
 | Thermal Pads | 1.5 mm front, 2.0 mm back | Amazon multi-pack |
