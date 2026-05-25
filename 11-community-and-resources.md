@@ -40,6 +40,8 @@
 | [dyllan500/bazzite-amd-hdmi-kde](https://github.com/dyllan500/bazzite-amd-hdmi-kde) | VRR fixes for Bazzite KDE |
 | [tdakhran/wl-ambilight](https://github.com/tdakhran/wl-ambilight) | Wayland Ambilight project |
 | [jurkovic-nikola/OpenLinkHub](https://github.com/jurkovic-nikola/OpenLinkHub) | Open source fan/RGB controller hub |
+| [gennro/bc250-toolkit](https://github.com/gennro/bc250-toolkit) | CachyOS 40CU unlock + governor automation toolkit |
+| [bangstk/Vulkan_NullVRS](https://github.com/bangstk/Vulkan_NullVRS) | Vulkan layer that nullifies VRS commands -- fixes 640x480 rendering |
 
 ---
 

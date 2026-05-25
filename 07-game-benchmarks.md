@@ -138,7 +138,7 @@
 |----------|-----|-------|
 | Low / Handheld preset, 1080p, FSR Quality | ~60 (need confirmation) | GPU 2230 MHz, CPU stock |
 
-**Fix:** VRS crash — use Vulkan_NullVRS layer (need confirmation).
+**Fix:** VRS crash — use [Vulkan_NullVRS](https://github.com/bangstk/Vulkan_NullVRS) layer (bangstk, May 2026).
 
 ### Crimson Desert
 
@@ -297,7 +297,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Force Vulkan driver | `VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json %command%` | elektricM docs |
 | Steam Deck compat (Fallout 4, Skyrim SE) | `SteamDeck=0 %command%` (need confirmation) | Community |
 | FSR4 upgrade for FSR3 | `FSR4_UPGRADE=1 %command%` (need confirmation) | Community |
-| VRS crash fix (Doom TDA) | Use Vulkan_NullVRS layer (need confirmation) | Community |
+| VRS crash fix (Doom TDA) | Use [Vulkan_NullVRS](https://github.com/bangstk/Vulkan_NullVRS) layer (bangstk) | bangstk, May 2026 |
 | CPU performance boost | `mitigations=off` (kernel param) | elektricM docs |
 | Larger shader cache | `__GL_SHADER_DISK_CACHE_SIZE=10737418240` in `/etc/environment` | elektricM docs |
 
@@ -417,4 +417,5 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 > **OCP hard lockup (big_trov, codyrainy, cralant):** 2400 MHz at 40 CU causes hard lockup where reset and power buttons do nothing -- requires pulling power cable. Likely Over Current Protection triggering. Consistent across multiple boards regardless of cooling. One user with AIO reported 2400 MHz stable at 1120 mV.
 > **CPU OC affects GPU stability (big_trov, hojnikb):** Increasing CPU from 3500 to 4000 MHz lowered the GPU voltage threshold for hard lockup. Total system power draw matters -- undervolt CPU when pushing GPU limits.
 > **Game-specific instability (May 2026):** RE4 Remake crashes even with stable stress tests. Games need more voltage on GPU than synthetic benchmarks to be stable. If benchmarks pass but games crash, increase voltage by 10-15 mV.
+> **Voltage wall at 40 CU (big_trov, May 2026):** Two limit curves govern 40 CU stability -- a voltage ceiling and a power limit. These curves intersect at approximately 2200 MHz, creating a hard stability ceiling. Above this point, diminishing returns are severe regardless of cooling. Power consumption: ~250W from wall during gaming, ~350W during Furmark at 40 CU (bytepond, May 2026).
 > **Hard limit:** 2300 MHz at 40 CU = ~288W. Stay at or below 2200 MHz for safety with 40 CU.

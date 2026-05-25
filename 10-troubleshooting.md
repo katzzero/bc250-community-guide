@@ -259,6 +259,8 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 | Poor case airflow | Open case panels, add exhaust fan |
 | VRAM overheating | Add thermal pads + rear fan -- (need confirmation: BC-250 is an APU; "VRAM backplate" wording may be inaccurate) |
 | Overclocking too aggressive | Lower frequency or increase voltage (source: stability.md) |
+| Heat pipe failure | Replace entire heatsink (bytepond, May 2026) |
+| Heatsink contact pressure | Add 1mm thermal pad spacer (gennro, May 2026) |
 
 ---
 
@@ -351,6 +353,19 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 ---
 
+## Sleep/Wake Bug (Monitor Fails to Wake)
+
+**Symptoms:** After system resume from sleep, monitor fails to wake or audio shifts from DP to USB DAC.
+
+**Cause:** Kernel-level display driver issue on resume.
+
+**Fixes:**
+1. Re-enable kscreenlocker/lockscreen after resume (CachyOS workaround)
+2. Use USB DAC for audio as fallback (see [08-Display & Audio](08-display-and-audio.md))
+3. Avoid suspend; use shutdown/reboot instead
+
+---
+
 ## BIOS Settings Don't Stick
 
 **Fix (source: display.md, boot.md):** Clear CMOS properly:
@@ -374,6 +389,23 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
    sudo flashrom -p ch341a_spi -w BC250_3.00_CHIPSETMENU.ROM
    ```
    -- (Note: programmer name corrected from `ch347_spi` to `ch341a_spi` to match source hardware)
+
+---
+
+## 640x480 Resolution in Games (VRS Broken)
+
+**Symptoms:** Games render at 640x480 regardless of in-game settings. Affects Doom: The Dark Ages and potentially other titles.
+
+**Cause:** Variable Rate Shading (VRS) commands cause the Vulkan driver to misinterpret rendering resolution on Cyan Skillfish.
+
+**Fix:** Use the Vulkan_NullVRS layer by bangstk:
+```bash
+git clone https://github.com/bangstk/Vulkan_NullVRS.git
+cd Vulkan_NullVRS
+make
+sudo make install
+```
+Steam launch option: `Vulkan_NullVRS=1 %command%`
 
 ---
 

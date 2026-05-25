@@ -75,6 +75,12 @@
 
 ## Latest Additions (May 2026)
 
+- **Runtime 40 CU Unlock (No Kernel Patch)** — big_trov's `runtime_40cu_unlock.sh` enables 40 CU on stock kernel without rebuilding. gennro/bc250-toolkit automates module compilation for CachyOS. Results identical to patched kernel (corbanitevevo, May 2026).
+- **Voltage Wall Analysis (big_trov)** — Two limit curves (voltage ceiling + power limit) intersect at ~2200 MHz at 40 CU, creating a hard stability ceiling. ~250W gaming, ~350W Furmark wall power (bytepond).
+- **Sleep/Wake Bug** — Monitor fails to wake after resume; audio shifts to USB DAC. CachyOS workaround via kscreenlocker re-enable.
+- **Stock Heatsink Fixes** — 1mm thermal pad spacer improves APU die contact (gennro). Heat pipe failure diagnosis: bytepond traced 85C to a failed heat pipe, replacement dropped to 72C.
+- **Vulkan_NullVRS (bangstk)** — Vulkan layer that nullifies VRS commands, fixing 640x480 rendering in Doom TDA and other affected games.
+- **CU Fault Detection** — Doom TDA and CS2 more sensitive than synthetic benchmarks for detecting borderline CU faults.
 - **40 CU Unlock** — [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock). 1.61x compute scaling, 57→153 FPS gaming. Kernel patch + CU health testing (duggasco, filippor, big_trov, essdee4336, scallion_9883).
 - **AI Inference Guide** — `12-ai-inference.md`. llama.cpp Vulkan quick start, benchmarks, ROCm status, model compatibility, multi-board RPC (hammercoral, __nightfox, xseol).
 - **13 Resolved FAQs** — Sourced from help-thread; added to troubleshooting with user credits.

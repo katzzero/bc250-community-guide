@@ -93,3 +93,16 @@ VRR is now achievable through multiple paths:
 | 4K | 4K@60Hz monitor with DP; use active DP-to-HDMI adapter for HDMI display + USB audio |
 
 > At 1080p native with the BC-250, you'll get the sharpest image and best performance. FSR handles upscaling well if you go higher resolution.
+
+### VRS 640x480 Resolution Fix
+
+Some games render at 640x480 due to broken Variable Rate Shading on Cyan Skillfish. bangstk's [Vulkan_NullVRS](https://github.com/bangstk/Vulkan_NullVRS) layer nullifies VRS commands:
+
+```bash
+git clone https://github.com/bangstk/Vulkan_NullVRS.git
+cd Vulkan_NullVRS
+make
+sudo make install
+```
+
+Steam launch option: `Vulkan_NullVRS=1 %command%`

@@ -191,9 +191,11 @@ cd BC-250
 ## 40 CU Unlock (Re-Enable Harvested CUs)
 
 **Project:** [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)
-**Status:** Working (May 2026). 1.61x compute scaling verified. 19 stars, 1 fork.
+**Status:** Working (May 2026). 1.61x compute scaling verified. Two unlock methods available.
 
 The BC-250 ships with 24 of 40 RDNA2 CUs active. 16 are harvested — disabled by firmware policy, not silicon defects. The harvested CUs have power, clocks, and matching CGTS config. Non-permanent — reboot without the modprobe config returns to stock 24 CUs. Guarded to only fire on BC-250 (PCI ID `0x13FE`).
+
+Also confirmed working on PS5 Linux (gennro, forwarded from PS5 Linux Discord, May 2026).
 
 ### How It Works
 
@@ -210,24 +212,37 @@ Neither alone is sufficient. CC alone changes driver reporting but SPI still dis
 
 | Config | pp512 tok/s | Power | Temp | SCLK |
 |--------|-------------|-------|------|------|
-| Stock 24 CU (governor) | 230 | 95W | 79C | 1500 MHz |
+| Stock 24 CU (governor) | 230 | 95W | 83C | 1500 MHz |
 | 40 CU unlocked (governor) | 372 | 125W | 83C | 1500 MHz |
 | 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
 
 **Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor.
 
-### Installation (Script — Any Distro)
+### Method 1: No Kernel Patch (Recommended — big_trov, May 2026)
+
+The latest discovery: the module can be patched on stock kernel without rebuilding the entire kernel. big_trov's `runtime_40cu_unlock.sh` and gennro's toolkit both use this approach. corbanitevevo confirmed identical results to patched kernel at 2200 MHz/1030 mV.
+
+**gennro/bc250-toolkit (CachyOS — Automated):**
 
 ```bash
-git clone https://github.com/duggasco/bc250-40cu-unlock.git
-cd bc250-40cu-unlock
-sudo ./scripts/bc250-enable-40cu.sh build
-sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
+git clone https://github.com/gennro/bc250-toolkit.git
+cd bc250-toolkit
+sudo ./install.sh
 ```
 
-Note: The build script is Debian-specific (uses `apt`). Arch/CachyOS users reported failures — use the manual kernel patch or distro-specific methods (zloymalefic_76235, Discord).
+Automates: kernel source download, amdgpu module patching, modprobe config, and hook for kernel updates. Supports stock, deckify, and bore CachyOS kernels. Works with limine and systemd-boot (gennro, hojnikb).
 
-### Manual Kernel Patch (Any Distro)
+**big_trov runtime script (Any Distro with CachyOS kernel):**
+
+```bash
+curl -O <script URL from Discord>
+chmod +x runtime_40cu_unlock.sh
+sudo ./runtime_40cu_unlock.sh
+```
+
+### Method 2: Kernel Patch (All Distros — Fallback)
+
+For distros without kernel-manager-based workflows, the original kernel-patch method still works:
 
 ```bash
 cd /path/to/linux-source/drivers/gpu/drm/amd/amdgpu/
@@ -241,7 +256,9 @@ echo 'options amdgpu bc250_cc_write_mode=3' | sudo tee /etc/modprobe.d/bc250-40c
 sudo reboot
 ```
 
-For distro-specific instructions (CachyOS PKGBUILD patch, Bazzite COPR kernel, Arch AUR), see [05-OS Installation](05-os-installation.md).
+**Distro-specific instructions** (CachyOS PKGBUILD patch, Bazzite COPR kernel, Arch AUR): see [05-OS Installation](05-os-installation.md).
+
+**Bazzite:** erewego posted pre-built RPMs against ba29 Deck kernel. Bazzite Desktop uses OGC kernel — check Discord for updated RPMs.
 
 ### Verification
 
@@ -259,6 +276,10 @@ Not all CUs are healthy. Bad CUs cause immediate artifacts and shutdown when ena
 sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
 ./scripts/bc250-compute-verify.sh               # quick check, no reboot
 ```
+
+### CU Fault Detection
+
+Doom: The Dark Ages and CS2 are more sensitive than synthetic benchmarks for detecting borderline CU faults. A board that passes Furmark may still crash in these games with unlocked CUs (community reports, May 2026).
 
 ### CU Harvest Map
 
