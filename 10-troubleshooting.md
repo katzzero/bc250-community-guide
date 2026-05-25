@@ -57,7 +57,7 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 
 | Cause | Fix |
 |-------|------|
-| Wrong kernel version | Avoid 6.15.0-6.15.6 and 6.17.8-6.17.10. Use **6.18.18 LTS** (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (source: boot.md, display.md, performance.md) |
+| Wrong kernel version | Avoid 6.15.0-6.15.6 and 6.17.8-6.17.10. Use **6.19.x** (recommended for VRR + DP audio), **6.18.18 LTS** (stable fallback), 6.17.11+, or 6.12.x-6.14.x LTS |
 | Bad GPU frequency | Boot with `nomodeset`, install governor, remove nomodeset (source: boot.md) |
 | IOMMU enabled | Disable IOMMU in BIOS (source: boot.md, display.md, stability.md) |
 | Green screen (CPU instability) | Try better PSU, different SSD, proper DP cable -- (need confirmation; green screen only mentioned in ACPI context in stability.md line 271) |
@@ -148,7 +148,7 @@ amdgpu: device wedged, but recovered through reset
    -- (Note: our file had `ttm.pages_limit=2490368` for ~10 GB. That value is not in source docs; corrected to match source. The 2490368 values may be from Discord -- (need confirmation))
 2. **Lower texture detail** in games
 3. **Disable ZRAM or use fixed VRAM allocation** (source: stability.md)
-4. **For OpenGL:** `MESA_LOADER_DRIVER_OVERRIDE=zink` -- (need confirmation; not found in source docs)
+4. **For OpenGL:** `MESA_LOADER_DRIVER_OVERRIDE=zink` (source: Discord bc250-chat)
 
 ---
 
@@ -241,7 +241,7 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 
 **Symptoms:** Diagonal blue artifacts in multiple games (Sekiro, Cyberpunk, Satisfactory) at default governor settings. No crashes or overheating.
 
-**Cause:** Poorly binned GPU chip that cannot sustain high clocks without artifacts. sajonsmk tested extensively: at 1000MHz/700mV no artifacts, at 1500MHz/1065mV FurMark ran 1.5h without artifacts at 74C, but higher clocks consistently produced blue diagonal artifacts (sajonsmk, help-thread).
+**Cause:** Poorly binned GPU chip that cannot sustain high clocks without artifacts. sajonsmk tested extensively: at 1000MHz/700mV no artifacts, at 1500MHz/1065mV FurMark ran 1.5h without artifacts at 74C, but higher clocks consistently produced blue diagonal artifacts (sajonsmk, help-thread) (need confirmation -- user not found in exported Discord data).
 
 **Fix:** This is a hardware limitation -- the chip cannot reliably run above ~1500MHz. Lock the governor to a lower max frequency or accept the artifacts.
 
@@ -254,7 +254,7 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 | Issue | Solution |
 |-------|----------|
 | Stock thermal paste dried out | Replace with PTM7950 pad or quality paste (source: performance.md, stability.md) |
-| Heatsink fins closed | Open center fins (scooter tool or bending) (source: sensors.md "cut fins") |
+| Heatsink fins closed | Open center fins (scooper tool or bending) (source: sensors.md "cut fins") |
 | Fan too slow / not spinning | Check PWM settings, use higher speed curve (source: sensors.md) |
 | Poor case airflow | Open case panels, add exhaust fan |
 | VRAM overheating | Add thermal pads + rear fan -- (need confirmation: BC-250 is an APU; "VRAM backplate" wording may be inaccurate) |
@@ -382,8 +382,7 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 **Recovery (source: boot.md):**
 1. **Hardware programmer required:** CH341A or Raspberry Pi Pico with SOP8 clip
    -- (Note: our file said CH347T. Corrected to match source boot.md line 845. CH347T may also work -- (need confirmation))
-2. Flash chip: `BIOS_A1` (Winbond W25Q64 -- source: boot.md line 846)
-   -- (Note: our file said W25Q128JVSQ. Corrected to match source. Different board revisions may have different chips -- (need confirmation))
+2. Flash chip: `BIOS_A1` (Winbond W25Q128JVSQ 16MB per flashing.md, or W25Q64 8MB per boot.md -- check your board revision)
 3. Command:
    ```bash
    sudo flashrom -p ch341a_spi -w BC250_3.00_CHIPSETMENU.ROM
@@ -392,11 +391,24 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 ---
 
-## 640x480 Resolution in Games (VRS Broken)
+## 640x480 Resolution in Games
 
-**Symptoms:** Games render at 640x480 regardless of in-game settings. Affects Doom: The Dark Ages and potentially other titles.
+**Symptoms:** Games render at 640x480 regardless of in-game settings. Affects multiple titles.
 
-**Cause:** Variable Rate Shading (VRS) commands cause the Vulkan driver to misinterpret rendering resolution on Cyan Skillfish.
+**Cause:** Faulty EDID detection from DP-to-HDMI adapters or display handshake issues.
+
+**Fixes:**
+1. Use a native DisplayPort cable instead of adapters
+2. Try a different DP-to-HDMI adapter
+3. Check monitor EDID emulation settings if available
+
+## VRS Crashes in Doom: The Dark Ages
+
+**Symptoms:** Game crashes immediately with VRS-related errors.
+
+**Cause:** Variable Rate Shading (VRS) commands are not supported on Cyan Skillfish, causing the Vulkan driver to crash.
+
+**Fix:** Use the Vulkan_NullVRS layer by bangstk (see [08-Display & Audio](08-display-and-audio.md) for install).
 
 **Fix:** Use the Vulkan_NullVRS layer by bangstk:
 ```bash

@@ -35,7 +35,7 @@ If you can't see the BIOS screen but the OS boots fine:
 
 Audio is transmitted natively through DisplayPort. If your monitor has speakers or you use a DP-to-HDMI passive adapter, audio should work automatically.
 
-**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS). Fix contributed by TheFloW (PS5 Linux developer) via fanoush_. Note: not 100% perfect for all configurations — active DP-to-HDMI may still have intermittent audio hiccups (gennro reports hiccup every ~38s on active adapter). Passive adapters work without issue. Bazzite users need custom kernel or must wait for kernel update.
+**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS). Fix contributed by TheFloW (PS5 Linux developer), relayed by _fanoush_. Note: not 100% perfect for all configurations — active DP-to-HDMI may still have intermittent audio hiccups (essdee4336 reports hiccup every ~38s on active adapter). Passive adapters work without issue. Bazzite users need custom kernel or must wait for kernel update.
 
 ### Option 2: USB Sound Card (Most Reliable Fix)
 
@@ -55,11 +55,11 @@ VRR is now achievable through multiple paths:
 
 1. **CachyOS** (kernel 6.19): VRR works natively (steffman_, help-thread). Tested with UGREEN 8K DP-to-HDMI 2.1 adapter at 4K 120Hz with VRR and sound all working simultaneously via USB sound card.
 2. **Custom Bazzite image**: Community image with AMD VRR kernel patches confirmed working on Bazzite Deck with OLED. Audio desyncs on expensive DP>HDMI adapters, but cheap Aliexpress 4k60hz adapters support VRR without audio issues.
-3. **Kernel 6.19+**: Built-in VRR fixes (gennro).
+3. **Kernel 6.19+**: Built-in VRR fixes (fforduck/Discord).
 
 **Adapter notes for VRR:**
 - **UGREEN 8K DP-to-HDMI 2.1**: Would give 4K 120Hz HDR + VRR if audio gets sorted (currently desyncs on custom Bazzite build).
-- **Cheap Aliexpress 4K 60Hz adapters**: Support VRR and do NOT have audio desync issues -- best current option.
+- **Cheap Aliexpress 4K 60Hz adapters**: Support VRR on kernel 6.19+ and do NOT have audio desync issues -- best current option (fforduck, Apr 2026). Note: earlier community reports (essdee4336, Apr 2026) said cheap adapters do NOT support VRR; resolved by kernel 6.19+ patches.
 - **Expensive DP>HDMI adapters**: VRR not supported, audio desync on custom Bazzite builds.
 
 ---
@@ -102,7 +102,9 @@ Some games render at 640x480 due to broken Variable Rate Shading on Cyan Skillfi
 git clone https://github.com/bangstk/Vulkan_NullVRS.git
 cd Vulkan_NullVRS
 make
-sudo make install
+mkdir -p ~/.local/share/vulkan/implicit_layer.d
+cp ./Vulkan_NullVRS.json ~/.local/share/vulkan/implicit_layer.d/
+cp ./libVulkan_NullVRS.so ~/.local/share/vulkan/implicit_layer.d/
 ```
 
-Steam launch option: `Vulkan_NullVRS=1 %command%`
+Steam launch option: `ENABLE_VK_NULLVRS_1=1 %command%`

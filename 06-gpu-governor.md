@@ -10,7 +10,7 @@
 | Governor | Type | Kernel Patch? | Recommended? | Notes |
 |----------|------|---------------|--------------|-------|
 | **cyan-skillfish-governor-smu** | SMU-based | No (works on any distro) | YES — Best choice | Most efficient, best scaling, no kernel mods needed |
-| **cyan-skillfish-governor-smu-plus** | SMU-based + extras | No | Emerging alternative | Adds `fix-metrics`, `set-method`, `frequency-range` -- some CachyOS issues reported |
+| **cyan-skillfish-governor-smu-plus** | SMU-based + extras | No | Emerging alternative | Adds `fix-metrics`, `set-method`, `frequency-range`, pprofile autoswitching, memory controller/IF clock idle lowering -- some CachyOS issues reported |
 | **cyan-skillfish-governor-tt** | Multi-step | Yes (pre-included in Bazzite) | Good alternative | Thermal throttling aware |
 | **oberon-governor** | Two-state | Yes | Legacy / No longer recommended | Simple but limited to 1000/2000 MHz |
 
@@ -36,7 +36,7 @@ systemctl reboot
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-### Arch / CachyOS (need confirmation: Manjaro)
+### Arch / CachyOS / Manjaro
 
 ```bash
 yay -S cyan-skillfish-governor-smu
@@ -102,7 +102,20 @@ interval_ms = 50
 burst_samples = 20
 ```
 
-> Minimum voltage is 700 mV. Going below this locks the GPU to 1500 MHz and defeats the purpose. (source: governor.md:36)
+> Minimum voltage is 700 mV. Going below this locks the GPU to 1500 MHz and defeats the purpose. (source: governor.md:36). Some users run 650 mV at very low frequencies (350-500 MHz) for deep idle, but stability varies.
+
+### Idle Power Testing (May 2026)
+
+Community testing shows CU count has minimal impact on idle power:
+
+| Config | Idle Power (from wall) | User |
+|--------|----------------------|------|
+| 4 CU @ 350 MHz / 700 mV | 68W | big_trov |
+| 24 CU @ 350 MHz / 700 mV | 69W | big_trov |
+| 40 CU @ 350 MHz / 700 mV | 70W | big_trov |
+| 24 CU @ 50 MHz / 650 mV | 64W (FSP500-30AS) | pops1cl |
+
+Downclocking the GPU to 10 MHz works, but 1 MHz crashes the kernel driver (pops1cl, May 2026). The default minimum frequency in the governor config has been bumped from 400 MHz to 500 MHz.
 
 ### After Changing Config
 
@@ -126,6 +139,10 @@ enabled = false               # D-Bus service
 ```
 
 Note: SMU-plus has known issues on CachyOS — the regular SMU governor is more stable.
+
+### Governor v0.4.0 (May 2026)
+
+Released to the bc250-collective organization. Key new feature: **CPU-based control of memory clocks** — lowers memory controller and Infinity Fabric clocks at idle for additional power savings (codyrainy, May 2026). See [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor).
 
 ---
 
@@ -230,7 +247,7 @@ A visual Qt-based GPU controller like MSI Afterburner for Windows:
 The [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) enables proper CPU idle and frequency scaling:
 
 - **SSDT-CST:** Enables C1/C2/C3 CPU sleep states (lower idle power)
-- **SSDT-PST:** Enables CPU frequency scaling (800 MHz - 3200 MHz) via standard Linux cpufreq governors (schedutil, powersave, etc.)
+- **SSDT-PST:** Enables CPU frequency scaling (800 MHz - 3200 MHz) via standard Linux cpufreq governors (schedutil, powersave, etc.). Note: the repo README says "P-states doesn't work" but this is outdated per community testing (dantistnfs, Jan 2026) -- confirmed working as of kernel 6.19.8.
 
 Confirmed working on kernel 6.19.8. Both tables loaded via initrd override. See the bc250-acpi-fix repo for full installation instructions. (source: governor.md:640-706)
 
@@ -357,10 +374,11 @@ interval_ms = 100  # Increase from 50
 ## Community Resources
 
 - [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup (governor + swap/zram + CPU mitigations)
-- [RedBoard BC250 Toolkit](https://github.com/redbeard1083/bc250-toolkit) — setup script for CachyOS
+- [redbeard1083 BC250 Toolkit](https://github.com/redbeard1083/bc250-toolkit) — setup script for CachyOS
 - [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
 - [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
-- [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
+- [cyan-skillfish-governor-smu](https://github.com/bc250-collective/cyan-skillfish-governor) — SMU governor (moved to bc250-collective org, v0.4.0 adds CPU-based memory clock control)
+- [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) — Original repo (smu branch still maintained)
 
 (source: governor.md:711-716)
 

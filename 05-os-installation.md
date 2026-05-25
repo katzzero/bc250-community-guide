@@ -63,7 +63,7 @@ Kernel versions **6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU initializatio
 4. **Use the non-live installer image** (live image has login bugs) (Discord - mothenjoyer69)
 5. Boot from USB - no special parameters needed
 6. Complete on-screen installation (10-15 min)
-7. Default password (if asked): `bazzite` (need confirmation - source: Discord)
+7. Default password (if asked): `bazzite`
 8. Reboot
 
 ### Post-Install Setup
@@ -162,7 +162,7 @@ glxinfo | grep "OpenGL version"
 
 ## Nobara (Gaming-Focused Fedora Alternative)
 
-> Source: Discord (mothenjoyer69). Not in elektricM official docs.
+> Source: Discord community discussion. Not in elektricM official docs.
 
 Fedora-based, not immutable - easier governor installation.
 
@@ -248,14 +248,14 @@ Or use CachyOS Kernel Manager GUI to apply the patch. See [02-BIOS & Firmware](0
    ```bash
    git clone https://github.com/eabarriosTGC/BC250--ARCH.git
    cd BC250--ARCH
-   sudo chmod +x ./Arch-setup.sh
-   sudo ./Arch-setup.sh
+    chmod +x ./install.sh
+    ./install.sh
    ```
 4. Alternative setup script:
     ```bash
     git clone https://github.com/pnbarbeito/bc250-arch
     cd bc250-arch
-    ./install.sh
+    ./oberon_install.sh
     ```
 
 5. 40 CU unlock: apply `bc250-40cu-amdgpu.patch` to kernel PKGBUILD (duggasco). See [02-BIOS & Firmware](02-bios-and-firmware.md).

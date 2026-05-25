@@ -49,7 +49,8 @@
 5. **Governor minimum voltage: 700 mV** -- below that GPU locks to 1500 MHz
 6. **Do NOT use Smokeless_UMAF** -- can cause permanent damage
 7. **No hardware video encode/decode** -- VCN firmware blocked by Sony, software decoding only
-8. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
+8. **Never use 6-pin to 8-pin PCIe adapters** for power delivery -- fire hazard (Discord confirmed)
+8. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. Note: repo README says P-States may not work on all boards. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
 9. **VRAM chips have no temperature sensor** -- ensure backplate airflow
 
 ---
@@ -106,3 +107,12 @@
 - **duggasco build script Debian-specific** — Arch/CachyOS users reported failures with the automated script (zloymalefic_76235). Manual patch required on non-Debian distros.
 - **New community repos** — mosfetparty/bc250-psu-adapter (wiring diagrams + 3D models), safwyls/BC-250_ATXCase, dyllan500/bazzite-amd-hdmi-kde (VRR fixes), GreatApo/bc250-40cu-unlock (corrected CU masking), bc250-collective/bc250_smu_oc (CPU OC tool).
 - **elektricM source sync** — elektricM docs now recommend SMU governor over TT; MST hub compatibility table added; micro-stutter fix (disable hhd) confirmed from source.
+- **Governor v0.4.0** — CPU-based memory clock control released to bc250-collective org. Lowers memory controller and IF clocks at idle.
+- **Idle power tested** — big_trov: 40 CU = 70W idle (same as 24 CU). pops1cl: 64W at 50 MHz / 650 mV.
+- **dznuts 5300 Superposition** — 38 CU at 2200 MHz, new 40 CU leaderboard entry. Memory OC only +80 points.
+- **Death Stranding 2** — 36 CU, ultrawide 1440p@60fps high. PICO (PS5 FSR port) upscaler superior to FSR3.
+- **S.T.A.L.K.E.R. 2** — 55 FPS stock, 60 FPS at 36 CU, 110-120 with frame gen.
+- **Subnautica 2** — Playable with Proton Experimental, 40 CU.
+- **PS5 40 CU patch confirmed** — BC-250 unlock patch works on PS5 Linux; 36→40 CU = 4% gain.
+- **Thermalright Peerless Assassin 120** — Best non-liquid cooler, works with 3D-printed bracket and GPU backplate cooler (dartzon).
+- **OCP power limit at 1850-2200 MHz** — Secondary power limit causes hard lock. May need shunt mod.

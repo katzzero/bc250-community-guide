@@ -268,3 +268,119 @@ Extracted from project-forums Discord channel:
 | 10-troubleshooting.md | New mangohud 655% GPU usage fix (hassanthejust — Python daemon intercepts gpu_metrics at 0x1C) |
 
 Credits: big_trov (40CU gaming benchmarks, idle, efficiency), essdee4336 (40CU Furmark 1080p at multiple clocks), hassanthejust (mangohud fix), hojnikb (comparison data).
+
+---
+
+## Cross-Reference Verification Fixes (2026-05-25)
+
+Full audit of 26 repos cloned and cross-referenced against documentation:
+
+| File | Change |
+|------|--------|
+| 02-bios-and-firmware.md | Removed `(need confirmation)` from MrrZed0/bc-250-bios — URL confirmed valid |
+| 05-os-installation.md | Fixed wrong script name: `Arch-setup.sh` → `install.sh` (eabarriosTGC/BC250--ARCH) |
+| 05-os-installation.md | Fixed wrong script name: `install.sh` → `oberon_install.sh` (pnbarbeito/bc250-arch) |
+| 07-game-benchmarks.md | Fixed duplicate numbering (two items labeled "8.") |
+| 10-troubleshooting.md | Fixed typo: "scooter tool" → "scooper tool" |
+| 01-hardware-specs.md | Fixed malformed sentence: "48W perfprofile tweak is" → "48W perfprofile tweak" |
+
+Additional findings (requires Discord community follow-up):
+- kenavru/BC-250 described as "EFI flash tool" — actually just BIOS files, no flash tool
+- Fred78290/nct6687d described as "PWM fan control driver" — actually lm-sensors monitoring driver
+- bc250-acpi-fix: doc says "C-States and P-States" but P-States don't work per README
+- 5 repos exist but not documented: BC-250-Custom-Case, bc-250-sleeve-adapter, BC250--ARCH, bc250-arch, Magnap-cyan-skillfish-governor
+
+---
+
+## Full Cross-Reference Audit Corrections (2026-05-25)
+
+Full audit of all 14 Revised files (~3,200 lines) against 30+ elektricM docs, 27 repos, 80+ Discord exports, and RAG vector store. 10 parallel agents, 45 corrections total.
+
+### CRITICAL Corrections
+
+| File | Line | Change | Source |
+|------|------|--------|--------|
+| 01-hardware-specs.md | 17 | GPU perf: "RX 6600" → "Stock 24 CU: Between RX 6600/6600 XT; 40 CU: RX 6700/GTX 1080 Ti" | May 2026 Discord (jpvgaster, big_trov, essdee4336) |
+| 02-bios-and-firmware.md | 35 | "[Forced]" → "[Forces]" — Forces is actual BIOS value, not typo | elektricM flashing.md, kenavru README |
+| 02-bios-and-firmware.md | 215 | Stock 24 CU temp: 83°C → 79°C | duggasco/README.md, technical-report.md |
+| 02-bios-and-firmware.md | 300-301 | Removed "GitHub README is incorrect" claim — it correctly documents WGP granularity | duggasco/README.md, GreatApo fork |
+| 04-cooling-guide.md | 25 | "Cutout variant with built-in openings" → "Thicker-fin variant, fewer thicker-gauge fins" | elektricM cooling.md |
+| 06-gpu-governor.md | 360 | "RedBoard" → "redbeard1083" | GitHub username confirmation |
+| 08-display-and-audio.md | 101-108 | Vulkan_NullVRS: fixed env var (Vulkan_NullVRS=1 → ENABLE_VK_NULLVRS_1=1) and install method | Vulkan_NullVRS README |
+| 08-display-and-audio.md | 38, 58 | Fixed two misattributions: gennro→essdee4336 (line 38), gennro→fforduck (line 58) | Discord exports |
+| 09-wifi-and-peripherals.md | 70 | Play! 4 ASIN misattribution: B06XBZ38ZJ → B08T9LM3LM (was Play! 3 ASIN) | Cross-file consistency check |
+| 10-troubleshooting.md | 397-408 | Split VRS vs 640x480 — were conflated as same issue | Vulkan_NullVRS README, Discord |
+| 11-community-and-resources.md | 57,154 | Message count aligned: 7,782→9,716 | elektricM README |
+| 01-hardware-specs.md | 77 | Removed unverified "48W perfprofile tweak" claim | No source found in any export or repo |
+
+### MEDIUM Corrections
+
+| File | Line | Change | Source |
+|------|------|--------|--------|
+| 02-bios-and-firmware.md | 14 | _fanous_ → _fanoush_; "custom fan curve" → "standard fan control" | Discord, elektricM flashing.md |
+| 02-bios-and-firmware.md | 228-231 | gennro toolkit: changed to curl + correct script name | gennro/bc250-toolkit README |
+| 02-bios-and-firmware.md | 112-114 | Internal flash warning softened — MrrZed0 repo docs it | MrrZed0/README.md |
+| 05-os-installation.md | 168-179 | Nobara attribution: mothenjoyer69 → "Discord community discussion" | User not confirmed in exports |
+| 07-game-benchmarks.md | 217,236 | Arc Raiders: ~100→60+; Zenless: 40-50→crashes | Discord contradiction resolution |
+| 07-game-benchmarks.md | 378 | nexgen3d voltage: 1145→1165 mV | Discord Superposition thread screenshot |
+| 09-wifi-and-peripherals.md | 13 | BT version: 5.2→5.3 | Amazon listing |
+| 10-troubleshooting.md | 60 | Added 6.19.x kernel recommendation | quick-reference.md |
+| 10-troubleshooting.md | 165-203 | Added note: btrfs/SELinux steps from Discord, not performance.md | Source audit |
+| 10-troubleshooting.md | 246 | Added (need confirmation) to sajonsmk claim | User not found in exports |
+| 11-community-and-resources.md | 25 | ACPI fix: "C-States and P-States" → "C-States (P-States experimental)" | bc250-acpi-fix README |
+| README.md | 52 | ACPI fix warning: added P-State caveat | bc250-acpi-fix README |
+| 04-cooling-guide.md | 59 | Router quote: removed (need confirmation), attributed to snodrat | bc250-flex-chat export |
+| README.md | 48 (new) | Added 6-pin to 8-pin fire hazard warning | Discord confirmation |
+
+### LOW Corrections
+
+| File | Line | Change |
+|------|------|--------|
+| 05-os-installation.md | 67 | Removed (need confirmation) from bazzite password |
+| 05-os-installation.md | 251 | Fixed leading space before chmod |
+| 06-gpu-governor.md | 39 | Removed (need confirmation: Manjaro) — confirmed by elektricM docs |
+| 06-gpu-governor.md | 233 | Added P-State nuance note (repo says not working, Discord says works) |
+| 07-game-benchmarks.md | 30,46,59,60,85,184,233,283 | 8 (need confirmation) → (Discord user) with confirmed source |
+| 07-game-benchmarks.md | 59 | 2230 MHz crash and 10/6 VRAM fixes confirmed |
+| 10-troubleshooting.md | 151 | MESA_LOADER_DRIVER_OVERRIDE source: "not in source docs" → "Discord bc250-chat" |
+| 10-troubleshooting.md | 105,111,121 | 3 (need confirmation) tags removed — Discord sources found |
+| 10-troubleshooting.md | 452-453 | 2 (need confirmation) tags removed — Discord sources found |
+| 04-cooling-guide.md | 110 | Removed (need confirmation) from screw warning — elektricM confirmed |
+
+### Still Unresolved
+- ~40 (need confirmation) tags remain without source
+- 6 Printables URLs return transport errors
+- 5 repos not yet documented in 11-community-and-resources.md
+
+---
+
+## Cross-Reference Verification Protocol
+
+Created `ai/AI_VERIFICATION_PROTOCOL.md` — standardized multi-layer verification process for future audits.
+
+Protocol features:
+- Source hierarchy with "newest wins" rule
+- 3-layer verification (RAG, parallel agents, cross-file)
+- Finding classification (severity + type taxonomy)
+- Full 5-step workflow: Discovery → Analysis → Plan → Execution → Validation
+- Standardized report format for machine-parsable output
+- Quality assurance gates with pass criteria
+- Agent handoff protocol for interrupted cycles
+
+Created by: Claude (Anthropic) via opencode on 2026-05-25
+
+---
+
+## New Discord Exports Audit (2026-05-25)
+
+Reviewed 45 new bc250-chat exports (after May 20, 2026). Key findings added:
+
+| File | Change |
+|------|--------|
+| 06-gpu-governor.md | Added governor v0.4.0 CPU-based memory clock control; idle power testing (big_trov/pops1cl); min freq 500 MHz default; SMU-plus pprofile autoswitching |
+| 07-game-benchmarks.md | dznuts 5300 Superposition 38CU/2200MHz; Death Stranding 2 36CU@1440p+FG=60; S.T.A.L.K.E.R. 2 stock/36CU/FG benchmarks; Subnautica 2; PICO upscaler; memory OC gains minimal |
+| 02-bios-and-firmware.md | PS5 40CU patch confirmed (gennro); OCP secondary power limit at 1850-2200MHz; CPU core unlock research update |
+| 04-cooling-guide.md | Thermalright Peerless Assassin 120 + 3D bracket + GPU backplate cooler |
+| 01-hardware-specs.md | Idle power identical regardless of CU count (big_trov); 64W downclocked idle (pops1cl) |
+| README.md | Latest additions section updated |
+

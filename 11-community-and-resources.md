@@ -22,7 +22,7 @@
 |------------|-------------|
 | [elektricM/amd-bc250-docs](https://github.com/elektricM/amd-bc250-docs) | Main documentation (98 commits, 85 stars -- need confirmation) |
 | [bc250-collective](https://github.com/bc250-collective) | ACPI fix, SMU OC tool, and more |
-| [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) | SSDT tables for CPU C-States and P-States |
+| [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) | SSDT tables for CPU C-States (P-States experimental per repo README) |
 | [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) | CPU SMU overclocking tool (4 GHz+) |
 | [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) | GPU governor (SMU + TT branches) (need confirmation) |
 | [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) | 40 CU unlock kernel patch |
@@ -54,7 +54,7 @@
   - `#help-thread` -- troubleshooting (need confirmation)
   - `#bc250-flex-chat` -- build showcases (need confirmation)
   - `#bc250-resources` -- shared resources (need confirmation)
-- **Members:** 3,500+ | **Messages:** 9,716 technical messages
+- **Members:** 3,500+ | **Messages:** 9,716 technical messages (elektricM docs)
 
 Note: mkdocs.yml contains a different invite code (`discord.com/invite/uDvkhNpxRQ`) -- the README link is used here as the primary source.
 
@@ -151,4 +151,4 @@ Found a solution to a problem? Help others by adding it to the documentation.
 
 ---
 
-*This revised documentation was compiled from the original resume files, 7,782 Discord export messages (need confirmation), the elektricM/amd-bc250-docs repository (98 commits, 85 stars -- need confirmation), and verified against current internet sources (March 2026). All errors from the original documents have been corrected.*
+*This revised documentation was compiled from the original resume files, 9,716 Discord messages (elektricM docs), the elektricM/amd-bc250-docs repository (98 commits, 85 stars -- need confirmation), and verified against current internet sources (March 2026). All errors from the original documents have been corrected.*

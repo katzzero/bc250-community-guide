@@ -22,7 +22,7 @@ Source: elektricM cooling.md (Stock Configuration, Active Cooling Required)
 |---------|-----------------|-------|
 | **9-row** (most common) | QR code next to PCIe 8-pin | Standard version (elektricM cooling.md) |
 | **8-row** | No QR code | Slightly fewer fins (elektricM cooling.md) |
-| **Cutout variant** | Thicker aluminum, built-in openings | Best stock cooling. (need confirmation - "thicker-gauge aluminum" per elektricM, but "cutout" and "built-in openings" not in source) |
+| **Thicker-fin variant** | Fewer, thicker-gauge aluminum fins | Best stock cooling (elektricM cooling.md) |
 
 Quick ID from elektricM: QR code next to the PCIe 8-pin connector indicates the 9-row variant.
 
@@ -56,7 +56,7 @@ Source: elektricM cooling.md (Fin Straightening, Benefit: 5-10C temperature impr
 
 - Dremel or hacksaw for larger openings
 - **WARNING:** Creates metal debris - dangerous near electronics
-- Router method possible but "the router bit will eat your heatsink for lunch" (need confirmation - Discord quote, not in elektricM)
+- Router method possible but "the router bit will eat your heatsink for lunch" (snodrat, bc250-flex-chat, Jan 2026)
 - Fin removal is irreversible
 
 Source: elektricM cooling.md (Fin Removal - High Risk Modification)
@@ -95,6 +95,17 @@ Note: The 3-pack ASIN is the A-RGB version; the 5-pack is the PST (non-RGB, dais
 
 Sources: Arctic official site, Amazon listings
 
+### CPU Cooler Adapters (May 2026)
+
+Community members are using standard CPU tower coolers with 3D-printed brackets:
+
+| Cooler | Notes | User |
+|--------|-------|------|
+| **Thermalright Peerless Assassin 120** | Best non-liquid cooler for the money. Requires 3D-printed bracket. Quiet, excellent cooling. Also available as $45 AIO version. | dartzon, pepituwu, May 2026 |
+| **Thermalright AIO** | Works with NexGen3D mount | Community, May 2026 |
+
+dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mounting bracket, coupled with a GPU backplate cooler with fans for VRAM chips. With 36 CU unlocked, Death Stranding 2 ran at ultrawide 1440p@60fps on high settings and temps never exceeded 72C.
+
 ### Budget Options
 
 - **Xbox One fan** (3300 RPM) - creative repurposing (need confirmation - not in elektricM)
@@ -107,7 +118,7 @@ Sources: Arctic official site, Amazon listings
 | Method | Pros | Cons |
 |--------|------|------|
 | **Zip ties** | Simplest, no mods | Can slip; less secure |
-| **Screws (factory holes)** | Most secure | Requires drilling/cutting (need confirmation - elektricM warns NOT to drill heatsink) |
+| **Screws (factory holes)** | Most secure | Requires drilling/cutting (elektricM warns NOT to drill heatsink -- see line 115) |
 | **Aluminum HVAC tape** | Seals air leaks, good contact | Hard to remove (need confirmation - not in elektricM) |
 | **CPU cooler brackets** | Repurposed arms | May not fit perfectly (need confirmation - not in elektricM) |
 | **3D printed shroud** | Best airflow, clean look | Requires 3D printer |

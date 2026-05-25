@@ -14,7 +14,7 @@
 | **GPU** | 24x RDNA 2 Compute Units (CUs), up to 40 CU unlockable via kernel patch (duggasco/bc250-40cu-unlock); codename gfx1013 |
 | **GPU Base Clock** | 1500 MHz (locked without governor) |
 | **GPU Max Clock** | 2000 MHz stock kernel - 2230 MHz with kernel patch + governor |
-| **GPU Performance** | Comparable to RX 6600 / GTX 1660 Ti |
+| **GPU Performance** | Stock 24 CU: Between RX 6600 and RX 6600 XT; 40 CU unlocked: RX 6700 / GTX 1080 Ti level |
 | **Memory** | 16 GB GDDR6 (PS5 spec), 14 Gbps, 256-bit bus, ~448 GB/s bandwidth |
 | **Memory Split** | Configurable in BIOS -- see [02-BIOS](02-bios-and-firmware.md) |
 | **TDP** | 220W typical, up to 235W under extreme load |
@@ -74,7 +74,7 @@
 |-------|-----------|-------|
 | Idle (no governor) | 85-105 W | GPU stuck at 1500 MHz |
 | Idle (with governor) | 60-70 W | Community consensus (gennro, dantistnfs); SMU profile 0 saves ~15W vs profile 3 (gennro) |
-| Idle (optimized) | 55-70 W | Governor + undervolting; sub-60W claims disputed (NexGen-3D); 48W perfprofile tweak is (need confirmation) |
+| Idle (optimized) | 55-70 W | Governor + undervolting; sub-60W claims disputed (NexGen-3D) |
 | Desktop use | 70-90 W | Web browsing, office tasks |
 | Light gaming | 120-150 W | Older/esports titles |
 | AAA gaming | 160-200 W | Modern titles at 1080p |
@@ -106,7 +106,7 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 | 40 CU unlocked | 372 | 125W | 83C | 1500 MHz (governor) |
 | 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
 
-**Idle comparison (big_trov):** 75W at 40 CU vs 69W at 24 CU (only +6W overhead at idle).
+**Idle comparison (big_trov, May 2026):** At 350 MHz / 700 mV, idle power is essentially identical regardless of CU count: 4 CU = 68W, 24 CU = 69W, 40 CU = 70W. No reason to disable CUs at idle. Downclocking GPU to 50 MHz @ 650 mV gives 64W from wall (pops1cl, FSP500-30AS).
 
 **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at significantly lower temperature and power. Example: 40 CU at 1200 MHz = 60 FPS at 73C (30W less than 24 CU at 2000 MHz achieving same FPS).
 

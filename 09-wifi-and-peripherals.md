@@ -10,7 +10,7 @@
 
 | Adapter | Chipset | WiFi | Bluetooth | Price | ASIN | Notes |
 |---------|---------|------|-----------|-------|------|-------|
-| **TP-Link Archer TX10UB Nano** | MT7921AU (need confirmation: may be RTL8832CU) | WiFi 6 (AX900) | BT 5.2 (need confirmation) | ~$20 | `B0DQXSRGQ4` | Tiny, dual-band — community tested |
+| **TP-Link Archer TX10UB Nano** | MT7921AU (need confirmation: may be RTL8832CU) | WiFi 6 (AX900) | BT 5.3 | ~$20 | `B0DQXSRGQ4` | Tiny, dual-band — community tested (BT 5.3 per Amazon listing) |
 | **Fenvi FU-AX1800** | MediaTek | WiFi 6 (AX1800) | BT 5.0+ | ~$20 | Various | "Works perfectly" on Bazzite |
 | **EDUP AX3000M** | MT7921AU | WiFi 6E (AX3000) | BT 5.0+ | ~$25 | Various | Good Linux support, 6E band |
 | **TP-Link Archer T2UB Nano** | — | WiFi 5 + BT 4.2 | BT 4.2 | ~$15 | `B0BMX82Y3J` | Budget option |
@@ -67,7 +67,7 @@ Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specif
 |--------|-------|---------|-------|
 | **USB-C Front Panel** | Duttek Type-E to USB-C (`B09M8J7CNW`) | Works | 10 Gbps USB 3.1 |
 | **ATX Breakout Board** | JMT 6Pin (`B0CTCLV6Y1`) | Works | For server PSUs, includes 4x USB 2.0 |
-| **USB Audio** | Creative Sound Blaster Play! 4 (`B06XBZ38ZJ`) (need confirmation) | Works | Plug and play — see [elektricM display doc](../export/elektricM-docs/docs/hardware/display.md#L323) for Play! 4 |
+| **USB Audio** | Creative Sound Blaster Play! 4 (`B08T9LM3LM`) | Works | Plug and play — see [08-Display & Audio](../Revised/08-display-and-audio.md) |
 | **USB Audio** | SABRENT AU-EMCB (`B00XM883BK`) (need confirmation) | Works | Budget plug-and-play option |
 | **DisplayLink Dock** | V7 Universal (Best Buy `10872445`) | Works | Dual HDMI on Bazzite |
 | **Dell ACP075EU** | Docking station | Works | Has DisplayLink + USB DAC |

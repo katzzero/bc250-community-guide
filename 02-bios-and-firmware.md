@@ -11,7 +11,7 @@
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
 | `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE (need confirmation)) but **easy to brick** |
 
-Stock P3.00 already includes custom fan curve and IOMMU toggle — `_fanous_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
+Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
 
 *Credits: P3.00 mod by **Segfault**. P5.00_clv is community-maintained. elektricM credits Segfault for reverse engineering and maintaining modified firmware images.*
 
@@ -20,7 +20,7 @@ Stock P3.00 already includes custom fan curve and IOMMU toggle — `_fanous_` co
 | Source | URL |
 |--------|-----|
 | **Primary (GitLab)** | https://gitlab.com/TuxThePenguin0/bc250-bios/ |
-| GitHub mirror | https://github.com/MrrZed0/bc-250-bios (need confirmation) |
+| GitHub mirror | https://github.com/MrrZed0/bc-250-bios |
 
 > ⚠️ **Always back up your existing BIOS** before flashing anything. elektricM recommends owning a CH347 programmer before starting as a safety net.
 
@@ -32,7 +32,7 @@ Enter BIOS by spamming **Delete** on boot, then set:
 
 ```
 Chipset → GFX Configuration:
-  Integrated Graphics Controller = [Forced]  (corrected from "Forces" typo in elektricM)
+  Integrated Graphics Controller = [Forces]
   UMA Mode                       = [UMA_SPECIFIED]
   UMA Frame Buffer Size          = [512M] ← See VRAM options below
 
@@ -111,7 +111,7 @@ sudo flashrom -p ch347_spi -w BC250_3.00_CHIPSETMENU.ROM
 
 ### Method 3: Internal Flash from Linux (need confirmation)
 
-> ⚠️ **Not documented in elektricM source-of-truth.** The elektricM FAQ explicitly states only USB and hardware programmer methods are supported. Proceed at your own risk.
+> ⚠️ **Not documented in the elektricM guide (which covers USB and hardware programmer).** The MrrZed0 BIOS repo and community members have used `flashrom -p internal` successfully. Proceed at your own risk.
 
 ```bash
 # Backup first!
@@ -212,7 +212,7 @@ Neither alone is sufficient. CC alone changes driver reporting but SPI still dis
 
 | Config | pp512 tok/s | Power | Temp | SCLK |
 |--------|-------------|-------|------|------|
-| Stock 24 CU (governor) | 230 | 95W | 83C | 1500 MHz |
+| Stock 24 CU (governor) | 230 | 95W | 79C | 1500 MHz |
 | 40 CU unlocked (governor) | 372 | 125W | 83C | 1500 MHz |
 | 40 CU @ 2 GHz governor | 466 | 181W | 96C | 2000 MHz |
 
@@ -225,9 +225,8 @@ The latest discovery: the module can be patched on stock kernel without rebuildi
 **gennro/bc250-toolkit (CachyOS — Automated):**
 
 ```bash
-git clone https://github.com/gennro/bc250-toolkit.git
-cd bc250-toolkit
-sudo ./install.sh
+curl -sSLO https://raw.githubusercontent.com/gennro/bc250-toolkit/main/bc250-toolkit.sh
+sudo bash bc250-toolkit.sh
 ```
 
 Automates: kernel source download, amdgpu module patching, modprobe config, and hook for kernel updates. Supports stock, deckify, and bore CachyOS kernels. Works with limine and systemd-boot (gennro, hojnikb).
@@ -297,7 +296,7 @@ Most boards show the standard 24/40 map (first 6 CUs of each block active). Some
 
 ### Selective CU Masking
 
-**Important:** `amdgpu.disable_cu=X.Y.Z` indexes WGP **pairs**, not individual CUs (ungamead, greatapo, itsanarse, thicccbacon). The GitHub readme documentation for this is incorrect. `X.Y.Z` = SE.SH.WGP-pair. Example: `1.1.1` disables WGP pair 1 on SE1 SH1 (CUs 3-4 there, NOT CUs 1-2).
+**Important:** `amdgpu.disable_cu=X.Y.Z` indexes WGP **pairs**, not individual CUs (ungamead, greatapo, itsanarse). `X.Y.Z` = SE.SH.WGP-pair. Example: `1.1.1` disables WGP pair 1 on SE1 SH1 (CUs 3-4 there, NOT CUs 1-2).
 
 CUs are disabled at WGP granularity (pairs). Disabling CU 6 also disables CU 7 in the same WGP. Format: `amdgpu.disable_cu=SE.SH.WGP-pair` (comma-separated).
 
@@ -341,9 +340,15 @@ Three distinct crash modes exist when pushing 40 CU limits:
 
 2400 MHz at 40 CU consistently causes OCP hard lockup across multiple boards regardless of cooling (big_trov, codyrainy, cralant). One user with AIO cooling reported 2400 MHz at 1120 mV stable (needs >1100 mV or loses FPS; crashes at 1050 mV). Higher CPU overclock lowers the GPU voltage threshold for hard lock -- this is a system-wide power limit, not GPU-specific (big_trov, hojnikb). Defective CUs can individually clock to 2600 MHz -- the defect is NOT clock capability, likely a global OCP/VRM limit. VRM temps are the hidden bottleneck; thermal adhesive tape is insufficient for VRM cooling (capt.cat_13).
 
+**Additional OCP findings (late May 2026):** Above ~1850-2200 MHz (varies by board), a secondary power limit is tripped causing hard lock where even reset and power buttons fail (big_trov). This is distinct from the voltage ceiling — it's a system-level power limit. A shunt mod may be needed to bypass it (big_trov, May 2026). At 2300 MHz, only ~1025 mV is passable for Superposition on some boards; any higher voltage causes hard lock, any lower causes freeze but remains resettable (big_trov, May 2026).
+
+### PS5 40 CU Patch Confirmed
+
+The BC-250 40 CU unlock patch (`bc250-40cu-amdgpu.patch`) also works on **PS5 Linux** (gennro, via PS5 Linux Discord, May 2026). The jump from 36 CU to 40 CU on PS5 gives approximately 4% more benchmark score. Note: the PS5 hypervisor still runs during Linux, which may limit performance compared to BC-250 results.
+
 ### CPU Core Unlock Research
 
-duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6). They have decompiled and extracted bootrom and understand how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory is that cores may not be physically fused off but controlled by a ROM array written during manufacturing. No functional unlock yet -- active research.
+duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6). They have decompiled and extracted bootrom and understand how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory is that cores may not be physically fused off but controlled by a ROM array written during manufacturing. An active discussion thread exists in the Discord `project-forums` channel. No functional unlock yet -- active research.
 
 ### 40 CU Kernel Build Warnings
 

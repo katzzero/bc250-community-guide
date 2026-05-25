@@ -27,7 +27,7 @@
 | 1080p High + FSR, no RT | 70–90 | elektricM docs |
 | 1080p High + FSR + RT (lighting only) | 50–60 | elektricM docs |
 | 1080p Ultra + FSR3.1 | 100+ | elektricM docs |
-| 1080p CPU-bound areas | <60 even at lowest (need confirmation) | CPU bottleneck in dense areas |
+| 1080p CPU-bound areas | <60 even at lowest (Discord user) | CPU bottleneck in dense areas |
 | Power draw | Up to 235W | Most demanding game in the library (elektricM docs) |
 
 **Benchmark scores:**
@@ -43,7 +43,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Medium | ~60 (need confirmation) | Needs zram enabled (16 GB RAM is tight) |
+| 1080p Medium | ~60 (Discord user) | Needs zram enabled (16 GB RAM is tight) |
 | With FSR4 on Proton GE | Playable (need confirmation) | RAM headroom is the main constraint |
 
 > Game needs ~16.5 GB RAM (need confirmation). Enable zram: `zram-size = ram x 0.75` and close background apps.
@@ -56,8 +56,8 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | Full graphics (DX11) | Smooth (45+ FPS min — elektricM docs) | Heatsink barely warm with 120mm fan (need confirmation) |
-| 2230 MHz GPU | Crashes (need confirmation) | Reduce to 2150 MHz for stability (need confirmation) |
-| 10/6 VRAM split | Fixed crash (need confirmation) | Static allocation avoids ZRAM conflicts (need confirmation) |
+| 2230 MHz GPU | Crashes (Discord user) | Reduce to 2150 MHz for stability (Discord user) |
+| 10/6 VRAM split | Fixed crash (Discord user) | Static allocation avoids ZRAM conflicts (need confirmation) |
 
 **Launch flag:** `-useMaximumSettings` — elektricM docs
 **Adapter fix:** May detect as software rendering — change adapter in graphics settings to match `vulkaninfo --summary` output (elektricM docs)
@@ -82,7 +82,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| Any settings | 45–51 (need confirmation) | CPU-bound — elektricM docs report expected 60 FPS with settings adjustments |
+| Any settings | 45–51 (Discord user) | CPU-bound — elektricM docs report expected 60 FPS with settings adjustments |
 | 4K | 30–40 (need confirmation) | Playable but choppy |
 
 > Changing resolution/settings may not help (need confirmation).
@@ -152,10 +152,13 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Low, FSR 3.1.5 | ~60 dips to 45 (need confirmation) | CPU limited |
-| 1080p portable graphics | 30–50 (need confirmation) | |
+| 36 CU, ultrawide 1440p High + frame gen | 60 locked | dartzon, CachyOS, Thermalright PA120, GPU backplate cooler, <72C |
+| 36 CU, 1440p High, no frame gen | Dips under 60 | CPU bottleneck (dartzon) |
+| 1080p Low, FSR 3.1.5 | ~60 dips to 45 | CPU limited |
 
-**Fix:** DS2NetFix mod (need confirmation) reduces CPU usage from 90% to 40%.
+**PICO upscaler:** PlayStation's FSR equivalent was ported to PC as "PICO" — works on Decima engine games (Horizon, Death Stranding). User reports it's superior to AMD FSR3 (dartzon, May 2026).
+
+**Cooling:** dartzon used Thermalright Peerless Assassin 120 + GPU backplate cooler with fans for VRAM chips. Temps never exceeded 72C with 36 CU unlocked.
 
 ### Monster Hunter Wilds
 
@@ -181,7 +184,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Ultra | 60 locked (need confirmation) | 65–68C after 4 hours (need confirmation). Runs great. |
+| 1080p Ultra | 60 locked (Discord user) | 65–68C after 4 hours (Discord user). Runs great. |
 
 ---
 
@@ -214,7 +217,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 |------|-------------|-------|
 | Half-Life: Alyx | ~80 FPS (need confirmation) | CachyOS |
 | Hellblade: Senua's Sacrifice | ~180 FPS (need confirmation) | High FPS, well-optimized |
-| Arc Raiders | ~100 on practice range (need confirmation) | High settings |
+| Arc Raiders | 60+ (Discord user) | Medium, FSR Quality — 60+ FPS, ~69C |
 | Ghost of Tsushima [Discord user] | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
 | Final Fantasy VII Remake | Playable (need confirmation) | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs) |
 | Horizon: Zero Dawn | Great at 1080p High (need confirmation) | No upscaling needed |
@@ -230,14 +233,29 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Warframe | 75 FPS at 1080p (need confirmation) | V-Sync ON, no FSR |
 | War Thunder | Playable at 1080p High (need confirmation) | Max GPU OC, no RT |
 | The Last of Us Part I | 60 FPS locked, 1080p Medium-High | elektricM docs |
-| The Callisto Protocol | 60–85 at 1080p Medium (need confirmation) | 60 locked, hits 85 frequently |
+| The Callisto Protocol | 60–85 at 1080p Medium (Discord user) | 60 locked, hits 85 frequently |
 | Tomb Raider (2013) | 100–140 FPS at 1080p Max (need confirmation) | |
 | Death Stranding | 40–50 FPS at 1080p Max (need confirmation) | |
-| Zenless Zone Zero | 40–50 FPS at 1080p Max + RT (need confirmation) | |
+| Zenless Zone Zero | Crashes with "Memory shortage" error (Discord user) | May need workaround |
 | Diablo IV | Playable (need confirmation) | Medium-high settings |
 | Baldur's Gate 3 | Playable at 1080p (need confirmation) | Lower settings in cities |
 | Detroit: Become Human | 60 FPS capped, 1080p Medium | elektricM docs |
 | Devil May Cry 5 | 100 FPS, 1080p High | elektricM docs |
+
+### S.T.A.L.K.E.R. 2 (May 2026)
+
+| Config | FPS | Notes |
+|--------|-----|-------|
+| Stock 24 CU, 2000 MHz | ~55 (drops to high 40s) | Area after opening cinematic |
+| Stock + FSR frame gen | High 90s | |
+| 36 CU, 2000 MHz | Mostly 60 (drops to high 50s) | |
+| 36 CU + FSR frame gen | 110-120 | |
+
+### Subnautica 2 (May 2026)
+
+Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
+
+---
 
 ### Cities: Skylines 2 (200k population)
 **20–30 FPS** (need confirmation) — CPU limited (simulation-heavy).
@@ -258,7 +276,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 
 ---
 
-## Newly Tested Games (May 2026)
+## Newly Tested Games (Late May 2026)
 
 | Game | Performance | Notes |
 |------|-------------|-------|
@@ -269,6 +287,10 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Crimson Desert (38-40 CU) | ~55 FPS FHD, no scaling | +10-15 FPS over 24 CU (pijuli.); CPU-limited in some areas (vfxmz) |
 | Marvel Rivals | Playable | Season 8 perf mod on NexusMods (graytl); up to 190 FPS |
 | Returnal | Heavy artifacts on marginal 40 CU boards | Good test game for CU health (capt.cat_13) |
+| Death Stranding 2 | 36 CU, ultrawide 1440p High + FG: 60 | Well-optimized; CPU bottleneck without FG. See detailed entry above. |
+| S.T.A.L.K.E.R. 2 | 24 CU stock: ~55 FPS; 36 CU: ~60; +FG: 110-120 | Big uplift from more CUs. See detailed entry above. |
+| Subnautica 2 | Playable at lower settings | Proton Experimental, CachyOS, 40 CU (biohazardv2.0) |
+| New Batman (2026) | Runs, GPU bound | 40 CU (codyrainy) |
 
 ---
 
@@ -280,7 +302,7 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Final Fantasy VII Rebirth | "DX12 is not supported on your system" -- game checks for specific GPU compatibility, no fix for BC-250 yet | elektricM docs |
 | Spider-Man 2 | Out-of-memory crash with 512MB VRAM. Fixes (help-thread): set 6GB static VRAM in BIOS (_nk10), add TTM kernel params (hojnikb), run 32GB swap script from NexGen3D repo, lower in-game settings (zerosumpr), or add DXVK config overrides (newgbaxl) |
 | Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz` (need confirmation) | Community report |
-| Palia | Crashes even with swap enabled (need confirmation) | Community report |
+| Palia | Crashes without workaround (swap may help) (Discord user) | Community report |
 
 ---
 
@@ -321,14 +343,14 @@ __GL_SHADER_DISK_CACHE_SIZE=10737418240
 6. **Try Proton-GE** for better compatibility (elektricM docs)
 7. **Kernel 6.19.x** for VRR and DP audio fixes (gennro); 6.18 LTS as stable fallback
 8. **Mesa 26.x recommended** — significant RT and performance improvements; 25.1+ minimum
-8. **`mitigations=off`** gives ~10–15% FPS boost in CPU-bound games (elektricM docs: "mitigations=off for +10-15% FPS")
-9. **Keep GPU under 85C** for long-term stability (elektricM docs)
-10. **Disable Handheld Daemon** if using Bazzite for gaming (elektricM docs):
+9. **`mitigations=off`** gives ~10–15% FPS boost in CPU-bound games (elektricM docs: "mitigations=off for +10-15% FPS")
+10. **Keep GPU under 85C** for long-term stability (elektricM docs)
+11. **Disable Handheld Daemon** if using Bazzite for gaming (elektricM docs):
     ```bash
     sudo systemctl disable --now hhd && sudo systemctl mask hhd
     ```
-11. **CachyOS may be ~5–10% faster** than Bazzite in raw benchmarks (need confirmation)
-12. **40 CU unlock: more CUs at lower clocks** match higher clocks at stock 24 CU — cooler and less power (big_trov: 40 CU at 1200 MHz = 60 FPS at 73C, 30W less than 24 CU at 2000 MHz achieving same FPS). See [02-BIOS](02-bios-and-firmware.md).
+12. **CachyOS may be ~5–10% faster** than Bazzite in raw benchmarks (need confirmation)
+13. **40 CU unlock: more CUs at lower clocks** match higher clocks at stock 24 CU — cooler and less power (big_trov: 40 CU at 1200 MHz = 60 FPS at 73C, 30W less than 24 CU at 2000 MHz achieving same FPS). See [02-BIOS](02-bios-and-firmware.md).
 
 ---
 
@@ -375,7 +397,7 @@ pijuli. tested a 38/40 CU board (2 harvested in SE1 SH0). At 1900 MHz with 38 CU
 
 | Rank | User | Score | GPU Clock | CPU Clock | mV | Date |
 |------|------|-------|-----------|-----------|-----|------|
-| 1 | nexgen3d | 4713 | 2530 MHz | 4175 MHz | 1145 | Jan 2026 |
+| 1 | nexgen3d | 4713 | 2530 MHz | 4175 MHz | 1165 | Jan 2026 |
 | 2 | nexgen3d | 4690 | 2530 MHz | 4150 MHz | 1150 | Jan 2026 |
 | 3 | nexgen3d | 4668 | 2500 MHz | — | — | Jan 2026 |
 | 4 | nexgen3d | 4576 | 2400 MHz | 3850 MHz | — | Mar 2026 |
@@ -390,17 +412,22 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 
 ### 40 CU (Unharvest Enabled)
 
-| Rank | User | Score | GPU Clock | CPU Clock | mV | Date |
-|------|------|-------|-----------|-----------|-----|------|
-| 1 | gennro | ~5900 | — | — | — | May 2026 |
-| 2 | big_trov | 5759 | 2300 MHz | 3500 MHz UV | — | May 2026 |
-| 3 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | May 2026 |
-| 4 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | May 2026 |
-| 5 | land_and_air | — | 2000 MHz | stock | — | May 2026 |
+| Rank | User | Score | GPU Clock | CPU Clock | mV | Notes | Date |
+|------|------|-------|-----------|-----------|-----|-------|------|
+| 1 | gennro | ~5900 | — | — | — | — | May 2026 |
+| 2 | big_trov | 5759 | 2300 MHz | 3500 MHz UV | — | — | May 2026 |
+| 3 | dznuts | 5300 | 2200 MHz | — | 1060 | 38 CU, CachyOS | May 2026 |
+| 4 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | 40 CU | May 2026 |
+| 5 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | 40 CU | May 2026 |
+| 6 | land_and_air | — | 2000 MHz | stock | — | — | May 2026 |
 
 40 CU Extreme already surpasses the 24 CU record (4713) by 22%+ at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.
 
 **Max clock findings:** 2400 MHz at 40 CU causes hard OCP lockup requiring power cable pull (reset/power buttons unresponsive) across multiple boards (big_trov, codyrainy, cralant). 2100-2300 MHz is the stable range for most boards. Trimming CUs for higher clocks is not advantageous: big_trov's 32CU @ 2400 MHz scored worse than 40CU @ 2300 MHz, with similar power draw (~270W).
+
+**38 CU voltage findings (May 2026):** 38 CU at 2200 MHz requires ~1050-1060 mV (dznuts). 1085 mV not enough for 2230 MHz with 38 CU. At 2200 MHz, 995 mV is stable for some boards (codyrainy). Power limit and voltage ceiling intersect at ~2200 MHz for most boards, creating a hard stability ceiling.
+
+**Memory OC (May 2026):** dznuts tested memory OC at 1975 MHz CL26 using RobinMemTiming. Only +80 points in Superposition and +1 FPS in Cyberpunk — not worth the instability risk. Memory OC causes 1-in-20 boot failures (no POST).
 
 ### Gaming (40 CU)
 
