@@ -377,6 +377,23 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 ---
 
+## 40 CU Hard Lock / OCP at High Clocks
+
+**Symptoms:** System locks up with monitor in standby mode. Reset button and power button do nothing. Must unplug power cable to recover. Typically occurs at 2200-2400 MHz with 40 CU unlocked.
+
+**Cause:** Two separate limits being hit (big_trov, May 2026):
+1. **Voltage ceiling** — Too much voltage (>1000 mV) at high clocks triggers a hard lock
+2. **Power limit (OCP)** — A secondary system-level power limit at ~1850-2200 MHz (varies per board) causes hard lock regardless of voltage
+
+**Fixes:**
+- Stay at or below 2200 MHz for 40 CU
+- Keep voltage under 1000 mV at high clocks
+- If hard lock occurs at moderate settings, reduce max frequency or voltage further
+- Higher CPU overclock lowers GPU hard lock threshold — undervolt CPU when pushing GPU (big_trov, hojnikb)
+- No workaround for the secondary power limit yet; shunt mod may be required (big_trov)
+
+---
+
 ## Flash Failed -- Board Won't POST
 
 **Recovery (source: boot.md):**
