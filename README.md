@@ -89,13 +89,13 @@ This guide is maintained by katzzero. It is updated continuously from community 
 
 ## Latest Additions (May 2026)
 
-- **40 CU Unlock** — [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock). Runtime unlock (no kernel patch), 1.61x compute scaling, CU health testing (duggasco, big_trov, filippor, essdee4336).
-- **Voltage Wall & OCP Analysis (big_trov)** — Two limit curves intersect at ~2200 MHz at 40 CU. OCP hard lock at 2400 MHz requires power cable pull. Secondary power limit at 1850-2200 MHz.
-- **Governor v0.4.0** — CPU-based memory clock control, idle power tests (big_trov: 40 CU = 70W idle; pops1cl: 64W downclocked).
-- **Game Benchmarks** — dznuts 5300 Superposition (38 CU), Death Stranding 2 (36 CU@1440p+FG=60), S.T.A.L.K.E.R. 2 (110-120 with FG), PICO upscaler.
+- **CU Live Manager (vinnijs.dev)** — [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager). Toggle CUs on the fly, no kernel patch. TUI with vim keys, systemd persistence. Works on stock kernel.
+- **40 CU: No kernel patch needed.** Use stock kernel + live manager. Start at 2000 MHz @ 980 mV. Stay below 1130 mV / 85°C.
+- **Cyberpunk 2077 Record (dznuts)** — 38 CU, 2270 MHz GPU, 4050 MHz CPU: min FPS >60 at 1080p Ultra (no FSR). Matched RTX 3060. Memory OC gave +18.4% FPS boost.
+- **Voltage Wall & OCP Analysis (big_trov)** — Two limit curves intersect at ~2200 MHz at 40 CU. OCP hard lock at 2400 MHz requires power cable pull.
+- **BIOS P4.00 Discovered (faithy2386)** — Undocumented stock version, unstable. Dumped and preserved. Flash to P5.00 fixed.
+- **AIOS Confirmed** — Thermalright Aqua Elite 240 V2/V4/V6 all working with 3D-printed AM4 mount. Multi-fan control via J4003 header (CoolerControl).
+- **Micro-Fit Power Mod** — Onboard power ports as PCIe cable supplement (Old Lamer). Tested by community.
+- **Dell DA2 PSU (hoodyracoon)** — Running 40 CU at 1700 MHz/3600 MHz undervolted on 220W 12V-only external PSU.
 - **Mesa 26** — GTA V Enhanced fixed; shipped in CachyOS with RT/perf improvements.
 - **VRR** — CachyOS native, Bazzite custom image confirmed. Cheap Aliexpress DP>HDMI adapters recommended.
-- **Superposition Leaderboard** — 24 CU (nexgen3d 4713) and 40 CU (gennro ~5900, big_trov 5759).
-- **Cooling** — Thermalright Peerless Assassin 120 with 3D-printed bracket, GPU backplate cooler (dartzon).
-- **PS5 40 CU Patch Confirmed** — BC-250 unlock patch works on PS5 Linux (gennro).
-- **CPU Core Unlock Research** — duggasco/mrfrakes researching extra CPU cores via PSP/decompiled bootrom.

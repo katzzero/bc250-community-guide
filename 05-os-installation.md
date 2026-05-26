@@ -2,7 +2,7 @@
 
 > Step-by-step guides for installing Linux on the BC-250.
 > **BIOS must be flashed first** - see [02-BIOS](02-bios-and-firmware.md).
-> **Kernel**: Community has moved to **6.19.x** which has VRR and DP audio fixes (gennro). **Mesa 26** is now current with significant RT and performance improvements.
+> **Kernel**: Community has moved to **6.19.x** which has VRR and DP audio fixes (gennro). **6.18.18 LTS** is the stable fallback. 40 CU unlock no longer requires a kernel patch — use `bc250-cu-live-manager` on stock kernel. **Mesa 26** is now current with significant RT and performance improvements.
 
 ---
 
@@ -105,13 +105,13 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
 - **VRR on Deck:** A custom Bazzite image with AMD VRR kernel patches exists - search community for `bazzite-vrr` images. Confirm working on OLED displays. DP audio fix not yet included.
-- **40 CU Unlock on Bazzite:** erewego posted pre-built RPMs against the ba29 Deck kernel (Bazzite handheld/Deck uses ba29; desktop uses OGC kernel). Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums, unpack, then:
+- **40 CU Unlock on Bazzite:** The [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) (UMR-based, no kernel patch) is the preferred method — works on stock Bazzite kernel (auto-detects dri path, vinnijs.dev, May 2026). For legacy kernel patch: erewego posted pre-built RPMs against the ba29 Deck kernel (Bazzite handheld/Deck uses ba29; desktop uses OGC kernel). Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums, unpack, then:
   ```bash
   sudo rpm-ostree override replace ./*.rpm
   sudo rpm-ostree kargs --append=amdgpu.bc250_cc_write_mode=3
   sudo systemctl reboot
   ```
-  Reduce GPU governor clocks to ~1850 MHz. For desktop Bazzite (OGC kernel), kernel packages are not yet available — check Discord for updates. Not recommended for normal users until CU health testing matures. See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedure details.
+  Reduce GPU governor clocks to ~1850 MHz. For governor/SMU issues on Bazzite, rebase to `bazzite:stable` (kernel 6.19) can help (zerosumpr). For desktop Bazzite (OGC kernel), kernel packages are not yet available — check Discord for updates. See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedure details.
 
 ---
 
@@ -203,16 +203,34 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 ### 40 CU Unlock on CachyOS
 
-Apply the `bc250-40cu-amdgpu.patch` to the kernel PKGBUILD patch set. duggasco maintains a PR fork with the patch pre-applied.
+The [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) works on stock CachyOS kernel — no kernel patch needed. This is the preferred method (vinnijs.dev, May 2026).
+
+For kernel patch method (legacy), apply the `bc250-40cu-amdgpu.patch` to the kernel PKGBUILD patch set. duggasco maintains a PR fork with the patch pre-applied.
 
 ```bash
+# Live manager (recommended):
+git clone https://github.com/WinnieLV/bc250-cu-live-manager.git
+cd bc250-cu-live-manager
+# Follow README for your distro
+
+# Kernel patch (legacy):
 git clone https://github.com/duggasco/bc250-40cu-unlock.git
 cd bc250-40cu-unlock
 sudo ./scripts/bc250-enable-40cu.sh build
 sudo ./scripts/bc250-enable-40cu.sh enable   # reboots
 ```
 
-Or use CachyOS Kernel Manager GUI to apply the patch. See [02-BIOS & Firmware](02-bios-and-firmware.md) for CU health testing and masking.
+Also available: redbeard1083/bc250-toolkit and gennro/bc250-toolkit for automated CachyOS setup.
+
+### CachyOS Architecture Fix
+
+CachyOS pacman uses `x86_64_v3` architecture by default, which can cause failed installs for `x86_64`-only packages. Fix (graytl):
+
+```bash
+sudo nano /etc/pacman.conf
+# Change: Architecture = auto
+# To:     Architecture = x86_64 x86_64_v3
+```
 
 ### Legacy Method (if standard ISO won't boot)
 

@@ -4,6 +4,64 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## May 26, 2026 — Live CU Manager, Benchmarks, Tools
+
+### 1. bc250-cu-live-manager — 40 CU Without Kernel Patch
+
+**New finding:** vinnijs.dev released [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) — interactive TUI to toggle CUs on the fly via UMR. No kernel patch needed. Works on stock kernel across all distributions. Auto-detects dri path (fixes Bazzite where index=1). Systemd persistence.
+
+**Updated:** 02-bios-and-firmware.md, 05-os-installation.md, 06-gpu-governor.md, 11-community-and-resources.md, README.md.
+
+### 2. Cyberpunk 2077 38 CU Record
+
+**New finding:** dznuts achieved min FPS >60 at 1080p Ultra (no FSR) with 38 CU @ 2270 MHz GPU, 4050 MHz CPU, 1975 MT memory. Matched RTX 3060 level. Memory OC gave +18.4% min FPS boost.
+
+**Updated:** 07-game-benchmarks.md, README.md.
+
+### 3. BIOS P4.00 Discovered
+
+**New finding:** faithy2386 found undocumented stock BIOS P4.00 on their board. Unstable — all 3D apps crash. Dumped via flashrom (confirmed no R/W protection). Flashing to modded P5.00 resolved. P5.00 caveats noted (rocksalt_, kilrah, pops1cl).
+
+**Updated:** 02-bios-and-firmware.md.
+
+### 4. CU Health & Artifact Detection
+
+**New finding:** Live CU manager enables rapid artifact detection. Some bad CUs only manifest in games, not synthetic benchmarks (pm_me_kitsunemimi, meee). Dinkum crashes above 1700 MHz @ 40 CU (mikecmp). Doom: The Dark Ages needed +10 mV over stable settings (hojnikb).
+
+**Updated:** 02-bios-and-firmware.md, 10-troubleshooting.md.
+
+### 5. Cooling: AIOs Confirmed, Fan Control
+
+**New finding:** Thermalright Aqua Elite 240 V2, V4, V6 all confirmed working (gennro, sousapro, telefragger). MSI AIO also used. Bykski custom waterblocks mentioned. Multi-fan control via J4003 header + CoolerControl documented (essdee4336).
+
+**Updated:** 04-cooling-guide.md.
+
+### 6. PSU: Micro-Fit Mod, Cable Safety
+
+**New finding:** Old Lamer (YouTube) demonstrated onboard Micro-Fit 3.0 power ports as PCIe supplement. Tested by essdee4336. Melted cable photo evidence (capt.cat_13). Apevia PSU warning (steel wires). Dell DA2 220W running 40 CU undervolted (hoodyracoon).
+
+**Updated:** 03-power-supply-guide.md.
+
+### 7. 40 CU Voltage Guidance
+
+**New finding:** Community consensus: start at 2000 MHz @ 980 mV (vinnijs.dev). Stay below ~1130 mV / 85°C (hojnikb). Silicon lottery varies widely (960-1060 mV for 2000 MHz). Even 1800 MHz @ 40 CU is faster than 24 CU @ 2400 MHz (essdee4336).
+
+**Updated:** 06-gpu-governor.md.
+
+### 8. OS Fixes
+
+**New finding:** CachyOS pacman uses x86_64_v3 by default — fix via Architecture line in pacman.conf (graytl). Bazzite governor issues resolved by rebasing to bazzite:stable (zerosumpr). Hibernate broken on CachyOS (kernel bug — essdee4336, pops1cl).
+
+**Updated:** 05-os-installation.md, 10-troubleshooting.md.
+
+### 9. Rebrand: Unofficial Guide
+
+Repository renamed to `katzzero/bc250-unofficial-community-guide`. All docs updated to reflect: unofficial, made by katzzero, not endorsed by any community.
+
+**Updated:** README.md, CONTRIBUTING.md, all AI protocol files.
+
+---
+
 ## HIGH Severity
 
 ### 1. VCN Status — V2 is Outdated

@@ -20,7 +20,7 @@
 
 | Model | Wattage | Verdict | Price | Notes |
 |-------|---------|---------|-------|-------|
-| **FSP500-30AS** | 500W (396W on 12V rail) | HIGHLY RECOMMENDED | ~$10-22 + shipping (eBay) | 80+ Platinum, single +12V rail. PCIe 6+2 pin. 10-pin needs PS_ON bridged to GND. eBay shipping cost varies outside US. Caveats (gennro): only 396W on 12V rail, known coil whine at no-load, can fail under sustained high draw (reported killed at 350W+ sustained). |
+| **FSP500-30AS** | 500W (396W on 12V rail) | HIGHLY RECOMMENDED | ~$10-22 + shipping (eBay) | 80+ Platinum, single +12V rail. PCIe 6+2 pin. 10-pin needs PS_ON bridged to GND. eBay shipping cost varies outside US. Caveats (gennro): only 396W on 12V rail, known coil whine at no-load, can fail under sustained high draw (reported killed at 350W+ sustained). "Truly the perfect PSU" (deathstalkerjr), "beast with excellent cabling" (essdee4336). Community gold standard. |
 | **Enhance ENP-7660B** | 600W | Recommended | ~$50-80 | High quality, more headroom. |
 | **Apevia ITX-PFC500W** | 500W | Works | ~$50 | Fully modular. Fan may not spin properly under load on some units. |
 | **Apevia ITX-PFC400W** | 400W | Budget option | ~$35-45 | Amazon B0CWN49V13. Fully modular, 1U/Flex ATX. |
@@ -137,9 +137,15 @@ ________________________
 
 ### Cable Safety
 
-- Use **16 AWG minimum** wire (18 AWG has caused melted cables)
+- Use **16 AWG minimum** wire (18 AWG has caused melted cables — photo evidence from capt.cat_13, May 2026)
 - Do NOT use SATA-to-PCIe adapters — fire hazard (SATA is rated 54W, board draws 235W)
 - Do NOT use cheap 6-pin to 8-pin PCIe adapters for power delivery — they will melt
+- Avoid Apevia PSUs — reports of steel wires in cables (essdee4336)
+- The FSP500-30AS cables are high quality and rarely an issue (astrocast, essdee4336)
+
+### Onboard Micro-Fit Power Mod
+
+The BC-250 has proprietary onboard Micro-Fit 3.0 power ports that can supplement the PCIe connector. Old Lamer (YouTube) demonstrated using them as alternate power delivery to avoid melted cables. essdee4336 tested it: "it did seem to help slightly." Safety concern: connectors held by friction alone — a securing bracket would be ideal (astrocast). Recommendation: wire only middle two on both rows to prevent damage if connectors are swapped (cyrixblack).
 
 ---
 

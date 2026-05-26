@@ -102,7 +102,9 @@ Community members are using standard CPU tower coolers with 3D-printed brackets:
 | Cooler | Notes | User |
 |--------|-------|------|
 | **Thermalright Peerless Assassin 120** | Best non-liquid cooler for the money. Requires 3D-printed bracket. Quiet, excellent cooling. Also available as $45 AIO version. | dartzon, pepituwu, May 2026 |
-| **Thermalright AIO** | Works with NexGen3D mount | Community, May 2026 |
+| **Thermalright AIO** | Aqua Elite 240 V2, V4, V6 all confirmed working. V4 ASIN: B0DHZ5LSNP. V6: `B0F98KYG6X` (Amazon CA). | gennro, sousapro, telefragger, May 2026 |
+| **MSI AIO** | Used by FrenchHardware YouTube builds | Community, May 2026 |
+| **Bykski Custom Waterblock** | Possible future option for extreme AIO/water builds | odinforrest, May 2026 |
 
 dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mounting bracket, coupled with a GPU backplate cooler with fans for VRAM chips. With 36 CU unlocked, Death Stranding 2 ran at ultrawide 1440p@60fps on high settings and temps never exceeded 72C.
 
@@ -207,10 +209,17 @@ Source: elektricM cooling.md (Safe Operating Temperatures table)
 | 90-96C | High - check paste and airflow |
 | 108C | Extreme OC without adequate cooling |
 
-### With Liquid Cooling (240mm AIO) (need confirmation - not in elektricM)
+### With Liquid Cooling (240mm AIO)
+
+Confirmed working models: Thermalright Aqua Elite 240 V2, V4, V6; MSI AIO series. Uses standard AM4 clip mounting with 3D-printed bracket (NexGen3D mount). (gennro, sousapro, telefragger, May 2026)
 
 - Gaming power draw: ~340W (Furmark + CPU stress)
 - GPU stable up to 4.1 GHz CPU / 2300 MHz GPU
+- AM4 clip-style AIOs with printed adapters are the standard approach
+
+### Multi-Fan Control (J4003 Header)
+
+The NCT6686D chip supports **4 additional fan control circuits** via the J4003 header on the board. These can be controlled by software such as [CoolerControl](https://gitlab.com/coolercontrol/coolercontrol) (essdee4336, May 2026). Reference pinout: [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation/blob/main/hardware.md#j4003).
 
 ---
 

@@ -34,6 +34,7 @@
 - Stock (2000 MHz, 1000 mV): **57.66 FPS** — elektricM docs
 - OC (2230 MHz, 1035 mV): **60.82 FPS** — elektricM docs
 - With `mitigations=off`: **+18 FPS** boost — elektricM docs
+- **38 CU, 2270 MHz GPU, 4050 MHz CPU, 1975 MT Memory, Ultra no FSR: min FPS >60** — dznuts (May 2026). Matched RTX 3060 performance level. Memory OC gave **+18.4% min FPS boost**.
 
 **Tips:** Enable FSR Quality for a significant boost. DLSS/FSR Frame Generation works well. (elektricM docs)
 
@@ -373,6 +374,7 @@ Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fa
 | 40 CU, 1850 MHz / 960 mV (2x 120mm fans) | — | — | — | soulygenius |
 | 40 CU, 2000 MHz / 1000 mV (SMU_OC 78C tctl) | — | — | — | stevounit |
 | 40 CU, 2300 MHz / 4100 MHz CPU | — | — | — | adixd90 |
+| 40 CU, 1920 MHz / 960 mV (MX-7, triple fan) | — | throttled | — | linepanda (May 2026) |
 | **38/40 CU, 1900 MHz** | **130** | **84C** | **336W wall** | **pijuli.** |
 | **24/40 CU, 2130 MHz (same board)** | **95** | **84C** | **320W wall** | **pijuli.** |
 
@@ -419,6 +421,7 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | 3 | dznuts | 5300 | 2200 MHz | — | 1060 | 38 CU, CachyOS | May 2026 |
 | 4 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | 40 CU | May 2026 |
 | 5 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | 40 CU | May 2026 |
+| 5 | dznuts | 5300 | 2270 MHz | 4000 MHz | — | 38 CU | May 2026 |
 | 6 | land_and_air | — | 2000 MHz | stock | — | — | May 2026 |
 
 40 CU Extreme already surpasses the 24 CU record (4713) by 22%+ at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.

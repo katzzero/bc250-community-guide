@@ -9,11 +9,14 @@
 | File | Version | Status |
 |------|---------|--------|
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
+| `P4.00` (stock) | P4.00 | ❌ **Unstable** — undocumented version found on some boards; 3D apps crash (faithy2386) |
 | `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE (need confirmation)) but **easy to brick** |
 
 Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
 
-*Credits: P3.00 mod by **Segfault**. P5.00_clv is community-maintained. elektricM credits Segfault for reverse engineering and maintaining modified firmware images.*
+**P4.00** was discovered by faithy2386 in May 2026 — it's an undocumented stock BIOS version found on some boards. It is unstable (all 3D applications crash). Dumping and flashing to modified P5.00 fixes the issue (after CMOS clear). P4.00 is NOT recommended. P5.00 has more settings but also settings that can brick the board (rocksalt_). Some SMU commands differ on P5.00 and fewer people have looked at it (pops1cl). Patched P5 is "a bit of a mess" (kilrah).
+
+*Credits: P3.00 mod by **Segfault**. P5.00_clv is community-maintained. P4.00 discovery by faithy2386. elektricM credits Segfault for reverse engineering and maintaining modified firmware images.*
 
 ### Where to Download
 
@@ -267,9 +270,33 @@ dmesg | grep bc250-40cu           # Shows register writes
 RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu   # Expected: num_cu = 40
 ```
 
+### bc250-cu-live-manager (No Kernel Patch Required — May 2026)
+
+**Project:** [WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager)
+**Status:** Working (May 2026). Interactive TUI for toggling CUs live — no kernel patch, no reboot needed.
+
+Key features:
+- Toggle individual CUs on/off **while the system is running** (UMR-based)
+- Vim-style keyboard navigation in terminal UI
+- Auto-detects dri path (fixes Bazzite where dri index is 1, not 0)
+- Persistence via systemd service (`bc250-unlock.service`)
+- Shows `D+` (driver-enabled, 24 default) and `S+` (SPI-only, newly unlocked)
+- Safety checks prevent invalid configurations
+- Can read harvest map, toggle specific WGPs, and apply boot persistence
+
+```bash
+git clone https://github.com/WinnieLV/bc250-cu-live-manager.git
+cd bc250-cu-live-manager
+# Follow README instructions for your distro
+```
+
+This replaces the kernel patch method for most users. Use your distro's stock kernel + the live manager. After unlocking, verify with: `sudo cat /sys/kernel/debug/dri/0/amdgpu_gca_config | grep active_cu_number` (note: will still show 24 because the driver initialized with 24; UMR sets registers after init — big_trov).
+
 ### CU Health Testing
 
-Not all CUs are healthy. Bad CUs cause immediate artifacts and shutdown when enabled (koloses). Boards with scattered harvest patterns (`■■□□■■□□■■`) likely have defective silicon. The project includes a per-WGP isolation test:
+Not all CUs are healthy. Bad CUs cause immediate artifacts (green dots, visual corruption) and shutdown when enabled (koloses, meee). Some users can only identify bad CUs via in-game artifacts, not synthetic benchmarks — a board that passes Furmark may still crash in games (pm_me_kitsunemimi). The live manager makes testing much faster — toggle CUs without rebooting and spot visual artifacts immediately.
+
+Boards with scattered harvest patterns (`■■□□■■□□■■`) likely have defective silicon. The project includes a per-WGP isolation test:
 
 ```bash
 sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
@@ -360,4 +387,4 @@ duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6).
 
 ### Credits
 
-duggasco (research, repo), filippor (independent testing, ignore_cu_harvest), scallion_9883 (benchmarks), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).
+duggasco (research, repo), filippor (independent testing, ignore_cu_harvest), scallion_9883 (benchmarks), vinnijs.dev (bc250-cu-live-manager), faithy2386 (P4.00 BIOS discovery, flashrom testing), meee (CU artifact detection), pm_me_kitsunemimi (game-based CU testing), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).

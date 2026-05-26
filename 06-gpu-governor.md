@@ -188,15 +188,35 @@ Note: perfprofileindex works on BIOS v3 but NOT on BIOS v5. This is an advanced 
 
 | Frequency | Voltage | Cooling Needed | Stability |
 |-----------|---------|----------------|-----------|
-| 2000 MHz | 1000 mV | Stock air cooling | Safe for all boards |
+| 2000 MHz | 980-1000 mV | Stock air cooling | Safe for all boards — recommended daily driver (vinnijs.dev, paul_lionking) |
 | 2100 MHz | 1025-1050 mV | Good air cooling | Most boards |
+| 2200 MHz | 1030-1050 mV | Good air cooling required | Upper limit for most boards at 40 CU before OCP |
 | 2230 MHz | 1060 mV | Good air cooling required | Tested by community |
-| 2300 MHz | 1075 mV | High-end air / AIO | Depends on silicon lottery |
-| 2400 MHz | 1125 mV | Liquid cooling only | NexGen3D testing only |
+| 2300 MHz | 1075 mV | High-end air / AIO | Depends on silicon lottery; risks hard lock at 40 CU |
+| 2400 MHz | 1125 mV | Liquid cooling only | NexGen3D testing only; OCP hard lock at 40 CU |
+
+**40 CU voltage guidance (May 2026):**
+- Start at 2000 MHz @ 980 mV and tune from there (vinnijs.dev).
+- Stay below ~1130 mV and 85°C for longevity (hojnikb).
+- Even 1800 MHz at 40 CU is faster than 24 CU at 2400 MHz, with much better thermals (essdee4336).
+- Silicon lottery varies: one user needed 2000@960, another needed 2000@1060 (paul_lionking).
+- At ~2200 MHz at 40 CU, a secondary power limit is tripped by high voltage — raising voltage above a certain point causes hard lock (big_trov).
 
 (source: governor.md:577-583)
 
 ---
+
+## 40 CU Unlock Without Kernel Patch
+
+As of May 2026, 40 CU unlock no longer requires a kernel patch. Use [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) by vinnijs.dev — an interactive TUI that toggles CUs on the fly via UMR. No kernel modifications needed. Works on stock kernel across all distributions including Bazzite (auto-detects dri path).
+
+```bash
+git clone https://github.com/WinnieLV/bc250-cu-live-manager.git
+cd bc250-cu-live-manager
+# Follow README for your distro
+```
+
+The tool persists across reboots via systemd (`bc250-unlock.service`). For kernel parameter-based masking: `amdgpu.disable_cu=X.Y.Z` uses WGP-pair indexing. See [02 — BIOS & Firmware](02-bios-and-firmware.md) for full 40 CU documentation.
 
 ## CPU Overclocking (Advanced)
 

@@ -357,12 +357,12 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 **Symptoms:** After system resume from sleep, monitor fails to wake or audio shifts from DP to USB DAC.
 
-**Cause:** Kernel-level display driver issue on resume.
+**Status (May 2026):** Sleep does not work on BC-250 (pops1cl). Hibernate was working on Bazzite in December 2025 but is broken on CachyOS as of May 2026 — kernel bug suspected (essdee4336, pops1cl). Even swap file/partition approaches fail; system doesn't shut down properly for hibernate.
 
-**Fixes:**
-1. Re-enable kscreenlocker/lockscreen after resume (CachyOS workaround)
-2. Use USB DAC for audio as fallback (see [08-Display & Audio](08-display-and-audio.md))
-3. Avoid suspend; use shutdown/reboot instead
+**Workaround:**
+- Use shutdown/reboot instead of suspend/hibernate
+- Re-enable kscreenlocker/lockscreen after resume (CachyOS)
+- Use USB DAC for audio as fallback (see [08-Display & Audio])
 
 ---
 
@@ -421,9 +421,9 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 ## VRS Crashes in Doom: The Dark Ages
 
-**Symptoms:** Game crashes immediately with VRS-related errors.
+**Symptoms:** Game crashes immediately with VRS-related errors. Some users also required +10 mV over previously-stable settings at 40 CU (hojnikb, May 2026).
 
-**Cause:** Variable Rate Shading (VRS) commands are not supported on Cyan Skillfish, causing the Vulkan driver to crash.
+**Cause:** Variable Rate Shading (VRS) commands are not supported on Cyan Skillfish GPU, causing the Vulkan driver to crash. Specific shaders/instructions in some games can trigger bad CUs that pass synthetic benchmarks — e.g., Dinkum crashes above 1700 MHz at 40 CU (mikecmp, May 2026).
 
 **Fix:** Use the Vulkan_NullVRS layer by bangstk (see [08-Display & Audio](08-display-and-audio.md) for install).
 
