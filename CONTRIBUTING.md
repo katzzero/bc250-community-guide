@@ -6,8 +6,8 @@ Thank you for your interest in contributing! This guide is community-driven and 
 
 ### 1. Fork & Clone
 ```bash
-git clone https://github.com/katzzero/bc250-community-guide.git
-cd bc250-community-guide
+git clone https://github.com/katzzero/bc250-unofficial-community-guide.git
+cd bc250-unofficial-community-guide
 ```
 
 ### 2. Make Your Changes

@@ -83,7 +83,7 @@ This documentation is updated continuously from community Discord activity using
 3. **Audit** — New exports are searched for benchmarks, corrections, tools, crash data, and other updates
 4. **Cross-reference** — Every claim is verified against elektricM source-of-truth docs and existing documentation
 5. **Update** — Files are edited with attributions, uncertainty marked `(need confirmation)`, and a changelog entry is logged
-6. **Commit** — Changes are committed to `github.com/katzzero/bc250-community-guide`
+6. **Commit** — Changes are committed to `github.com/katzzero/bc250-unofficial-community-guide`
 
 ---
 
