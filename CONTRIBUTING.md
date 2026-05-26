@@ -1,6 +1,6 @@
-# Contributing to the BC-250 Community Guide
+# Contributing to the BC-250 Unofficial Community Guide
 
-Thank you for your interest in contributing! This guide is community-driven and relies on tested, verified information.
+Thank you for your interest in contributing! This is an unofficial guide relying on tested, verified information from the community.
 
 ## How to Contribute
 

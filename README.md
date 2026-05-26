@@ -1,6 +1,6 @@
-# BC-250 Community Guide
+# BC-250 Unofficial Community Guide
 
-> Comprehensive, community-driven guide for the AMD BC-250 mining board repurposed as a budget gaming/desktop PC.
+> Unofficial community guide for the AMD BC-250 mining board repurposed as a budget gaming/desktop PC. Not an official community project — made by katzzero.
 
 ---
 
@@ -70,13 +70,13 @@
 
 ---
 
-*Last updated: Based on community data through May 2026. Prices and availability change frequently -- verify before purchasing.*
+*Last updated: Based on community data through May 2026. Unofficial — not endorsed by AMD or any community. Prices and availability change frequently -- verify before purchasing.*
 
 ---
 
 ## How This Guide Is Maintained
 
-This documentation is updated continuously from community Discord activity using a semi-automated pipeline:
+This guide is maintained by katzzero. It is updated continuously from community Discord activity using a semi-automated pipeline:
 
 1. **Export** — New Discord messages are exported via DiscordChatExporter
 2. **Index** — A local RAG vector database (ChromaDB + sentence-transformers) indexes all exports and reference docs
