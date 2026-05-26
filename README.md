@@ -40,6 +40,18 @@
 
 ---
 
+## Benchmark Leaders
+
+| Category | Rank 1 | Score | Config | User |
+|----------|--------|-------|--------|------|
+| Superposition Extreme 1080p (24 CU) | 1 | 4713 pts | 2530 MHz GPU, 4175 MHz CPU, 1165 mV, liquid cooling | nexgen3d |
+| Superposition Extreme 1080p (40 CU) | 1 | ~5900 pts | 40 CU | gennro |
+| Furmark VK 1080p (40 CU) | 1 | 153 FPS | 2150 MHz, 990 mV, 79C, ~200W | essdee4336 |
+| CPU Clock (24 CU) | 1 | 4175 MHz | — | nexgen3d |
+| GPU Clock (24 CU) | 1 | 2530 MHz | 1165 mV | nexgen3d |
+
+---
+
 ## Important Warnings
 
 1. **No Windows GPU drivers** -- Linux is required
