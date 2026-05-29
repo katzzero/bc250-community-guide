@@ -35,7 +35,7 @@ cd bc250-unofficial-community-guide
 
 ## Guidelines
 - **Do not guess** — if you're unsure, mark it as unverified
-- **No Windows GPU driver claims** — Linux only
+- **No official Windows GPU driver claims** — Linux only. Unofficial WIP at ZEROAESQUERDA/BC250-windowsDriverTest.
 - **Always cite sources** for technical specifications
 - **Keep it reader-friendly** — use tables, headers, and clear formatting
 

@@ -28,6 +28,7 @@
 | [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor) | GPU governor (community fork, v0.4.0+ adds CPU-based memory clock control) |
 | [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) | 40 CU unlock kernel patch (legacy) |
 | [WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) | 40 CU live manager — no kernel patch needed. Interactive TUI (UMR-based) |
+| [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) | Windows display driver experiment for BC-250 (WIP, untested) |
 | [GreatApo/bc250-40cu-unlock](https://github.com/GreatApo/bc250-40cu-unlock) | 40 CU unlock fork with corrected CU masking docs |
 | [TuxThePenguin0/bc250-bios](https://gitlab.com/TuxThePenguin0/bc250-bios) | Modded BIOS files (need confirmation) |
 | [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) | Steam Machine cases + setup scripts (need confirmation) |

@@ -36,7 +36,7 @@
 | **Display** | 1x DisplayPort 1.4 (no HDMI -- adapter required) |
 | **Network** | 1x Gigabit Ethernet (no built-in WiFi) |
 | **USB** | 2x USB 3.0 + 2x USB 2.0 |
-| **OS Support** | Linux only -- no Windows GPU drivers exist |
+| **OS Support** | Linux only -- no official Windows GPU drivers. Unofficial WIP: [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) (untested) |
 
 ---
 
@@ -54,7 +54,7 @@
 
 ## Important Warnings
 
-1. **No Windows GPU drivers** -- Linux is required
+1. **No official Windows GPU drivers** -- Linux is required. Unofficial WIP: [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) (untested)
 2. **Always clear CMOS** after USB BIOS flash (settings won't stick otherwise)
 3. **Disable IOMMU** in BIOS -- it is broken and causes display failures
 4. **Avoid older broken kernels** -- 6.15.0-6.15.6 and 6.17.8-6.17.10 were known-bad; these ranges are now outdated for current distros (use 6.18.18 LTS, 6.19.x, or 6.17.11+)
