@@ -154,10 +154,11 @@ xseol's multi-board data (Discord):
 
 ## ROCm/HIP Status
 
-ROCm on gfx1013 (Cyan Skillfish) is **partial and undocumented**:
+ROCm on gfx1013 (Cyan Skillfish) is **partial and has known regressions**:
 
 - **hammercoral** achieved working ROCm/HIP/PyTorch compute with "firmware on MEC changed, bios settings, recompiling multiple software stacks" but published no setup guide (Discord).
 - **n3oney** (May 2026): Got a single token via ROCm but failed when attempting to offload more layers (Discord).
+- **ROCm regression (geenight, May 2026):** Issue filed as ROCm #6313. BC-250 system freezes completely after compute workloads. Worked with ROCm 5.2 on Ubuntu 20.04, but newer versions cause full system freezes requiring power cycle. scallion_9883 confirmed building a custom HIP kernel and warned that memcpy + worker reaping can wedge the board.
 - rocBLAS aborts on detection because gfx1013 is not in the GPU list (elektricM radv.md).
 - RDNA1 architectures gfx1010/gfx1011 are build-passing in TheRock but gfx1013 is absent (ROCm/TheRock SUPPORTED_GPUS.md).
 - Community sentiment: "The last person who had ROCm working promised a guide then disappeared forever" (Discord).
@@ -201,7 +202,9 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch f
 | Stock 24 CU | 230 | 95W | 79C | 1500 MHz |
 | **40 CU unlocked** | **372** | **125W** | **83C** | **1500 MHz** |
 | **Ratio** | **1.61x** | +30W | +4C | same |
-| 40 CU @ 2 GHz | 466 | 181W | 96C | 2000 MHz |
+| 40 CU @ 2 GHz (governor) | 466 | 181W | 96C | 2000 MHz |
+
+**Qwen3.5-9B @ 40 CU (May 2026):** +25% tok/s over 24 CU on llama-server with Q4_K_M.gguf (community test, May 2026). Furmark showed ~50% FPS gain, so LLM workload scales differently than gaming — prompt batching and context size tuning needed for optimal results.
 
 **Recommended sweet spot:** 1500 MHz / 900 mV via cyan-skillfish-governor. 40 CU at 2 GHz hits 96C and requires upgraded cooling (duggasco, scallion_9883).
 
@@ -213,10 +216,12 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch f
 - **kingofgames0880 VC-250 guide** (Discord bc250-resources) -- Complete llama.cpp + Crush CLI setup
 - **hammercoral ROCm benchmarks** (Discord bc250-chat) -- Best ROCm performance data available
 - **NexGen-3D SteamMachine repo** (GitHub) -- Automated setup scripts for Bazzite including governor + swap
+- **scallion_9883 HIP kernel work** (Discord bc250-chat) -- Custom HIP kernel for BC-250, ROCm debugging
+- **ROCm issue #6313** -- BC-250 system freeze after compute workloads. Filed by geenight, community investigation ongoing
 - **elektricM radv driver guide** -- RADV setup and LLM inference notes (elektricM.github.io/amd-bc250-docs/drivers/radv/)
 
 ---
 
 *Sources: elektricM radv.md (primary), Discord bc250-chat (hammercoral, __nightfox, xseol, _fanoush_, steinbeks, deathstalkerjr, adaptive__manipulator, birdetta, machinezer0, n3oney), llama.cpp GitHub benchmark thread #10879, Ollama issue #15601, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix coverage.*
 
-Last modified by: Claude (Anthropic) via opencode on 2026-05-15
+Last modified by: deepseek-v4-pro on 2026-05-29

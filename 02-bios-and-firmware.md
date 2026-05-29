@@ -16,6 +16,8 @@ Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush
 
 **P4.00** was discovered by faithy2386 in May 2026 — it's an undocumented stock BIOS version found on some boards. It is unstable (all 3D applications crash). Dumping and flashing to modified P5.00 fixes the issue (after CMOS clear). P4.00 is NOT recommended. P5.00 has more settings but also settings that can brick the board (rocksalt_). Some SMU commands differ on P5.00 and fewer people have looked at it (pops1cl). Patched P5 is "a bit of a mess" (kilrah).
 
+**P5.00 chipset lanes (snodrat, May 2026):** Patched P5.00 exposes chipset PCIe lane configuration. Default mode is x2 (for M.2) + x1 + x1 (for Ethernet/USB). Alternate mode `x1x1x1x1` splits the chipset lanes 4 ways. This enables potential use of Intel H10 Optane drives (requires M.2 carrier PCB) at PCIe 2.0 x1 per lane. Without the bifurcation, H10 drives only show their QLC side (snodrat).
+
 *Credits: P3.00 mod by **Segfault**. P5.00_clv is community-maintained. P4.00 discovery by faithy2386. elektricM credits Segfault for reverse engineering and maintaining modified firmware images.*
 
 ### Where to Download

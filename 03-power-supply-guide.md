@@ -141,7 +141,11 @@ ________________________
 - Do NOT use SATA-to-PCIe adapters — fire hazard (SATA is rated 54W, board draws 235W)
 - Do NOT use cheap 6-pin to 8-pin PCIe adapters for power delivery — they will melt
 - Avoid Apevia PSUs — reports of steel wires in cables (essdee4336)
+- **Metalfish PSUs** also reported to melt under 40 CU loads (.strykur, May 2026)
 - The FSP500-30AS cables are high quality and rarely an issue (astrocast, essdee4336)
+- **325W from wall** at 2000 MHz / 40 CU in Furmark VK; ~200W during gaming (hecto_77113, May 2026)
+- **Single 8-pin safe limit:** ~260W from wall during gaming (dznuts, May 2026). Using 2 connectors (8-pin + Micro-Fit) is safer for 40 CU.
+- fforduck warns: 250W+ on single 8-pin at 40 CU significantly increases melting risk.
 
 ### Onboard Micro-Fit Power Mod
 

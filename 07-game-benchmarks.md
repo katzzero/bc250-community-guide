@@ -439,6 +439,10 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | Furmark VK 1080p | 1200 MHz | 60 FPS at 73C | big_trov |
 | Furmark VK 1440p | 2000 MHz | 91 FPS at 90C | big_trov |
 | Doom TDA | 1440p, 40 CU | Same FPS as 1080p before unlock | Community report |
+| **007 First Light** | **1440p Medium + FSR** | **72 FPS** | **big_trov, paul_lionking (May 2026)** |
+| **007 First Light** | **1440p Medium no FSR** | **48 FPS** | **big_trov (May 2026)** |
+| **007 First Light** | **1080p High no FSR** | **60 FPS locked** | **paul_lionking (May 2026)** |
+| Forza Horizon 6 | 3840x1600 | ~60 FPS | paul_lionking (May 2026) |
 | Forza Horizon 6 | 1080p Ultra, 40 CU | ~60 FPS | Community report |
 | Helldivers 2 | 40 CU, 2350 MHz | Stable | Community report |
 | RE4 Remake | 40 CU, any config | Crashes | Community report |

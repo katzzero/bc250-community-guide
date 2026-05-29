@@ -76,6 +76,7 @@ Source: elektricM cooling.md (Fin Removal - High Risk Modification)
 | **Noctua NF-A12x25** | 2.34 mmH2O | Up to 2000 | 60.1 CFM | 22.6 dBA | Quietest premium option. |
 | **Arctic P14 PWM** | 2.40 mmH2O | Up to 1700 | 72.8 CFM | 38 dB(A) | Larger 140mm - covers more heatsink area. |
 | **Wathai 120mm Blower** | 0.81-1.35 mmH2O | Up to 3000 | 25-38 CFM | 25-45 dB(A) | Blower style. Not ideal for main cooling. (need confirmation - not in elektricM) |
+| **Arctic S12038-8K** | Server fan | Up to 8000 | Very high | Very high | "At 68% speed spanks a P12 Pro" (paul_lionking, May 2026) |
 
 Source notes on fan specs:
 - P12 Pro: Arctic official (arctic.de/en/P12-Pro). 3000 RPM / 77 CFM / 6.9 mmH2O. Noise: 39.7 dBA per Cybenetics independent test at max speed. Arctic marketing claims 25 dB(A) at low speed.
@@ -208,6 +209,13 @@ Source: elektricM cooling.md (Safe Operating Temperatures table)
 | 80-85C | Normal with good air cooling |
 | 90-96C | High - check paste and airflow |
 | 108C | Extreme OC without adequate cooling |
+
+### Orientation Considerations (May 2026)
+
+Board orientation affects cooling performance:
+- juliuuscaesar reported a **10°C difference** between horizontal and vertical orientation
+- big_trov found only 1-2°C difference on his board, with power-plugs-down orientation slightly cooler
+- Test your specific board and mounting orientation for optimal thermals
 
 ### With Liquid Cooling (240mm AIO)
 

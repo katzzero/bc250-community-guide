@@ -162,6 +162,27 @@ amdgpu: device wedged, but recovered through reset
 
 ---
 
+## GPU Freeze with KIQ Fence Timeout and KFD Failure
+
+**Symptoms:** Black screen, system completely unresponsive (can't even ping). Screen goes black under GPU-intensive load. Errors in kernel log:
+```
+timeout waiting for kiq fence
+ring gfx_0.0.0 timeout
+ring gfx_0.0.0 reset failed
+GPU reset begin
+Failed to quiesce KFD
+```
+
+**Cause:** GPU voltage too low for the configured frequency — the GPU core can't complete operations at the selected voltage/frequency point, causing a hard lockup. Common when running 40 CU on default governor safe-points (nunofgs., May 2026).
+
+**Fixes:**
+1. **Increase voltage** on affected safe-points in governor config (hojnikb). If using 40 CU, start at a lower frequency (e.g., 1850 MHz) and increase voltage by 10-15 mV per step.
+2. **Reduce max frequency** in governor config until stable.
+3. If you're on Bazzite with stock governor settings, try adding the governor if not installed, then tune voltages.
+4. Use `journalctl -k -b -1 | grep -i "gpu\|amdgpu\|timeout\|kfd"` to check last boot errors.
+
+---
+
 ## High RAM Usage / OOM Crashes (Alternative to zram)
 
 If zram is not enough for RAM-hungry games, use **zswap + swapfile** -- it dumps cold memory pages to disk, freeing RAM for games (source: performance.md).

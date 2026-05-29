@@ -35,7 +35,13 @@ If you can't see the BIOS screen but the OS boots fine:
 
 Audio is transmitted natively through DisplayPort. If your monitor has speakers or you use a DP-to-HDMI passive adapter, audio should work automatically.
 
-**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS). Fix contributed by TheFloW (PS5 Linux developer), relayed by _fanoush_. Note: not 100% perfect for all configurations — active DP-to-HDMI may still have intermittent audio hiccups (essdee4336 reports hiccup every ~38s on active adapter). Passive adapters work without issue. Bazzite users need custom kernel or must wait for kernel update.
+**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS, available in Bazzite desktop testing branch). Fix contributed by TheFloW (PS5 Linux developer), relayed by _fanoush_. 
+
+**Adapter audio status (May 2026):**
+- **Passive adapters:** Audio works correctly, no issues reported with kernel 6.19+.
+- **Active DP-to-HDMI (UGREEN 8K60Hz):** Audio dropouts every ~38 seconds (essdee4336). Active adapters enable 1440p@120Hz but audio quality suffers. 4K not recommended on this board.
+- **Passive DP-to-HDMI (generic):** Limited to HDMI 1.4 (1080p60 / 1440p60, no 120Hz). Audio works fine.
+- **Note:** Some Bazzite users still report pitch-shifted audio via DP→HDMI even on recent kernels (nataliezaki, May 2026). Native DP connection avoids all audio issues.
 
 ### Option 2: USB Sound Card (Most Reliable Fix)
 

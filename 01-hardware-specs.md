@@ -14,7 +14,7 @@
 | **GPU** | 24x RDNA 2 Compute Units (CUs), up to 40 CU unlockable via kernel patch (duggasco/bc250-40cu-unlock); codename gfx1013 |
 | **GPU Base Clock** | 1500 MHz (locked without governor) |
 | **GPU Max Clock** | 2000 MHz stock kernel - 2230 MHz with kernel patch + governor |
-| **GPU Performance** | Stock 24 CU: Between RX 6600 and RX 6600 XT; 40 CU unlocked: RX 6700 / GTX 1080 Ti level |
+| **GPU Performance** | Stock 24 CU: Between RX 6600 and RX 6600 XT; 40 CU unlocked: RX 6700 / GTX 1080 Ti / R5 1600 CPU level. No INT8 support = no FSR4 (gennro, fforduck) |
 | **Memory** | 16 GB GDDR6 (PS5 spec), 14 Gbps, 256-bit bus, ~448 GB/s bandwidth |
 | **Memory Split** | Configurable in BIOS -- see [02-BIOS](02-bios-and-firmware.md) |
 | **TDP** | 220W typical, up to 235W under extreme load |
@@ -93,7 +93,8 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 2. **No VCN firmware** -- hardware video encode/decode permanently unavailable
 3. **PCIe 2.0 x2 only** -- SSD limited to ~1 GB/s (don't overspend on NVMe)
 4. **A68H southbridge** [pops1cl] -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
-5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor (need confirmation); ensure case airflow
+5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor (need confirmation); ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet)
+6. **No INT8 support** -- PS5 APU lacks INT8 instructions required for FSR4; BC-250 will never support FSR4 (gennro, fforduck, May 2026)
 6. **Expandable to 40 CUs** -- 16 harvested CUs unlockable via kernel patch ([duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
 
 ---
