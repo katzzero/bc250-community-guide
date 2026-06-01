@@ -327,7 +327,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 **CachyOS / Arch:**
 ```bash
-yay -S cyan-skillfish-governor-smu
+paru -S cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 

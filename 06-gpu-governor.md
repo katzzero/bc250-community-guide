@@ -36,10 +36,24 @@ systemctl reboot
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-### Arch / CachyOS / Manjaro
+### CachyOS (paru pré-instalado)
 
 ```bash
-yay -S cyan-skillfish-governor-smu
+paru -S cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
+```
+
+### Arch / Manjaro (instale um AUR helper primeiro)
+
+```bash
+# Instalar paru (se não tiver)
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/paru.git
+cd paru && makepkg -si && cd ..
+
+# Depois:
+paru -S cyan-skillfish-governor-smu
+# Ou com yay: yay -S cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 

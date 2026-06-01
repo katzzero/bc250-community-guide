@@ -293,7 +293,7 @@ systemctl status cyan-skillfish-governor-smu
 
 # Reinstall (source: governor.md)
 sudo dnf reinstall cyan-skillfish-governor-smu     # Fedora
-yay -S cyan-skillfish-governor-smu                  # Arch
+paru -S cyan-skillfish-governor-smu                  # Arch/CachyOS
 
 # Check config exists (source: governor.md)
 ls -l /etc/cyan-skillfish-governor-smu/config.toml

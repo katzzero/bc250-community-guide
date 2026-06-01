@@ -197,7 +197,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
    ```
 5. Install governor:
    ```bash
-   yay -S cyan-skillfish-governor-smu
+   paru -S cyan-skillfish-governor-smu
    sudo systemctl enable --now cyan-skillfish-governor-smu.service
    ```
 
@@ -258,8 +258,8 @@ sudo nano /etc/pacman.conf
 1. Install Arch normally with `linux-lts` kernel (6.18.18 LTS recommended, avoid 6.15.0-6.15.6 and 6.17.8-6.17.10)
 2. Install governor from AUR:
    ```bash
-   yay -S cyan-skillfish-governor-smu
-   # or: paru -S cyan-skillfish-governor-smu
+   paru -S cyan-skillfish-governor-smu
+   # or: yay -S cyan-skillfish-governor-smu
    sudo systemctl enable --now cyan-skillfish-governor-smu.service
    ```
 3. Automated setup script (alternative):
