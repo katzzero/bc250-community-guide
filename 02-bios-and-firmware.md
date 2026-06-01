@@ -298,9 +298,22 @@ This replaces the kernel patch method for most users. Use your distro's stock ke
 
 Not all CUs are healthy. Bad CUs cause immediate artifacts (green dots, visual corruption) and shutdown when enabled (koloses, meee). Some users can only identify bad CUs via in-game artifacts, not synthetic benchmarks — a board that passes Furmark may still crash in games (pm_me_kitsunemimi). The live manager makes testing much faster — toggle CUs without rebooting and spot visual artifacts immediately.
 
-Boards with scattered harvest patterns (`■■□□■■□□■■`) likely have defective silicon. The project includes a per-WGP isolation test:
+Boards with scattered harvest patterns (`■■□□■■□□■■`) likely have defective silicon.
+
+**Live-manager method (TUI):** Enable WGPs one by one in the interactive UI and check for artifacts immediately — no reboot needed.
 
 ```bash
+cd bc250-cu-live-manager
+sudo ./bc250-cu-live-manager.sh
+# Press 'e' to edit WGP table, toggle unlocked WGPs, test stability
+# Press 'f' for full 40 CU dispatch
+```
+
+**Batch method (duggasco scripts):** Per-WGP isolation test that reboots for each WGP. More thorough but much slower.
+
+```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
 sudo ./scripts/bc250-cu-health-test.sh start   # 20 reboots, tests each WGP
 ./scripts/bc250-compute-verify.sh               # quick check, no reboot
 ```
@@ -311,9 +324,11 @@ Doom: The Dark Ages and CS2 are more sensitive than synthetic benchmarks for det
 
 ### CU Harvest Map
 
-Check which CUs are active/harvested on your board (sinh_28065, lux.the.cook):
+Check which CUs are active/harvested on your board using the [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) scripts (sinh_28065, lux.the.cook):
 
 ```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
 ./scripts/cu_map.sh                              # Show current CU map
 ./scripts/cu_map.sh --health results.tsv         # Show map with health overlay
 ./scripts/bc250-cu-mask.sh --results results.tsv # Generate selective mask config
@@ -352,9 +367,17 @@ options amdgpu bc250_cc_write_mode=3 disable_cu=0.0.4,0.1.4,1.0.4,1.1.4
 
 ### Disabling
 
+**If using the duggasco kernel patch:**
 ```bash
+cd bc250-40cu-unlock
 sudo ./scripts/bc250-enable-40cu.sh disable   # removes config, reboots to 24 CU
 sudo ./scripts/bc250-enable-40cu.sh restore   # restores original amdgpu module
+```
+
+**If using the live-manager:** Open the TUI and press `t` (Restore factory WGPs), or:
+```bash
+cd bc250-cu-live-manager
+sudo ./bc250-cu-live-manager.sh stock-dispatch  # restores factory 24 CU layout
 ```
 
 ### 40 CU Crash Behavior (big_trov, codyrainy, cralant, May 2026)
