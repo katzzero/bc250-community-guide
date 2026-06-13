@@ -111,3 +111,15 @@ This guide is maintained by katzzero. It is updated continuously from community 
 - **Dell DA2 PSU (hoodyracoon)** — Running 40 CU at 1700 MHz/3600 MHz undervolted on 220W 12V-only external PSU.
 - **Mesa 26** — GTA V Enhanced fixed; shipped in CachyOS with RT/perf improvements.
 - **VRR** — CachyOS native, Bazzite custom image confirmed. Cheap Aliexpress DP>HDMI adapters recommended.
+- **AWG Cable Safety Table** — 16 AWG minimum verified; 18 AWG risky at 220W+ sustained; 22 AWG melts under load. Added to power guide with current/wattage per gauge.
+- **WiFi Adapter Guide** — M.2 Key E slot compatibility (Intel AX210, AX200, AC-9260, Realtek, MediaTek), USB adapter options, driver requirements, antenna connector types.
+- **Nylon Washer Warning (mzk10, .captainwasabi)** — Heatsink disassembly: 4 clear/black nylon washers under screw heads frequently lost. Reassembling without them causes gap → 90-100°C idle. Added to cooling guide.
+- **ACPI Fix Controversy** — `bc250-acpi-fix` table debated: some report cosmetic cpufreq only (frequency doesn't actually change), others report instability. Verify with `grep MHz /proc/cpuinfo`.
+- **DP Audio Fix (kernel 6.19.10+)** — New amdgpu DP audio implementation resolves audio-on-active-adapter issue. Older kernels: audio over active DP-HDMI adapters broken.
+- **Spider-Man 2 OOM Crash** — Game crashes with out-of-memory on BC-250. No known fix — game allocator issue, not fixable via kernel parameters.
+- **ttm.pages_limit Formula** — Documented calculation: `pages_limit = (GTT_size_bytes) / PAGE_SIZE`. Example: 14750 MB → 3776000 pages. Added to performance guide.
+- **Fin Straightening Tools** — Catalogued: 3D printed fin straightener (Printables), HVAC nylon fin straightener (Amazon), Scooper tool (~$2), manual pliers method. Temperature impact: 5-10°C.
+- **Mean Well LOP Series Expanded** — Added LOP-400-12 (400W), LOP-500-12 (500W), LOP-600-12 (600W) alongside existing 300W. Open frame, fanless on 300W/400W.
+- **FSP500 vs Metalfish Fan Comparison** — FSP500: stock 40mm×20mm sleeve bearing ~8000 RPM, noticeable whine. Metalfish: quieter 40mm×10mm hydraulic bearing, modular braided cables.
+- **Server PSU Noise Table** — HP DPS-800GB (~65 dBA), Delta DPS-750RB (~70 dBA), Bitmain APW3++ (~60 dBA, 220W idle), Dell 1U 750W (~55 dBA). Noise reduction options included.
+- **PTM7950 Detail** — Phase-change pad requires thermal cycling to cure. Best performance option. Dedicated thread for size/thickness guidance.
