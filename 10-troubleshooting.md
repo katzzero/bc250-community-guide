@@ -4,6 +4,23 @@
 
 ---
 
+## Frequently Asked Questions
+
+| Question | Brief Answer | See Also |
+|----------|-------------|----------|
+| **Which PSU should I buy?** | FSP500-30AS (US, ~$10-22 eBay) or Mean Well LOP-400/500/600 for best value. Metalfish Flex 500W for non-US. 400W+ minimum for OC. | [03-Power Supply Guide](03-power-supply-guide.md) |
+| **Which WiFi adapter works?** | TP-Link Archer TX10UB Nano or UGreen AX900 (both MT7921AU chipset, OOTB on Bazzite). Avoid combo WiFi/BT dongles on USB 3.0 ports -- use separate dongles or a USB 2.0 hub. | [09-WiFi & Peripherals](09-wifi-and-peripherals.md) |
+| **How do I fix VRAM out-of-memory crashes?** | Use 512MB dynamic allocation in BIOS, add kernel params `ttm.pages_limit=3959290 ttm.page_pool_size=3959290`, set up zswap + 16-32GB swapfile. Static splits (6GB/10GB) are more reliable for AAA games. | VRAM section below, [02-BIOS](02-bios-and-firmware.md) |
+| **How do I fix ACPI idle power draw?** | Install `bc250-acpi-fix` -- drops idle from 40-60W to ~25-30W. GitHub: bc250-collective/bc250-acpi-fix. Requires dracut rebuild on Bazzite. | help-thread exports |
+| **How do I fix green screen / visual artifacts?** | Check CPU stability (increase voltage), GPU governor voltage too low (raise 25-50mV), VRAM overheating (add heatsinks). If persistent at stock settings, board may have faulty silicon. | Artifacts section below |
+| **Why is my CPU fan not spinning?** | J4003 header may need fan with detection pin grounded. Try different fan model. Check with multimeter for oxidized pins. Some fans require the 4th PWM pin to be connected. | help-thread: `None of The CPU fans I try work` |
+| **Which OS should I use?** | Bazzite = easiest (pre-configured gaming), CachyOS = best performance + flexibility, Fedora/Arch = advanced users. | [05-OS Installation](05-os-installation.md) |
+| **How do I recover from a bricked BIOS?** | Use CH341A or Raspberry Pi Pico on J4004 header with SOP8 clip. Flash chip: BIOS_A1 (Winbond W25Q128JVSQ, 16MB). Always backup first. | Flash Failed section below |
+| **No audio over DisplayPort?** | Use a passive (not active) DP-to-HDMI adapter. Update to kernel 6.19.10+ for DP audio fix. USB audio adapter ($10) as fallback. | [08-Display & Audio](08-display-and-audio.md) |
+| **How do I reduce idle power draw?** | ACPI fix (see above) + cyan-skillfish-governor (dynamically scales GPU, reducing idle freq) + disable unnecessary USB devices in BIOS. Typical idle: 25-35W with both fixes. | ACPI fix repo, governor docs |
+
+---
+
 ## Board Won't Boot (No POST)
 
 **Symptoms:** Fans spin, LEDs light, but no display and keyboard doesn't light up.

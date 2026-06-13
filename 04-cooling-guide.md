@@ -4,6 +4,7 @@ The stock BC-250 heatsink is designed for passive rack cooling. Active cooling i
 
 **Community cooling projects:**
 - **AMD clip system cooler adapter** (biohazardv2.0 / bioizhere) — 3D-printable mount to attach standard AM4/AM5 clip-based coolers (air or AIO) to the BC-250. Tested with Zalman CNPS4X (92mm air). [Printables](https://www.printables.com/model/1042228-bc250-to-amd-cpu-cooler-mount)
+- **Case mods catalog** — full list of community case designs in [Case Mods & Custom Enclosures](12-case-mods.md)
 
 ---
 
@@ -27,6 +28,22 @@ Source: elektricM cooling.md (Stock Configuration, Active Cooling Required)
 Quick ID from elektricM: QR code next to the PCIe 8-pin connector indicates the 9-row variant.
 
 Source: elektricM cooling.md (Stock Configuration - Variants)
+
+### Heatsink Revisions
+
+Some heatsinks have silkscreened markings showing where to place thermal pads; others do not. iamdarkyoshi (17 Mar 2026) reported owning two BC-250s where only the second unit had these pad-position markings.
+
+### CRITICAL: 4x Nylon Washers Under Heatsink Screws
+
+The heatsink is secured by **4 spring-tensioned screws** that pass through the back of the board. Under each screw head (on the VRAM/backplate side) there is a **clear or black nylon washer** that prevents the screw head from shorting PCB traces.
+
+**What goes wrong:** During disassembly these washers often fall off and are lost. Reassembling without them creates a gap between heatsink and APU die, causing 90-100°C+ temperatures at idle.
+
+**Diagnosis:** If the heatsink cannot be fully tightened (gap remains between die and heatsink), check whether the 4 nylon washers are present and correctly positioned. Shine a light through the side of the board to check for a visible gap.
+
+**Fix:** Retrieve or replace the missing washers, realign them, and retorque. Users who found and re-installed missing washers reported temperatures "slowly decreasing" back to normal.
+
+Sources: mzk10 (4 Dec 2025, 23 Jan 2026), .captainwasabi (23 Jan 2026). mzk10 summarizes: "In my day job it's always DNS. In bc250 chat it's always those damned washers."
 
 ---
 
@@ -144,10 +161,10 @@ Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from el
 | Location | Recommended | Thickness | Notes |
 |----------|-------------|-----------|-------|
 | **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0DHRR78H7` (need confirmation). |
-| **Front (VRAM/VRMs)** | Thermal pads | 1.5 mm | elektricM cooling.md specifies 1.5mm on front of board |
-| **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md specifies 2.0mm on back |
+| **Front (VRAM/VRMs)** | Thermal pads | 1.5 mm | elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026) |
+| **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026). jayawesome (17 Mar 2026) confirmed having 0.5/1.0/1.5/2.0mm pads on hand and that they are stackable. |
 
-Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of board, 2.0mm on back"). Note: prerequisites.md recommends "1mm or 1.5mm thickness" for backplate VRAM - discrepancy with cooling.md's 2.0mm back spec.
+Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of board, 2.0mm on back"). Community corroboration: vicomte.me (12 Jan 2026) cited Snarks Domain "BC250 Thermal Putty Job" video with the same thickness recommendation. Note: prerequisites.md recommends "1mm or 1.5mm thickness" for backplate VRAM - discrepancy with cooling.md's 2.0mm back spec; the 2.0mm community consensus aligns with cooling.md.
 
 ### PTM7950 Application Guide
 
@@ -279,6 +296,14 @@ Source: elektricM cooling.md (Backplate VRAM Cooling Solutions, Memory Thermal P
 3. Mount a small fan (80mm) blowing directly on backplate (elektricM cooling.md: Secondary Fan 80mm)
 4. Attach aluminum heatsink plate to back of board (elektricM cooling.md: "Attach aluminum heatsink or plate if available")
 
+### Heatsink-to-PCB Thermal Pads
+
+iamdarkyoshi (17 Mar 2026) tested adding thermal pads between the heatsink and PCB directly behind individual GDDR6 memory ICs. The left-side ICs (with pads installed) were visibly cooler than the right-side ones (stock, without pads). This helps conduct heat from the memory chips through the PCB and into the heatsink.
+
+**How to do it:** Reuse extra pad material from the backplate pads, squish it slightly to make it thick enough to contact both surfaces. The target thickness is "just barely thicker than the thermal pads used on the back." iamdarkyoshi recommends scrunching the stock backplate pad material to make it narrower and slightly thicker.
+
+**Note:** Not all heatsinks have markings for these additional pad positions. iamdarkyoshi's second board had silkscreened marker positions; the first did not.
+
 **Key takeaway:** Front cooling alone isn't enough. Pay attention to the back.
 
-Source: elektricM cooling.md (Backplate VRAM Cooling Solutions)
+Sources: elektricM cooling.md (Backplate VRAM Cooling Solutions), iamdarkyoshi (17 Mar 2026)

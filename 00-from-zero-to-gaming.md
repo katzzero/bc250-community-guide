@@ -103,7 +103,8 @@ A BC-250 precisa de **12V apenas** com um **conector PCIe 8-pin (6+2)**.
 
 - **NUNCA** use adaptador SATA-para-PCIe — risco de incêndio (SATA = 54W, board = 235W)
 - **NUNCA** use adaptador 6-pin para 8-pin barato — derrete
-- Use **fio 16 AWG ou mais grosso** para extensões
+- Use **fio 16 AWG mínimo** (silicone, não PVC/nylon) — 18 AWG já derreteu em teste de carga
+- 20-22 AWG é **perigoso** — corrente da BC-250 excede o limite desses cabos
 - FSP500-30AS é o padrão por ter cabos de alta qualidade
 
 > Consulte [03 — Power Supply Guide](03-power-supply-guide.md) para pinouts, wiring, e mais fontes.

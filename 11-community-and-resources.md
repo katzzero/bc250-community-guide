@@ -151,6 +151,7 @@ Found a solution to a problem? Help others by adding it to the documentation.
 | 09 | [WiFi & Peripherals](09-wifi-and-peripherals.md) | Adapters, storage, accessories |
 | 10 | [Troubleshooting](10-troubleshooting.md) | Error fixes, debugging commands |
 | 11 | [Community & Resources](11-community-and-resources.md) | Links, Discord, timeline, credits |
+| 12 | [Case Mods & Custom Enclosures](12-case-mods.md) | Community case designs, commercial sources, 3D-printable files |
 
 ---
 

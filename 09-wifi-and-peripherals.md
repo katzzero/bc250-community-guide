@@ -8,14 +8,17 @@
 
 ### ✅ Recommended
 
-| Adapter | Chipset | WiFi | Bluetooth | Price | ASIN | Notes |
-|---------|---------|------|-----------|-------|------|-------|
-| **TP-Link Archer TX10UB Nano** | MT7921AU (need confirmation: may be RTL8832CU) | WiFi 6 (AX900) | BT 5.3 | ~$20 | `B0DQXSRGQ4` | Tiny, dual-band — community tested (BT 5.3 per Amazon listing) |
-| **Fenvi FU-AX1800** | MediaTek | WiFi 6 (AX1800) | BT 5.0+ | ~$20 | Various | "Works perfectly" on Bazzite |
-| **EDUP AX3000M** | MT7921AU | WiFi 6E (AX3000) | BT 5.0+ | ~$25 | Various | Good Linux support, 6E band |
-| **TP-Link Archer T2UB Nano** | — | WiFi 5 + BT 4.2 | BT 4.2 | ~$15 | `B0BMX82Y3J` | Budget option |
+| Adapter | Chipset | WiFi | Bluetooth | Price | Notes |
+|---------|---------|------|-----------|-------|-------|
+| **TP-Link Archer TX10UB Nano** | MT7921AU | WiFi 6 (AX900) | BT 5.3 | ~$20 | Most consistently recommended. Works OOTB on Bazzite. Some BT disconnection reports on USB 3.0 ports — use USB 2.0 hub if issues arise. Separate WiFi + BT dongles recommended over combo units. |
+| **UGreen AX900** | MT7921AU | WiFi 6 (AX900) | BT 5.3 | ~$20 | Similar to TP-Link AX900. Community tested on Bazzite (Italian sub-thread). Random WiFi drops reported (10s, self-healing). |
+| **Fenvi FU-AX1800** | MediaTek | WiFi 6 (AX1800) | BT 5.0+ | ~$20 | "Works perfectly" on Bazzite. |
+| **EDUP AX3000M** | MT7921AU | WiFi 6E (AX3000) | BT 5.0+ | ~$25 | Good Linux support, 6E band. |
+| **TP-Link Archer T2UB Nano** | Realtek | WiFi 5 + BT 4.2 | BT 4.2 | ~$15 | Budget option. |
 
-> **Official elektricM recommendation:** Realtek **RTL8822BU** chipset (in-kernel driver as of Linux 6.12+). See [elektricM prerequisites](../export/elektricM-docs/docs/getting-started/prerequisites.md). Community testing has found MediaTek chipsets to also work well, but RTL8822BU adapters have the best in-kernel driver support.
+> **Official elektricM recommendation:** Realtek **RTL8822BU** chipset (in-kernel driver as of Linux 6.12+). Community testing favors **MediaTek MT7921AU** chipsets for best OOTB experience on Bazzite. If using a Realtek adapter that requires external drivers on Bazzite (immutable OS), prefer CachyOS or compile drivers via DKMS. Recommended driver repo for rtl88x2bu: [cilynx/rtl88x2bu](https://github.com/cilynx/rtl88x2bu).
+>
+> **Tip:** WiFi/BT combo dongles often cause BT disconnections on USB 3.0 ports. Use separate dongles for WiFi and BT, or plug the BT dongle into a USB 2.0 hub (Italian sub-thread, verified with kernel 6.19+). This applies to all combo adapters.
 
 ### ⚠️ Budget / Limited Support
 
