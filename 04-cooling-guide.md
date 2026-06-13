@@ -4,7 +4,7 @@ The stock BC-250 heatsink is designed for passive rack cooling. Active cooling i
 
 **Community cooling projects:**
 - **AMD clip system cooler adapter** (biohazardv2.0 / bioizhere) — 3D-printable mount to attach standard AM4/AM5 clip-based coolers (air or AIO) to the BC-250. Tested with Zalman CNPS4X (92mm air). [Printables](https://www.printables.com/model/1042228-bc250-to-amd-cpu-cooler-mount)
-- **Case mods catalog** — full list of community case designs in [Case Mods & Custom Enclosures](12-case-mods.md)
+- **Case mods catalog** — full list of community case designs in [Case Mods & Custom Enclosures](13-case-mods.md)
 
 ---
 

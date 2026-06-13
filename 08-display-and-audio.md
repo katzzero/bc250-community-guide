@@ -10,7 +10,7 @@
 |--------|---------|-------|--------------|
 | **Native DisplayPort** | Best (up to 4K@120Hz, HDR10) | ✅ Works (most users) | ✅ Best option if monitor supports DP |
 | **Passive DP-to-HDMI** | Good (1080p60 / 1440p60) | ✅ Usually works | ✅ Good value (~$5–10) |
-| **Active DP-to-HDMI** | Up to 4K@60Hz+ | ❌ Broken on BC-250 | ❌ Not recommended; ✅ works with MST hubs (pops1cl/Discord) |
+| **Active DP-to-HDMI** | Up to 4K@60Hz+ | Broken on BC-250 (direct connection). Works on MST hub outputs (pops1cl/Discord). | Not recommended for direct use; usable with MST hubs |
 | **DP-to-USB-C** | Good | ✅ Works | ✅ Good for USB-C monitors (need confirmation) |
 
 ### Recommended Cable/Adapter
@@ -84,8 +84,8 @@ VRR is now achievable through multiple paths:
 | Monoprice 21972 | DP (2) | 1.2 | Mirror only | Yes | Unable to extend displays |
 | ENBUER | DP (2) | 1.2? | Mirror only | Yes | Unable to extend displays |
 | Generic | HDMI (2) | N/A | No | No | No video or audio |
-| **DisplayLink Dock** | USB DisplayLink adapter works for desktop use (not gaming). V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite (need confirmation). |
-| **Dell ACP075EU** | Docking station with DisplayLink + USB DAC — claimed works (need confirmation) |
+| **DisplayLink Dock** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Desktop use only, not gaming. V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite (need confirmation). |
+| **Dell ACP075EU** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Docking station with DisplayLink + USB DAC — claimed works (need confirmation) |
 
 ---
 

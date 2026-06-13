@@ -162,17 +162,17 @@ ________________________
 
 ### Cable Safety — Wire Gauge (AWG)
 
-| AWG | Veredito | Corrente máx (~) | Notas |
-|-----|----------|-------------------|-------|
-| **12-14 AWG** | Superdimensionado | 20-35A | Muito rígido, overkill para BC-250 |
-| **16 AWG** | **MÍNIMO RECOMENDADO** | 13A | Escolha mais segura para qualquer configuração |
-| **18 AWG** | Arriscado | 9.5A | Funciona em stock/OC leve, mas já derreteu em Furmark <1 min (capt.cat_13) |
-| **20-22 AWG** | **PERIGO — NÃO USE** | 5-7A | Vai derreter sob carga da BC-250 |
+| AWG | Verdict | Max Current (~) | Notes |
+|-----|---------|-----------------|-------|
+| **12-14 AWG** | Oversized | 20-35A | Too rigid, overkill for BC-250 |
+| **16 AWG** | **RECOMMENDED MINIMUM** | 13A | Safest choice for any configuration |
+| **18 AWG** | Risky | 9.5A | Works for stock/light OC, but melted in Furmark under 1 min (capt.cat_13) |
+| **20-22 AWG** | **DANGER — DO NOT USE** | 5-7A | Will melt under BC-250 load |
 
-- Use **silicone wire** (suporta altas temperaturas), **NUNCA PVC/nylon** (derrete)
-- Evite **CCA** (Copper-Clad Aluminum) e cabos de aço — algumas fontes baratas (Apevia) usam aço
-- Cuidado com cabos chineses que falsificam AWG (cobre pintado ou ferro)
-- Verifique se o fio é **cobre puro** antes de usar
+- Use **silicone wire** (handles high temperatures), **NEVER PVC/nylon** (melts)
+- Avoid **CCA** (Copper-Clad Aluminum) and steel cables — some cheap PSUs (Apevia) use steel
+- Be wary of Chinese cables that fake AWG (painted copper or iron)
+- Verify the wire is **pure copper** before using
 - Do NOT use SATA-to-PCIe adapters — fire hazard (SATA is rated 54W, board draws 235W)
 - Do NOT use cheap 6-pin to 8-pin PCIe adapters for power delivery — they will melt
 - Avoid Apevia PSUs — reports of steel wires in cables (essdee4336)

@@ -36,7 +36,7 @@ Set VRAM to **512MB dynamic** in BIOS. The rest is allocated dynamically via GTT
 
 ```bash
 # Add to kernel parameters for ~14 GB VRAM
-amdgpu.gttsize=14000 ttm.pages_limit=3584000 ttm.page_pool_size=3584000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 ### Install llama.cpp

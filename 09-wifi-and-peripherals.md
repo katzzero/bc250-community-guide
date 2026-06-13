@@ -47,7 +47,7 @@ If you already have Ethernet and just need Bluetooth:
 
 The BC-250 has a **single M.2 2280 slot** running at **PCIe 2.0 x2 (~1 GB/s max)** — also supports SATA III (~550 MB/s). Don't overspend — even cheap NVMe drives will saturate the bus.
 
-Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specifications.md#L82-L84)
+Source: [elektricM specifications](https://elektricm.github.io/amd-bc250-docs/hardware/specifications/)
 
 ### ✅ Tested & Working
 
@@ -70,7 +70,7 @@ Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specif
 |--------|-------|---------|-------|
 | **USB-C Front Panel** | Duttek Type-E to USB-C (`B09M8J7CNW`) | Works | 10 Gbps USB 3.1 |
 | **ATX Breakout Board** | JMT 6Pin (`B0CTCLV6Y1`) | Works | For server PSUs, includes 4x USB 2.0 |
-| **USB Audio** | Creative Sound Blaster Play! 4 (`B08T9LM3LM`) | Works | Plug and play — see [08-Display & Audio](../Revised/08-display-and-audio.md) |
+| **USB Audio** | Creative Sound Blaster Play! 4 (`B08T9LM3LM`) | Works | Plug and play — see [08-Display & Audio](08-display-and-audio.md) |
 | **USB Audio** | SABRENT AU-EMCB (`B00XM883BK`) (need confirmation) | Works | Budget plug-and-play option |
 | **DisplayLink Dock** | V7 Universal (Best Buy `10872445`) | Works | Dual HDMI on Bazzite |
 | **Dell ACP075EU** | Docking station | Works | Has DisplayLink + USB DAC |
@@ -82,7 +82,7 @@ Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specif
 
 The BC-250 has a **built-in Realtek RTL8111H** Gigabit Ethernet port. Linux support is excellent — plug and play.
 
-Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specifications.md#L85)
+Source: [elektricM specifications](https://elektricm.github.io/amd-bc250-docs/hardware/specifications/)
 
 For faster networking or WiFi 6E, consider a USB 2.5 GbE adapter, though driver support on Linux can be hit-or-miss.
 
@@ -90,7 +90,7 @@ For faster networking or WiFi 6E, consider a USB 2.5 GbE adapter, though driver 
 
 ## Keyboard & Input
 
-The BC-250 ships without a power button header. Source: [elektricM specifications](../export/elektricM-docs/docs/hardware/specifications.md#L100).
+The BC-250 ships without a power button header. Source: [elektricM specifications](https://elektricm.github.io/amd-bc250-docs/hardware/specifications/).
 
 1. **Solder to onboard button** — two wires to the protruding button on the back of the board, move `AUTO_PWRON1` jumper from pins 1-2 to 2-3
 2. **PSU latching switch** — wire PS_ON to GND with a latching switch
@@ -105,9 +105,9 @@ The BC-250 ships without a power button header. Source: [elektricM specification
 | Item | Source | Notes |
 |------|--------|-------|
 | BC-250 4U Server Case | Original ASRock enclosure | Noisy stock fans — replace with 120mm |
-| BC-250 Shell Case (3D print) | [Printables](https://www.printables.com/model/1228207) | Simple enclosure with fan mount — source: [elektricM cases-data.json](../../export/elektricM-docs/docs/community/cases-data.json) |
+| BC-250 Shell Case (3D print) | [Printables](https://www.printables.com/model/1228207) | Simple enclosure with fan mount — source: [elektricM cases](https://elektricm.github.io/amd-bc250-docs/community/cases/) |
 | Fan shrouds | [Printables search for "BC-250"](https://www.printables.com/search/models?q=BC-250) | 145+ community designs documented |
 | M3 Heated Inserts | Any | For 3D printed cases |
 | Rubber Washers / Standoffs | Any | For vibration dampening |
 
-> For the complete case catalog (145 documented designs as of elektricM docs): [elektricM Case Gallery](https://elektricm.github.io/amd-bc250-docs/community/cases/) — designs with PSU type, dimensions, and build notes. Source: [elektricM cases.md](../export/elektricM-docs/docs/community/cases.md#L15).
+> For the complete case catalog (145 documented designs as of elektricM docs): [elektricM Case Gallery](https://elektricm.github.io/amd-bc250-docs/community/cases/) — designs with PSU type, dimensions, and build notes. Source: [elektricM cases](https://elektricm.github.io/amd-bc250-docs/community/cases/).

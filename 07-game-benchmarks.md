@@ -75,7 +75,7 @@
 | 1440p FSR3 Quality | ~55–60 (need confirmation) | Similar to 1080p native |
 | Auto VRAM | Crashes after 5–10 min (need confirmation) | Must use 6 GB+ static allocation |
 
-**Fix:** Add kernel params: `ttm.pages_limit=2490368 ttm.pages_pool_size=2490368` (need confirmation)
+**Fix:** Add kernel params: `ttm.pages_limit=3959290 ttm.page_pool_size=3959290`
 
 ---
 

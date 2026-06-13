@@ -162,7 +162,7 @@ amdgpu: device wedged, but recovered through reset
    amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
    ```
    This allows up to ~14.75 GB for VRAM. Limit usage to 14.25-14.5 GB in applications.
-   -- (Note: our file had `ttm.pages_limit=2490368` for ~10 GB. That value is not in source docs; corrected to match source. The 2490368 values may be from Discord -- (need confirmation))
+   -- (Note: the previous value `ttm.pages_limit=2490368` for ~10 GB was not in source docs; corrected to match source.)
 2. **Lower texture detail** in games
 3. **Disable ZRAM or use fixed VRAM allocation** (source: stability.md)
 4. **For OpenGL:** `MESA_LOADER_DRIVER_OVERRIDE=zink` (source: Discord bc250-chat)

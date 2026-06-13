@@ -34,10 +34,12 @@ cd bc250-unofficial-community-guide
 - ✅ New benchmarks and performance data
 
 ## Guidelines
+- **English only** — all documentation must be written in English. If source material is in another language, translate before submitting.
 - **Do not guess** — if you're unsure, mark it as unverified
 - **No official Windows GPU driver claims** — Linux only. Unofficial WIP at ZEROAESQUERDA/BC250-windowsDriverTest.
 - **Always cite sources** for technical specifications
 - **Keep it reader-friendly** — use tables, headers, and clear formatting
+- **Sync the wiki** — after your PR is merged, the maintainer will sync the guide to the GitHub Wiki
 
 ## Reporting Issues
 Open a GitHub Issue if you find:
