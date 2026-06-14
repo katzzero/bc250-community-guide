@@ -4,6 +4,23 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## June 14, 2026 — Wiki Sync, AI Protocol Update, Missing Repos Added
+
+### 1. Wiki Synced with Revised
+- Copied updated CONTRIBUTING.md to wiki/ (removed obsolete Windows driver rule)
+- Added 13-case-mods to Home.md Table of Contents
+- Committed to wiki repo
+
+### 2. AI_PROTOCOL.md Public Version Updated
+- Added missing sections: README Sync Rule, Pre-Commit Review Rule, Post-Edit Quality Checklist, Track Record Rule
+- Renumbered existing sections (6-7 → 10-11)
+- Updated last modified date
+
+### 3. Missing Repos Added to Community Page
+- Added 5 undocumented repos to 11-community-and-resources.md: bc-250-sleeve-adapter, BC-250-Custom-Case, BC250--ARCH, bc250-arch, Magnap/cyan-skillfish-governor
+
+---
+
 ## May 26, 2026 — Live CU Manager, Benchmarks, Tools
 
 ### 1. bc250-cu-live-manager — 40 CU Without Kernel Patch
@@ -406,9 +423,9 @@ Full audit of all 14 Revised files (~3,200 lines) against 30+ elektricM docs, 27
 | 04-cooling-guide.md | 110 | Removed (need confirmation) from screw warning — elektricM confirmed |
 
 ### Still Unresolved
-- ~40 (need confirmation) tags remain without source
-- 6 Printables URLs return transport errors
-- 5 repos not yet documented in 11-community-and-resources.md
+- ~60+ (need confirmation) tags remain without source (concentrated in 07-game-benchmarks.md and 11-community-and-resources.md)
+- 6+ Printables URLs return transport errors (confirmed still failing as of June 14, 2026)
+- ~~5 repos not yet documented~~ ✅ Resolved — added to 11-community-and-resources.md
 
 ---
 

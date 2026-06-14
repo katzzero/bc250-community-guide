@@ -45,6 +45,11 @@
 | [jurkovic-nikola/OpenLinkHub](https://github.com/jurkovic-nikola/OpenLinkHub) | Open source fan/RGB controller hub |
 | [gennro/bc250-toolkit](https://github.com/gennro/bc250-toolkit) | CachyOS 40CU unlock + governor automation toolkit |
 | [bangstk/Vulkan_NullVRS](https://github.com/bangstk/Vulkan_NullVRS) | Vulkan layer that nullifies VRS commands -- fixes 640x480 rendering |
+| [onemorecap/bc-250-sleeve-adapter](https://github.com/onemorecap/bc-250-sleeve-adapter) | 120mm fan adapter for stock heatsink |
+| [isaacalvex/BC-250-Custom-Case](https://github.com/isaacalvex/BC-250-Custom-Case) | Alternative 3D-printable enclosure |
+| [eabarriosTGC/BC250--ARCH](https://github.com/eabarriosTGC/BC250--ARCH) | Arch Linux automated setup script |
+| [pnbarbeito/bc250-arch](https://github.com/pnbarbeito/bc250-arch) | Arch Linux setup with governor + 40 CU unlock |
+| [Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor) | SMU governor Debian/Ubuntu package — upstream for Debian builds |
 
 ---
 
