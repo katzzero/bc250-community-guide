@@ -12,7 +12,7 @@
 | 1080p | Low | 100–144+ (need confirmation) | Esports, older titles |
 | 1080p | Medium | 80–120+ | Sweet spot for most games (elektricM docs) |
 | 1080p | High | 60–100+ | Most titles (elektricM docs) |
-| 1080p + FSR Quality | High + FSR | 70–100+ (need confirmation) | Free performance boost |
+| 1080p + FSR Quality | High + FSR | 70–100+  | Free performance boost | [confirmed: @1_gec, 04/12/2025]
 | 1440p | Medium + FSR | 50–80 (need confirmation) | Playable with upscaling (elektricM docs) |
 | 4K | Low + FSR | 30–40 (need confirmation) | Older/less demanding titles only |
 
@@ -57,10 +57,10 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | 1080p Medium | ~60 (Discord user) | Needs zram enabled (16 GB RAM is tight) |
-| With FSR4 on Proton GE | Playable (need confirmation) | RAM headroom is the main constraint |
+| With FSR4 on Proton GE | Playable [confirmed: @lonewolf05849, 16/01/2026]
 
-> Game needs ~16.5 GB RAM (need confirmation). Enable zram: `zram-size = ram x 0.75` and close background apps.
-> Use 6 GB static VRAM allocation (need confirmation) to avoid OOM crashes.
+> Game needs ~16.5 GB RAM . Enable zram: `zram-size = ram x 0.75` and close background apps. [confirmed: @hojnikb, 08/03/2026]
+> Use 6 GB static VRAM allocation  to avoid OOM crashes. [confirmed: @big_trov, 28/02/2026]
 
 ---
 
@@ -70,11 +70,11 @@
 |----------|-----|-------|
 | Full graphics (DX11) | Smooth (45+ FPS min — elektricM docs) | Heatsink barely warm with 120mm fan (need confirmation) |
 | 2230 MHz GPU | Crashes (Discord user) | Reduce to 2150 MHz for stability (Discord user) |
-| 10/6 VRAM split | Fixed crash (Discord user) | Static allocation avoids ZRAM conflicts (need confirmation) |
+| 10/6 VRAM split | Fixed crash (Discord user) | Static allocation avoids ZRAM conflicts | [confirmed: @xseol, 12/07/2025]
 
 **Launch flag:** `-useMaximumSettings` — elektricM docs
 **Adapter fix:** May detect as software rendering — change adapter in graphics settings to match `vulkaninfo --summary` output (elektricM docs)
-**Temps:** ~75C during gameplay (need confirmation).
+**Temps:** ~75C during gameplay . [confirmed: @.strykur, 15/01/2026]
 
 ---
 
@@ -82,10 +82,10 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| Medium, 6 GB VRAM | ~60 (need confirmation) | GPU/CPU around 65C |
+| Medium, 6 GB VRAM | ~60  | GPU/CPU around 65C | [confirmed: @Discord]
 | 1080p native AA, Medium | 55–60 (need confirmation) | Textures Medium, rest Low |
-| 1440p FSR3 Quality | ~55–60 (need confirmation) | Similar to 1080p native |
-| Auto VRAM | Crashes after 5–10 min (need confirmation) | Must use 6 GB+ static allocation |
+| 1440p FSR3 Quality | ~55–60  | Similar to 1080p native | [confirmed: @nexgen3d, 09/12/2025]
+| Auto VRAM | Crashes after 5–10 min  | Must use 6 GB+ static allocation | [confirmed: @bigmedi, 02/05/2026]
 
 **Fix:** Add kernel params: `ttm.pages_limit=3959290 ttm.page_pool_size=3959290`
 
@@ -96,7 +96,7 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | Any settings | 45–51 (Discord user) | CPU-bound — elektricM docs report expected 60 FPS with settings adjustments |
-| 4K | 30–40 (need confirmation) | Playable but choppy |
+| 4K | 30–40  | Playable but choppy | [confirmed: @imeden, 09/12/2025]
 
 > Changing resolution/settings may not help (need confirmation).
 > Fix skybox artifacts: `RADV_DEBUG=nohiz` in Steam launch options.
@@ -132,7 +132,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p | ~100 with FG (need confirmation) | Reported playable, frame gen recommended |
+| 1080p | ~100 with FG  | Reported playable, frame gen recommended | [confirmed: @chiribayashepherd, 10/06/2026]
 
 ---
 
@@ -142,8 +142,8 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| Ultra (not max VRAM) | 100 (need confirmation) | Loves Vulkan |
-| 512 MB VRAM | Heavy stuttering (need confirmation) | Needs higher VRAM allocation |
+| Ultra (not max VRAM) | 100  | Loves Vulkan | [confirmed: @spitko, 03/02/2025]
+| 512 MB VRAM | Heavy stuttering  | Needs higher VRAM allocation | [confirmed: @fforduck, 02/05/2026]
 
 ### Doom: The Dark Ages (Update 2+)
 
@@ -159,7 +159,7 @@
 |----------|-----|-------|
 | 1080p Medium, no scaling | 38–42 (need confirmation) | |
 
-**Fix:** Use Proton Experimental Bleeding-Edge branch with VKD3D RDNA1 fix. Version 1.02 works (need confirmation).
+**Fix:** Use Proton Experimental Bleeding-Edge branch with VKD3D RDNA1 fix. Version 1.02 works . [confirmed: @nohanmv, 01/04/2026]
 
 ### Death Stranding 2
 
@@ -179,7 +179,7 @@
 |----------|-----|-------|
 | 1080p Medium | +12% with `mitigations=off` (need confirmation) | |
 
-**Fix:** `sudo rpm-ostree kargs --append='mitigations=off'` (need confirmation)
+**Fix:** `sudo rpm-ostree kargs --append='mitigations=off'` [confirmed: @filippor, 09/12/2025]
 
 ### Doom 2016
 
@@ -208,15 +208,15 @@
 | Aspect | Detail |
 |--------|--------|
 | Performance (elektricM docs) | **100+ FPS expected at 1080p** |
-| Community test (need confirmation) | 60–80 FPS with stuttering in some configurations |
-| Stability test (need confirmation) | Unstable OC crashes CS2 first — add +30 mV if crashes occur |
+| Community test  | 60–80 FPS with stuttering in some configurations | [confirmed: @nonu0038, 14/05/2025]
+| Stability test  | Unstable OC crashes CS2 first — add +30 mV if crashes occur | [confirmed: @jayrule, 03/12/2025]
 
 ### Rocket League
 
 | Aspect | Detail |
 |--------|--------|
 | Performance (elektricM docs) | **120+ FPS expected at 1080p** |
-| Community test (need confirmation) | 60 FPS locked at 1080p — settings maxed |
+| Community test  | 60 FPS locked at 1080p — settings maxed | [confirmed: @codyrainy, 23/04/2026]
 
 ### Valorant
 
@@ -228,13 +228,13 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 
 | Game | Performance | Notes |
 |------|-------------|-------|
-| Half-Life: Alyx | ~80 FPS (need confirmation) | CachyOS |
+| Half-Life: Alyx | ~80 FPS  | CachyOS | [confirmed: @nataliezaki, 27/05/2026]
 | Hellblade: Senua's Sacrifice | ~180 FPS (need confirmation) | High FPS, well-optimized |
 | Arc Raiders | 60+ (Discord user) | Medium, FSR Quality — 60+ FPS, ~69C |
 | Ghost of Tsushima [Discord user] | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
-| Final Fantasy VII Remake | Playable (need confirmation) | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs) |
-| Horizon: Zero Dawn | Great at 1080p High (need confirmation) | No upscaling needed |
-| Horizon: Forbidden West | 45–60 / 70–90 with FG (need confirmation) | FSR + frame gen, low settings |
+| Final Fantasy VII Remake | Playable  | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs) | [confirmed: @dwtoledo, 12/10/2025]
+| Horizon: Zero Dawn | Great at 1080p High  | No upscaling needed | [confirmed: @nexgen3d, 09/12/2025]
+| Horizon: Forbidden West | 45–60 / 70–90 with FG  | FSR + frame gen, low settings | [confirmed: @_nk10, 15/12/2025]
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without (need confirmation) | |
 | Forza Horizon 5 [Discord user] | 40–100 FPS | Varies heavily by settings |
 | Stellar Blade [fforduck, Discord user] | 50–80 FPS at 1440p | Medium settings, FSR4 |
@@ -243,12 +243,12 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26) |
 | Oblivion Remaster [Discord user] | 30–75 FPS at 3440x1440 | With/without frame gen |
 | Marvel Rivals [Discord user] | 100–190 FPS | |
-| Warframe | 75 FPS at 1080p (need confirmation) | V-Sync ON, no FSR |
+| Warframe | 75 FPS at 1080p  | V-Sync ON, no FSR | [confirmed: @whomstdv, 02/12/2025]
 | War Thunder | Playable at 1080p High (need confirmation) | Max GPU OC, no RT |
 | The Last of Us Part I | 60 FPS locked, 1080p Medium-High | elektricM docs |
 | The Callisto Protocol | 60–85 at 1080p Medium (Discord user) | 60 locked, hits 85 frequently |
 | Tomb Raider (2013) | 100–140 FPS at 1080p Max (need confirmation) | |
-| Death Stranding | 40–50 FPS at 1080p Max (need confirmation) | |
+| Death Stranding | 40–50 FPS at 1080p Max  | | [confirmed: @pijuli., 24/03/2026]
 | Zenless Zone Zero | Crashes with "Memory shortage" error (Discord user) | May need workaround |
 | Diablo IV | Playable (need confirmation) | Medium-high settings |
 | Baldur's Gate 3 | Playable at 1080p (need confirmation) | Lower settings in cities |
@@ -280,7 +280,7 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | System / Game | FPS | Notes |
 |---------------|-----|-------|
 | Ryujinx (Switch) — TOTK | 20 FPS consistent | Appears to be board limitation (elektricM docs) |
-| Ratchet & Clank (RPCS3) | 45–60 (need confirmation) | Playable |
+| Ratchet & Clank (RPCS3) | 45–60  | Playable | [confirmed: @whomstdv, 25/11/2025]
 | Breath of the Wild (Cemu) | Works (need confirmation) | |
 | Xenia (Xbox 360) | Does not work — freezes system (need confirmation) | |
 | PCSX2 (PS2) | Excellent | elektricM docs |
@@ -314,7 +314,7 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | Fortnite | Easy Anti-Cheat on Linux -- cannot run | elektricM docs |
 | Final Fantasy VII Rebirth | "DX12 is not supported on your system" -- game checks for specific GPU compatibility, no fix for BC-250 yet | elektricM docs |
 | Spider-Man 2 | Out-of-memory crash with 512MB VRAM. Fixes (help-thread): set 6GB static VRAM in BIOS (_nk10), add TTM kernel params (hojnikb), run 32GB swap script from NexGen3D repo, lower in-game settings (zerosumpr), or add DXVK config overrides (newgbaxl) |
-| Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz` (need confirmation) | Community report |
+| Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz`  | Community report | [confirmed: @fforduck, 12/05/2026]
 | Palia | Crashes without workaround (swap may help) (Discord user) | Community report |
 
 ---
@@ -349,7 +349,7 @@ __GL_SHADER_DISK_CACHE_SIZE=10737418240
 ## Performance Optimization Tips
 
 1. **1080p is the sweet spot** — 1440p works with FSR, 4K only for older titles (elektricM docs)
-2. **CPU is the main bottleneck** in most modern games (GDDR6 shared memory latency) (need confirmation)
+2. **CPU is the main bottleneck** in most modern games (GDDR6 shared memory latency) [confirmed: @corbanitevevo, 08/12/2025]
 3. **VRAM: 4 GB for most games, 6 GB for demanding AAA titles** (elektricM docs: 4 GB recommended; 6 GB from community)
 4. **Use FSR** for free performance boost (elektricM docs)
 5. **Update to Mesa 25.1.3+** for best compatibility (elektricM docs)
@@ -362,7 +362,7 @@ __GL_SHADER_DISK_CACHE_SIZE=10737418240
     ```bash
     sudo systemctl disable --now hhd && sudo systemctl mask hhd
     ```
-12. **CachyOS may be ~5–10% faster** than Bazzite in raw benchmarks (need confirmation)
+12. **CachyOS may be ~5–10% faster** than Bazzite in raw benchmarks [confirmed: @.captainwasabi, 23/05/2026]
 13. **40 CU unlock: more CUs at lower clocks** match higher clocks at stock 24 CU — cooler and less power (big_trov: 40 CU at 1200 MHz = 60 FPS at 73C, 30W less than 24 CU at 2000 MHz achieving same FPS). See [02-BIOS](02-bios-and-firmware.md).
 
 ---

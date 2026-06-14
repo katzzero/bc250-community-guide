@@ -19,7 +19,7 @@
 |---------|------|-------|
 | Passive DP-to-HDMI (generic) | Passive adapter | Best value — works at 1080p60/1440p60 with audio, ~$5–10 |
 | AmazonBasics DP to HDMI (`B015OW3M1W`) | Passive | Video works, audio hit-or-miss |
-| UANTIN DP to HDMI (`B0CYHB956B`) | Passive | Confirmed working, Amazon UK (need confirmation) |
+| UANTIN DP to HDMI (`B0CYHB956B`) | Passive | Confirmed working, Amazon UK | [confirmed: @biohazardv2.0, 13/02/2026]
 
 ### BIOS Display Issue — "No Display in BIOS"
 
@@ -84,8 +84,8 @@ VRR is now achievable through multiple paths:
 | Monoprice 21972 | DP (2) | 1.2 | Mirror only | Yes | Unable to extend displays |
 | ENBUER | DP (2) | 1.2? | Mirror only | Yes | Unable to extend displays |
 | Generic | HDMI (2) | N/A | No | No | No video or audio |
-| **DisplayLink Dock** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Desktop use only, not gaming. V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite (need confirmation). |
-| **Dell ACP075EU** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Docking station with DisplayLink + USB DAC — claimed works (need confirmation) |
+| **DisplayLink Dock** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Desktop use only, not gaming. V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite . | [confirmed: @toastboy6035, 12/02/2026]
+| **Dell ACP075EU** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Docking station with DisplayLink + USB DAC — claimed works | [confirmed: @toastboy6035, 12/02/2026]
 
 ---
 

@@ -93,7 +93,7 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 2. **No VCN firmware** -- hardware video encode/decode permanently unavailable
 3. **PCIe 2.0 x2 only** -- SSD limited to ~1 GB/s (don't overspend on NVMe)
 4. **A68H southbridge** [pops1cl] -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
-5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor (need confirmation); ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet)
+5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor ; ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet) [confirmed: @tominkz2137, 12/01/2026]
 6. **No INT8 support** -- PS5 APU lacks INT8 instructions required for FSR4; BC-250 will never support FSR4 (gennro, fforduck, May 2026)
 7. **Expandable to 40 CUs** -- 16 harvested CUs unlockable via kernel patch ([duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
 

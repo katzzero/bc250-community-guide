@@ -160,7 +160,7 @@ Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from el
 
 | Location | Recommended | Thickness | Notes |
 |----------|-------------|-----------|-------|
-| **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0DHRR78H7` (need confirmation). |
+| **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0DHRR78H7` . | [confirmed: @deathstalkerjr, 09/03/2026]
 | **Front (VRAM/VRMs)** | Thermal pads | 1.5 mm | elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026) |
 | **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026). jayawesome (17 Mar 2026) confirmed having 0.5/1.0/1.5/2.0mm pads on hand and that they are stackable. |
 
@@ -187,7 +187,7 @@ Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of
 
 | Paste | Conductivity | Notes |
 |-------|-------------|-------|
-| Thermal Grizzly Kryonaut | 12.5 W/mK | Best traditional paste. Recommended in elektricM (cooling.md + prerequisites). 3-5C drop vs MX-6 (need confirmation). |
+| Thermal Grizzly Kryonaut | 12.5 W/mK | Best traditional paste. Recommended in elektricM (cooling.md + prerequisites). 3-5C drop vs MX-6 . | [confirmed: @nexgen3d, 10/04/2026]
 | Arctic MX-6 | 10.0 W/mK | Current version. Recommended in elektricM (cooling.md). |
 | Arctic MX-5 | Discontinued | Replaced by MX-6. pops1cl confirmed MX-5 is NOT better than MX-6. |
 | Arctic MX-4 | 8.5 W/mK | Good value. Recommended in elektricM (prerequisites.md + cooling.md). |

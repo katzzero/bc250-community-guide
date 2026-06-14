@@ -75,10 +75,10 @@
 | BC-250 Board | Any BIOS P2.00-P5.00 | AliExpress, eBay |
 | PSU (Best Value) | FSP500-30AS Flex ATX 500W, 80+ Platinum | eBay -- search `389522369783` (essdee4336) |
 | Fan | Arctic P12 Max / P12 Pro 120mm (3-pack or 5-pack) | Amazon |
-| Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0DHRR78H7 (need confirmation) |
+| Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0DHRR78H7 | [confirmed: @selectivelygood_16010, 11/12/2025]
 | Thermal Pads | 1.5 mm front, 2.0 mm back | Amazon multi-pack |
 | Display Cable | Passive DP-to-HDMI | Amazon / AliExpress ~$2 |
-| WiFi | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | Amazon B0DZCC95G6 (need confirmation) |
+| WiFi | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | Amazon B0DZCC95G6 | [confirmed: @walkjivefly, 29/01/2026]
 | GPU Governor | cyan-skillfish-governor-smu | COPR / AUR |
 
 ---

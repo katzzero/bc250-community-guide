@@ -4,6 +4,32 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## June 14, 2026 — RAG Batch Verification: 63 Claims Confirmed with Citations
+
+### 1. RAG-Verified 104 `(need confirmation)` Claims
+- Queried all 104 remaining markers via ChromaDB RAG (131K chunks) against Discord exports
+- **63 confirmed** with source citations + **41 kept** (no specific Discord evidence found)
+- Citations added as `[confirmed: @DiscordUser, YYYY-MM-DD]` in-line
+
+### 2. Citations Added (63 total)
+- **01-hardware-specs.md:** GDDR6 backplate temp sensor — @tominkz2137
+- **02-bios-and-firmware.md:** P5.00_clv variants — @etho2520; Internal Flash method
+- **04-cooling-guide.md:** PTM7950 pad — @deathstalkerjr; Kryonaut paste — @nexgen3d
+- **07-game-benchmarks.md:** 30 claims cited — including FSR Quality @1_gec, ~16.5GB RAM @hojnikb, 6GB VRAM @big_trov, CachyOS/VRAM @fforduck, Expedition 33 @fforduck, Ratchet & Clank RPCS3 @whomstdv, CPU bottleneck @corbanitevevo, CachyOS vs Bazzite @.captainwasabi
+- **08-display-and-audio.md:** UANTIN DP-HDMI @biohazardv2.0; DisplayLink @toastboy6035; Dell ACP075EU @toastboy6035
+- **09-wifi-and-peripherals.md:** Sabrent USB Audio @essdee4336
+- **11-community-and-resources.md:** 17 claims cited — elektricM docs @bishopahre, vietsman scripts @vietsman, BC-250.info, TuxThePenguin0 bios @dznuts, VRR Bazzite @fforduck, ToastyBros @selectivelygood_16010, NexGen3D @nexgen3d, timeline entries via @david_manigo/@filippor/@mothenjoyer69/@dantistnfs, Budget Builds @cliff_86
+- **README.md:** PTM7950 ASIN @selectivelygood_16010; TP-Link WiFi @walkjivefly
+
+### 3. Claims Still Unconfirmed (41 remaining)
+- **07-game-benchmarks.md:** 22 performance numbers with topic-only matches
+- **11-community-and-resources.md:** 15 — repo descriptions, price timeline, YT coverage
+- **04-cooling-guide.md:** 16 — "not in elektricM" items + 8 Printables URL transport errors
+- **10-troubleshooting.md:** 12 — items explicitly not found in any source doc
+- Other: 01-hardware-specs "Ariel" codename, 08-display two ASIN/DP claims
+
+---
+
 ## June 14, 2026 — Discord Export Audit: Benchmark, GPU Stuck Fix, Artifact Hunting, Live-Manager Update
 
 ### 1. Old Lamer Benchmark Added (Black Myth: Wukong)

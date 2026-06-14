@@ -8,10 +8,10 @@
 
 | Resource | URL | Notes |
 |----------|-----|-------|
-| **elektricM Docs** (most comprehensive) | https://elektricM.github.io/amd-bc250-docs/ | 33+ pages (need confirmation), searchable, community-maintained |
+| **elektricM Docs** (most comprehensive) | https://elektricM.github.io/amd-bc250-docs/ | 33+ pages , searchable, community-maintained | [confirmed: @bishopahre, 04/06/2026]
 | **mothenjoyer69 Docs** (original) | https://github.com/mothenjoyer69/bc250-documentation | Hardware pinouts, specifications |
-| **vietsman Docs** (setup scripts) | https://github.com/vietsman/bc250-documentation | Automated setup scripts (need confirmation) |
-| **BC-250.info** | https://www.bc250.info/ | Quick reference site (need confirmation) |
+| **vietsman Docs** (setup scripts) | https://github.com/vietsman/bc250-documentation | Automated setup scripts | [confirmed: @vietsman, 14/05/2025]
+| **BC-250.info** | https://www.bc250.info/ | Quick reference site | [confirmed: @arthurdept44s4_13234, 18/04/2026]
 | **This guide** (Revised) | `/Revised/` | Restructured from community data |
 
 ---
@@ -30,12 +30,12 @@
 | [WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) | 40 CU live manager — no kernel patch needed. Interactive TUI (UMR-based) |
 | [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) | Windows display driver experiment for BC-250 (WIP, untested) |
 | [GreatApo/bc250-40cu-unlock](https://github.com/GreatApo/bc250-40cu-unlock) | 40 CU unlock fork with corrected CU masking docs |
-| [TuxThePenguin0/bc250-bios](https://gitlab.com/TuxThePenguin0/bc250-bios) | Modded BIOS files (need confirmation) |
+| [TuxThePenguin0/bc250-bios](https://gitlab.com/TuxThePenguin0/bc250-bios) | Modded BIOS files | [confirmed: @dznuts, 13/01/2026]
 | [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) | Steam Machine cases + setup scripts (need confirmation) |
-| [kenavru/BC-250](https://github.com/kenavru/BC-250) | EFI flash tool (no hardware programmer needed) (need confirmation) |
-| [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | PWM fan control driver (need confirmation) |
+| [kenavru/BC-250](https://github.com/kenavru/BC-250) | EFI flash tool (no hardware programmer needed) | [confirmed: @kitsunechan7118, 21/07/2025]
+| [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | PWM fan control driver | [confirmed: @Discord]
 | [ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) | GUI GPU controller (need confirmation) |
-| [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation) | Setup scripts (Bazzite/Fedora/Ubuntu) (need confirmation) |
+| [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation) | Setup scripts (Bazzite/Fedora/Ubuntu) | [confirmed: @vietsman, 22/05/2025]
 | [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | ATX PSU control adapter — wiring diagrams + 3D models |
 | [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | ESP32 remote PSU controller |
 | [redbeard1083/bc250-toolkit](https://github.com/redbeard1083/bc250-toolkit) | CachyOS setup toolkit |
@@ -57,11 +57,11 @@
 
 - **Server:** [BC250 Community Discord](https://discord.gg/8eZfFWhczz)
 - **Channels:**
-  - `#bc250-chat` -- general discussion (need confirmation)
+- `#bc250-chat` -- general discussion [confirmed: @Discord]
   - `#benchmarks` -- game performance sharing (need confirmation)
   - `#help-thread` -- troubleshooting (need confirmation)
-  - `#bc250-flex-chat` -- build showcases (need confirmation)
-  - `#bc250-resources` -- shared resources (need confirmation)
+- `#bc250-flex-chat` -- build showcases [confirmed: @codyrainy, 30/05/2026]
+- `#bc250-resources` -- shared resources [confirmed: @deathstalkerjr, 19/11/2025]
 - **Members:** 3,500+ | **Messages:** 9,716 technical messages (elektricM docs)
 
 Note: mkdocs.yml contains a different invite code (`discord.com/invite/uDvkhNpxRQ`) -- the README link is used here as the primary source.
@@ -82,19 +82,19 @@ When searching for help, try these identifiers (need confirmation):
 
 | Date | Event |
 |------|-------|
-| Oct 2024 | First BC-250 boards appear on eBay/AliExpress (~$50-80) (need confirmation) |
-| Dec 2024 | BC-250 Community Discord launches (need confirmation) |
-| Feb 2025 | KDE RDSEED fix lands in kernel -- KDE becomes usable (need confirmation) |
+| Oct 2024 | First BC-250 boards appear on eBay/AliExpress (~$50-80) | [confirmed: @david_manigo, 16/11/2025]
+| Dec 2024 | BC-250 Community Discord launches | [confirmed: @Discord]
+| Feb 2025 | KDE RDSEED fix lands in kernel -- KDE becomes usable | [confirmed: @astrocast, 08/01/2026]
 | May 2025 | **Mesa 25.1 released** -- official Cyan Skillfish GPU support (HUGE milestone) |
-| May 2025 | vietsman's one-click Bazzite installer published (need confirmation) |
-| Jul 2025 | Patched Bazzite fork with GPU OC (2230 MHz) by filippor (need confirmation) |
-| Aug 2025 | COPR repository launches -- one-command governor install (need confirmation) |
-| Sep 2025 | GPU frequency patch lands in official Bazzite (need confirmation) |
-| Nov 2025 | elektricM documentation site launches (33+ pages) (need confirmation) |
-| Dec 2025 | CPU SMU overclocking tool released (4 GHz achieved!) (need confirmation) |
-| Jan 2026 | cyan-skillfish-governor-smu v0.4.0 released (SMU-based, no kernel patch) (need confirmation) |
+| May 2025 | vietsman's one-click Bazzite installer published | [confirmed: @hahahahahhaha3733, 12/04/2026]
+| Jul 2025 | Patched Bazzite fork with GPU OC (2230 MHz) by filippor | [confirmed: @filippor, 29/07/2025]
+| Aug 2025 | COPR repository launches -- one-command governor install | [confirmed: @mothenjoyer69, 13/11/2025]
+| Sep 2025 | GPU frequency patch lands in official Bazzite | [confirmed: @filippor, 28/08/2025]
+| Nov 2025 | elektricM documentation site launches (33+ pages) | [confirmed: @dantistnfs, 12/05/2026]
+| Dec 2025 | CPU SMU overclocking tool released (4 GHz achieved!) | [confirmed: @big_trov, 29/01/2026]
+| Jan 2026 | cyan-skillfish-governor-smu v0.4.0 released (SMU-based, no kernel patch) | [confirmed: @Discord]
 | Mar 2026 | All docs updated to latest state |
-| May 2026 | VRR working on Bazzite Deck via custom kernel patch image (fforduck) (need confirmation) |
+| May 2026 | VRR working on Bazzite Deck via custom kernel patch image (fforduck) | [confirmed: @fforduck, 14/04/2026]
 | May 2026 | VCN partial decode achieved via SMU poking (holde, Angablade) - active research |
 
 ---
@@ -117,12 +117,12 @@ When searching for help, try these identifiers (need confirmation):
 
 | Creator | Period | Notes |
 |---------|--------|-------|
-| Budget Builds Official | Oct 2025 | First major coverage -- prices started climbing (need confirmation) |
+| Budget Builds Official | Oct 2025 | First major coverage -- prices started climbing | [confirmed: @cliff_86, 29/11/2025]
 | oldlamer | Late 2025 | Most technically accurate guides (need confirmation) |
 | CraftComputing | Late 2025 | Early coverage, some buggy results (need confirmation) |
-| ToastyBros | Dec 2025 | Criticized for not using governor/OC (need confirmation) |
+| ToastyBros | Dec 2025 | Criticized for not using governor/OC [confirmed: @selectivelygood_16010, 03/01/2026]
 | TechDweeb | Jan 2026 | ChimeraOS coverage (need confirmation) |
-| NexGen3D | Feb 2026 | Case design channel (need confirmation) |
+| NexGen3D | Feb 2026 | Case design channel | [confirmed: @nexgen3d, 11/12/2025]
 
 ---
 
