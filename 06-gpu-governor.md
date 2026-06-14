@@ -230,7 +230,9 @@ cd bc250-cu-live-manager
 # Follow README for your distro
 ```
 
-The tool persists across reboots via systemd (`bc250-unlock.service`). For kernel parameter-based masking: `amdgpu.disable_cu=X.Y.Z` uses WGP-pair indexing. See [02 — BIOS & Firmware](02-bios-and-firmware.md) for full 40 CU documentation.
+The tool persists across reboots via systemd (`bc250-unlock.service`). As of June 2026, the live-manager also supports **disabling stock WGPs** (Work Group Processors) — useful for isolating defective CUs during artifact troubleshooting. See [10 — Troubleshooting](10-troubleshooting.md) for binary search approach to finding bad CUs.
+
+For kernel parameter-based masking: `amdgpu.disable_cu=X.Y.Z` uses WGP-pair indexing. See [02 — BIOS & Firmware](02-bios-and-firmware.md) for full 40 CU documentation.
 
 ## CPU Overclocking (Advanced)
 

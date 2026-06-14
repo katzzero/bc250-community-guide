@@ -40,6 +40,18 @@
 
 ---
 
+### Black Myth: Wukong
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 40 CU, 1080p Low (FSR off) | 61 avg | Old Lamer YouTube benchmark (June 2026) |
+| RX 6700 (reference) | 59 avg | Same test conditions for comparison |
+| RX 7600 (reference) | 71 avg | Same test conditions for comparison |
+
+**Source:** Old Lamer YouTube benchmark (40CU BC-250 vs RX6700 & RX7600). The BC-250 at 40 CU slightly edges the RX 6700 in this title. See [11-community-and-resources](11-community-and-resources.md) for link.
+
+---
+
 ### Hogwarts Legacy
 
 | Settings | FPS | Notes |

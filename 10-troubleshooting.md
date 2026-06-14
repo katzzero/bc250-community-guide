@@ -34,6 +34,8 @@
 6. **Check for short circuits** - plastic washers on wrong side of mounting screws
 7. **Board may be DOA** - contact seller
 
+**Green LED always on when board is off:** If the green LED stays lit when power is disconnected and turns red only when pressing the power button, this may indicate a corrupted BIOS or a PSU mod issue (matearz, help-thread, June 2026). Check if you modified the 5V standby rail (PLD5 conductor removal per iamdarkyoshi's PSU power-on mod) — this can prevent POST on some boards.
+
 ---
 
 ## Power On For 1 Second Then Off (No POST)
@@ -275,6 +277,25 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 
 ---
 
+## Artifact Hunting — Finding a Bad CU (Binary Search)
+
+**Symptoms:** Artifacts appear 5+ minutes into gameplay. VRAM gets hot. Memtest86 passes fine. The issue may be a single defective Compute Unit (CU) rather than a systemic problem.
+
+**Technique (pops1cl, vinnijs.dev, June 2026):**
+Use `bc250-cu-live-manager` to disable CUs in groups using binary search:
+
+1. Disable half the CUs — test for artifacts in a game
+2. If artifacts persist, the bad CU is in the remaining active half
+3. If artifacts disappear, the bad CU is in the disabled half
+4. Repeat (halving each time) until the single bad CU is isolated
+5. Keep that CU permanently disabled in the live-manager config
+
+**Important:** Some artifacts don't disappear until you restart the game/application. A game (not synthetic benchmark) is the best stress test for artifact hunting.
+
+The newest version of `bc250-cu-live-manager` (June 2026) supports disabling stock WGPs directly. See [06 — GPU Governor](06-gpu-governor.md) for installation.
+
+---
+
 ## Blue Artifacts in Many Games (Poor GPU Bin)
 
 **Symptoms:** Diagonal blue artifacts in multiple games (Sekiro, Cyberpunk, Satisfactory) at default governor settings. No crashes or overheating.
@@ -341,6 +362,23 @@ cat /etc/cyan-skillfish-governor-smu/config.toml
 vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013), NOT llvmpipe (source: quick-reference.md)
 ```
+
+---
+
+## GPU Stuck at 1850 MHz (Not Reaching Max Frequency)
+
+**Symptoms:** Governor config specifies 2000 MHz max, but the GPU stays at 1850 MHz under load. Temps are fine.
+
+**Cause:** The `frequency-range` max value in config.toml is set to 1850 MHz instead of 2000 MHz (boilerkim, help-thread, June 2026).
+
+**Fix:**
+1. Check `/etc/cyan-skillfish-governor-smu/config.toml` and ensure the max safe-point frequency matches your target (e.g., 2000 MHz)
+2. After changing config, restart the governor:
+   ```bash
+   sudo systemctl restart cyan-skillfish-governor-smu
+   ```
+
+**Note:** If stability issues occur at 2000 MHz (e.g., Death Stranding 2 artifacts at 2000 MHz but fine at 1850 MHz), the chip may need higher voltage or lower frequency — silicon lottery applies (boilerkim, help-thread, June 2026).
 
 ---
 

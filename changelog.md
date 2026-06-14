@@ -4,6 +4,32 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## June 14, 2026 — Discord Export Audit: Benchmark, GPU Stuck Fix, Artifact Hunting, Live-Manager Update
+
+### 1. Old Lamer Benchmark Added (Black Myth: Wukong)
+- 40CU BC-250 vs RX6700 and RX7600 — 61 FPS avg at 1080p Low, edges RX 6700
+- Added to 07-game-benchmarks.md (new Black Myth: Wukong section)
+
+### 2. GPU Stuck at 1850 MHz Fix Documented
+- Cause: max frequency in governor config set to 1850 instead of 2000 MHz
+- Fix: edit config.toml + restart governor service (boilerkim, help-thread)
+- Added to 10-troubleshooting.md
+
+### 3. Artifact Hunting — Binary Search for Bad CUs
+- Technique from pops1cl: use live-manager to disable CUs in groups, binary search to isolate defective CUs
+- Requires game (not synthetic benchmark) for accurate testing
+- Added to 10-troubleshooting.md
+
+### 4. Live-Manager WGP Disabling Support
+- vinnijs.dev confirmed newest live-manager update allows disabling stock WGPs
+- Updated 06-gpu-governor.md reference
+
+### 5. New Board no Signal — PSU Mod Warning
+- Green LED always on when off + PSU PLD5 mod (iamdarkyoshi) can prevent POST
+- Added to Board Won't Boot section in 10-troubleshooting.md
+
+---
+
 ## June 14, 2026 — Wiki Sync, AI Protocol Update, Missing Repos Added
 
 ### 1. Wiki Synced with Revised
