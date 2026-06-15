@@ -11,7 +11,7 @@
 | **Native DisplayPort** | Best (up to 4K@120Hz, HDR10) | ✅ Works (most users) | ✅ Best option if monitor supports DP |
 | **Passive DP-to-HDMI** | Good (1080p60 / 1440p60) | ✅ Usually works | ✅ Good value (~$5–10) |
 | **Active DP-to-HDMI** | Up to 4K@60Hz+ | Broken on BC-250 (direct connection). Works on MST hub outputs (pops1cl/Discord). | Not recommended for direct use; usable with MST hubs |
-| **DP-to-USB-C** | Good | ✅ Works | ✅ Good for USB-C monitors (need confirmation) |
+| **DP-to-USB-C** | Good | ✅ Works | ✅ Good for USB-C monitors | [confirmed: @locoman009, 11/04/2026]
 
 ### Recommended Cable/Adapter
 
@@ -49,11 +49,11 @@ If audio over DP isn't working, use a USB audio adapter:
 
 | Product | ASIN | Notes |
 |---------|------|-------|
-| **Creative Sound Blaster Play! 4** | `B08T9LM3LM` | ⭐ Best quality — 24-bit/192 kHz, ~$25–34 (corrected from Play! 3 per elektriCM source) |
+| **Creative Sound Blaster Play! 4** | `B08T9LM3LM` | 24-bit/192 kHz, ~$25-34. Note: not frequently mentioned in community — most users prefer generic USB audio dongles (Sabrent, UGREEN, Apple). |
 | **SABRENT AU-EMCB** | `B00XM883BK` | Budget option, confirmed working, plug and play (ASIN verified) |
 | Cheap USB-C phone dongle | Various | Works with USB-C to A adapter; Apple USB-C adapter + A-C adapter confirmed |
 
-> ⚠️ The ASIN `B0BQ5VJVWB` that appeared in some older guides is an **Amazon Renewed listing** and may not always be available. The standard retail ASIN is **`B08T9LM3LM`** (Play! 4) or **`B06XBZ38ZJ`** (Play! 3). (need confirmation)
+> ⚠️ The ASIN `B0BQ5VJVWB` that appeared in some older guides is an **Amazon Renewed listing** and may not always be available. The standard retail ASIN is **`B08T9LM3LM`** (Play! 4) or **`B06XBZ38ZJ`** (Play! 3).
 
 ## VRR (Variable Refresh Rate)
 
@@ -74,7 +74,7 @@ VRR is now achievable through multiple paths:
 
 | Method | Notes |
 |--------|-------|
-| **DisplayPort MST Hub** | Works on Bazzite. Maximum 2 screens via MST on BC-250 (elektriCM). Active DP→HDMI adapters work on hub outputs (pops1cl/Discord). ⚠️ More than 2 monitors on an MST hub can crash the amdgpu driver (pops1cl/Discord). |
+| **DisplayPort MST Hub** | Works on Bazzite. Maximum 2 screens via MST on BC-250 (elektricM). Active DP→HDMI adapters work on hub outputs (pops1cl/Discord). ⚠️ More than 2 monitors on an MST hub can crash the amdgpu driver (pops1cl/Discord). |
 
 **Tested MST Hub Compatibility (elektricM docs):**
 
@@ -84,7 +84,7 @@ VRR is now achievable through multiple paths:
 | Monoprice 21972 | DP (2) | 1.2 | Mirror only | Yes | Unable to extend displays |
 | ENBUER | DP (2) | 1.2? | Mirror only | Yes | Unable to extend displays |
 | Generic | HDMI (2) | N/A | No | No | No video or audio |
-| **DisplayLink Dock** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Desktop use only, not gaming. V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite . | [confirmed: @toastboy6035, 12/02/2026]
+| **DisplayLink Dock** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Desktop use only, not gaming. V7 Universal (Best Buy `10872445`) claimed dual HDMI on Bazzite. | [confirmed: @toastboy6035, 12/02/2026]
 | **Dell ACP075EU** | USB (DisplayLink) | N/A | Yes (desktop only) | Yes | Docking station with DisplayLink + USB DAC — claimed works | [confirmed: @toastboy6035, 12/02/2026]
 
 ---

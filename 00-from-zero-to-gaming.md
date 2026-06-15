@@ -33,13 +33,14 @@
 
 | Item | Essential? | Notes |
 |------|-----------|-------|
-| **BC-250 board** | Essential | AliExpress or eBay, any BIOS P2.00-P5.00 |
-| **12V PSU with PCIe 8-pin** | Essential | FSP500-30AS (~$15 eBay) is the gold standard |
+| **BC-250 board** | Essential | AliExpress or eBay, BIOS P2.00-P3.00 or P5.00 (avoid P4.00 — unstable) |
+| **12V PSU with PCIe 8-pin** | Essential | FSP500-30AS (~$15 eBay, search `389522369783`) is the gold standard |
 | **120mm high-pressure fan** | Essential | Arctic P12 Pro (~$25/5-pack) |
 | **DisplayPort cable** | Essential | Native DisplayPort is the best output |
 | **USB WiFi (if needed)** | Recommended | No onboard WiFi — TP-Link TX10UB Nano |
 | **M.2 NVMe SSD** | Recommended | Any drive, slot is PCIe 2.0 x2 (~1 GB/s max) |
 | **Thermal paste or PTM7950** | Recommended | Stock paste is dried out — MX-4, Kryonaut, or PTM7950 |
+| **Thermal pads for VRAM** | Recommended | 1.5mm front, 2.0mm back (8x GDDR6 chips with no temp sensor) |
 | **Case/mount** | Recommended | 3D printed case, GPU enclosure, or DIY mount |
 
 **Recommended purchase order:** Board first (AliExpress takes longer), then everything else.
@@ -66,8 +67,14 @@
 - [ ] Heatsink with no visible physical damage
 - [ ] Fans (if included) with no broken blades
 - [ ] PCIe 8-pin connector pins straight
-- [ ] BIOS_A1 chip with no signs of damage
-- [ ] Q11 transistor near Nuvoton present (can get knocked off during shipping)
+- [ ] BIOS_A1 chip with no signs of damage (near the M.2 slot)
+- [ ] Q11 transistor near the Nuvoton chip (top-right area) — can get knocked off during shipping
+
+### CRITICAL: 4x Nylon Washers
+
+The heatsink is held by **4 spring-tensioned screws** through the back of the board. Under each screw head there is a **clear or black nylon washer**. These prevent short circuits and ensure proper contact pressure.
+
+**Do NOT lose them.** If reassembled without them, the heatsink won't make full contact with the APU die, causing **90-100°C at idle**. Keep track of them during disassembly — they're small and easily lost.
 
 ### Heatsink — preparation
 
@@ -96,8 +103,8 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 ### Connection
 
 1. ATX PSU: connect the PCIe 8-pin cable directly to the board
-2. FSP500-30AS (10-pin): bridge PS_ON (green) to GND to power on
-3. Board powers on automatically when 12V is applied (jumper AUTO_PWRON1: pins 1-2)
+2. **FSP500-30AS (10-pin):** bridge PS_ON (green wire, pin 3) to GND (black wire, any adjacent pin) — use a paperclip or jumper wire. This tells the PSU to turn on.
+3. Board powers on automatically when 12V is applied (jumper AUTO_PWRON1: pins 1-2, located near the PCIe power connector)
 
 ### Safety
 
@@ -133,7 +140,7 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 
 1. Position a **120mm high static pressure fan** (Arctic P12 Pro) over the center of the heatsink
 2. Secure with **zip ties** — simplest and safest method
-3. Connect to header **J1** (primary fan, 4-pin PWM)
+3. Connect to header **J1** (4-pin PWM, located near the PCIe power connector — small white connector)
 4. **Recommended configuration:** push (blowing into the heatsink)
 
 ### Thermal pads (VRAM)
@@ -158,7 +165,7 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 
 | Option | Description |
 |--------|-------------|
-| **3D printed** | 145+ designs on Printables, categorized by PSU type |
+| **3D printed** | 145+ designs on Printables — see [elektricM Case Gallery](https://elektricm.github.io/amd-bc250-docs/community/cases/) |
 | **GPU enclosure** | Some enclosures fit the BC-250 |
 | **DIY** | Standoffs + acrylic/wood |
 | **4U server case** | Original ASRock, noisy fans — replace them |
@@ -173,7 +180,7 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 6. Connect USB keyboard/mouse
 7. (Optional) Connect Ethernet cable for installation
 
-> See [09 — WiFi & Peripherals](09-wifi-and-peripherals.md) for cases and accessories.
+> See [13 — Case Mods & Custom Enclosures](13-case-mods.md) for community case designs. See [09 — WiFi & Peripherals](09-wifi-and-peripherals.md) for storage and accessories.
 
 ---
 
@@ -183,9 +190,9 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 
 ### What to download
 
-1. BIOS modificada: [bc250-bios (GitLab)](https://gitlab.com/TuxThePenguin0/bc250-bios/)
-2. Ferramenta de flash USB: [4U12G BIOS Update (GitHub)](https://github.com/kenavru/BC-250/raw/refs/heads/main/4U12G%20BIOS%20Update.zip)
-3. BIOS recomendada: `BC250_3.00_CHIPSETMENU.ROM`
+1. Modified BIOS: [bc250-bios (GitLab)](https://gitlab.com/TuxThePenguin0/bc250-bios/)
+2. USB flash tool: [4U12G BIOS Update (GitHub)](https://github.com/kenavru/BC-250/raw/refs/heads/main/4U12G%20BIOS%20Update.zip)
+3. Recommended BIOS file: `BC250_3.00_CHIPSETMENU.ROM`
 
 ### USB Method (Recommended)
 
@@ -193,12 +200,12 @@ The BC-250 requires **12V only** with a **PCIe 8-pin (6+2) connector**.
 2. Extract the ZIP and copy the contents to the root of the USB drive
 3. Rename the downloaded BIOS to `Robin5.00` (capital R, no extension)
 4. USB drive should contain: `AfuEfix64.efi`, `Flash.nsh`, `Robin5.00`
-5. **Remove the SSD** from the board (forces boot via EFI Shell)
+5. **Remove the SSD** from the board — this forces the board to boot from USB into EFI Shell instead of the OS. Reinstall the SSD after flashing.
 6. Connect the USB drive, power on the board
-7. At the `Shell>` prompt, type `blk0:` (with a space after the colon) and press Enter
-8. Type `Flash.nsh` and press Enter
-9. **WAIT** — do not interrupt for anything, may take up to 15 minutes
-10. Board reboots — shut down immediately, remove the USB drive
+7. At the `Shell>` prompt, type `blk0:` (type `b`, `l`, `k`, `0`, `:`, then **spacebar**, then Enter) — this selects the USB drive
+8. Type `Flash.nsh` and press Enter. **Note:** some keyboard layouts may cause typos (e.g., French keyboards type `Flqsh.nsh`) — check the screen before pressing Enter.
+9. **WAIT.** The screen may freeze or go blank. Do NOT interrupt for at least 15 minutes — interrupting during flash will brick the board.
+10. System reboots — **shut down immediately** (hold the power button), remove the USB drive, reinstall the SSD
 
 ### CMOS Clear (CRITICAL — Do Not Skip)
 
@@ -223,10 +230,10 @@ Enter the BIOS by pressing **Delete** during boot and configure:
 Chipset → GFX Configuration:
   Integrated Graphics Controller = [Forces]
   UMA Mode                       = [UMA_SPECIFIED]
-  UMA Frame Buffer Size          = [512M]   ← VRAM dinâmico (recomendado)
+  UMA Frame Buffer Size          = [512M]   ← Dynamic VRAM (recommended)
 
 Advanced → CPU Configuration:
-  IOMMU = [Disabled]   ← OBRIGATÓRIO — IOMMU é quebrado
+  IOMMU = [Disabled]   ← REQUIRED — IOMMU is broken on BC-250
 
 Boot → Boot Mode:
   Boot Mode = [UEFI]
@@ -270,7 +277,7 @@ Boot → Boot Mode:
 
 ### Broken kernels (AVOID)
 
-**6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU failure. Use 6.19.x or 6.17.11+.
+**6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU failure. Use 6.19.x (recommended), 6.18.18 LTS (stable fallback), or 6.17.11+.
 
 > See [05 — OS Installation](05-os-installation.md) for complete installation guides for each distro.
 
@@ -363,46 +370,46 @@ Enables C-States (idle) and P-States (CPU frequency scaling 800-3200 MHz):
 ```bash
 git clone https://github.com/bc250-collective/bc250-acpi-fix.git
 cd bc250-acpi-fix
-# Siga o README para sua distro
+# Follow the README for your distro
 ```
 
 This reduces idle power consumption and allows the CPU to scale frequency.
 
 ### Step 4: Configure governor (optional)
 
-Arquivo: `/etc/cyan-skillfish-governor-smu/config.toml`
+File: `/etc/cyan-skillfish-governor-smu/config.toml`
 
-**Configuração recomendada (uso geral):**
+**Recommended config (general use):**
 ```toml
 safe-points = [
     [1000, 700],   # idle
-    [1500, 900],   # médio
+    [1500, 900],   # medium load
     [2000, 1000],  # gaming
-    [2100, 1025],  # overclock leve
-    [2175, 1050],  # overclock moderado
-    [2300, 1075],  # overclock máximo (bom air cooling)
+    [2100, 1025],  # light overclock
+    [2175, 1050],  # moderate overclock
+    [2300, 1075],  # max overclock (requires good air cooling)
 ]
 ```
 
-Após alterar: `sudo systemctl restart cyan-skillfish-governor-smu`
+After changing: `sudo systemctl restart cyan-skillfish-governor-smu`
 
 ### Step 5: Verify installation
 
 ```bash
-# Mesa (deve ser 25.1+)
+# Mesa version (26.x recommended, 25.1+ minimum)
 glxinfo | grep "OpenGL version"
 
-# GPU (deve mostrar RADV GFX1013, NÃO llvmpipe)
+# GPU driver (should show RADV GFX1013, NOT llvmpipe)
 vulkaninfo | grep deviceName
 
-# Governor rodando
+# Governor running
 systemctl status cyan-skillfish-governor-smu
 
-# Frequência GPU (deve mostrar múltiplas frequências)
+# GPU frequency (should show multiple frequencies)
 cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
-> Consulte [06 — GPU Governor](06-gpu-governor.md) para config detalhada, overclock, SMU profiles e troubleshooting.
+> See [06 — GPU Governor](06-gpu-governor.md) for detailed config, overclocking, SMU profiles, and troubleshooting.
 
 ---
 
@@ -420,7 +427,7 @@ cat /sys/class/drm/card1/device/pp_dpm_sclk
 |----------|---------|--------|
 | Audio over native DP | Great | Yes (kernel 6.19.10+ fixed bugs) |
 | DP-to-HDMI passive | Good | Yes |
-| **USB Sound Card** | Great | **Most reliable** — Creative Play! 4 (~$25) |
+| **USB Sound Card** | Great | **Most reliable** — Sabrent AU-EMCB or generic USB dongle (~$10) |
 | DP-to-HDMI active | Poor | Audio dropouts |
 
 **Kernel 6.19.10+** includes the DP audio fix by TheFloW (PS5 Linux developer).
@@ -457,7 +464,7 @@ The BC-250 has **Realtek RTL8111H Gigabit Ethernet** — plug and play on all di
 
 ### Keyboard and Power Button
 
-- **Power button:** The board has no standard header — it powers on automatically when 12V is applied (default). For external button: solder wires to the onboard button and move the AUTO_PWRON1 jumper to pins 2-3
+- **Power button:** The board has no standard power button header — it powers on automatically when 12V is applied (AUTO_PWRON1 defaults to pins 1-2). To add a physical button: solder two wires to the onboard push button (small black button on the back edge), then move AUTO_PWRON1 jumper to pins 2-3.
 - **Standard USB keyboard** works for BIOS
 
 > See [09 — WiFi & Peripherals](09-wifi-and-peripherals.md) for storage, USB accessories, cases, and mounting.
@@ -525,14 +532,14 @@ The Handheld Daemon (HHD) on Bazzite restarts constantly if it doesn't find expe
 ```bash
 git clone https://github.com/WinnieLV/bc250-cu-live-manager.git
 cd bc250-cu-live-manager
-# Siga o README — TUI interativo para ativar CUs individualmente
+# Follow the README — interactive TUI to toggle CUs individually
 ```
 
 ### Verification
 
 ```bash
-dmesg | grep active_cu_number        # Deve mostrar 40
-RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu  # Deve mostrar 40
+dmesg | grep active_cu_number        # Expected: 40
+RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu  # Expected: 40
 ```
 
 ### Required Adjustments
@@ -541,7 +548,7 @@ RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu  # Deve mostrar 40
 - **Test stability** — some boards have defective CUs (visual artifacts)
 - Use `bc250-cu-live-manager` to enable CUs individually and test
 
-> Consulte [02 — BIOS & Firmware](02-bios-and-firmware.md) para health testing, selective masking, crash behavior e troubleshooting de 40 CU.
+> See [02 — BIOS & Firmware](02-bios-and-firmware.md) for health testing, selective masking, crash behavior, and 40 CU troubleshooting.
 
 ---
 
@@ -556,7 +563,7 @@ sensors
 # GPU load
 cat /sys/class/drm/card1/device/gpu_busy_percent
 
-# Frequência atual
+# Current GPU frequency
 cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Vulkan info
@@ -636,5 +643,5 @@ Your BC-250 is running. Now you can:
 
 ---
 
-*Guide generated from Revised/01-12 documents, export/elektricM-docs, and BC-250 Discord community data.*
+*Guide generated from Revised/01-13 documents, export/elektricM-docs, and BC-250 Discord community data.*
 *Last updated: June 2026.*

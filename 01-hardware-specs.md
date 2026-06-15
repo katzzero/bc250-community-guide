@@ -1,6 +1,6 @@
 # 01 -- Hardware Specifications
 
-> Board: ASRock AMD BC-250 | Codename: "Ariel" (need confirmation -- not present in elektricM docs; community term) / "Cyan Skillfish"
+> Board: ASRock AMD BC-250 | Codename: "Ariel" (community term, not in elektricM docs) / "Cyan Skillfish"
 
 ---
 
@@ -11,10 +11,10 @@
 | **Full Name** | AMD BC-250 "Cyan Skillfish" |
 | **Origin** | Cut-down PS5 "Oberon" APU -- 2 CPU cores and 12 GPU CUs disabled |
 | **CPU** | 6x Zen 2 cores, ~3.5 GHz fixed base clock |
-| **GPU** | 24x RDNA 2 Compute Units (CUs), up to 40 CU unlockable via kernel patch (duggasco/bc250-40cu-unlock); codename gfx1013 |
+| **GPU** | 24x RDNA 2 Compute Units (CUs), up to 40 CU unlockable via `bc250-cu-live-manager` (UMR-based, no kernel patch/reboot) or kernel patch (duggasco/bc250-40cu-unlock); codename gfx1013 |
 | **GPU Base Clock** | 1500 MHz (locked without governor) |
-| **GPU Max Clock** | 2000 MHz stock kernel - 2230 MHz with kernel patch + governor |
-| **GPU Performance** | Stock 24 CU: Between RX 6600 and RX 6600 XT; 40 CU unlocked: RX 6700 / GTX 1080 Ti / R5 1600 CPU level. No INT8 support = no FSR4 (gennro, fforduck) |
+| **GPU Max Clock** | 2000 MHz stock kernel, 2230 MHz with governor, 2400 MHz community ceiling (OCP hard lock above ~2300 MHz at 40 CU — requires power cable pull to recover) |
+| **GPU Performance** | Stock 24 CU: between RX 6600 and RX 6600 XT. 40 CU unlocked: RX 6700 / GTX 1080 Ti level. No INT8 support = no FSR4 (gennro, fforduck) |
 | **Memory** | 16 GB GDDR6 (PS5 spec), 14 Gbps, 256-bit bus, ~448 GB/s bandwidth |
 | **Memory Split** | Configurable in BIOS -- see [02-BIOS](02-bios-and-firmware.md) |
 | **TDP** | 220W typical, up to 235W under extreme load |
@@ -28,7 +28,7 @@
 | GPU CUs | 24 | 36 |
 | GPU Clock | 2000 MHz max (stock) | 2230 MHz (variable) |
 | Memory | 16 GB GDDR6 shared | 16 GB GDDR6 unified |
-| VCN (HW encode/decode) | Disabled by Sony | Enabled |
+| VCN (HW encode/decode) | Blocked (NOT fused off — research active) | Enabled |
 
 ---
 
@@ -54,7 +54,8 @@
 | Gigabit Ethernet | 1 | Realtek RTL8111H -- no built-in WiFi |
 | M.2 2280 Slot | 1 | PCIe 2.0 x2 NVMe or SATA III |
 | PCIe 8-pin (6+2) | 1 | Main power connector |
-| Fan Headers | 2x 4-pin PWM | J1 (primary) and J4003 (secondary) |
+| Fan Headers | 2x 4-pin PWM | J1 (primary, near PCIe connector) and J4003 (secondary) |
+| Micro-Fit 3.0 Ports | 2x onboard | Can supplement PCIe 8-pin for 40 CU builds (undocumented feature) |
 | Power Button | Onboard only | No header -- solder for external switch |
 | TPM Header | 1 | 18-pin LPC header (TPMS1); no TPM chip included |
 
@@ -64,7 +65,7 @@
 - Bluetooth (use USB adapter)
 - Thunderbolt
 - Secure Boot
-- Hardware video encode/decode (VCN firmware blocked by Sony)
+- Hardware video encode/decode (VCN firmware blocked by Sony; NOT fused off — active community research, partial decode achieved via SMU commands: holde, Angablade)
 
 ---
 
@@ -80,8 +81,6 @@
 | AAA gaming | 160-200 W | Modern titles at 1080p |
 | Maximum (Cyberpunk RT) | 235 W | Peak gaming load |
 | Stress test (Furmark) | 250-320 W | Not realistic for daily use |
-| 40 CU unlocked @ 2 GHz | ~181 W | duggasco; 96C, needs upgraded cooling |
-| 40 CU unlocked @ 1500 MHz | ~125 W | duggasco; 83C, recommended sweet spot |
 
 A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor.md).
 
@@ -90,12 +89,14 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 ## Known Hardware Limitations
 
 1. **IOMMU is broken** -- always disable in BIOS or face display failures
-2. **No VCN firmware** -- hardware video encode/decode permanently unavailable
+2. **No VCN firmware** -- hardware video encode/decode blocked by Sony, but VCN block is NOT fused off. Active research: holde and Angablade achieved partial decode via SMU commands (May 2026). Not functional for end users yet.
 3. **PCIe 2.0 x2 only** -- SSD limited to ~1 GB/s (don't overspend on NVMe)
-4. **A68H southbridge** [pops1cl] -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
-5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor ; ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet) [confirmed: @tominkz2137, 12/01/2026]
+4. **A68H southbridge** (discovered by pops1cl) -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
+5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor; ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet) [confirmed: @tominkz2137, 12/01/2026]
 6. **No INT8 support** -- PS5 APU lacks INT8 instructions required for FSR4; BC-250 will never support FSR4 (gennro, fforduck, May 2026)
-7. **Expandable to 40 CUs** -- 16 harvested CUs unlockable via kernel patch ([duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
+7. **Expandable to 40 CUs** -- 16 harvested CUs unlockable via `bc250-cu-live-manager` (UMR-based, no kernel patch, works on stock kernel) or kernel patch ([duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
+8. **OCP power limit** -- secondary Over Current Protection triggers hard lock at ~1850-2200 MHz on 40 CU boards (varies per board). 2400 MHz causes OCP hard lock across all tested boards — requires power cable pull to recover (big_trov, codyrainy, cralant). VRM temps are a hidden bottleneck (capt.cat_13).
+9. **Micro-Fit power supplement** -- onboard Micro-Fit 3.0 ports can supplement the single PCIe 8-pin for 40 CU builds (Old Lamer/YouTube, tested by essdee4336). Recommended above 260W sustained.
 
 ---
 

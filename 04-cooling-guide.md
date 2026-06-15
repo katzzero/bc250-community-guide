@@ -138,7 +138,7 @@ dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mou
 | Method | Pros | Cons |
 |--------|------|------|
 | **Zip ties** | Simplest, no mods | Can slip; less secure |
-| **Screws (factory holes)** | Most secure | Requires drilling/cutting (elektricM warns NOT to drill heatsink -- see line 115) |
+| **Screws (factory holes)** | Most secure | Requires drilling/cutting (elektricM warns NOT to drill heatsink) |
 | **Aluminum HVAC tape** | Seals air leaks, good contact | Hard to remove (need confirmation - not in elektricM) |
 | **CPU cooler brackets** | Repurposed arms | May not fit perfectly (need confirmation - not in elektricM) |
 | **3D printed shroud** | Best airflow, clean look | Requires 3D printer |
@@ -160,7 +160,7 @@ Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from el
 
 | Location | Recommended | Thickness | Notes |
 |----------|-------------|-----------|-------|
-| **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0DHRR78H7` . | [confirmed: @deathstalkerjr, 09/03/2026]
+| **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0F9Y5SCK2`. | [confirmed: @deathstalkerjr, 09/03/2026]
 | **Front (VRAM/VRMs)** | Thermal pads | 1.5 mm | elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026) |
 | **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026). jayawesome (17 Mar 2026) confirmed having 0.5/1.0/1.5/2.0mm pads on hand and that they are stackable. |
 
@@ -187,11 +187,11 @@ Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of
 
 | Paste | Conductivity | Notes |
 |-------|-------------|-------|
-| Thermal Grizzly Kryonaut | 12.5 W/mK | Best traditional paste. Recommended in elektricM (cooling.md + prerequisites). 3-5C drop vs MX-6 . | [confirmed: @nexgen3d, 10/04/2026]
+| Thermal Grizzly Kryonaut | 12.5 W/mK | Best traditional paste. Recommended in elektricM (cooling.md + prerequisites). 3-5C drop vs MX-6. | [confirmed: @nexgen3d, 10/04/2026]
 | Arctic MX-6 | 10.0 W/mK | Current version. Recommended in elektricM (cooling.md). |
 | Arctic MX-5 | Discontinued | Replaced by MX-6. pops1cl confirmed MX-5 is NOT better than MX-6. |
 | Arctic MX-4 | 8.5 W/mK | Good value. Recommended in elektricM (prerequisites.md + cooling.md). |
-| Thermal Grizzly Duronaut | ~12.5 W/mK (need confirmation) | Emphasizes long-term stability per Thermal Grizzly. Our file previously claimed 17.3 W/mK - reseller data shows ~12.5 W/mK. 15C drop claim unverified. |
+| Thermal Grizzly Duronaut | ~12.5 W/mK | Emphasizes long-term stability per Thermal Grizzly. Our file previously claimed 17.3 W/mK - reseller data shows ~12.5 W/mK. 15C drop claim unverified. |
 
 Source: elektricM cooling.md (Recommended Thermal Paste) lists MX-4, MX-6, Kryonaut, NT-H1, Thermalright TFX. Duronaut and conductivity values are NOT in elektricM - from community/Discord sources.
 

@@ -71,7 +71,7 @@ Source: [elektricM specifications](https://elektricm.github.io/amd-bc250-docs/ha
 | **USB-C Front Panel** | Duttek Type-E to USB-C (`B09M8J7CNW`) | Works | 10 Gbps USB 3.1 |
 | **ATX Breakout Board** | JMT 6Pin (`B0CTCLV6Y1`) | Works | For server PSUs, includes 4x USB 2.0 |
 | **USB Audio** | Creative Sound Blaster Play! 4 (`B08T9LM3LM`) | Works | Plug and play — see [08-Display & Audio](08-display-and-audio.md) |
-| **USB Audio** | SABRENT AU-EMCB (`B00XM883BK`)  | Works | Budget plug-and-play option | [confirmed: @essdee4336, 11/05/2026]
+| **USB Audio** | SABRENT AU-EMCB (`B00XM883BK`) | Works | Budget plug-and-play option | [confirmed: @essdee4336, 11/05/2026]
 | **DisplayLink Dock** | V7 Universal (Best Buy `10872445`) | Works | Dual HDMI on Bazzite |
 | **Dell ACP075EU** | Docking station | Works | Has DisplayLink + USB DAC |
 | **2.5 GbE Adapter** | Generic | Finicky | May need manual Linux driver |

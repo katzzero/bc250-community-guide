@@ -30,7 +30,7 @@
 |------|-------|
 | **APU** | AMD BC-250 "Cyan Skillfish" (cut-down PS5 Oberon) |
 | **CPU** | 6x Zen 2 cores @ ~3.5 GHz |
-| **GPU** | 24 RDNA 2 CUs (up to 40 via kernel patch), base 1500 MHz, up to 2230 MHz (OC) |
+| **GPU** | 24 RDNA 2 CUs (up to 40 via live-manager or kernel patch), base 1500 MHz, up to 2300 MHz (OC) |
 | **Memory** | 16 GB GDDR6 shared (CPU + GPU) |
 | **Storage** | 1x M.2 2280 (PCIe 2.0 x2 NVMe or SATA3) |
 | **TDP** | 220W (up to 235W under full load) |
@@ -61,7 +61,7 @@
 4. **Avoid older broken kernels** -- 6.15.0-6.15.6 and 6.17.8-6.17.10 were known-bad; these ranges are now outdated for current distros (use 6.18.18 LTS, 6.19.x, or 6.17.11+)
 5. **Governor minimum voltage: 700 mV** -- below that GPU locks to 1500 MHz
 6. **Do NOT use Smokeless_UMAF** -- can cause permanent damage
-7. **No hardware video encode/decode** -- VCN firmware blocked by Sony, software decoding only
+7. **No hardware video encode/decode** -- VCN firmware blocked by Sony, BUT VCN is NOT fused off — active community research (partial decode achieved). Software decoding only for now.
 8. **Never use 6-pin to 8-pin PCIe adapters** for power delivery -- fire hazard (Discord confirmed)
 9. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. Note: repo README says P-States may not work on all boards. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
 10. **VRAM chips have no temperature sensor** -- ensure backplate airflow
@@ -72,10 +72,10 @@
 
 | Item | Recommended | Where |
 |------|-------------|-------|
-| BC-250 Board | Any BIOS P2.00-P5.00 | AliExpress, eBay |
+| BC-250 Board | BIOS P2.00-P3.00 or P5.00 (avoid P4.00 — unstable) | AliExpress, eBay |
 | PSU (Best Value) | FSP500-30AS Flex ATX 500W, 80+ Platinum | eBay -- search `389522369783` (essdee4336) |
 | Fan | Arctic P12 Max / P12 Pro 120mm (3-pack or 5-pack) | Amazon |
-| Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0DHRR78H7 | [confirmed: @selectivelygood_16010, 11/12/2025]
+| Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0F9Y5SCK2 | [confirmed: @selectivelygood_16010, 11/12/2025]
 | Thermal Pads | 1.5 mm front, 2.0 mm back | Amazon multi-pack |
 | Display Cable | Passive DP-to-HDMI | Amazon / AliExpress ~$2 |
 | WiFi | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | Amazon B0DZCC95G6 | [confirmed: @walkjivefly, 29/01/2026]
@@ -83,7 +83,7 @@
 
 ---
 
-*Last updated: Based on community data through May 2026. Unofficial — not endorsed by AMD or any community. Prices and availability change frequently -- verify before purchasing.*
+*Last updated: Based on community data through June 2026. Unofficial — not endorsed by AMD or any community. Prices and availability change frequently -- verify before purchasing.*
 
 ---
 
@@ -95,12 +95,23 @@ This guide is maintained by katzzero. It is updated continuously from community 
 2. **Index** — A local RAG vector database (ChromaDB + sentence-transformers) indexes all exports and reference docs
 3. **Audit** — New exports are searched for benchmarks, corrections, tools, crash data, and other updates
 4. **Cross-reference** — Every claim is verified against elektricM source-of-truth docs and existing documentation
-5. **Update** — Files are edited with attributions, uncertainty marked `(need confirmation)`, and a changelog entry is logged
+5. **Update** — Files are edited with attributions, uncertainty marked, and a changelog entry is logged
 6. **Commit** — Changes are committed to `github.com/katzzero/bc250-unofficial-community-guide`
 
 ---
 
-## Latest Additions (May 2026)
+## Latest Additions (June 2026)
+
+- **Black Myth: Wukong Benchmark** — 40 CU BC-250 edges RX 6700 (61 vs 59 avg FPS at 1080p Low). Old Lamer YouTube comparison vs RX 6700 & RX 7600.
+- **Binary Search Artifact Hunting (pops1cl)** — Use live-manager to disable CUs in groups, halving each time to isolate a single defective CU. Documented in troubleshooting.
+- **Live-Manager Disables Stock WGPs** — June 2026 update: now supports disabling factory WGPs, not just unlocking harvested CUs. Complete CU management without kernel patches.
+- **OCP Power Limit Documented** — Secondary Over Current Protection triggers hard lock at ~1850-2200 MHz on 40 CU. VRM temps are the hidden bottleneck (capt.cat_13). Shunt mod may bypass (big_trov).
+- **Micro-Fit Power Supplement** — Onboard Micro-Fit 3.0 ports can supplement PCIe 8-pin for 40 CU builds. Recommended above 260W sustained. Documented in hardware specs.
+- **VCN NOT Fused Off** — holde and Angablade achieved partial decode via SMU commands (May 2026). Active research — not yet functional for end users.
+- **Kernel 6.19.x Now Recommended** — VRR and DP audio fixes (TheFloW) make 6.19.x the recommended kernel. 6.18.18 LTS remains stable fallback.
+- **Mesa 26.x Now Standard** — Significant RT and performance improvements. CachyOS ships Mesa 26. GTA V Enhanced went from 3-5fps crash to smooth.
+
+### May 2026 Highlights
 
 - **CU Live Manager (vinnijs.dev)** — [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager). Toggle CUs on the fly, no kernel patch. TUI with vim keys, systemd persistence. Works on stock kernel.
 - **40 CU: No kernel patch needed.** Use stock kernel + live manager. Start at 2000 MHz @ 980 mV. Stay below 1130 mV / 85°C.

@@ -1,4 +1,4 @@
-# 12 - Case Mods & Custom Enclosures
+# 13 - Case Mods & Custom Enclosures
 
 > A curated catalog of community-designed cases for the BC-250. For the full interactive database of 145+ designs with photos and filtering, visit the [elektricM Docs Cases Page](https://elektricm.github.io/amd-bc250-docs/community/cases/).
 

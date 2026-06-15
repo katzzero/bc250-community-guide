@@ -24,8 +24,8 @@
 ## Universal Prerequisites
 
 ### Hardware Needed
-- [ ] BC-250 board (any BIOS P2.00-P5.00)
-- [ ] 300W+ 12V PSU with PCIe 8-pin (250W minimum)
+- [ ] BC-250 board (any BIOS P2.00-P3.00 or P5.00; avoid P4.00 — unstable)
+- [ ] 300W+ 12V PSU with PCIe 8-pin
 - [ ] High static pressure 120mm fan (Arctic P12 recommended)
 - [ ] DisplayPort cable **or** passive DP-to-HDMI adapter
 - [ ] USB drive (8GB+) for installation media
@@ -44,7 +44,7 @@ Boot Mode = [UEFI]
 
 ### Broken Kernel Versions (Avoid)
 
-Kernel versions **6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU initialization failures and kernel panics. Do not install these. Use **6.18.18 LTS** (recommended) or **6.17.11+** instead.
+Kernel versions **6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU initialization failures and kernel panics. Do not install these. Use **6.19.x** (recommended — VRR and DP audio fixes) or **6.18.18 LTS** (stable fallback) instead.
 
 ---
 
@@ -193,7 +193,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 3. Select **GRUB bootloader**
 4. Verify kernel is compatible:
    ```bash
-   uname -r  # Should be 6.18.x LTS or 6.17.11+ (avoid 6.15.0-6.15.6, 6.17.8-6.17.10)
+    uname -r  # Should be 6.19.x (recommended) or 6.18.x LTS (avoid 6.15.0-6.15.6, 6.17.8-6.17.10)
    ```
 5. Install governor:
    ```bash
@@ -255,7 +255,7 @@ sudo nano /etc/pacman.conf
 
 ## Arch Linux (Maximum Control)
 
-1. Install Arch normally with `linux-lts` kernel (6.18.18 LTS recommended, avoid 6.15.0-6.15.6 and 6.17.8-6.17.10)
+1. Install Arch normally with `linux-lts` kernel (6.19.x recommended, 6.18.18 LTS stable fallback; avoid 6.15.0-6.15.6 and 6.17.8-6.17.10)
 2. Install governor from AUR:
    ```bash
    paru -S cyan-skillfish-governor-smu
@@ -294,7 +294,7 @@ sudo nano /etc/pacman.conf
    sudo apt update
    sudo apt install -t experimental mesa-vulkan-drivers libgl1-mesa-dri mesa-utils
    ```
-4. Install kernel (Xanmod LTS 6.18.18 recommended):
+4. Install kernel (Xanmod LTS 6.18.18 or 6.19.x from backports):
    ```bash
    wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
    echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list
@@ -330,7 +330,7 @@ sudo nano /etc/pacman.conf
    sudo add-apt-repository ppa:kisak/kisak-mesa
    sudo apt update && sudo apt upgrade
    ```
-5. Kernel: 6.18.x LTS recommended (verify with `uname -r`)
+5. Kernel: 6.19.x recommended, 6.18.x LTS stable fallback (verify with `uname -r`)
 6. Install governor (see `.deb` package from GitHub)
 
 ---
@@ -340,7 +340,7 @@ sudo nano /etc/pacman.conf
 1. Download Manjaro (KDE or GNOME edition - GNOME more stable per source)
 2. Install normally (boots out-of-box, no nomodeset needed)
 3. Mesa in official repos is sufficient
-4. Recommended kernel: `linux618` (need confirmation from source - Discord)
+4. Recommended kernel: `linux618` or `linux619` (kernel 6.19.x preferred for VRR/DP audio; source: Discord)
    ```bash
    sudo mhwd-kernel -i linux618
    ```
@@ -353,9 +353,9 @@ sudo nano /etc/pacman.conf
 ## Verification - After Any Installation
 
 ```bash
-# Mesa version (must be 25.1+, 25.3.x recommended)
+# Mesa version (must be 25.1+, 26.x recommended)
 glxinfo | grep "OpenGL version"
-# Should show: Mesa 25.X.X
+# Should show: Mesa 26.X.X
 
 # Vulkan driver (must show RADV)
 vulkaninfo | grep deviceName
@@ -377,7 +377,7 @@ glxinfo | grep "OpenGL renderer"
 
 ```bash
 uname -r
-# Expected: 6.18.18 LTS (recommended) or 6.17.11+
+# Expected: 6.19.x (recommended) or 6.18.18 LTS (stable fallback)
 # Avoid: 6.15.0-6.15.6, 6.17.8-6.17.10
 ```
 

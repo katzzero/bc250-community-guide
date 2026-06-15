@@ -23,7 +23,7 @@
 | Model | Wattage | Verdict | Price | Notes |
 |-------|---------|---------|-------|-------|
 | **FSP500-30AS** | 500W (396W on 12V rail) | HIGHLY RECOMMENDED (US) | ~$10-22 + shipping (eBay) | 80+ Platinum, single +12V rail. PCIe 6+2 pin. 10-pin needs PS_ON bridged to GND. eBay shipping varies outside US. Caveats (gennro): only 396W on 12V rail, known coil whine at no-load, can fail under sustained high draw (reported killed at 350W+ sustained). One unit cooked at 1160mV/2400MHz (nexgen3d). US-only best deal. |
-| **Metalfish Flex 500W** | 500W | Best non-US Flex | ~$37-80 (AliExpress) | 80+ Gold, modular. More efficient than generic cheap PSUs (~63W idle vs 79-84W generic). Build quality rivals Corsair. Stock 40mm fan is loud — replace with 24V GDStime dual ball bearing for quieter operation. Fan may lock up in off position requiring PWR_ON cycle (nexgen3d). |
+| **Metalfish Flex 500W** | 500W | Best non-US Flex (stock 24 CU only) | ~$37-80 (AliExpress) | 80+ Gold, modular. More efficient than generic cheap PSUs (~63W idle vs 79-84W generic). Build quality rivals Corsair. Stock 40mm fan is loud — replace with 24V GDStime dual ball bearing for quieter operation. Fan may lock up in off position requiring PWR_ON cycle (nexgen3d). **⚠️ Not safe for 40 CU** — melted under sustained 40 CU loads (.strykur, May 2026). For 40 CU, use FSP500 or dual-connector setup instead. |
 | **Enhance ENP-7660B** | 600W | High quality | ~$50-80 | Premium build, more headroom. |
 | **Apevia ITX-PFC500W** | 500W | Budget | ~$50 | Fully modular. Fan may not spin properly under load. |
 | **Apevia ITX-PFC400W** | 400W | Budget | ~$35-45 | Amazon B0CWN49V13. Fully modular, 1U/Flex ATX. |
@@ -38,7 +38,7 @@
 | Metalfish Flex 600W (BD650M) | Protection circuit prevents boot with PCIe 8-pin only |
 | Any 24V PSU | BC-250 requires 12V — will not work |
 | Mean Well GST280A24-C6P | Wrong voltage (24V) |
-| Dell DA-2 | Too low wattage |
+| Dell DA-2 | 220W — insufficient for stock operation, but can run 40 CU undervolted at ~1700 MHz (hoodyracoon, May 2026). Not recommended for daily use. |
 | Generic no-name Flex PSUs | Hit OCP at ~420W at wall; very inefficient (79-84W idle vs 63W Metalfish); built like "garbage" internally (nexgen3d). Sold under 20+ different word-salad names. Avoid. |
 
 ---
@@ -57,7 +57,7 @@ Server PSUs offer excellent value but require a breakout board (~$10-20) and wir
 
 | Board | Price | Link |
 |-------|-------|------|
-| Alkly Designs V2.1 | ~$20 | alklydesigns.com |
+| Alkly Designs V2.1 | ~$20 | https://alklydesigns.com |
 | AliExpress generic | ~$5-10 | Search `1005002523558890` |
 | KCORES CSPS-to-ATX | DIY | GitHub KCORES/KCORES-CSPS-to-ATX-Converter |
 | Amazon JMT Board | ~$15 | Amazon B0CTCLV6Y1 |
@@ -70,7 +70,7 @@ The Mean Well LOP series has become the community's preferred PSU for custom cas
 
 | Model | Output | Verdict | Price | Dimensions | Notes |
 |-------|--------|---------|-------|------------|-------|
-| **Mean Well LOP-300-12** | 12V @ 25A (300W) | Entry level | ~$40 | 101.6 x 50.8 x 25.4 mm | 92.5% eff, fanless at 180W. Becoming underpowered for OC builds — "LOP-300 isnt really going to cut it" (nexgen3d). Now considered entry-level only. |
+| **Mean Well LOP-300-12** | 12V @ 25A (300W) | Entry level | ~$40 | 101.6 x 50.8 x 25.4 mm | 92.5% eff, fanless at 180W. Becoming underpowered for OC builds — "LOP-300 isn't really going to cut it" (nexgen3d). Now considered entry-level only. |
 | **Mean Well LOP-400-12** | 12V @ 33.3A (400W) | RECOMMENDED | ~$65 | 127 x 76.2 x 27.5 mm | 94% eff, 250W convection / 400W with 23CFM fan. 150% peak @ 3s. "Perfect for most of you" running 4000MHz/2400MHz (nexgen3d). Best balance of cost/power. |
 | **Mean Well LOP-500-12** | 12V @ 41.6A (500W) | For max OC | ~$78 | 127 x 76.2 x 30.5 mm | 93.5% eff, 320W convection / 500W with fan. Recommended if pushing maximum overclocks. |
 | **Mean Well LOP-600-12** | 12V @ 50A (600W) | Top end | ~$84 | 127 x 76.2 x 35 mm | 93% eff, 400W convection / 600W with fan. Most efficient PSU nexgen3d has tested — beats Metalfish and Silverstone SFX 80+ Platinum. 65W idle with full system (pump, fans, RGB). |

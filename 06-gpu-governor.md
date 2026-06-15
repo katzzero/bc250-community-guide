@@ -1,7 +1,7 @@
 # 06 — GPU Governor
 
 > **The GPU governor is essential.** Without it, the GPU is locked at 1500 MHz and idle power is 85–105W.
-> With it, the GPU dynamically scales from ~1000 MHz (idle) to 2000–2230 MHz (gaming), and idle power drops to 65–85W.
+> With it, the GPU dynamically scales from ~1000 MHz (idle) to 2000–2230 MHz (gaming), and idle power drops to 60–70W.
 
 ---
 
@@ -191,9 +191,9 @@ Changing the SMU performance profile index can reduce idle power:
 
 ```bash
 # Profile 3 (default): ~75W idle
-# Profile 2: ~55W idle
-# Profile 1: ~49W idle
-# Profile 0: ~49W idle (gennro reports ~60W from 75W, saving ~15W)
+# Profile 2: ~65W idle
+# Profile 1: ~60W idle (disputed — most users report 60-70W floor)
+# Profile 0: ~60W idle (gennro reports ~60W from 75W, saving ~15W)
 ```
 
 Note: perfprofileindex works on BIOS v3 but NOT on BIOS v5. This is an advanced tuning step — test stability carefully.
@@ -207,7 +207,7 @@ Note: perfprofileindex works on BIOS v3 but NOT on BIOS v5. This is an advanced 
 | 2200 MHz | 1030-1050 mV | Good air cooling required | Upper limit for most boards at 40 CU before OCP |
 | 2230 MHz | 1060 mV | Good air cooling required | Tested by community |
 | 2300 MHz | 1075 mV | High-end air / AIO | Depends on silicon lottery; risks hard lock at 40 CU |
-| 2400 MHz | 1125 mV | Liquid cooling only | NexGen3D testing only; OCP hard lock at 40 CU |
+| 2400 MHz | 1125 mV | Liquid cooling only | OCP hard lock at 40 CU — 2400 MHz causes hard lock regardless of cooling at 40 CU; may work at 24 CU with adequate voltage (big_trov, codyrainy, cralant) |
 
 **40 CU voltage guidance (May 2026):**
 - Start at 2000 MHz @ 980 mV and tune from there (vinnijs.dev).
@@ -421,4 +421,4 @@ interval_ms = 100  # Increase from 50
 ---
 
 **Source of truth:** elektricM docs/system/governor.md, docs/system/power.md, docs/bios/overclocking.md
-**Last updated:** 2026-05-14
+**Last updated:** 2026-06-14

@@ -193,7 +193,7 @@ Stable Diffusion runs via stablediffusion.cpp with the Vulkan backend (Discord c
 **Repository:** [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)
 **Status:** Working, 19 stars, 1 fork (May 2026). 1.61x compute scaling verified.
 
-The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch from duggasco re-enables all 40 CUs. See [01-Hardware Specs](01-hardware-specs.md) for installation, CU masking, and health testing procedures.
+The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). These can be re-enabled via `bc250-cu-live-manager` (UMR-based, no kernel patch/reboot, recommended) or the duggasco kernel patch (legacy). See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedures.
 
 ### LLM Performance with 40 CUs (llama.cpp Vulkan, Qwen3.5-9B Q4_K_XL)
 
@@ -224,4 +224,4 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). A kernel patch f
 
 *Sources: elektricM radv.md (primary), Discord bc250-chat (hammercoral, __nightfox, xseol, _fanoush_, steinbeks, deathstalkerjr, adaptive__manipulator, birdetta, machinezer0, n3oney), llama.cpp GitHub benchmark thread #10879, Ollama issue #15601, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix coverage.*
 
-Last modified by: deepseek-v4-pro on 2026-05-29
+Last modified: 2026-06-14

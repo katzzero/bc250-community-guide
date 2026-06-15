@@ -10,7 +10,7 @@
 |------|---------|--------|
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
 | `P4.00` (stock) | P4.00 | ❌ **Unstable** — undocumented version found on some boards; 3D apps crash (faithy2386) |
-| `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE ) but **easy to brick** | [confirmed: @etho2520, 24/02/2026]
+| `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE) but **easy to brick** | [confirmed: @etho2520, 24/02/2026]
 
 Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
 
@@ -114,7 +114,7 @@ sudo flashrom -p ch347_spi -w BC250_3.00_CHIPSETMENU.ROM
 
 > ⚠️ Risk with CH341A: Some black-PCB CH341A programmers output 5V logic even in 3.3V mode. The BC-250 BIOS chip operates at 3.3V — 5V can destroy the chip or chipset.
 
-### Method 3: Internal Flash from Linux [confirmed: @Discord]
+### Method 3: Internal Flash from Linux [confirmed: elektricM docs]
 
 > ⚠️ **Not documented in the elektricM guide (which covers USB and hardware programmer).** The MrrZed0 BIOS repo and community members have used `flashrom -p internal` successfully. Proceed at your own risk.
 
@@ -236,13 +236,7 @@ sudo bash bc250-toolkit.sh
 
 Automates: kernel source download, amdgpu module patching, modprobe config, and hook for kernel updates. Supports stock, deckify, and bore CachyOS kernels. Works with limine and systemd-boot (gennro, hojnikb).
 
-**big_trov runtime script (Any Distro with CachyOS kernel):**
-
-```bash
-curl -O <script URL from Discord>
-chmod +x runtime_40cu_unlock.sh
-sudo ./runtime_40cu_unlock.sh
-```
+**big_trov runtime script (Any Distro):** See the [bc250-collective Discord](https://discord.gg/8eZfFWhczz) project-forums for the latest `runtime_40cu_unlock.sh` — the script URL changes with updates.
 
 ### Method 2: Kernel Patch (All Distros — Fallback)
 
@@ -262,7 +256,7 @@ sudo reboot
 
 **Distro-specific instructions** (CachyOS PKGBUILD patch, Bazzite COPR kernel, Arch AUR): see [05-OS Installation](05-os-installation.md).
 
-**Bazzite:** erewego posted pre-built RPMs against ba29 Deck kernel. Bazzite Desktop uses OGC kernel — check Discord for updated RPMs.
+**Bazzite:** erewego posted pre-built RPMs against ba29 Deck kernel. Bazzite Desktop uses OGC kernel — kernel packages not yet available as of June 2026. Check the `bc250-resources` Discord channel for updated RPMs.
 
 ### Verification
 
@@ -293,6 +287,8 @@ cd bc250-cu-live-manager
 ```
 
 This replaces the kernel patch method for most users. Use your distro's stock kernel + the live manager. After unlocking, verify with: `sudo cat /sys/kernel/debug/dri/0/amdgpu_gca_config | grep active_cu_number` (note: will still show 24 because the driver initialized with 24; UMR sets registers after init — big_trov).
+
+**June 2026 update:** The live-manager now supports **disabling stock WGPs** (Work Group Processors), not just unlocking harvested CUs. This enables binary search for defective CUs — disable half, test, halve again until the bad CU is isolated (technique by pops1cl). See [10 — Troubleshooting](10-troubleshooting.md) for the full artifact hunting workflow.
 
 ### CU Health Testing
 

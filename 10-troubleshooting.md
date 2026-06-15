@@ -11,13 +11,13 @@
 | **Which PSU should I buy?** | FSP500-30AS (US, ~$10-22 eBay) or Mean Well LOP-400/500/600 for best value. Metalfish Flex 500W for non-US. 400W+ minimum for OC. | [03-Power Supply Guide](03-power-supply-guide.md) |
 | **Which WiFi adapter works?** | TP-Link Archer TX10UB Nano or UGreen AX900 (both MT7921AU chipset, OOTB on Bazzite). Avoid combo WiFi/BT dongles on USB 3.0 ports -- use separate dongles or a USB 2.0 hub. | [09-WiFi & Peripherals](09-wifi-and-peripherals.md) |
 | **How do I fix VRAM out-of-memory crashes?** | Use 512MB dynamic allocation in BIOS, add kernel params `ttm.pages_limit=3959290 ttm.page_pool_size=3959290`, set up zswap + 16-32GB swapfile. Static splits (6GB/10GB) are more reliable for AAA games. | VRAM section below, [02-BIOS](02-bios-and-firmware.md) |
-| **How do I fix ACPI idle power draw?** | Install `bc250-acpi-fix` -- drops idle from 40-60W to ~25-30W. GitHub: bc250-collective/bc250-acpi-fix. Requires dracut rebuild on Bazzite. | help-thread exports |
+| **How do I fix ACPI idle power draw?** | Install `bc250-acpi-fix` -- enables CPU C-States and P-States for lower idle power. GitHub: bc250-collective/bc250-acpi-fix. Requires dracut rebuild on Bazzite. | help-thread exports |
 | **How do I fix green screen / visual artifacts?** | Check CPU stability (increase voltage), GPU governor voltage too low (raise 25-50mV), VRAM overheating (add heatsinks). If persistent at stock settings, board may have faulty silicon. | Artifacts section below |
 | **Why is my CPU fan not spinning?** | J4003 header may need fan with detection pin grounded. Try different fan model. Check with multimeter for oxidized pins. Some fans require the 4th PWM pin to be connected. | help-thread: `None of The CPU fans I try work` |
 | **Which OS should I use?** | Bazzite = easiest (pre-configured gaming), CachyOS = best performance + flexibility, Fedora/Arch = advanced users. | [05-OS Installation](05-os-installation.md) |
 | **How do I recover from a bricked BIOS?** | Use CH341A or Raspberry Pi Pico on J4004 header with SOP8 clip. Flash chip: BIOS_A1 (Winbond W25Q128JVSQ, 16MB). Always backup first. | Flash Failed section below |
 | **No audio over DisplayPort?** | Use a passive (not active) DP-to-HDMI adapter. Update to kernel 6.19.10+ for DP audio fix. USB audio adapter ($10) as fallback. | [08-Display & Audio](08-display-and-audio.md) |
-| **How do I reduce idle power draw?** | ACPI fix (see above) + cyan-skillfish-governor (dynamically scales GPU, reducing idle freq) + disable unnecessary USB devices in BIOS. Typical idle: 25-35W with both fixes. | ACPI fix repo, governor docs |
+| **How do I reduce idle power draw?** | ACPI fix (see above) + cyan-skillfish-governor (dynamically scales GPU, reducing idle freq) + disable unnecessary USB devices in BIOS. Typical idle: 60-70W with governor + ACPI fix; SMU profile 0 saves ~15W vs profile 3. | ACPI fix repo, governor docs |
 
 ---
 
@@ -248,7 +248,7 @@ Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
 **Cause:** Broken RDSEED instruction on BC-250 hardware (fixed in kernel 6.16+). -- (need confirmation; not found in any source doc; appears to be from Discord)
 
 **Fixes:**
-- Update to **kernel 6.16+** (recommended: 6.18.18 LTS)
+- Update to **kernel 6.16+** (recommended: 6.19.x for VRR/DP audio)
 - Update to **Qt 6.8+**
 - Workaround: Use GNOME instead of KDE
 
@@ -474,7 +474,7 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 **Recovery (source: boot.md):**
 1. **Hardware programmer required:** CH341A or Raspberry Pi Pico with SOP8 clip
-   -- (Note: our file said CH347T. Corrected to match source boot.md line 845. CH347T may also work -- (need confirmation))
+   -- (Note: our file said CH347T. Corrected to match source boot.md line 845. CH347T may also work.)
 2. Flash chip: `BIOS_A1` (Winbond W25Q128JVSQ 16MB per flashing.md, or W25Q64 8MB per boot.md -- check your board revision)
 3. Command:
    ```bash
@@ -502,15 +502,6 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 **Cause:** Variable Rate Shading (VRS) commands are not supported on Cyan Skillfish GPU, causing the Vulkan driver to crash. Specific shaders/instructions in some games can trigger bad CUs that pass synthetic benchmarks — e.g., Dinkum crashes above 1700 MHz at 40 CU (mikecmp, May 2026).
 
 **Fix:** Use the Vulkan_NullVRS layer by bangstk (see [08-Display & Audio](08-display-and-audio.md) for install).
-
-**Fix:** Use the Vulkan_NullVRS layer by bangstk:
-```bash
-git clone https://github.com/bangstk/Vulkan_NullVRS.git
-cd Vulkan_NullVRS
-make
-sudo make install
-```
-Steam launch option: `Vulkan_NullVRS=1 %command%`
 
 ---
 
@@ -554,11 +545,11 @@ glxinfo | grep "OpenGL renderer"
 
 ## Important Reminders
 
-- Never use 6-pin to 8-pin PCIe adapters for power delivery -- they will melt -- (need confirmation; not found in source docs; reportedly from Discord)
-- Never flash the `SIO1_R` chip (Macronix MX25L4006E) -- you will brick the SuperIO -- (need confirmation; not found in source docs; reportedly from Discord)
+- Never use 6-pin to 8-pin PCIe adapters for power delivery -- they will melt (source: Discord bc250-chat) [confirmed: @essdee4336]
+- Never flash the `SIO1_R` chip (Macronix MX25L4006E) -- you will brick the SuperIO (source: elektricM flashing.md)
 - Never set GPU voltage below 700 mV -- GPU will lock to 1500 MHz (source: governor.md, stability.md)
 - Never use Smokeless_UMAF -- can cause permanent damage (source: quick-reference.md)
 - Always clear CMOS after BIOS flash (source: boot.md, display.md, quick-reference.md)
 - Always disable IOMMU in BIOS (source: boot.md, display.md, stability.md, quick-reference.md)
 - Always use passive DP-to-HDMI for audio (source: display.md)
-- Use kernel 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (avoid 6.15.0-6.15.6 and 6.17.8-6.17.10) (source: boot.md, display.md, performance.md, quick-reference.md)
+- Use kernel 6.19.x (recommended — VRR + DP audio), 6.18.18 LTS (stable fallback), 6.17.11+, or 6.12.x-6.14.x LTS (avoid 6.15.0-6.15.6 and 6.17.8-6.17.10) (source: boot.md, display.md, performance.md, quick-reference.md)

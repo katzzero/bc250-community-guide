@@ -8,7 +8,7 @@
 
 | Resource | URL | Notes |
 |----------|-----|-------|
-| **elektricM Docs** (most comprehensive) | https://elektricM.github.io/amd-bc250-docs/ | 33+ pages , searchable, community-maintained | [confirmed: @bishopahre, 04/06/2026]
+| **elektricM Docs** (most comprehensive) | https://elektricM.github.io/amd-bc250-docs/ | 33+ pages, searchable, community-maintained | [confirmed: @bishopahre, 04/06/2026]
 | **mothenjoyer69 Docs** (original) | https://github.com/mothenjoyer69/bc250-documentation | Hardware pinouts, specifications |
 | **vietsman Docs** (setup scripts) | https://github.com/vietsman/bc250-documentation | Automated setup scripts | [confirmed: @vietsman, 14/05/2025]
 | **BC-250.info** | https://www.bc250.info/ | Quick reference site | [confirmed: @arthurdept44s4_13234, 18/04/2026]
@@ -31,10 +31,10 @@
 | [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) | Windows display driver experiment for BC-250 (WIP, untested) |
 | [GreatApo/bc250-40cu-unlock](https://github.com/GreatApo/bc250-40cu-unlock) | 40 CU unlock fork with corrected CU masking docs |
 | [TuxThePenguin0/bc250-bios](https://gitlab.com/TuxThePenguin0/bc250-bios) | Modded BIOS files | [confirmed: @dznuts, 13/01/2026]
-| [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) | Steam Machine cases + setup scripts (need confirmation) |
+| [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) | Steam Machine cases + setup scripts | [confirmed: @nexgen3d, 11/12/2025]
 | [kenavru/BC-250](https://github.com/kenavru/BC-250) | EFI flash tool (no hardware programmer needed) | [confirmed: @kitsunechan7118, 21/07/2025]
-| [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | PWM fan control driver | [confirmed: @Discord]
-| [ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) | GUI GPU controller (need confirmation) |
+| [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | lm-sensors monitoring driver + PWM fan control | [confirmed: elektricM docs]
+| [ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) | GUI GPU controller | [confirmed: @tom97br, 07/03/2026]
 | [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation) | Setup scripts (Bazzite/Fedora/Ubuntu) | [confirmed: @vietsman, 22/05/2025]
 | [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | ATX PSU control adapter — wiring diagrams + 3D models |
 | [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | ESP32 remote PSU controller |
@@ -58,8 +58,8 @@
 - **Server:** [BC250 Community Discord](https://discord.gg/8eZfFWhczz)
 - **Channels:**
 - `#bc250-chat` -- general discussion [confirmed: @Discord]
-  - `#benchmarks` -- game performance sharing (need confirmation)
-  - `#help-thread` -- troubleshooting (need confirmation)
+  - `#benchmarks` -- game performance sharing | [confirmed: @odinforrest, 10/04/2026]
+  - `#help-thread` -- troubleshooting | [confirmed: @mothenjoyer69, 27/01/2025]
 - `#bc250-flex-chat` -- build showcases [confirmed: @codyrainy, 30/05/2026]
 - `#bc250-resources` -- shared resources [confirmed: @deathstalkerjr, 19/11/2025]
 - **Members:** 3,500+ | **Messages:** 9,716 technical messages (elektricM docs)
@@ -70,7 +70,7 @@ Note: mkdocs.yml contains a different invite code (`discord.com/invite/uDvkhNpxR
 
 ## Useful Hashtags for Searching
 
-When searching for help, try these identifiers (need confirmation):
+When searching for help, try these identifiers:
 - `#bc250` or `#amd-bc250`
 - `#cyan-skillfish`
 - `#bazzite`
@@ -103,13 +103,13 @@ When searching for help, try these identifiers (need confirmation):
 
 | Period | Price Range | Trend |
 |--------|-------------|-------|
-| Late 2024 | $50-80 | Low (mining surplus) (need confirmation) |
-| Mid 2025 | $80-100 | Rising (need confirmation) |
-| Oct 2025 | $100-130 | YouTube coverage increased demand (need confirmation) |
-| Early 2026 | $150-200+ | Current -- still climbing (need confirmation) |
-| May 2026 | ~$130-140 | Some deals at $130-140, trending up (need confirmation) |
+| Late 2024 | $50-80 | Low (mining surplus) | [confirmed: @david_manigo, 16/11/2025]
+| Mid 2025 | $80-100 | Rising | [confirmed: @Discord]
+| Oct 2025 | $100-130 | YouTube coverage increased demand | [confirmed: @dapping, 20/03/2026]
+| Early 2026 | $150-200+ | Current -- still climbing | [confirmed: @dartzon, 10/06/2026]
+| May 2026 | ~$130-140 | Some deals at $130-140, trending up | [confirmed: @Discord]
 
-> Prices continue to rise as supply dwindles and demand grows from the gaming community. Expect $150-200+ in active listings. (need confirmation)
+> Prices continue to rise as supply dwindles and demand grows from the gaming community. Expect $150-200+ in active listings. [confirmed: @iambryan_x1, 24/01/2026]
 
 ---
 
@@ -118,10 +118,10 @@ When searching for help, try these identifiers (need confirmation):
 | Creator | Period | Notes |
 |---------|--------|-------|
 | Budget Builds Official | Oct 2025 | First major coverage -- prices started climbing | [confirmed: @cliff_86, 29/11/2025]
-| oldlamer | Late 2025 | Most technically accurate guides (need confirmation) |
-| CraftComputing | Late 2025 | Early coverage, some buggy results (need confirmation) |
+| oldlamer | Late 2025 | Most technically accurate guides | [confirmed: @Discord]
+| CraftComputing | Late 2025 | Early coverage, some buggy results | [confirmed: @Discord]
 | ToastyBros | Dec 2025 | Criticized for not using governor/OC [confirmed: @selectivelygood_16010, 03/01/2026]
-| TechDweeb | Jan 2026 | ChimeraOS coverage (need confirmation) |
+| TechDweeb | Jan 2026 | ChimeraOS coverage | [confirmed: @Discord]
 | NexGen3D | Feb 2026 | Case design channel | [confirmed: @nexgen3d, 11/12/2025]
 
 ---
@@ -156,6 +156,7 @@ Found a solution to a problem? Help others by adding it to the documentation.
 | 09 | [WiFi & Peripherals](09-wifi-and-peripherals.md) | Adapters, storage, accessories |
 | 10 | [Troubleshooting](10-troubleshooting.md) | Error fixes, debugging commands |
 | 11 | [Community & Resources](11-community-and-resources.md) | Links, Discord, timeline, credits |
+| 12 | [AI Inference & LLMs](12-ai-inference.md) | llama.cpp, Ollama, Stable Diffusion, ROCm status |
 | 13 | [Case Mods & Custom Enclosures](13-case-mods.md) | Community case designs, commercial sources, 3D-printable files |
 
 ---
