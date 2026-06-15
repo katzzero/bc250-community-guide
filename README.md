@@ -1,8 +1,8 @@
 # BC-250 Unofficial Community Guide
 
-> Turn a $50-150 ex-mining board into a capable Linux gaming PC. The BC-250 is a recycled AMD board with a cut-down PS5 "Oberon" APU — 6 Zen 2 cores + 24 RDNA 2 CUs + 16 GB GDDR6. Performance lands between an RX 6600 and RX 6600 XT. Total build cost: **~$150-250** including board, PSU, fan, SSD, and adapters.
+> **Turn a $50-150 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores, 24 RDNA 2 CUs, 16 GB GDDR6. Performance: RX 6600 to RX 6700 level. Unlockable to 40 CUs. Total build: **~$150-250**.
 >
-> **Linux only** — no Windows GPU drivers. Unofficial guide by katzzero, not endorsed by AMD. [Discord](https://discord.gg/8eZfFWhczz) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
+> **Linux only** — no Windows GPU drivers. Maintained by katzzero from community Discord data. [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
 
 ---
 

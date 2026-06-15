@@ -1,6 +1,8 @@
 # Contributing to the BC-250 Unofficial Community Guide
 
-Thank you for your interest in contributing! This is an unofficial guide relying on tested, verified information from the community.
+> Turn a $50-150 mining board into a Linux gaming PC — community-tested hardware guides, benchmarks, and troubleshooting for the AMD BC-250.
+
+Thank you for your interest in contributing! This guide relies on tested, verified information from the BC-250 Discord community.
 
 ## How to Contribute
 
