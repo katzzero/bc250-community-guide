@@ -1,137 +1,131 @@
 # BC-250 Unofficial Community Guide
 
-> Unofficial community guide for the AMD BC-250 mining board repurposed as a budget gaming/desktop PC. Not an official community project — made by katzzero.
+> Turn a $50-150 ex-mining board into a capable Linux gaming PC. The BC-250 is a recycled AMD board with a cut-down PS5 "Oberon" APU — 6 Zen 2 cores + 24 RDNA 2 CUs + 16 GB GDDR6. Performance lands between an RX 6600 and RX 6600 XT. Total build cost: **~$150-250** including board, PSU, fan, SSD, and adapters.
+>
+> **Linux only** — no Windows GPU drivers. Unofficial guide by katzzero, not endorsed by AMD. [Discord](https://discord.gg/8eZfFWhczz) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
 
 ---
 
-## Table of Contents
+## Start Here
+
+If you just bought a BC-250, follow this step-by-step guide:
+
+### [00 -- From Zero to Gaming](00-from-zero-to-gaming.md)
+
+Linear walkthrough: purchase → assembly → BIOS flash → OS install → first game running. Takes about 2 hours.
+
+---
+
+## What's in This Guide
 
 | # | File | Topic |
 |---|------|-------|
-| 01 | [Hardware Specifications](01-hardware-specs.md) | Board specs, components, physical dimensions |
-| 02 | [BIOS & Firmware](02-bios-and-firmware.md) | BIOS flashing, VRAM config, modded BIOS files |
+| **00** | **[From Zero to Gaming](00-from-zero-to-gaming.md)** | **Start here — complete setup walkthrough** |
+| 01 | [Hardware Specifications](01-hardware-specs.md) | Board specs, APU details, connectors, pinouts |
+| 02 | [BIOS & Firmware](02-bios-and-firmware.md) | BIOS flashing, VRAM config, 40 CU unlock |
 | 03 | [Power Supply Guide](03-power-supply-guide.md) | PSU options with verified specs & purchase links |
-| 04 | [Cooling Guide](04-cooling-guide.md) | Heatsink mods, fan selection, thermal interface, temps |
-| 05 | [OS Installation](05-os-installation.md) | Distro-by-distro setup guides (Bazzite, Fedora, etc.) |
-| 06 | [GPU Governor](06-gpu-governor.md) | Governor options, installation, tuning & OC |
-| 07 | [Game Benchmarks](07-game-benchmarks.md) | Community-tested performance database |
-| 08 | [Display & Audio](08-display-and-audio.md) | DP/HDMI, audio solutions, cable recommendations |
-| 09 | [WiFi & Peripherals](09-wifi-and-peripherals.md) | WiFi/BT adapters, USB accessories, storage |
-| 10 | [Troubleshooting](10-troubleshooting.md) | Error messages, fixes, debugging commands |
-| 11 | [Community & Resources](11-community-and-resources.md) | Links, Discord, timeline, credits |
-| 12 | [AI Inference & LLMs](12-ai-inference.md) | llama.cpp, Ollama, Stable Diffusion, ROCm status |
-| 13 | [Case Mods & Custom Enclosures](13-case-mods.md) | Community case designs, commercial sources, 3D-printable files |
+| 04 | [Cooling Guide](04-cooling-guide.md) | Heatsink mods, fans, thermal pads, temps |
+| 05 | [OS Installation](05-os-installation.md) | Bazzite, CachyOS, Fedora, Arch, Debian, Ubuntu |
+| 06 | [GPU Governor](06-gpu-governor.md) | Governor install, tuning, overclocking |
+| 07 | [Game Benchmarks](07-game-benchmarks.md) | 60+ community-tested games with FPS data |
+| 08 | [Display & Audio](08-display-and-audio.md) | DP/HDMI, audio, VRR, multi-monitor |
+| 09 | [WiFi & Peripherals](09-wifi-and-peripherals.md) | WiFi/BT adapters, SSDs, USB accessories |
+| 10 | [Troubleshooting](10-troubleshooting.md) | Error reference, fixes, debugging commands |
+| 11 | [Community & Resources](11-community-and-resources.md) | Discord, repos, timeline, YouTube coverage |
+| 12 | [AI Inference & LLMs](12-ai-inference.md) | llama.cpp, Ollama, Stable Diffusion, ROCm |
+| 13 | [Case Mods & Custom Enclosures](13-case-mods.md) | 3D-printable cases, commercial sources |
 
 ---
 
-## Key Facts at a Glance
+## Quick Specs
 
 | Spec | Value |
 |------|-------|
-| **APU** | AMD BC-250 "Cyan Skillfish" (cut-down PS5 Oberon) |
-| **CPU** | 6x Zen 2 cores @ ~3.5 GHz |
-| **GPU** | 24 RDNA 2 CUs (up to 40 via live-manager or kernel patch), base 1500 MHz, up to 2300 MHz (OC) |
-| **Memory** | 16 GB GDDR6 shared (CPU + GPU) |
-| **Storage** | 1x M.2 2280 (PCIe 2.0 x2 NVMe or SATA3) |
-| **TDP** | 220W (up to 235W under full load) |
-| **Display** | 1x DisplayPort 1.4 (no HDMI -- adapter required) |
-| **Network** | 1x Gigabit Ethernet (no built-in WiFi) |
-| **USB** | 2x USB 3.0 + 2x USB 2.0 |
-| **OS Support** | Linux only -- no official Windows GPU drivers. Unofficial WIP: [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) (untested) |
-
----
-
-## Benchmark Leaders
-
-| Category | Rank 1 | Score | Config | User |
-|----------|--------|-------|--------|------|
-| Superposition Extreme 1080p (24 CU) | 1 | 4713 pts | 2530 MHz GPU, 4175 MHz CPU, 1165 mV, liquid cooling | nexgen3d |
-| Superposition Extreme 1080p (40 CU) | 1 | ~5900 pts | 40 CU | gennro |
-| Furmark VK 1080p (40 CU) | 1 | 153 FPS | 2150 MHz, 990 mV, 79C, ~200W | essdee4336 |
-| CPU Clock (24 CU) | 1 | 4175 MHz | — | nexgen3d |
-| GPU Clock (24 CU) | 1 | 2530 MHz | 1165 mV | nexgen3d |
-
----
-
-## Important Warnings
-
-1. **No official Windows GPU drivers** -- Linux is required. Unofficial WIP: [ZEROAESQUERDA/BC250-windowsDriverTest](https://github.com/ZEROAESQUERDA/BC250-windowsDriverTest) (untested)
-2. **Always clear CMOS** after USB BIOS flash (settings won't stick otherwise)
-3. **Disable IOMMU** in BIOS -- it is broken and causes display failures
-4. **Avoid older broken kernels** -- 6.15.0-6.15.6 and 6.17.8-6.17.10 were known-bad; these ranges are now outdated for current distros (use 6.18.18 LTS, 6.19.x, or 6.17.11+)
-5. **Governor minimum voltage: 700 mV** -- below that GPU locks to 1500 MHz
-6. **Do NOT use Smokeless_UMAF** -- can cause permanent damage
-7. **No hardware video encode/decode** -- VCN firmware blocked by Sony, BUT VCN is NOT fused off — active community research (partial decode achieved). Software decoding only for now.
-8. **Never use 6-pin to 8-pin PCIe adapters** for power delivery -- fire hazard (Discord confirmed)
-9. **ACPI fix recommended** -- SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. Note: repo README says P-States may not work on all boards. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
-10. **VRAM chips have no temperature sensor** -- ensure backplate airflow
+| **APU** | AMD BC-250 "Cyan Skillfish" — cut-down PS5 Oberon |
+| **CPU** | 6× Zen 2 @ ~3.5 GHz (up to 4 GHz via SMU OC) |
+| **GPU** | 24 RDNA 2 CUs (up to 40 unlockable), 1500–2300 MHz |
+| **Performance** | Stock: RX 6600–6600 XT level. 40 CU: RX 6700 / GTX 1080 Ti level |
+| **Memory** | 16 GB GDDR6 shared — 14 Gbps, 256-bit, ~448 GB/s |
+| **Storage** | 1× M.2 2280 (PCIe 2.0 x2 — ~1 GB/s max, don't overspend) |
+| **Display** | 1× DisplayPort 1.4 (no HDMI — passive adapter ~$5) |
+| **Network** | 1× Gigabit Ethernet (no WiFi — USB adapter needed) |
+| **USB** | 2× USB 3.0 + 2× USB 2.0 |
+| **TDP** | 220W typical, 235W peak gaming, 250–320W Furmark |
+| **OS** | Linux only — Bazzite, CachyOS, Fedora 43+, Arch, Debian |
 
 ---
 
 ## Quick Shopping
 
-| Item | Recommended | Where |
-|------|-------------|-------|
-| BC-250 Board | BIOS P2.00-P3.00 or P5.00 (avoid P4.00 — unstable) | AliExpress, eBay |
-| PSU (Best Value) | FSP500-30AS Flex ATX 500W, 80+ Platinum | eBay -- search `389522369783` (essdee4336) |
-| Fan | Arctic P12 Max / P12 Pro 120mm (3-pack or 5-pack) | Amazon |
-| Thermal Pad (APU) | PTM7950 Phase Change Pad | Amazon B0F9Y5SCK2 | [confirmed: @selectivelygood_16010, 11/12/2025]
-| Thermal Pads | 1.5 mm front, 2.0 mm back | Amazon multi-pack |
-| Display Cable | Passive DP-to-HDMI | Amazon / AliExpress ~$2 |
-| WiFi | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | Amazon B0DZCC95G6 | [confirmed: @walkjivefly, 29/01/2026]
-| GPU Governor | cyan-skillfish-governor-smu | COPR / AUR |
+| Item | Recommendation | Price |
+|------|---------------|-------|
+| **Board** | BC-250, BIOS P2.00–P3.00 or P5.00 (avoid P4.00) | ~$80–150 |
+| **PSU** | FSP500-30AS Flex ATX (eBay `389522369783`) or Mean Well LOP-400 | ~$15–65 |
+| **Fan** | Arctic P12 Pro / P12 Max 120mm | ~$8–12 |
+| **Thermal pad** | PTM7950 phase-change pad (Amazon `B0F9Y5SCK2`) | ~$10 |
+| **Thermal pads** | 1.5mm front + 2.0mm back for VRAM | ~$8 |
+| **Display cable** | Passive DP-to-HDMI adapter | ~$5 |
+| **WiFi adapter** | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | ~$20 |
+| **SSD** | Any M.2 NVMe (PCIe 2.0 x2 — cheap drives saturate the bus) | ~$25 |
+| | **Total (approx)** | **~$150–250** |
 
 ---
 
-*Last updated: Based on community data through June 2026. Unofficial — not endorsed by AMD or any community. Prices and availability change frequently -- verify before purchasing.*
+## ⚠️ Important Warnings
+
+1. **Linux only** — no Windows GPU drivers exist
+2. **Always clear CMOS** after BIOS flash — settings won't stick otherwise
+3. **Disable IOMMU** in BIOS — broken, causes display failures
+4. **Use kernel 6.19.x** (recommended) or 6.18.18 LTS — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10
+5. **Governor voltage: minimum 700 mV** — below that GPU locks to 1500 MHz
+6. **Never use 6-pin to 8-pin PCIe adapters** — fire hazard
+7. **Never use Smokeless_UMAF** — can permanently damage the board
+8. **Don't lose the 4 nylon washers** under heatsink screws — missing = 90–100°C idle
+9. **VRAM has no temperature sensor** — must cool backplate actively
+10. **No hardware video encode/decode** — VCN blocked by Sony (NOT fused off — research active)
+
+---
+
+## Performance
+
+### Superposition Extreme 1080p (Leaderboard)
+
+| Rank | CU | Score | Config | User |
+|------|-----|-------|--------|------|
+| #1 | 40 | 5900 | — | gennro |
+| #1 | 24 | 4713 | 2530 MHz GPU, 4175 MHz CPU, liquid | nexgen3d |
+
+### Furmark VK 1080p (40 CU Top)
+
+| FPS | Config | User |
+|-----|--------|------|
+| 153 | 2150 MHz, 990 mV, 79°C | essdee4336 |
+| 150 | 2300 MHz, 85°C, 288W | big_trov |
+
+See [07 — Game Benchmarks](07-game-benchmarks.md) for 60+ community-tested games.
+
+---
+
+## Join the Community
+
+- **[BC250 Community Discord](https://discord.gg/8eZfFWhczz)** — 3,500+ members, active daily
+- **[elektricM Docs](https://elektricm.github.io/amd-bc250-docs/)** — source-of-truth documentation (33+ pages)
+- **[bc250-collective](https://github.com/bc250-collective)** — ACPI fix, SMU OC, governor
+
+---
+
+## What's New
+
+**June 2026:** Black Myth: Wukong benchmark (edges RX 6700) · Binary search artifact hunting · Live-manager stock WGP disabling · OCP power limit documented · VCN confirmed NOT fused off (partial decode) · Kernel 6.19.x recommended · Mesa 26.x standard
+
+**May 2026:** CU Live Manager (toggle 40 CUs without kernel patch) · Cyberpunk 2077 38 CU record (matches RTX 3060) · BIOS P4.00 discovered · AIOs confirmed (Thermalright Aqua Elite 240) · Micro-Fit power mod · Dell DA2 220W undervolted success · Mesa 26 + VRR on CachyOS/Bazzite
 
 ---
 
 ## How This Guide Is Maintained
 
-This guide is maintained by katzzero. It is updated continuously from community Discord activity using a semi-automated pipeline:
-
-1. **Export** — New Discord messages are exported via DiscordChatExporter
-2. **Index** — A local RAG vector database (ChromaDB + sentence-transformers) indexes all exports and reference docs
-3. **Audit** — New exports are searched for benchmarks, corrections, tools, crash data, and other updates
-4. **Cross-reference** — Every claim is verified against elektricM source-of-truth docs and existing documentation
-5. **Update** — Files are edited with attributions, uncertainty marked, and a changelog entry is logged
-6. **Commit** — Changes are committed to `github.com/katzzero/bc250-unofficial-community-guide`
+Updated continuously from BC-250 Discord community data using a semi-automated pipeline: export → RAG indexing → audit → cross-reference → edit → commit. Every claim verified against [elektricM docs](https://elektricm.github.io/amd-bc250-docs/) and Discord exports.
 
 ---
 
-## Latest Additions (June 2026)
-
-- **Black Myth: Wukong Benchmark** — 40 CU BC-250 edges RX 6700 (61 vs 59 avg FPS at 1080p Low). Old Lamer YouTube comparison vs RX 6700 & RX 7600.
-- **Binary Search Artifact Hunting (pops1cl)** — Use live-manager to disable CUs in groups, halving each time to isolate a single defective CU. Documented in troubleshooting.
-- **Live-Manager Disables Stock WGPs** — June 2026 update: now supports disabling factory WGPs, not just unlocking harvested CUs. Complete CU management without kernel patches.
-- **OCP Power Limit Documented** — Secondary Over Current Protection triggers hard lock at ~1850-2200 MHz on 40 CU. VRM temps are the hidden bottleneck (capt.cat_13). Shunt mod may bypass (big_trov).
-- **Micro-Fit Power Supplement** — Onboard Micro-Fit 3.0 ports can supplement PCIe 8-pin for 40 CU builds. Recommended above 260W sustained. Documented in hardware specs.
-- **VCN NOT Fused Off** — holde and Angablade achieved partial decode via SMU commands (May 2026). Active research — not yet functional for end users.
-- **Kernel 6.19.x Now Recommended** — VRR and DP audio fixes (TheFloW) make 6.19.x the recommended kernel. 6.18.18 LTS remains stable fallback.
-- **Mesa 26.x Now Standard** — Significant RT and performance improvements. CachyOS ships Mesa 26. GTA V Enhanced went from 3-5fps crash to smooth.
-
-### May 2026 Highlights
-
-- **CU Live Manager (vinnijs.dev)** — [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager). Toggle CUs on the fly, no kernel patch. TUI with vim keys, systemd persistence. Works on stock kernel.
-- **40 CU: No kernel patch needed.** Use stock kernel + live manager. Start at 2000 MHz @ 980 mV. Stay below 1130 mV / 85°C.
-- **Cyberpunk 2077 Record (dznuts)** — 38 CU, 2270 MHz GPU, 4050 MHz CPU: min FPS >60 at 1080p Ultra (no FSR). Matched RTX 3060. Memory OC gave +18.4% FPS boost.
-- **Voltage Wall & OCP Analysis (big_trov)** — Two limit curves intersect at ~2200 MHz at 40 CU. OCP hard lock at 2400 MHz requires power cable pull.
-- **BIOS P4.00 Discovered (faithy2386)** — Undocumented stock version, unstable. Dumped and preserved. Flash to P5.00 fixed.
-- **AIOS Confirmed** — Thermalright Aqua Elite 240 V2/V4/V6 all working with 3D-printed AM4 mount. Multi-fan control via J4003 header (CoolerControl).
-- **Micro-Fit Power Mod** — Onboard power ports as PCIe cable supplement (Old Lamer). Tested by community.
-- **Dell DA2 PSU (hoodyracoon)** — Running 40 CU at 1700 MHz/3600 MHz undervolted on 220W 12V-only external PSU.
-- **Mesa 26** — GTA V Enhanced fixed; shipped in CachyOS with RT/perf improvements.
-- **VRR** — CachyOS native, Bazzite custom image confirmed. Cheap Aliexpress DP>HDMI adapters recommended.
-- **AWG Cable Safety Table** — 16 AWG minimum verified; 18 AWG risky at 220W+ sustained; 22 AWG melts under load. Added to power guide with current/wattage per gauge.
-- **WiFi Adapter Guide** — M.2 Key E slot compatibility (Intel AX210, AX200, AC-9260, Realtek, MediaTek), USB adapter options, driver requirements, antenna connector types.
-- **Nylon Washer Warning (mzk10, .captainwasabi)** — Heatsink disassembly: 4 clear/black nylon washers under screw heads frequently lost. Reassembling without them causes gap → 90-100°C idle. Added to cooling guide.
-- **ACPI Fix Controversy** — `bc250-acpi-fix` table debated: some report cosmetic cpufreq only (frequency doesn't actually change), others report instability. Verify with `grep MHz /proc/cpuinfo`.
-- **DP Audio Fix (kernel 6.19.10+)** — New amdgpu DP audio implementation resolves audio-on-active-adapter issue. Older kernels: audio over active DP-HDMI adapters broken.
-- **Spider-Man 2 OOM Crash** — Game crashes with out-of-memory on BC-250. No known fix — game allocator issue, not fixable via kernel parameters.
-- **ttm.pages_limit Formula** — Documented calculation: `pages_limit = (GTT_size_bytes) / PAGE_SIZE`. Example: 14750 MB → 3776000 pages. Added to performance guide.
-- **Fin Straightening Tools** — Catalogued: 3D printed fin straightener (Printables), HVAC nylon fin straightener (Amazon), Scooper tool (~$2), manual pliers method. Temperature impact: 5-10°C.
-- **Mean Well LOP Series Expanded** — Added LOP-400-12 (400W), LOP-500-12 (500W), LOP-600-12 (600W) alongside existing 300W. Open frame, fanless on 300W/400W.
-- **FSP500 vs Metalfish Fan Comparison** — FSP500: stock 40mm×20mm sleeve bearing ~8000 RPM, noticeable whine. Metalfish: quieter 40mm×10mm hydraulic bearing, modular braided cables.
-- **Server PSU Noise Table** — HP DPS-800GB (~65 dBA), Delta DPS-750RB (~70 dBA), Bitmain APW3++ (~60 dBA, 220W idle), Dell 1U 750W (~55 dBA). Noise reduction options included.
-- **PTM7950 Detail** — Phase-change pad requires thermal cycling to cure. Best performance option. Dedicated thread for size/thickness guidance.
+*Unofficial — not endorsed by AMD or any community. Prices change often, verify before buying. [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md) · [Discord](https://discord.gg/8eZfFWhczz)*
