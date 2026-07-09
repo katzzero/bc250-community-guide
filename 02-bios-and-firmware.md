@@ -135,7 +135,7 @@ sudo flashrom -p internal -w BC250_3.00_CHIPSETMENU.ROM
 
 **Project:** [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script)
 
-Bash script providing an interactive text menu that automates firmware backup and flashing. Backs up your existing BIOS before flashing the modded P3.00 firmware. Themed menus available (CachyOS, Bazzite, PS5Linux, etc.). Screenshots confirmed working (Jul 2026). Useful for users who want a guided flashing experience without manual EFI shell commands.
+Bash script providing an interactive text menu that automates firmware backup and flashing. Backs up your existing BIOS before flashing the modded P3.00 firmware. Themed menus available (CachyOS, Bazzite, PS5Linux, etc.). Screenshots confirmed working (Forbidden-Darkness, Jul 2026). Useful for users who want a guided flashing experience without manual EFI shell commands.
 
 ---
 
