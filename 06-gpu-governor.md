@@ -129,6 +129,17 @@ The `load_target` controls how aggressively the governor scales frequency (filip
 
 On some kernels, GPU metrics reporting is broken. Try setting `fix-metrics = false` in config.toml if you see incorrect GPU utilization in MangoHud (community report, May 2026).
 
+### Decky Loader Plugin: GPU Clock Control
+
+**Project:** [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher)
+
+A [Decky Loader](https://github.com/SteamDeckHomebrew/decky-loader) plugin for BC-250 systems. Features:
+- **GPU clock cap** — notched slider that drives the governor D-Bus service; setting persists across reboots
+- **Live telemetry** — displays GPU/CPU clock speeds, temperatures, and utilization in the Quick Access Menu
+- Works on Bazzite and CachyOS with Gamescope session (mix3d, Jul 2026)
+
+Install via Decky Loader's plugin store or manually from the GitHub repo. Ideal for living-room setups where you want on-the-fly GPU control from a controller-friendly interface.
+
 ---
 
 ## Configuration

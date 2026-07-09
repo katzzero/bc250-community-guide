@@ -56,17 +56,17 @@
 | [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) | SMU reverse engineering for BC-250 / PS5 (research) |
 | [leafyjerk/BC-250-CPU-Core-Map](https://github.com/leafyjerk/BC-250-CPU-Core-Map) | Read-only CPU core layout diagnostic (does not unlock anything) |
 | [NeOdYmS/bazzite-bc250-toolkit](https://github.com/NeOdYmS/bazzite-bc250-toolkit) | Bazzite-specific setup toolkit |
-| [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg) | Memory timing configuration tool |
-| [katzzero/250mon](https://github.com/katzzero/250mon) | Lightweight hardware monitor |
+| [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg) | Memory configuration tool — set VRAM size and timings from Linux (works with stock P3.00/P5.00) |
+| [katzzero/250mon](https://github.com/katzzero/250mon) | Lightweight hardware monitor for BC-250 — temperature, frequency, power stats |
 | [suapapa/rusty-bc250-atx](https://github.com/suapapa/rusty-bc250-atx) | ATX PSU power control (Rust) |
 | [Koloses/Solarflare](https://github.com/Koloses/Solarflare) | Moonlight/Sunshine fork with Pyrowave for BC-250 |
-| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | UEFI firmware menu script |
+| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 flash with themed menus |
 | [tmghd272/bc250-toolkit-lite](https://github.com/tmghd272/bc250-toolkit-lite) | Lighter toolkit variant |
 | [thelamer/bc250-ollama-openwebui](https://github.com/thelamer/bc250-ollama-openwebui) | Ollama + OpenWebUI setup guide |
 | [keyboardspecialist/bc250-steamos](https://github.com/keyboardspecialist/bc250-steamos) | SteamOS setup for BC-250 |
 | [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit |
 | [akandr/bc250](https://github.com/akandr/bc250) | Ollama + Vulkan inference guide for BC-250 |
-| [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Performance profile switcher |
+| [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Decky Loader plugin — GPU clock slider + telemetry overlay in Quick Access Menu |
 | [cachenetics/bc250-nixos](https://github.com/cachenetics/bc250-nixos) | NixOS configuration for BC-250 |
 | [cachenetics/project-ariel](https://github.com/cachenetics/project-ariel) | Project Ariel |
 | [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) | BC-250 J2000/J2001 Micro-Fit power adapter PCB (UNTESTED — waiting for fab boards, build at own risk) |

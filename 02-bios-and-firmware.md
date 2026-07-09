@@ -70,6 +70,13 @@ amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 
 *Source: elektricM vram.md — Advanced kernel parameters section.*
 
+### Memory Timing Configuration Tool (bc250_memcfg)
+
+**Project:** [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg)
+**Status:** Working — compiled binary available. Works with stock P3.00 and P5.00 BIOS.
+
+Sets CMOS BIOS memory configuration from Linux without rebooting into BIOS. The most useful parameter is `UMA_SIZE` (VRAM allocation), but it can also adjust memory timings. Pre-built binary available in the GitHub releases page (fanoush, Jul 2026).
+
 ---
 
 ## Flashing Methods
@@ -123,6 +130,12 @@ sudo flashrom -p ch347_spi -w BC250_3.00_CHIPSETMENU.ROM
 sudo flashrom -p internal -r backup.bin
 sudo flashrom -p internal -w BC250_3.00_CHIPSETMENU.ROM
 ```
+
+### Method 4: UEFI Interactive Flashing Script
+
+**Project:** [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script)
+
+Bash script providing an interactive text menu that automates firmware backup and flashing. Backs up your existing BIOS before flashing the modded P3.00 firmware. Themed menus available (CachyOS, Bazzite, PS5Linux, etc.). Screenshots confirmed working (Jul 2026). Useful for users who want a guided flashing experience without manual EFI shell commands.
 
 ---
 
