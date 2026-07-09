@@ -185,7 +185,24 @@ ________________________
 
 ### Onboard Micro-Fit Power Mod
 
-The BC-250 has proprietary onboard Micro-Fit 3.0 power ports that can supplement the PCIe connector. Old Lamer (YouTube) demonstrated using them as alternate power delivery to avoid melted cables. essdee4336 tested it: "it did seem to help slightly." Safety concern: connectors held by friction alone — a securing bracket would be ideal (astrocast). Recommendation: wire only middle two on both rows to prevent damage if connectors are swapped (cyrixblack).
+The BC-250 has proprietary onboard Micro-Fit 3.0 power ports (`J2000` and `J2001`) that can supplement the PCIe connector. These provide additional power delivery paths to the board, reducing load on the PCIe 8-pin cable. Old Lamer (YouTube) demonstrated using them as alternate power delivery to avoid melted cables.
+
+**Connector Selection Guide:**
+
+| Setup | Power Connectors | Safe For | Notes |
+|-------|-----------------|----------|-------|
+| **Single 8-pin** | PCIe 8-pin only | Stock 24 CU, light gaming (~200W from wall) | Minimum. Risky at 40 CU or heavy OC. |
+| **8-pin + Micro-Fit** | PCIe 8-pin + 1 Micro-Fit | 40 CU daily, gaming (~260W from wall) | Recommended daily setup (dznuts: "two is fine"). Safer but not foolproof. |
+| **8-pin + 2 Micro-Fit** | PCIe 8-pin + both J2000 + J2001 | 40 CU OC, Furmark (~325W+ from wall) | Maximum safety. "If you try to run it through the single PCI-E cable, it'll fry" (discombobulateddunce). |
+| **2 Micro-Fit only** | Both J2000 + J2001, no PCIe 8-pin | Experimental | Alternative path. Less tested. |
+
+**Micro-Fit safety notes:**
+- Connectors held by friction alone — a securing bracket is recommended (astrocast)
+- Wire only the middle two pins on both rows to prevent damage if connectors are swapped (cyrixblack)
+- Use 16 AWG minimum silicone wire for Micro-Fit connections
+- Community PCB adapter: [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) — adapts J2000/J2001 to standard PCIe 8-pin + EPS 8-pin headers (UNTESTED, waiting for fab boards)
+
+essdee4336 tested the Micro-Fit mod: "it did seem to help slightly."
 
 ---
 

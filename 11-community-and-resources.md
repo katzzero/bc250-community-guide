@@ -52,8 +52,9 @@
 | [Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor) | SMU governor Debian/Ubuntu package -- upstream for Debian builds |
 | [Keshas-dev/AMD-BC-250-Windows-Driver](https://github.com/Keshas-dev/AMD-BC-250-Windows-Driver) | Windows display driver for BC-250 (WIP, untested) |
 | [gottmoz/BC-250-Windows-graphics-driver](https://github.com/gottmoz/BC-250-Windows-graphics-driver) | Windows graphics driver experiment (WIP, untested) |
-| [bc250-collective/SomnacinDumper-CPUCoreMod](https://github.com/bc250-collective/SomnacinDumper-CPUCoreMod) | CPU core unlock mod tool |
-| [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) | SMU reverse engineering for BC-250 / PS5 |
+| [bc250-collective/SomnacinDumper-CPUCoreMod](https://github.com/bc250-collective/SomnacinDumper-CPUCoreMod) | CPU core unlock mod tool (WIP, unconfirmed — requires Pi Pico 2 hardware) |
+| [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) | SMU reverse engineering for BC-250 / PS5 (research) |
+| [leafyjerk/BC-250-CPU-Core-Map](https://github.com/leafyjerk/BC-250-CPU-Core-Map) | Read-only CPU core layout diagnostic (does not unlock anything) |
 | [NeOdYmS/bazzite-bc250-toolkit](https://github.com/NeOdYmS/bazzite-bc250-toolkit) | Bazzite-specific setup toolkit |
 | [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg) | Memory timing configuration tool |
 | [katzzero/250mon](https://github.com/katzzero/250mon) | Lightweight hardware monitor |
@@ -68,7 +69,7 @@
 | [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Performance profile switcher |
 | [cachenetics/bc250-nixos](https://github.com/cachenetics/bc250-nixos) | NixOS configuration for BC-250 |
 | [cachenetics/project-ariel](https://github.com/cachenetics/project-ariel) | Project Ariel |
-| [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) | BC-250 power adapter design |
+| [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) | BC-250 J2000/J2001 Micro-Fit power adapter PCB (UNTESTED — waiting for fab boards, build at own risk) |
 | [dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox](https://github.com/dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox) | ESP32 LOP PSU power-on controller |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [peterdk31/bc250_ws2812b_controller](https://github.com/peterdk31/bc250_ws2812b_controller) | WS2812B LED controller for BC-250 | — upstream for Debian builds |

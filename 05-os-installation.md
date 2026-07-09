@@ -19,6 +19,29 @@
 | **Ubuntu 26.04+** | Familiar Ubuntu experience | Easy | Needs Mesa PPA |
 | **Manjaro** | User-friendly Arch | Easy | GNOME recommended over KDE for stability |
 
+### Bazzite vs CachyOS — Direct Comparison
+
+The two most recommended distributions compared side-by-side:
+
+| Factor | Bazzite | CachyOS |
+|--------|---------|---------|
+| **Performance** | Good — slightly behind due to older kernel/Mesa in stable branch (gennro) | Best — optimized packages, BORE scheduler, latest Mesa 26 + kernel (dznuts) |
+| **Ease of setup** | Easiest — Steam Deck-like out of box, pre-patched kernel, Game Mode included | Moderate — Arch-based, manual setup, more flexible |
+| **40 CU unlock** | CU live manager works. Legacy kernel patch available (ba29 Deck kernel). OGC desktop kernel packages not yet available. | CU live manager works on stock kernel. Full toolkit support (redbeard1083, gennro). |
+| **Governor install** | `dnf copr` + `rpm-ostree install`. Can be tricky — rebase to `bazzite:stable` helps (zerosumpr). | `yay -S` or AUR helper. Straightforward. |
+| **Updates** | Immutable — safer rollbacks, updates slower. Desktop testing branch has Mesa 26 + kernel 7 (fforduck). | Rolling — bleeding edge, may break occasionally. |
+| **Kernel** | Stable: 6.19. Desktop testing: kernel 7.0. Migration delay due to base change (essdee4336). | Latest available. CachyOS kernel patches included. |
+| **VRR** | Custom image with AMD VRR patches available. Working on Deck branch. | Native kernel 6.19+ support. Working out of box. |
+| **Game Mode** | Built-in Gamescope session. Works out of box. | Handheld Edition includes Gamescope + FSR (stevounit). Desktop needs manual setup. |
+| **Best for** | Console-like experience, beginners, living room / TV setups | Raw performance, tuners, desktop use, AI/LLM workloads |
+
+**Community consensus (May-July 2026):**
+- Bazzite = easiest path from zero to gaming. Works with minimal tweaking.
+- CachyOS = more performance headroom, faster updates, but requires more Linux knowledge.
+- If Bazzite updates to Mesa 26 + kernel 7.0, performance difference narrows significantly (gennro).
+- The performance gap is real in CPU-bound games like Cyberpunk 2077 (dznuts: "CachyOS blows Bazzite away in gameplay, not just benchmark").
+- Both support 40 CU unlock via bc250-cu-live-manager — no kernel patch required on either (vinnijs.dev).
+
 ---
 
 ## Universal Prerequisites

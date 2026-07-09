@@ -456,6 +456,11 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | **007 First Light** | **1080p High no FSR** | **60 FPS locked** | **paul_lionking (May 2026)** |
 | Forza Horizon 6 | 3840x1600 | ~60 FPS | paul_lionking (May 2026) |
 | Forza Horizon 6 | 1080p Ultra, 40 CU | ~60 FPS | Community report |
+| **Monster Hunter Wilds** | **1080p Medium + FSR Frame Gen** | **50-60 FPS** | **irontsuki (Jun 2026)** |
+| **Death Stranding 2** | **High settings** | **40-60 FPS** | **gaboggamer (Jun 2026)** |
+| **Death Stranding 2** | **3440x1440 Medium-High + PICO + FSR FG** | **60 FPS** | **dartzon (Jun 2026)** |
+| **Counter-Strike 2** | **1440p High, 40CU @ 2GHz** | **<100 FPS, stutter** | **weabchan (Jun 2026)** |
+| **Arc Raiders** | **1080p Medium no FSR, 40CU @ 2GHz** | **~65 FPS** | **marine1067 (Jun 2026)** |
 | Helldivers 2 | 40 CU, 2350 MHz | Stable | Community report |
 | RE4 Remake | 40 CU, any config | Crashes | Community report |
 

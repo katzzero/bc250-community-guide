@@ -75,6 +75,62 @@ cd cyan-skillfish-governor
 
 ---
 
+---
+
+## How the Governor Works (Technical Overview)
+
+Understanding the governor's internal behavior helps tune it for your specific board and cooling setup (explained by filippor, May 2026).
+
+### Timing and Sampling
+
+Every `adjust` microseconds (default: 200,000 µs = 200ms) the governor runs a sampling cycle:
+
+1. Samples the GPU's **busy-flag** 64 times, once every `sample` µs (default: 500 µs)
+2. Calculates the percentage of time the GPU was busy vs idle
+3. Compares to the `load_target` range (upper/lower thresholds)
+4. If GPU utilization is above `upper` target → increase frequency to next safe-point
+5. If GPU utilization is below `lower` target → decrease frequency to previous safe-point
+6. Every `flush-every` cycles (default: 10) → updates the displayed frequency (visible in MangoHud)
+
+```
+Timeline:
+  |-- adjust (200ms) --|-- adjust (200ms) --|
+  | 64x sample (500µs) | 64x sample (500µs) |
+  | busy-flag check    | busy-flag check    |
+                   ↕ (every 10 cycles = flush-every)
+                   MangoHud frequency updates
+```
+
+### Safe-Point Interpolation
+
+Between two safe-points, the governor uses the voltage of the **next higher** safe-point (filippor). Examples:
+
+| GPU Frequency | Voltage Used | Source Safe-Point |
+|--------------|-------------|-------------------|
+| 350 MHz | 800 mV | Uses 1000 MHz safe-point (next up) |
+| 501 MHz | 900 mV | Uses 1500 MHz safe-point |
+| 1200 MHz | 900 mV | Uses 1500 MHz safe-point |
+| 1500 MHz | 900 mV | Exact match at safe-point |
+
+This means the lowest safe-point `[1000, 800]` controls voltage for ALL frequencies between 0-1000 MHz. A conservative GPU that never exceeds 1800 MHz during gaming only needs safe-points from 1000-2000 MHz range.
+
+### Load Target Tuning
+
+The `load_target` controls how aggressively the governor scales frequency (filippor, May 2026):
+
+| Setting | Behavior | Best For |
+|---------|----------|----------|
+| Upper 0.80 / Lower 0.65 | Less aggressive, stays at lower frequencies longer | Cooler, quieter, lower power |
+| Upper 0.65 / Lower 0.50 | More aggressive, faster to ramp up | Performance, higher FPS |
+
+**Why a lower upper target means MORE aggressive:** The governor tries to keep GPU utilization below the upper target. With upper=0.65, it will ramp frequency up sooner (at 65% utilization). With upper=0.80, it waits until 80% before ramping. This is counterintuitive — the *lower* the upper target, the *more* the GPU boosts.
+
+### Metrics Bug Workaround
+
+On some kernels, GPU metrics reporting is broken. Try setting `fix-metrics = false` in config.toml if you see incorrect GPU utilization in MangoHud (community report, May 2026).
+
+---
+
 ## Configuration
 
 Config file: `/etc/cyan-skillfish-governor-smu/config.toml`
