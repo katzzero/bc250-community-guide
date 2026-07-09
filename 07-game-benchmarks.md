@@ -461,6 +461,10 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | **Death Stranding 2** | **3440x1440 Medium-High + PICO + FSR FG** | **60 FPS** | **dartzon (Jun 2026)** |
 | **Counter-Strike 2** | **1440p High, 40CU @ 2GHz** | **<100 FPS, stutter** | **weabchan (Jun 2026)** |
 | **Arc Raiders** | **1080p Medium no FSR, 40CU @ 2GHz** | **~65 FPS** | **marine1067 (Jun 2026)** |
+| **Shadow of the Tomb Raider** | **1080p Highest, 40CU @ 2GHz** | **90 FPS avg** | **bytepond (Jun 2026)** |
+| **Shadow of the Tomb Raider** | **4K Highest + CAS (50% scale)** | **~63 FPS** | **bytepond (Jun 2026)** |
+| **FF7 Remake** | **1080p High** | **80-90 FPS** | **nataliezaki (Jun 2026)** |
+| **FF7 Remake** | **1440p, 120 FPS cap** | **Solid, rare stutter to 50** | **zerosumpr (Jun 2026)** |
 | Helldivers 2 | 40 CU, 2350 MHz | Stable | Community report |
 | RE4 Remake | 40 CU, any config | Crashes | Community report |
 
