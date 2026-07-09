@@ -28,7 +28,7 @@
 **Checklist:**
 1. **Clear CMOS** - remove CR2032 battery for 60 seconds, press power button 5x
 2. **Try a different PSU** - bad PSU is the #1 cause
-3. **Check Q11 transistor** near the Nuvoton chip (can get knocked off)
+3. **Check Q11 transistor** near the Nuvoton chip (can get knocked off). Replacement parts (SOT-23 NPN): **MMBT4401LT1** (original, marking "S1A"), **BS170FTA**, or **MMBT3904-R1 40V** (hazy6401, redpacman724, Jun 2026).
 4. **Reseat RAM** (it's soldered, but check connections)
 5. **Hardware flash BIOS** with CH341A or Raspberry Pi Pico
 6. **Check for short circuits** - plastic washers on wrong side of mounting screws
@@ -114,6 +114,50 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 **Warning:** If you get a green screen (or black screen with proper DP cable) during Bazzite installation or repeatedly during use, this may indicate **hardware failure** -- broken solder balls under the GDDR6 memory ICs.
 
 **Fix:** Requires reballing all GDDR6 ICs and replacing any shorted ICs. jayawesome completed this repair successfully: after reballing and replacing one shorted IC, the board ran stable 24/7. This is advanced hardware repair, not a software fix.
+
+**Software alternative:** Green screen crashes on Bazzite during idle/Steam downloads (but NOT during gaming) may be an OS issue rather than hardware failure. Multiple users (evo9899, Jun 2026) reported that switching to CachyOS resolved persistent green screen crashes, suggesting a corrupted Bazzite install or configuration conflict. Before concluding hardware failure, test with a different OS or try reinstalling Bazzite from scratch.
+
+### ATX Auto-Power-On Mod — Wrong Pin Connection
+
+**Symptom:** After performing the ATX PSU auto-power-on mod, the board shows a solid red light, fans ramp to maximum, and no display appears — all triggered when the PSU switch is flipped (without pressing the power button).
+
+**Cause:** The PS_ON pin was bridged to COM (ground) instead of **+5VSB (standby power)**. Bridging to ground immediately forces the PSU on, triggering the board's protection.
+
+**Fix (endangered.species):** Connect PS_ON (green wire on 24-pin ATX) to +5VSB (purple wire), NOT to COM/GND. The +5VSB standby rail provides the correct signal to control PSU power state. Double-check your wiring before powering on.
+
+### Elden Ring / CPU-Bound Games — Core 0 Affinity Workaround
+
+**Symptom:** Elden Ring cannot reach 60 FPS even at 480p. The game has a known bug that overloads CPU Core 0, making it a single-core bottleneck. Other CPU-bound games may have similar behavior (matearz, fabiiii_, Jun 2026).
+
+**Fix A — htop (temporary):**
+```bash
+sudo htop
+# Find the game process, press 'a', deselect CPU 0 with Space, press Enter
+```
+
+**Fix B — Steam launch option (permanent):**
+```
+WINE_CPU_TOPOLOGY=11:1,2,3,4,5,6,7,8,9,10,11 %command%
+```
+
+This prevents the game from using Core 0, distributing work across the remaining 5 cores. (kaferlord, pops1cl)
+
+### GPU-Bound Games — Split Lock Mitigation Disable
+
+**Symptom:** CPU-intensive games underperform on BC-250. The unified GDDR6 memory has higher latency than DDR4/DDR5, which amplifies the penalty of split-lock mitigations enforced by the Linux kernel.
+
+**Fix (dejan_994, pops1cl, Jun 2026):**
+```bash
+sudo sysctl kernel.split_lock_mitigate=0
+```
+
+By default on x86, Linux restricts applications to holding one split lock at a time (DoS prevention). Disabling this removes that bottleneck. Particularly effective on BC-250 due to GDDR6 latency characteristics.
+
+### MangoHud Frame Pacing Issues
+
+**Symptom:** Sawtooth pattern in frame time graph. Games feel like "slow-motion" despite displaying 60 FPS. Present on both GameScope and Desktop mode, on CachyOS and Bazzite (loris_kujo, Jun 2026).
+
+**Fix (brillaglacielle, Jun 2026):** Turn off MangoHud completely. With MangoHud disabled, the sawtooth frame pattern disappears and the game returns to normal speed.
 
 ---
 
