@@ -265,19 +265,21 @@ Boot → Boot Mode:
 
 | Distro | Difficulty | Verdict |
 |--------|-----------|---------|
-| **Bazzite** | Easy | Best for gaming, SteamOS-like, works out-of-box |
+| **CachyOS** | Intermediate | Community default — best stability + performance, kernel 6.19+ out of box |
+| **Bazzite** | Easy | ⚠ Needs testing branch (stable is kernel 6.17.7 — too old for 40 CU). See rebase instructions below. |
 | **Fedora 43+** | Easy | Most documented, Mesa 25.1+ native |
-| **CachyOS** | Intermediate | Best performance, Arch-based |
 | **Nobara** | Intermediate | Fedora-based, non-immutable, easy governor setup |
 | **Arch Linux** | Advanced | Full control, requires manual configuration |
 | **Ubuntu 26.04+** | Easy | Works with Mesa PPA |
 | **Manjaro** | Easy | Boots out-of-box |
 
-**For beginners: Bazzite or Fedora 43.**
+**Community recommendation (July 2026): CachyOS.** Bazzite stable ships kernel 6.17.7 which causes 40 CU instability — only use Bazzite if you rebase to the testing branch immediately after install.
 
 ### Broken kernels (AVOID)
 
-**6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU failure. Use 6.19.x (recommended), 6.18.18 LTS (stable fallback), or 6.17.11+.
+**6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU failure. Use 6.19.x (recommended), 6.18.18 LTS (stable fallback).
+
+**Bazzite stable ships 6.17.7** — too close to broken range and too old for 40 CU stability. Immediately rebase to testing branch after install (see below).
 
 > See [05 — OS Installation](05-os-installation.md) for complete installation guides for each distro.
 
@@ -291,13 +293,27 @@ Boot → Boot Mode:
 2. Write it to a USB drive with **Ventoy** (recommended), **balenaEtcher**, or **Rufus**
 3. Connect the USB drive to the BC-250, power on
 
-### Bazzite (recommended for gaming)
+### Bazzite (requires testing branch)
+
+**⚠ Important:** Bazzite stable ships kernel 6.17.7 which is too old. After install, immediately rebase to testing branch:
+
+```bash
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/bazzite-deck:testing
+```
 
 1. Use the **non-live installer** image (live image has login bugs)
 2. Boot from USB — no special parameters needed
 3. Normal installation (~10-15 min)
 4. Default password (if asked): `bazzite`
 5. Reboot
+6. After reboot, run the rebase command above to get kernel 7.0 + Mesa 26
+
+### CachyOS (recommended — latest kernel out of box)
+
+1. Download [CachyOS ISO](https://cachyos.org/)
+2. Flash to USB and boot — standard install works, no special parameters
+3. Complete installation (~10-15 min)
+4. Handheld Edition recommended for Game Mode + Gamescope + FSR
 
 ### Fedora 43
 
@@ -318,6 +334,12 @@ Boot → Boot Mode:
 
 **SMU governor (recommended — no kernel patch needed):**
 
+**CachyOS / Arch (community default):**
+```bash
+paru -S cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
+```
+
 **Fedora / Nobara:**
 ```bash
 sudo dnf copr enable filippor/bazzite
@@ -325,17 +347,11 @@ sudo dnf install cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-**Bazzite (rpm-ostree):**
+**Bazzite (rpm-ostree — requires testing branch):**
 ```bash
 sudo dnf copr enable filippor/bazzite
 rpm-ostree install cyan-skillfish-governor-smu
 systemctl reboot
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
-```
-
-**CachyOS / Arch:**
-```bash
-paru -S cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
