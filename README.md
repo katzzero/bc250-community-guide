@@ -25,7 +25,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 | 02 | [BIOS & Firmware](02-bios-and-firmware.md) | BIOS flashing, VRAM config, 40 CU unlock |
 | 03 | [Power Supply Guide](03-power-supply-guide.md) | PSU options with verified specs & purchase links |
 | 04 | [Cooling Guide](04-cooling-guide.md) | Heatsink mods, fans, thermal pads, temps |
-| 05 | [OS Installation](05-os-installation.md) | Bazzite, CachyOS, Fedora, Arch, Debian, Ubuntu |
+| 05 | [OS Installation](05-os-installation.md) | CachyOS (recommended), Bazzite, Fedora, Arch, Debian, Ubuntu |
 | 06 | [GPU Governor](06-gpu-governor.md) | Governor install, tuning, overclocking |
 | 07 | [Game Benchmarks](07-game-benchmarks.md) | 60+ community-tested games with FPS data |
 | 08 | [Display & Audio](08-display-and-audio.md) | DP/HDMI, audio, VRR, multi-monitor |
@@ -51,7 +51,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 | **Network** | 1× Gigabit Ethernet (no WiFi — USB adapter needed) |
 | **USB** | 2× USB 3.0 + 2× USB 2.0 |
 | **TDP** | 220W typical, 235W peak gaming, 250–320W Furmark |
-| **OS** | Linux only — Bazzite, CachyOS, Fedora 43+, Arch, Debian |
+| **OS** | Linux only — CachyOS (recommended), Bazzite, Fedora 43+, Arch, Debian |
 
 ---
 

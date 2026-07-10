@@ -10,37 +10,39 @@
 
 | Distro | Best For | Difficulty | Notes |
 |--------|----------|------------|-------|
-| **Bazzite** | Beginners, gaming | Easy | Steam Deck-like, pre-patched kernel, works out-of-box |
+| **CachyOS** | Maximum performance, stability | Intermediate | Arch-based, optimized packages, latest kernel + Mesa 26. Most stable for 40 CU and governor. Community default (Jul 2026). |
+| **Bazzite** | Console-like experience | Easy | Steam Deck UI out of box. **⚠ Stable kernel is 6.17.7 — too old for BC-250 (needs 6.19+).** Use testing branch or expect instability with 40 CU (see below). |
 | **Fedora 43+** | Most tested, general use | Easy | Mesa 25.1+ in official repos, most tested distro |
-| **CachyOS** | Maximum performance | Intermediate | Arch-based, optimized packages, BORE scheduler |
 | **Arch Linux** | Full control, latest packages | Advanced | Manual setup but cutting-edge |
+| **Nobara** | Gaming, Bazzite alternative | Intermediate | Fedora-based, not immutable, easier governor install (mothenjoyer69) |
 | **Debian / PikaOS** | Stability, low power | Intermediate | Requires newer Mesa repos |
-| **Nobara** | Gaming, Bazzite alternative | Intermediate | Fedora-based, not immutable, easier governor install (Discord - mothenjoyer69) |
 | **Ubuntu 26.04+** | Familiar Ubuntu experience | Easy | Needs Mesa PPA |
 | **Manjaro** | User-friendly Arch | Easy | GNOME recommended over KDE for stability |
 
 ### Bazzite vs CachyOS — Direct Comparison
 
-The two most recommended distributions compared side-by-side:
+CachyOS has become the community default as of July 2026 due to Bazzite's stable branch lagging on an outdated kernel.
 
 | Factor | Bazzite | CachyOS |
 |--------|---------|---------|
-| **Performance** | Good — slightly behind due to older kernel/Mesa in stable branch (gennro) | Best — optimized packages, BORE scheduler, latest Mesa 26 + kernel (dznuts) |
-| **Ease of setup** | Easiest — Steam Deck-like out of box, pre-patched kernel, Game Mode included | Moderate — Arch-based, manual setup, more flexible |
-| **40 CU unlock** | CU live manager works. Legacy kernel patch available (ba29 Deck kernel). OGC desktop kernel packages not yet available. | CU live manager works on stock kernel. Full toolkit support (redbeard1083, gennro). |
-| **Governor install** | `dnf copr` + `rpm-ostree install`. Can be tricky — rebase to `bazzite:stable` helps (zerosumpr). | `yay -S` or AUR helper. Straightforward. |
-| **Updates** | Immutable — safer rollbacks, updates slower. Desktop testing branch has Mesa 26 + kernel 7 (fforduck). | Rolling — bleeding edge, may break occasionally. |
-| **Kernel** | Stable: 6.19. Desktop testing: kernel 7.0. Migration delay due to base change (essdee4336). | Latest available. CachyOS kernel patches included. |
-| **VRR** | Custom image with AMD VRR patches available. Working on Deck branch. | Native kernel 6.19+ support. Working out of box. |
-| **Game Mode** | Built-in Gamescope session. Works out of box. | Handheld Edition includes Gamescope + FSR (stevounit). Desktop needs manual setup. |
-| **Best for** | Console-like experience, beginners, living room / TV setups | Raw performance, tuners, desktop use, AI/LLM workloads |
+| **Performance** | Behind — stable branch on kernel 6.17.7, old Mesa (fforduck, Jul 2026) | Best — kernel 6.19+, Mesa 26, optimized packages, BORE scheduler (dznuts, gennro) |
+| **Stability** | ⚠ Unstable with 40 CU — green screen on idle/download, random freezes. "A bunch of people moved from Bazzite to CachyOS" (community, Jul 2026). | Rock solid — "5 days no crashes after switching from Bazzite" (evo9899). Several users report identical experience. |
+| **Ease of setup** | Easiest — pre-patched kernel, Game Mode included. But outdated kernel causes governor install issues. | Moderate — Arch-based, manual setup. More flexible, fewer surprises. |
+| **Kernel** | ⚠ Stable: **6.17.7** (OLD!). Testing: kernel 7.0 + Mesa 26 — not yet released. | Latest 6.19+ out of box. No waiting for updates. |
+| **40 CU unlock** | CU live manager works. Legacy kernel patch available (ba29 Deck kernel only). OGC desktop kernel packages not yet available. | CU live manager works on stock kernel. Full toolkit support (redbeard1083, gennro). |
+| **Governor install** | `dnf copr` + `rpm-ostree install`. Can be tricky on old kernel. Rebase to `bazzite:testing` or `bazzite:stable` helps (zerosumpr). | `yay -S` or AUR helper. Straightforward. |
+| **Updates** | Immutable — safer rollbacks, but updates are slow. BC-250 needs bleeding-edge kernel which conflicts with Bazzite's philosophy. | Rolling — bleeding edge. May break occasionally but quick fixes. |
+| **Game Mode** | Built-in Gamescope session. Some users report instability (Split Fiction crashes, black screen loops). | Handheld Edition includes Gamescope + FSR (stevounit). Desktop needs manual setup. |
+| **VRR / Audio** | Audio issues persist for some users (Jul 2026). VRR works with custom image. | Native 6.19+ kernel support for VRR + DP audio. Working out of box. |
+| **Best for** | Console experience with fully working Game Mode — IF on testing branch. Good for users willing to rebase. | Raw performance, stability, tuners, desktop use, AI/LLM. Community default. |
 
-**Community consensus (May-July 2026):**
-- Bazzite = easiest path from zero to gaming. Works with minimal tweaking.
-- CachyOS = more performance headroom, faster updates, but requires more Linux knowledge.
-- If Bazzite updates to Mesa 26 + kernel 7.0, performance difference narrows significantly (gennro).
-- The performance gap is real in CPU-bound games like Cyberpunk 2077 (dznuts: "CachyOS blows Bazzite away in gameplay, not just benchmark").
-- Both support 40 CU unlock via bc250-cu-live-manager — no kernel patch required on either (vinnijs.dev).
+**Community consensus (July 2026):**
+- Bazzite stable is **not recommended** for 40 CU builds due to outdated kernel (6.17.7). BC-250 needs 6.19+.
+- If you want Bazzite, rebase to the **testing branch** which has kernel 7.0 + Mesa 26 (not yet in stable).
+- CachyOS has become the de-facto recommendation for stability + performance: "definitely better in terms of stability and features" (community, Jul 2026).
+- The performance gap is real — Bazzite stable's old kernel causes tangible issues with 40 CU, governor, and audio.
+- For non-technical users who want a console experience: Bazzite desktop testing branch or CachyOS Handheld Edition.
+- Several users explicitly recommended CachyOS over Bazzite after experiencing instability: "5 days no crashes" (evo9899), "rock solid reliable" (multiple users).
 
 ---
 
@@ -71,21 +73,37 @@ Kernel versions **6.15.0-6.15.6** and **6.17.8-6.17.10** cause GPU initializatio
 
 ---
 
-## Bazzite (Recommended for Beginners)
+## Bazzite (Console-Like Experience — Use Testing Branch)
 
-> Fedora Atomic-based, SteamOS-like distro. Works out-of-box - no nomodeset needed.
+> ⚠ **Bazzite stable ships kernel 6.17.7 which is too old for BC-250 (needs 6.19+).** This causes instability with 40 CU, governor install failures, audio issues, and random crashes. See comparison table above.
+
+> Fedora Atomic-based, SteamOS-like distro. For a stable experience, **rebase to the testing branch** before installing the governor and 40 CU unlock.
 
 ### Installation
 
 1. Download ISO from [bazzite.gg](https://bazzite.gg)
 2. Choose variant:
-   - **GNOME** - Recommended for beginners
-   - **KDE** - Desktop users (bugs mostly fixed as of mid-2025)
-   - **Deck** - Steam Deck UI experience
+   - **Deck** - Steam Deck UI experience (most popular for BC-250)
+   - **KDE** - Desktop users
+   - **GNOME** - Minimal desktop
 3. Flash to USB with **balenaEtcher** or **Ventoy**
-4. **Use the non-live installer image** (live image has login bugs) (Discord - mothenjoyer69)
+4. **Use the non-live installer image** (live image has login bugs) (mothenjoyer69)
 5. Boot from USB - no special parameters needed
 6. Complete on-screen installation (10-15 min)
+
+### Critical: Switch to Testing Branch
+
+After installation, immediately rebase to the testing branch for kernel 7.0 + Mesa 26:
+
+```bash
+# Rebase to testing branch (get kernel 7.0 + Mesa 26)
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/bazzite-deck:testing
+
+# Or stay on stable with a slightly newer build (still 6.19, better than 6.17.7)
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/bazzite-deck:stable-43.20260210
+```
+
+**Why:** Bazzite's default stable branch is on kernel 6.17.7 which is known-bad for BC-250. The testing branch includes kernel 7.0 + Mesa 26 — necessary for 40 CU stability, audio fix, and VRR (fforduck, community Jul 2026). Multiple users report instability resolved immediately after switching.
 7. Default password (if asked): `bazzite`
 8. Reboot
 
@@ -124,17 +142,20 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 **Warning:** Rebasing to patched images may remove USB WiFi/Bluetooth drivers. If WiFi stops working: use Ethernet, check available kernel modules (`lsmod | grep <driver>`), install missing drivers, or rollback with `rpm-ostree rollback`.
 
 ### Bazzite Tips
+- **⚠ Important:** Stable branch is on kernel 6.17.7 — too old. Rebase to `bazzite-deck:testing` for kernel 7.0 + Mesa 26 before setting up governor and 40 CU.
 - Install EmuDeck for emulation: use the Bazzite portal
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
-- **VRR on Deck:** A custom Bazzite image with AMD VRR kernel patches exists - search community for `bazzite-vrr` images. Confirm working on OLED displays. DP audio fix not yet included.
-- **40 CU Unlock on Bazzite:** The [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) (UMR-based, no kernel patch) is the preferred method — works on stock Bazzite kernel (auto-detects dri path, vinnijs.dev, May 2026). For legacy kernel patch: erewego posted pre-built RPMs against the ba29 Deck kernel (Bazzite handheld/Deck uses ba29; desktop uses OGC kernel). Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums, unpack, then:
+- **VRR:** Testing branch includes VRR support natively. Stable branch does not.
+- **Audio:** DP audio fix in kernel 6.19.10+. Bazzite stable (6.17.7) does NOT include it. Testing branch does.
+- **Instability workaround:** If experiencing green screens, freezes, or crashes on Bazzite, rebase to testing branch first. If issues persist, multiple users report switching to CachyOS resolves them (evo9899, community, Jul 2026).
+- **40 CU Unlock on Bazzite:** The [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) (UMR-based, no kernel patch) is the preferred method — works on stock Bazzite kernel (auto-detects dri path, vinnijs.dev). For legacy kernel patch: erewego posted pre-built RPMs against the ba29 Deck kernel. Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums.
   ```bash
   sudo rpm-ostree override replace ./*.rpm
   sudo rpm-ostree kargs --append=amdgpu.bc250_cc_write_mode=3
   sudo systemctl reboot
   ```
-  Reduce GPU governor clocks to ~1850 MHz. For governor/SMU issues on Bazzite, rebase to `bazzite:stable` (kernel 6.19) can help (zerosumpr). For desktop Bazzite (OGC kernel), kernel packages are not yet available — check Discord for updates. See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedure details.
+  Reduce GPU governor clocks to ~1850 MHz. For governor/SMU issues on Bazzite, using the testing branch (kernel 7.0) resolves most problems. For desktop Bazzite (OGC kernel), kernel packages are not yet available — check Discord for updates. See [02-BIOS & Firmware](02-bios-and-firmware.md) for full procedure details.
 
 ---
 
@@ -203,11 +224,11 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 ---
 
-## CachyOS (Best Raw Performance)
+## CachyOS (Community Recommended — Best Stability + Performance)
 
-> Arch-based with optimized packages and BORE scheduler.
+> Arch-based with optimized packages, BORE scheduler, and latest kernel (6.19+) + Mesa 26 out of the box. **Community default as of July 2026.**
 
-**Note (Nov 2025):** CachyOS now ships with compatible kernels by default. Standard ISO install works.
+**Note (Jul 2026):** CachyOS ships with kernel 6.19+ and Mesa 26 — everything needed for 40 CU, VRR, and DP audio works out of the box. No kernel patching or rebase needed.
 
 ### Standard Method (Recommended)
 
