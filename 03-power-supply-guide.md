@@ -187,6 +187,8 @@ ________________________
 
 The BC-250 has proprietary onboard Micro-Fit 3.0 power ports (`J2000` and `J2001`) that can supplement the PCIe connector. These provide additional power delivery paths to the board, reducing load on the PCIe 8-pin cable. Old Lamer (YouTube) demonstrated using them as alternate power delivery to avoid melted cables.
 
+**Important context:** The boards were originally designed to be powered through these Micro-Fit connectors in the mining chassis. The PCIe 8-pin was NOT the primary power path in original use — it was added for repurposing (keroppl_wizard, Jul 2026). Running 40 CU + CPU OC through a single PCIe 8-pin means the connector carries far more current than ever intended.
+
 **Connector Selection Guide:**
 
 | Setup | Power Connectors | Safe For | Notes |

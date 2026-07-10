@@ -40,11 +40,15 @@
 
 ## Power On For 1 Second Then Off (No POST)
 
-**Symptoms:** Board powers on for about 1 second, then shuts off. No display, no USB power.
+**Symptoms:** Board powers on for about 1 second, red and blue LEDs blink, then immediately shuts off with a distinctive click from the PSU. No display, no USB power.
 
-**Cause:** Most commonly a faulty PSU. A Metalfish 500W unit was confirmed as the cause in one case -- swapping to a Corsair SF750 resolved it immediately (gredzikk).
+**Cause:** PSU detecting a short circuit and triggering over-current protection. Most commonly a faulty PSU. A Metalfish 500W unit was confirmed as the cause in one case -- swapping to a Corsair SF750 resolved it immediately (gredzikk). Metalfish 600W units also confirmed to trigger false short-circuit detection (fuzzy_dux, big_trov, Jun 2026).
 
-**Fix:** Try a different known-working PSU before assuming the board is dead. BIOS reflash via CH341 programmer did not help in this case -- the PSU was the root cause.
+**Fix:** Try a different known-working PSU before assuming the board is dead. Also check:
+1. No 12V wires mixed up with GND
+2. Remove any metal debris from cutting heatsink fins (shavings can short pins)
+3. Try a different PCIe port on the PSU
+4. BIOS reflash via CH341 programmer did not help in one confirmed case -- the PSU was the root cause.
 
 ---
 
@@ -158,6 +162,32 @@ By default on x86, Linux restricts applications to holding one split lock at a t
 **Symptom:** Sawtooth pattern in frame time graph. Games feel like "slow-motion" despite displaying 60 FPS. Present on both GameScope and Desktop mode, on CachyOS and Bazzite (loris_kujo, Jun 2026).
 
 **Fix (brillaglacielle, Jun 2026):** Turn off MangoHud completely. With MangoHud disabled, the sawtooth frame pattern disappears and the game returns to normal speed.
+
+### GPU Governor — Config Parse Error on Start
+
+**Symptom:** Governor installed but refuses to start. Log shows config file parse errors. Common on Bazzite with kernel 6.17.7 (god_of_onions, Jun 2026).
+
+**Fix (big_trov, Jun 2026):** The `[frequency-range]` lines must NOT contain the `MHz` suffix:
+```toml
+# WRONG — "MHz" suffix breaks parser
+[frequency-range]
+max = 1850MHz
+
+# CORRECT
+[frequency-range]
+max = 1850
+```
+Also try restoring the default config file: reinstall the governor package or copy from `/etc/cyan-skillfish-governor-smu/`.
+
+### GPU Stuck at Wrong Frequency
+
+**Symptom:** Governor running but GPU never reaches the top safe-point frequency. Config says 2000 MHz but GPU stays at 1850 MHz even under full load. Temps are fine (boilerkim, Jun 2026).
+
+**Fixes (lonewolf05849, hashtagoctothorp, boilerkim, Jun 2026):**
+1. Check `[frequency-range] max` in config.toml — may be set lower than expected
+2. **Restart governor** after config change: `sudo systemctl restart cyan-skillfish-governor-smu`
+3. If still stuck: voltage at target frequency may be too low on default. Increase by 30-40mV. Example: `[2000, 1000]` instead of `[2000, 980]`
+4. Verify with: `sudo systemctl status cyan-skillfish-governor-smu`
 
 ---
 
