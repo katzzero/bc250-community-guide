@@ -411,6 +411,21 @@ The BC-250 40 CU unlock patch (`bc250-40cu-amdgpu.patch`) also works on **PS5 Li
 
 duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6). They have decompiled and extracted bootrom and understand how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory is that cores may not be physically fused off but controlled by a ROM array written during manufacturing. An active discussion thread exists in the Discord `project-forums` channel. No functional unlock yet -- active research.
 
+### SMU Firmware Reverse Engineering (Jul 2026)
+
+The [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) project is reverse engineering the SMU (System Management Unit) firmware — the tiny microcontroller on the APU die that handles power, voltage, frequency, and thermal management. The SMU is a PS5-customized variant (not the standard AMD SMU), which is why standard tools like ZenStates-Core don't work.
+
+Key findings so far:
+- The BC-250 has **one SMU** for both CPU and GPU (unlike standard Ryzen which has separate ones)
+- SMU firmware is Xtensa-based and can be extracted from BIOS using PSPTool
+- Ghidra scripts map SMU message handlers — message IDs match the amdgpu driver's `smu_v11_8_ppsmc.h`
+- The SMU has a cooperative scheduler with task states (READY, WAIT_LOCK, SLEEP, WAIT_EVENT, SUSPENDED)
+- Sony customized the SMU for PS5 sleep mode — the sleep commands are unmapped/unknown on BC-250
+
+**Why this matters:** Unlocking SMU commands could enable CPU overclocking (currently limited to ~4 GHz via `bc250_smu_oc`), proper sleep/suspend mode, and finer power management. ded811 is actively working on sleep mode through SMU analysis. keroppl_wizard is using AI-assisted BIOS ROM analysis.
+
+*Credits: ded811 (SMU research, sleep mode), big_trov (repo discovery), keroppl_wizard (BIOS ROM analysis), keyboardspecialist (SMU-FINDINGS.md).*
+
 ### 40 CU Kernel Build Warnings
 
 - Default governor clocks/voltages are designed for 24 CU. Reduce clocks to ~1850 MHz for 40 CU to avoid board damage (erewego).

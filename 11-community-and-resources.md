@@ -23,6 +23,7 @@
 | [elektricM/amd-bc250-docs](https://github.com/elektricM/amd-bc250-docs) | Main documentation (98 commits, 85 stars -- need confirmation) |
 | [bc250-collective](https://github.com/bc250-collective) | ACPI fix, SMU OC tool, and more |
 | [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) | SSDT tables for CPU C-States (P-States experimental per repo README) |
+| [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) | SMU firmware reverse engineering — Ghidra scripts, message tables, BIOS extraction tools | [ded811, big_trov, keroppl_wizard, Jul 2026]
 | [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) | CPU SMU overclocking tool (4 GHz+) |
 | [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) | GPU governor (original repo, SMU + TT branches) |
 | [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor) | GPU governor (community fork, v0.4.0+ adds CPU-based memory clock control) |

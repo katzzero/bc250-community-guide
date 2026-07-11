@@ -230,6 +230,8 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 **Note (Jul 2026):** CachyOS ships with kernel 6.19+ and Mesa 26 — everything needed for 40 CU, VRR, and DP audio works out of the box. No kernel patching or rebase needed.
 
+**Upcoming:** CachyOS RC kernels 7.1 and 7.2 (`linux-cachyos-rc`) include significant amdgpu driver optimizations and bug fixes. Worth testing when available for improved stability (gennro, Jul 2026).
+
 ### Standard Method (Recommended)
 
 1. Download [CachyOS ISO](https://cachyos.org/) (KDE or GNOME)

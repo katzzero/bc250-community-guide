@@ -509,8 +509,11 @@ Does not break VRAM or temperature readings. No MangoHud config changes needed.
 
 **Status (May 2026):** Sleep does not work on BC-250 (pops1cl). Hibernate was working on Bazzite in December 2025 but is broken on CachyOS as of May 2026 — kernel bug suspected (essdee4336, pops1cl). Even swap file/partition approaches fail; system doesn't shut down properly for hibernate.
 
+**Root cause (Jul 2026):** The SMU (System Management Unit) on the BC-250 is a PS5-customized variant, not the standard AMD SMU. Sleep/suspend is handled entirely by the SMU, and Sony customized the sleep commands for PS5 — the BC-250 doesn't have the hardware or firmware to respond to standard AMD sleep commands (ded811, Jul 2026). See [02-BIOS & Firmware](02-bios-and-firmware.md) for SMU reverse engineering progress.
+
 **Workaround:**
 - Use shutdown/reboot instead of suspend/hibernate
+- ded811 is working on a sleep-like mode using black screen savor + clock minimization
 - Re-enable kscreenlocker/lockscreen after resume (CachyOS)
 - Use USB DAC for audio as fallback (see [08-Display & Audio])
 
