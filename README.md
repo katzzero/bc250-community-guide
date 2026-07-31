@@ -116,6 +116,8 @@ See [07 — Game Benchmarks](07-game-benchmarks.md) for 60+ community-tested gam
 
 ## What's New
 
+**July 2026:** CPU core unlock now functional (RescueMei patched BIOS + Hexxeh EFI shim) · 8-core benchmark: +5-14% FPS in Cyberpunk · 11 new repos added · colibri (GLM-5.2 on 25GB) · ubazzite600 TP-Link BT fix
+
 **June 2026:** Black Myth: Wukong benchmark (edges RX 6700) · Binary search artifact hunting · Live-manager stock WGP disabling · OCP power limit documented · VCN confirmed NOT fused off (partial decode) · Kernel 6.19.x recommended · Mesa 26.x standard
 
 **May 2026:** CU Live Manager (toggle 40 CUs without kernel patch) · Cyberpunk 2077 38 CU record (matches RTX 3060) · BIOS P4.00 discovered · AIOs confirmed (Thermalright Aqua Elite 240) · Micro-Fit power mod · Dell DA2 220W undervolted success · Mesa 26 + VRR on CachyOS/Bazzite
