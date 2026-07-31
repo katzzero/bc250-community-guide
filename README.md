@@ -1,6 +1,6 @@
 # BC-250 Unofficial Community Guide
 
-> **Turn a $50-150 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores, 24 RDNA 2 CUs, 16 GB GDDR6. Performance: RX 6600 to RX 6700 level. Unlockable to 40 CUs. Total build: **~$150-250**.
+> **Turn a $50-150 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores (up to 8 unlockable), 24 RDNA 2 CUs (up to 40 unlockable), 16 GB GDDR6. Performance: RX 6600–RX 6700 level with unlocks. Total build: **~$150-250**.
 >
 > **Linux only** — no Windows GPU drivers. Maintained by katzzero from community Discord data. [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
 
@@ -42,9 +42,8 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 | Spec | Value |
 |------|-------|
 | **APU** | AMD BC-250 "Cyan Skillfish" — cut-down PS5 Oberon |
-| **CPU** | 6× Zen 2 @ ~3.5 GHz (up to 4 GHz via SMU OC) |
+| **CPU** | 6× Zen 2 (@ ~3.5 GHz, up to 8 unlockable via SMU BIOS shim) |
 | **GPU** | 24 RDNA 2 CUs (up to 40 unlockable), 1500–2300 MHz |
-| **Performance** | Stock: RX 6600–6600 XT level. 40 CU: RX 6700 / GTX 1080 Ti level |
 | **Memory** | 16 GB GDDR6 shared — 14 Gbps, 256-bit, ~448 GB/s |
 | **Storage** | 1× M.2 2280 (PCIe 2.0 x2 — ~1 GB/s max, don't overspend) |
 | **Display** | 1× DisplayPort 1.4 (no HDMI — passive adapter ~$5) |
@@ -86,23 +85,40 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 
 ---
 
-## Performance
+## Performance Unlocks
 
-### Superposition Extreme 1080p (Leaderboard)
+The BC-250 ships lock-down — the PS5 "Oberon" APU was cut down to 6 CPU cores and 24 Compute Units. Both are unlockable with community tools:
 
-| Rank | CU | Score | Config | User |
-|------|-----|-------|--------|------|
-| #1 | 40 | 5900 | — | gennro |
-| #1 | 24 | 4713 | 2530 MHz GPU, 4175 MHz CPU, liquid | nexgen3d |
+### 40 CU GPU Unlock (RDNA 2)
 
-### Furmark VK 1080p (40 CU Top)
+Stock board has 24 of 40 CUs active. All 16 harvested can be re-enabled:
 
-| FPS | Config | User |
-|-----|--------|------|
-| 153 | 2150 MHz, 990 mV, 79°C | essdee4336 |
-| 150 | 2300 MHz, 85°C, 288W | big_trov |
+- **Live Manager** (recommended): [WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) — TUI on the fly, no reboot. Works on stock kernel.
+- **Kernel patch**: [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) — legacy method, rebuilds amdgpu module.
+- **Runtime script** (Jul 2026): [big_trov's runtime_40cu Unlock.sh](https://discord.gg/8eZfFWhczz) — patches module in-memory without kernel recompile.
 
-See [07 — Game Benchmarks](07-game-benchmarks.md) for 60+ community-tested games.
+Full guide: [02-BIOS & Firmware](02-bios-and-firmware.md#40-cu-unlock). Benchmarks: [07-Game Benchmarks](07-game-benchmarks.md).
+
+### 8 CPU Core Unlock (Zen 2 — New!)
+
+Board ships with 6 of 8 Zen 2 cores active. As of **Jul 30, 2026**, two working methods exist:
+
+| Method | Type | Risk |
+|--------|------|------|
+| **RescueMei/BC250-DXE-SMU-Core-Unlock** | Patched BIOS (DXE/SMU) — permanent unlock | ⚠️ If cores don't work, need external flash programmer to recover |
+| **Hexxeh/bc250-efi-core-unlock** | EFI shim at boot — semi-permanent, no BIOS modification | ✅ Safer option |
+
+8-core benchmark in Cyberpunk 2077: **+5-14% FPS** (6 cores → 8 cores: 72→93 fps Low FSR2). Total build cost adds $0 for the unlock itself.
+
+### Stock Performance Baseline
+
+| Config | Game Level | Notes |
+|--------|-----------|-------|
+| **6 CU, 24 CU stock** | RX 6600–6600 XT level | Solid 1080p gaming baseline |
+| **40 CU unlocked** | RX 6700 / GTX 1080 Ti | See [game benchmarks](07-game-benchmarks.md) for details |
+| **40 CU + 8 cores** | Best case (theoretical) | Early benchmark data emerging |
+
+Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ community-tested games).
 
 ---
 

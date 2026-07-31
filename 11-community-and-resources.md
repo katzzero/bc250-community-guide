@@ -63,8 +63,11 @@
 | [Koloses/Solarflare](https://github.com/Koloses/Solarflare) | Moonlight/Sunshine fork with Pyrowave for BC-250 |
 | [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 flash with themed menus |
 | [tmghd272/bc250-toolkit-lite](https://github.com/tmghd272/bc250-toolkit-lite) | Lighter toolkit variant |
+| [tmghd272/bc250-custom-bios-logo](https://github.com/tmghd272/bc250-custom-bios-logo) | BC250 BIOS boot logo theme — AMI OEM "ChangeLogo.exe" for DIY mods |
+| [tmghd272/bc250-custom-overlays](https://github.com/tmghd272/bc250-custom-overlays) | Custom overlays/logos (Turzx, MangoHud presets, BIOS) |
 | [thelamer/bc250-ollama-openwebui](https://github.com/thelamer/bc250-ollama-openwebui) | Ollama + OpenWebUI setup guide |
 | [keyboardspecialist/bc250-steamos](https://github.com/keyboardspecialist/bc250-steamos) | SteamOS setup for BC-250 |
+| [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit |
 | [akandr/bc250](https://github.com/akandr/bc250) | Ollama + Vulkan inference guide for BC-250 |
 | [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Decky Loader plugin — GPU clock slider + telemetry overlay in Quick Access Menu |
