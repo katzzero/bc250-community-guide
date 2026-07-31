@@ -4,6 +4,31 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## July 31, 2026 — Discord Export Audit: CPU Core Unlock, New Repos, New Benchmarks
+
+### 1. CPU Core Unlock Now Functional (MAJOR)
+- **RescueMei/BC250-DXE-SMU-Core-Unlock** — patched BIOS (DXE/SMU) unlocks all 8 cores permanently (Jul 2026). Requires verification first — if cores don't work, external programmer needed to recover (yrouel86).
+- **Hexxeh/bc250-efi-core-unlock** — EFI boot shim unlocks cores without BIOS modification (semi-permanent, Jul 2026).
+- **qwert9811 auto-activation script** — checks 8 cores on cold boot, runs unlock, reboots (with loop protection).
+- Documented in 02-bios-and-firmware.md (replaces "no functional unlock yet" status).
+
+### 2. CPU Core Unlock Benchmarks (Cyberpunk 2077)
+- _kierownik (30/07/2026): 40 CU, 1900MHz GPU @ 880mV, 3900MHz CPU @ 1150mV, FHD
+- 8 cores give **+5-14% FPS** across all settings (Low: 80→89, Ultra FSR2: 63→70)
+- ~8-10W higher power draw
+- Pragmata runs "a lot smoother with 8 cpu cores" (paul_lionking, Jul 2026)
+- Added full table to 07-game-benchmarks.md
+
+### 3. New Repos Added to 11-community-and-resources.md (11 new)
+- RescueMei/BC250-DXE-SMU-Core-Unlock, Hexxeh/bc250-efi-core-unlock, F5GO/bc250-cu-live-manager-SteamOS, SamSkjord/ubazzite600 (TP-Link UB600 BT fix), Thunkar/bc250-esp32-switch, ProjectSomnacin/somnacin-hardware, awalol/DS5Dongle, djanice1980/DS5_Bridge, bangstk/amd-bc250-docs, JustVugg/colibri (GLM-5.2 744B on 25GB), Umio-Yasuno/amdgpu_top
+
+### 4. Other Updates
+- **09-wifi-and-peripherals.md:** TP-Link UB600 (RTL8761BU) BT fix for Bazzite/atomic Fedora (SamSkjord/ubazzite600)
+- **12-ai-inference.md:** Added colibri (disk-streamed MoE, GLM-5.2 744B on 25GB RAM)
+- Export coverage: 2026-07-10 → 2026-07-31 (21 days), cursor updated to 2026-07-31
+
+---
+
 ## June 14, 2026 — RAG Batch Verification: 63 Claims Confirmed with Citations
 
 ### 1. RAG-Verified 104 `(need confirmation)` Claims

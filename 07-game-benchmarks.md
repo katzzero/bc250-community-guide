@@ -36,6 +36,23 @@
 - With `mitigations=off`: **+18 FPS** boost — elektricM docs
 - **38 CU, 2270 MHz GPU, 4050 MHz CPU, 1975 MT Memory, Ultra no FSR: min FPS >60** — dznuts (May 2026). Matched RTX 3060 performance level. Memory OC gave **+18.4% min FPS boost**.
 
+**6-core vs 8-core unlock (40 CU, 1900 MHz GPU @ 880 mV, 3900 MHz CPU @ 1150 mV, FHD, _kierownik, 30/07/2026):**
+
+| Settings | 6-core FPS | 8-core FPS | Gain |
+|----------|-----------|-----------|------|
+| Low, no upscale | 80 (170W) | 89 (180W) | +11% |
+| Low, FSR2 | 85 (160W) | 93 (173W) | +9% |
+| Low, FSR3 | 83 (160W) | 93 (162W) | +12% |
+| Medium, no upscale | 72 (178W) | 76 (187W) | +6% |
+| Medium, FSR2 | 79 (170W) | 90 (178W) | +14% |
+| High, no upscale | 63 (180W) | 66 (189W) | +5% |
+| High, FSR2 | 73 (170W) | 80 (180W) | +10% |
+| Ultra, no upscale | 55 (180W) | 58 (189W) | +5% |
+| Ultra, FSR2 | 63 (175W) | 70 (185W) | +11% |
+| Ultra, FSR3 | 64 (175W) | 70 (184W) | +9% |
+
+8 cores give a consistent **+5-14% FPS** in Cyberpunk with ~8-10W higher power draw. See [02-BIOS & Firmware](02-bios-and-firmware.md) for core unlock methods.
+
 **Tips:** Enable FSR Quality for a significant boost. DLSS/FSR Frame Generation works well. (elektricM docs)
 
 ---

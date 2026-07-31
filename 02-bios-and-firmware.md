@@ -407,9 +407,24 @@ Three distinct crash modes exist when pushing 40 CU limits:
 
 The BC-250 40 CU unlock patch (`bc250-40cu-amdgpu.patch`) also works on **PS5 Linux** (gennro, via PS5 Linux Discord, May 2026). The jump from 36 CU to 40 CU on PS5 gives approximately 4% more benchmark score. Note: the PS5 hypervisor still runs during Linux, which may limit performance compared to BC-250 results.
 
-### CPU Core Unlock Research
+### CPU Core Unlock (Jul 2026 — FUNCTIONAL)
 
-duggasco and mrfrakes are researching unlocking additional CPU cores (beyond 6). They have decompiled and extracted bootrom and understand how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory is that cores may not be physically fused off but controlled by a ROM array written during manufacturing. An active discussion thread exists in the Discord `project-forums` channel. No functional unlock yet -- active research.
+The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be software/firmware-blocked, not physically fused off. As of late July 2026, functional unlocks now exist via two independent approaches:
+
+**Option 1: Patched BIOS (Permanent)** — [RescueMei/BC250-DXE-SMU-Core-Unlock](https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock)
+- DXE/SMU patched BIOS that enables all 8 cores permanently
+- ⚠️ **Verify your cores work first with the Python script** — if cores don't work and you flash the modded BIOS, you're stuck and need an external programmer to recover (yrouel86, Jul 2026)
+- Only for boards with standard disabled-core layout (0x77); boards with different deactivated cores need the script route (zedan015)
+
+**Option 2: EFI Shim (Semi-Permanent, No BIOS Modification)** — [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock)
+- EFI boot shim that unlocks cores at every boot without touching the BIOS
+- Add to the EFI boot partition and add to boot targets (NVMe steps in progress by Hexxeh, Jul 2026)
+
+**Auto-activation script (qwert9811, Jul 2026):** A community script checks for 8 active cores on cold boot, runs the unlock Python script if needed, and reboots (with a reboot counter to prevent infinite loops). Works on CachyOS desktop.
+
+**Background:** duggasco and mrfrakes previously decompiled and extracted bootrom and understood how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory was that cores are controlled by a ROM array written during manufacturing rather than physically fused off — now validated by the working unlocks. Early speculation: unlocking BC-250 cores could theoretically apply to other low-end Ryzen CPUs with disabled cores, but that's uncharted territory.
+
+*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), yrouel86 (verification guidance), zedan015 (non-standard core layout testing).*
 
 ### SMU Firmware Reverse Engineering (Jul 2026)
 

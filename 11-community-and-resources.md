@@ -71,6 +71,17 @@
 | [cachenetics/bc250-nixos](https://github.com/cachenetics/bc250-nixos) | NixOS configuration for BC-250 |
 | [cachenetics/project-ariel](https://github.com/cachenetics/project-ariel) | Project Ariel |
 | [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) | BC-250 J2000/J2001 Micro-Fit power adapter PCB (UNTESTED — waiting for fab boards, build at own risk) |
+| [RescueMei/BC250-DXE-SMU-Core-Unlock](https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock) | Patched BIOS (DXE/SMU) that unlocks all 8 CPU cores — permanent, needs external programmer for recovery (Jul 2026) |
+| [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock) | EFI boot shim that unlocks extra CPU cores without BIOS modification (semi-permanent, Jul 2026) |
+| [F5GO/bc250-cu-live-manager-SteamOS](https://github.com/F5GO/bc250-cu-live-manager-SteamOS) | CU live manager variant for real SteamOS |
+| [SamSkjord/ubazzite600](https://github.com/SamSkjord/ubazzite600) | TP-Link UB600 (RTL8761BU) Bluetooth fix for Bazzite / atomic Fedora via out-of-tree btusb rebuild |
+| [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | ESP32-C3 power switch for BC-250 |
+| [ProjectSomnacin/somnacin-hardware](https://github.com/ProjectSomnacin/somnacin-hardware) | Somnacin project hardware |
+| [awalol/DS5Dongle](https://github.com/awalol/DS5Dongle) | DS5 dongle for DualSense controllers (RPi Pico) |
+| [djanice1980/DS5_Bridge](https://github.com/djanice1980/DS5_Bridge) | DS5 dongle bridge (alternative) |
+| [bangstk/amd-bc250-docs](https://github.com/bangstk/amd-bc250-docs) | Community-driven documentation for AMD BC-250 (Cyan Skillfish) |
+| [JustVugg/colibri](https://github.com/JustVugg/colibri) | Run GLM-5.2 (744B MoE) on 25GB-RAM machine — pure C, zero deps, experts streamed from disk |
+| [Umio-Yasuno/amdgpu_top](https://github.com/Umio-Yasuno/amdgpu_top) | AMD GPU top — live GPU monitoring tool |
 | [dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox](https://github.com/dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox) | ESP32 LOP PSU power-on controller |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [peterdk31/bc250_ws2812b_controller](https://github.com/peterdk31/bc250_ws2812b_controller) | WS2812B LED controller for BC-250 | — upstream for Debian builds |

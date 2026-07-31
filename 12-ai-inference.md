@@ -150,6 +150,10 @@ xseol's multi-board data (Discord):
 - 70B models -- requires 5+ boards via RPC
 - GPT-OSS 120B -- requires 6+ boards via RPC
 
+### Alternative: Disk-Streamed MoE (colibri)
+
+[JustVugg/colibri](https://github.com/JustVugg/colibri) can run **GLM-5.2 (744B MoE)** on a 25GB-RAM machine by streaming experts from disk — pure C, zero dependencies. For BC-250 LLM nodes with 16GB unified memory, this allows running far larger models than fit in RAM by trading speed for capacity. (Note: community testing on BC-250 pending as of Jul 2026.)
+
 ---
 
 ## ROCm/HIP Status

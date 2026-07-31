@@ -41,6 +41,8 @@ If you already have Ethernet and just need Bluetooth:
 | **TP-Link UB500 Plus** | BT 5.3 | ~$10–15 | `B0DHJHMHFS` | Tiny, long range, adjustable antenna |
 | **EDUP B3536** | BT 5.0 | ~$5 | Various | Dirt cheap from AliExpress |
 
+> **TP-Link UB600 (RTL8761BU) on Bazzite/atomic Fedora:** Requires an out-of-tree `btusb` rebuild to work on immutable Fedora-based systems. Fix maintained at [SamSkjord/ubazzite600](https://github.com/SamSkjord/ubazzite600) (Jul 2026). "Works, but needs some dicking about."
+
 ---
 
 ## Storage — NVMe / SSDs
