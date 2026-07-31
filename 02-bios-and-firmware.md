@@ -424,7 +424,14 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 
 **Background:** duggasco and mrfrakes previously decompiled and extracted bootrom and understood how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory was that cores are controlled by a ROM array written during manufacturing rather than physically fused off — now validated by the working unlocks. Early speculation: unlocking BC-250 cores could theoretically apply to other low-end Ryzen CPUs with disabled cores, but that's uncharted territory.
 
-*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), yrouel86 (verification guidance), zedan015 (non-standard core layout testing).*
+**jwagnervaz BIOS Rev Eng (Jul 09-11, 2026):** Another independent modder is reverse engineering a custom BIOS for the BC-250:
+- "Working in rev eng to make a better bios to bc 250" — posted progress photos from Jun 20, 2026 (Jul 2026)
+- Already fixed ACPI tables and made optimizations; prior experience modding X99 Chinese boards
+- Tested ALL available 4700S BIOS images found: **none boot** on BC-250 — different memory lithography and different ABL SMU between the two chips (Jul 11, 2026)
+- Boot stops at UART-debuggable point "in another place" after partial adjustment — working toward next breakthrough with UART debug tools
+- Goal: "port bootsec/tpm and find some solution to windows drivers. one step at a time."
+
+*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing).*
 
 ### SMU Firmware Reverse Engineering (Jul 2026)
 

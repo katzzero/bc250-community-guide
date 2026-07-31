@@ -2,7 +2,7 @@
 
 > **Turn a $50-150 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores (up to 8 unlockable), 24 RDNA 2 CUs (up to 40 unlockable), 16 GB GDDR6. Performance: RX 6600–RX 6700 level with unlocks. Total build: **~$150-250**.
 >
-> **Linux only** — no Windows GPU drivers. Maintained by katzzero from community Discord data. [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
+> **Linux only** — no Windows GPU drivers *officially* but multiple parallel projects exist. Maintained by katzzero from community Discord data. [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
 
 ---
 
