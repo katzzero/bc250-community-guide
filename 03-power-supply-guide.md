@@ -210,11 +210,38 @@ essdee4336 tested the Micro-Fit mod: "it did seem to help slightly."
 
 ## ATX Power Control Community Projects
 
-**BC250 ATX PSU Control Adapter** (pilimmm) — Add-on board for FSP500 10-pin that handles PS_ON automatically. No soldering for basic use. Press button to boot, OS shutdown turns PSU off. Optional isolated button output for BC250's internal power button. Focused on FSP500; 24-pin ATX version planned.
-*Discord project-forums, March 2026.*
+### Plug-and-Play Adapter
 
-**BC-250 Remote PSU Controller** (wisserbasser / PetteriLah) — ESP32-based remote power control with web interface and PS5 controller support. Momentary press = power on, hold 5s = force off. OS shutdown puts ATX PSU in standby.
-*GitHub: [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control)*
+**BC250 ATX PSU Control Adapter** (pilimmm / mosfet.party) — Commercial add-on board for FSP500 10-pin that handles PS_ON automatically. No soldering for basic use. Press button to boot, OS shutdown turns PSU off. Optional isolated button output for BC250's internal power button. Also available as 24-pin ATX edition with pre-wired 16mm backlit power button. FSP500 and ATX versions ship with all connection cables.
+*Website: [mosfet.party](https://mosfet.party) | Discord project-forums, March 2026.*
+
+### ESP32 Controller Wake Projects
+
+These projects use an ESP32 microcontroller to detect a Bluetooth controller powering on and pulse the BC-250's power button to boot the system. The controller connects directly to the PC's OS after boot — the ESP32 only handles the wake signal.
+
+**BC-250 Remote PSU Controller** (wisserbasser / PetteriLah) — ESP32 with Bluepad32 library. PS5 DualSense wake via BLE. Web interface for configuration. MAC address lock so only your controller can start the machine. When the BC-250 is on, the ESP32's Bluetooth turns off. Requires LOP PSU (not ATX). Momentary press = power on, hold 5s = force off. OS shutdown puts PSU in standby.
+*GitHub: [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | Discord: 142 messages across project-forums threads, most active controller wake project.*
+
+**ESP32-BC250-LOP_PSU-PowerON-Xbox** (.dexik / dexikdex) — ESP32_Relay X2 board with passive BLE scanning for Xbox Series X/S controllers (or any BLE controller). Does not hijack the gamepad connection — listens to BLE broadcasts and triggers the power relay. Features: sniper pairing mode (point-blank, -45 dBm RSSI threshold), hardware MAC blacklist, zombie-wake protection (60s deaf period after OS shutdown), LED and 12V peripheral power sync. Also supports DualSense via separate sketch. Requires LOP PSU.
+*GitHub: [dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox](https://github.com/dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox) | Discord project-forums, June 2026.*
+
+**BC250 ESP32 Power Switch** (Thunkar) — ESP32-C3 firmware for ATX PSU control via PS_ON# line. Push-button power (tap on, hold 5s force off), boot watchdog (releases PSU if board does not come up in 10s), optional BLE controller wake for bound controllers (e.g. 8BitDo), WiFi setup portal for configuring the bound controller from a phone without reflashing. Powered from ATX 5V standby. Reads board power state from TPMS1 pin 9.
+*GitHub: [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | Discord project-forums.*
+
+### Pi Pico Controller Wake Projects
+
+**BT Dongle with PC Wake** (huzhekun / victorhu) — Pi Pico 2W used as a USB Bluetooth dongle that also wakes the PC. When the board is off, the Pico stops being a dongle and listens for Bluetooth connections. If it sees a connection attempt from a paired controller, it pulses the power button to boot the PC and returns to dongle mode. Requires ATX power control mod (IAMDarkyoshi) and soldering to power button + LED leads. Linux only (emulates HCI dongle). Early stage — creator noted "a lot of jank" with full dongle emulation.
+*GitHub: [huzhekun/bt-dongle-with-pc-wake](https://github.com/huzhekun/bt-dongle-with-pc-wake) | Discord project-forums, July 2026.*
+
+**DS5Dongle** (awalol) — Pico2W as a wireless DualSense bridge. Controller pairs to Pico over Bluetooth, Pico plugs into PC via USB. Supports HD haptics, headset audio (controller speaker + 3.5mm jack), microphone input. BOOTSEL button for pairing management (short press = pair/switch, double click = reboot, triple click = bootloader, long press = forget all). Runs at stock 150 MHz. Wake from sleep is a secondary feature — controller reconnecting to the bridge can wake the PC.
+*GitHub: [awalol/DS5Dongle](https://github.com/awalol/DS5Dongle)*
+
+**DS5_Bridge** (djanice1980, fork of SundayMoments) — Linux/CachyOS port of DS5 Bridge. Pico 2W DualSense bridge with native Linux companion app (PipeWire audio, audio-driven haptics, libusb device access, uinput chord injection, CachyOS/Arch packaging). Supports DualSense and DualSense Edge. USB wakeup configured automatically by the companion. Same BOOTSEL control scheme as DS5Dongle.
+*GitHub: [djanice1980/DS5_Bridge](https://github.com/djanice1980/DS5_Bridge) | Upstream: [SundayMoments/DS5_Bridge](https://github.com/SundayMoments/DS5_Bridge)*
+
+### Other
+
+**Xbox 360 Controller Wake** (az4521) — Independent implementation for Xbox 360 controllers. Mentioned in Discord project-forums (July 2026) but no public repository available.
 
 ---
 
@@ -251,4 +278,4 @@ By iamdarkyoshi: Allows full ATX PSU standby and sleep/wake support.
 
 ---
 
-*Sources: elektricM/amd-bc250-docs hardware/power.md (primary), FSP spec sheets (80+ Platinum verified), Mean Well official specs (LOP-400/500/600 datasheets), Discord community (nexgen3d, gennro, essdee4336, big_trov, dznuts, hecto_77113, capt.cat_13, astrocast, cyrixblack, fforduck, .strykur). Discord sources verified from export files Jan-May 2026.*
+*Sources: elektricM/amd-bc250-docs hardware/power.md (primary), FSP spec sheets (80+ Platinum verified), Mean Well official specs (LOP-400/500/600 datasheets), Discord community (nexgen3d, gennro, essdee4336, big_trov, dznuts, hecto_77113, capt.cat_13, astrocast, cyrixblack, fforduck, .strykur, wisserbasser, .dexik, _nk10, leafjerky, greatapo, pilimmm, victorhu, huzhekun, az4521, djanice1980, awalol, Thunkar). Discord sources verified from export files Jan-Aug 2026.*

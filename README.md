@@ -132,7 +132,7 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 
 ## What's New
 
-**August 2026:** Patched BIOS now includes unlock option in CPU config + SteamOS boot logo · 8-core metrics patch · VCN unlock research active · Game mode unlock shortcut
+**August 2026:** Patched BIOS now includes unlock option in CPU config + SteamOS boot logo · 8-core metrics patch · VCN unlock research active · Game mode unlock shortcut · Controller wake & BLE power control documented (ESP32 + Pi Pico projects)
 
 **July 2026:** CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script) · Alternate bitmask testing (7-of-8 cores possible) · OS-independent SMN/PSP mechanism proven · 8-core benchmark: +5-14% FPS in Cyberpunk · jwagnervaz independent BIOS rev eng (4700S BIOS testing)
 

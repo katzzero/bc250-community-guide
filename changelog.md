@@ -4,6 +4,28 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 4, 2026 — Controller Wake & BLE Power Control Documentation
+
+### 1. New Section in 03-power-supply-guide.md
+- Expanded "ATX Power Control Community Projects" into comprehensive "Controller Wake & BLE Power Control" section
+- Documented 7 projects across 4 categories: plug-and-play adapter, ESP32 controller wake, Pi Pico controller wake, and other
+
+### 2. ESP32 Controller Wake Projects
+- **wisserbasser/PetteriLah Remote PSU Controller** — ESP32 + Bluepad32, PS5 DualSense BLE wake, LOP PSU (142 Discord messages, most active)
+- **dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox** — ESP32_Relay X2, Xbox BLE wake, sniper pairing, zombie-wake protection (LOP PSU)
+- **Thunkar/bc250-esp32-switch** — ESP32-C3, BLE controller wake, WiFi config portal, boot watchdog (ATX PSU)
+
+### 3. Pi Pico Controller Wake Projects
+- **huzhekun/bt-dongle-with-pc-wake** — Pi Pico 2W as BT dongle with controller wake (Linux, early stage)
+- **awalol/DS5Dongle** — Pico2W DualSense bridge, HD haptics, headset audio
+- **djanice1980/DS5_Bridge** — Linux/CachyOS port of DS5 Bridge, PipeWire audio, audio-driven haptics
+
+### 4. Updated 11-community-and-resources.md
+- Added huzhekun/bt-dongle-with-pc-wake to project table
+- Updated descriptions for mosfetparty, PetteriLah, Thunkar, awalol, djanice1980, dexikdex entries
+
+---
+
 ## August 4, 2026 — Discord Export Audit: CPU Unlock Deep Dive, Custom BIOS, VCN Research
 
 ### 1. CPU Core Unlock — New Technical Findings (02-bios-and-firmware.md)

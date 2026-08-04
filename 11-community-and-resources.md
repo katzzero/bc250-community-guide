@@ -37,8 +37,8 @@
 | [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d) | lm-sensors monitoring driver + PWM fan control | [confirmed: elektricM docs]
 | [ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) | GUI GPU controller | [confirmed: @tom97br, 07/03/2026]
 | [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation) | Setup scripts (Bazzite/Fedora/Ubuntu) | [confirmed: @vietsman, 22/05/2025]
-| [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | ATX PSU control adapter — wiring diagrams + 3D models |
-| [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | ESP32 remote PSU controller |
+| [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | ATX PSU control adapter (pilimmm) — plug-and-play PS_ON board for FSP500 + 24-pin ATX, [mosfet.party](https://mosfet.party) |
+| [PetteriLah/BC-250-PC-Remote-Control](https://github.com/PetteriLah/BC-250-PC-Remote-Control) | ESP32 remote PSU controller — PS5 DualSense BLE wake, web interface (wisserbasser) |
 | [redbeard1083/bc250-toolkit](https://github.com/redbeard1083/bc250-toolkit) | CachyOS setup toolkit |
 | [safwyls/BC-250_ATXCase](https://github.com/safwyls/BC-250_ATXCase) | ATX case design for BC-250 |
 | [dyllan500/bazzite-amd-hdmi-kde](https://github.com/dyllan500/bazzite-amd-hdmi-kde) | VRR fixes for Bazzite KDE |
@@ -78,14 +78,15 @@
 | [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock) | EFI boot shim that unlocks extra CPU cores without BIOS modification (semi-permanent, Jul 2026) |
 | [F5GO/bc250-cu-live-manager-SteamOS](https://github.com/F5GO/bc250-cu-live-manager-SteamOS) | CU live manager variant for real SteamOS |
 | [SamSkjord/ubazzite600](https://github.com/SamSkjord/ubazzite600) | TP-Link UB600 (RTL8761BU) Bluetooth fix for Bazzite / atomic Fedora via out-of-tree btusb rebuild |
-| [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | ESP32-C3 power switch for BC-250 |
+| [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | ESP32-C3 power switch — BLE controller wake, WiFi config portal, boot watchdog (ATX PSU) |
 | [ProjectSomnacin/somnacin-hardware](https://github.com/ProjectSomnacin/somnacin-hardware) | Somnacin project hardware |
-| [awalol/DS5Dongle](https://github.com/awalol/DS5Dongle) | DS5 dongle for DualSense controllers (RPi Pico) |
-| [djanice1980/DS5_Bridge](https://github.com/djanice1980/DS5_Bridge) | DS5 dongle bridge (alternative) |
+| [awalol/DS5Dongle](https://github.com/awalol/DS5Dongle) | Pico2W DualSense bridge — HD haptics, headset audio, wireless BT bridging |
+| [djanice1980/DS5_Bridge](https://github.com/djanice1980/DS5_Bridge) | DS5 Bridge Linux/CachyOS port — PipeWire audio, audio-driven haptics, uinput chord injection |
 | [bangstk/amd-bc250-docs](https://github.com/bangstk/amd-bc250-docs) | Community-driven documentation for AMD BC-250 (Cyan Skillfish) |
 | [JustVugg/colibri](https://github.com/JustVugg/colibri) | Run GLM-5.2 (744B MoE) on 25GB-RAM machine — pure C, zero deps, experts streamed from disk |
 | [Umio-Yasuno/amdgpu_top](https://github.com/Umio-Yasuno/amdgpu_top) | AMD GPU top — live GPU monitoring tool |
-| [dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox](https://github.com/dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox) | ESP32 LOP PSU power-on controller |
+| [dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox](https://github.com/dexikdex/ESP32-BC250-LOP_PSU-PowerON-Xbox) | ESP32_Relay X2 — Xbox BLE wake, sniper pairing, zombie-wake protection (LOP PSU) |
+| [huzhekun/bt-dongle-with-pc-wake](https://github.com/huzhekun/bt-dongle-with-pc-wake) | Pi Pico 2W as BT dongle with controller wake (Linux, early stage) |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [peterdk31/bc250_ws2812b_controller](https://github.com/peterdk31/bc250_ws2812b_controller) | WS2812B LED controller for BC-250 | — upstream for Debian builds |
 
