@@ -407,20 +407,38 @@ Three distinct crash modes exist when pushing 40 CU limits:
 
 The BC-250 40 CU unlock patch (`bc250-40cu-amdgpu.patch`) also works on **PS5 Linux** (gennro, via PS5 Linux Discord, May 2026). The jump from 36 CU to 40 CU on PS5 gives approximately 4% more benchmark score. Note: the PS5 hypervisor still runs during Linux, which may limit performance compared to BC-250 results.
 
-### CPU Core Unlock (Jul 2026 — FUNCTIONAL)
+### CPU Core Unlock (Jul-Aug 2026 — FUNCTIONAL)
 
-The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be software/firmware-blocked, not physically fused off. As of late July 2026, functional unlocks now exist via two independent approaches:
+The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be software/firmware-blocked, not physically fused off. As of late July 2026, functional unlocks now exist via multiple approaches:
+
+**How the unlock works (porocyon, Jul 30 2026):** The Python script sends a mailbox message to the SMN/PSP (Platform Security Processor) through PCIe, which makes the PSP unlock all cores on the next boot. This is **entirely OS-independent** — the same mechanism works on any OS. The exploit bypasses the security check and writes an arbitrary bitmask to the core presence register.
+
+**Alternate bitmasks (0xcats, Jul 30 2026):** The write primitive is not limited to 0xFF. 0xcats tested writing other bitmasks: 0x7F (enables core 3, disables core 7), 0xF7 (enables core 7, disables core 3). This means **7 out of 8 core unlocks are possible** on boards where one specific core is defective — the interconnect to cache may be wrong on that core. Not all boards have the same bad core.
+
+**Non-0x77 core masks (fforduck, Jul 30 2026):** fforduck tested a board with core mask 0x7B (instead of the standard 0x77). The Python script was edited to target this mask and all 8 cores work correctly. If your board has a non-standard disabled-core layout, the script can be modified to match.
 
 **Option 1: Patched BIOS (Permanent)** — [RescueMei/BC250-DXE-SMU-Core-Unlock](https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock)
 - DXE/SMU patched BIOS that enables all 8 cores permanently
+- **Now includes unlock option in the CPU configuration section** and official SteamOS boot logo at boot (yrouel86, Aug 1 2026)
 - ⚠️ **Verify your cores work first with the Python script** — if cores don't work and you flash the modded BIOS, you're stuck and need an external programmer to recover (yrouel86, Jul 2026)
-- Only for boards with standard disabled-core layout (0x77); boards with different deactivated cores need the script route (zedan015)
+- RescueMei bought a second BC-250 specifically as an open benchtest for BIOS development (Jul 31 2026)
 
 **Option 2: EFI Shim (Semi-Permanent, No BIOS Modification)** — [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock)
 - EFI boot shim that unlocks cores at every boot without touching the BIOS
 - Add to the EFI boot partition and add to boot targets (NVMe steps in progress by Hexxeh, Jul 2026)
 
+**Option 3: Python Script (rw-r-r-0644)** — [rw-r-r-0644/bc250-core-unlock](https://github.com/rw-r-r-0644/bc250-core-unlock)
+- The original unlock script. Sends the SMU mailbox message directly from Linux userspace
+- ⚠️ Does not survive hard shutdown — if the board crashes, it reverts to 6 cores (dizzey0709, Jul 30 2026)
+- Best for verifying your cores work before committing to the permanent BIOS mod
+
 **Auto-activation script (qwert9811, Jul 2026):** A community script checks for 8 active cores on cold boot, runs the unlock Python script if needed, and reboots (with a reboot counter to prevent infinite loops). Works on CachyOS desktop.
+
+**Game mode shortcut (dbkretro, Aug 1 2026):** The unlock script can be added as a non-Steam game in game mode — tap the icon, it runs the unlock steps and reboots. Requires sudoers entry to avoid password prompts.
+
+**8-core metrics fix (keroppl_wizard, Jul 30 2026):** The BC-250 metrics overlay driver (`cyan-skillfish-governor-smu`) reports incorrect GPU clock speeds after CPU unlock. keroppl_wizard published a patch: [bc250-cyan-skillfish-8core-metrics.patch](https://github.com/keyboardspecialist/bc250-steamos/blob/master/bc250-audio-fix/bc250-cyan-skillfish-8core-metrics.patch). Compatible with both 6 and 8 core configurations.
+
+**Silicon lottery (0xcats, Jul 30 2026):** Of 5 boards tested, 1 could not reliably boot with all 8 cores (crashes or hangs during POST). That board had core mask 0x7E — core 0 defective. Roughly **80% success rate** in this small sample. Boards that fail POST with the unlock typically need an external programmer to recover.
 
 **Background:** duggasco and mrfrakes previously decompiled and extracted bootrom and understood how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory was that cores are controlled by a ROM array written during manufacturing rather than physically fused off — now validated by the working unlocks. Early speculation: unlocking BC-250 cores could theoretically apply to other low-end Ryzen CPUs with disabled cores, but that's uncharted territory.
 
@@ -430,8 +448,11 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - Tested ALL available 4700S BIOS images found: **none boot** on BC-250 — different memory lithography and different ABL SMU between the two chips (Jul 11, 2026)
 - Boot stops at UART-debuggable point "in another place" after partial adjustment — working toward next breakthrough with UART debug tools
 - Goal: "port bootsec/tpm and find some solution to windows drivers. one step at a time."
+- Note: mrfrakes claims to have booted 4700S C08 BIOS on BC-250 with external GPU — may require specific BIOS version and external GPU like the original 4700S setup (Jul 11, 2026)
 
-*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing).*
+**VCN unlock discussion (Jul 30 2026):** thelamer proposed using the same register exploit for VCN (video codec) hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests the hardware is present but disabled. yrouel86 notes this would still need the firmware blob, and it would most likely need to be signed. VCN unlock remains an open research question.
+
+*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior).*
 
 ### SMU Firmware Reverse Engineering (Jul 2026)
 

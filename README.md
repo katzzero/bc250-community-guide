@@ -116,7 +116,7 @@ Board ships with 6 of 8 Zen 2 cores active. As of **Jul 30, 2026**, two working 
 |--------|-----------|-------|
 | **6 CU, 24 CU stock** | RX 6600–6600 XT level | Solid 1080p gaming baseline |
 | **40 CU unlocked** | RX 6700 / GTX 1080 Ti | See [game benchmarks](07-game-benchmarks.md) for details |
-| **40 CU + 8 cores** | Best case (theoretical) | Early benchmark data emerging |
+| **40 CU + 8 cores** | ~60 FPS Cyberpunk 2077 (dbkretro) | ~10 FPS gain in CPU-heavy areas (Dogtown, qwert9811) |
 
 Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ community-tested games).
 
@@ -132,7 +132,9 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 
 ## What's New
 
-**July 2026:** CPU core unlock now functional (RescueMei patched BIOS + Hexxeh EFI shim) · 8-core benchmark: +5-14% FPS in Cyberpunk · 11 new repos added · colibri (GLM-5.2 on 25GB) · ubazzite600 TP-Link BT fix
+**August 2026:** Patched BIOS now includes unlock option in CPU config + SteamOS boot logo · 8-core metrics patch · VCN unlock research active · Game mode unlock shortcut
+
+**July 2026:** CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script) · Alternate bitmask testing (7-of-8 cores possible) · OS-independent SMN/PSP mechanism proven · 8-core benchmark: +5-14% FPS in Cyberpunk · jwagnervaz independent BIOS rev eng (4700S BIOS testing)
 
 **June 2026:** Black Myth: Wukong benchmark (edges RX 6700) · Binary search artifact hunting · Live-manager stock WGP disabling · OCP power limit documented · VCN confirmed NOT fused off (partial decode) · Kernel 6.19.x recommended · Mesa 26.x standard
 

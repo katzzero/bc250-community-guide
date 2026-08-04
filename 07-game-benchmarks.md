@@ -53,6 +53,13 @@
 
 8 cores give a consistent **+5-14% FPS** in Cyberpunk with ~8-10W higher power draw. See [02-BIOS & Firmware](02-bios-and-firmware.md) for core unlock methods.
 
+**8-core 40CU Cyberpunk results (Jul 30 2026):**
+
+| User | Config | Settings | FPS | Notes |
+|------|--------|----------|-----|-------|
+| dbkretro | 8 core + 40 CU | 1080p | ~60 | Up from ~52 with 6 core — "8 core 40cu gang" |
+| qwert9811 | 8 core unlocked | Dogtown (CPU-heavy area) | Early 50s | Up from early 40s — ~10 FPS gain in most demanding area |
+
 **Tips:** Enable FSR Quality for a significant boost. DLSS/FSR Frame Generation works well. (elektricM docs)
 
 ---
@@ -92,6 +99,8 @@
 **Launch flag:** `-useMaximumSettings` — elektricM docs
 **Adapter fix:** May detect as software rendering — change adapter in graphics settings to match `vulkaninfo --summary` output (elektricM docs)
 **Temps:** ~75C during gameplay. [confirmed: @.strykur, 15/01/2026]
+
+**8-core 40CU RDR2 (dbkretro, Jul 30 2026):** 1080p, decent quality settings — near 60 FPS with main dip during snow scenes. GPU bound in most scenarios but less stutter in city areas with extra cores.
 
 ---
 

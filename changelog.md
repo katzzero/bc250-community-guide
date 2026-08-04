@@ -4,6 +4,35 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 4, 2026 — Discord Export Audit: CPU Unlock Deep Dive, Custom BIOS, VCN Research
+
+### 1. CPU Core Unlock — New Technical Findings (02-bios-and-firmware.md)
+- **OS-independent mechanism explained (porocyon, Jul 30):** Script sends mailbox message to SMN/PSP through PCIe — works on any OS, not just Linux
+- **Alternate bitmasks (0xcats, Jul 30):** Write primitive is not limited to 0xFF. Tested 0x7F (enables core 3, disables 7) and 0xF7 (enables 7, disables 3). 7-of-8 core unlocks possible on boards with one defective core
+- **Non-0x77 core masks (fforduck, Jul 30):** Board with 0x7B mask tested — modified Python script works, all 8 cores active
+- **Silicon lottery data (0xcats, Jul 30):** 5 boards tested, 1 fails POST with all 8 cores (~80% success rate in small sample)
+- **8-core metrics patch (keroppl_wizard, Jul 30):** bc250-cyan-skillfish-8core-metrics.patch fixes GPU clock reporting after CPU unlock
+- **Game mode shortcut (dbkretro, Aug 1):** Unlock script added as non-Steam game in game mode for one-tap unlock + reboot
+
+### 2. Patched BIOS Updates (02-bios-and-firmware.md)
+- **RescueMei patched BIOS** now includes unlock option in CPU configuration section and official SteamOS boot logo (yrouel86, Aug 1)
+- **RescueMei** bought second BC-250 as open benchtest for BIOS development (Jul 31)
+
+### 3. VCN Unlock Research (02-bios-and-firmware.md)
+- **thelamer (Jul 30):** Proposed using same register exploit for VCN hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests hardware present but disabled
+- **yrouel86 (Jul 30):** Would need firmware blob, most likely signed — not as simple as CPU core unlock
+
+### 4. New Game Benchmarks (07-game-benchmarks.md)
+- **dbkretro (Jul 30):** 8-core 40CU Cyberpunk — ~60 FPS at 1080p (up from ~52 with 6 core)
+- **qwert9811 (Jul 30):** 8-core Cyberpunk Dogtown — early 50s FPS (up from early 40s, ~10 FPS gain)
+- **dbkretro (Jul 30):** 8-core 40CU RDR2 — near 60 FPS at 1080p decent settings, main dip during snow
+
+### 5. README Updates
+- What's New: Added August 2026 entry (patched BIOS CPU config option, 8-core metrics patch, VCN research, game mode shortcut)
+- Stock Performance Baseline: Updated 40 CU + 8 cores row with real benchmark data
+
+---
+
 ## July 31, 2026 — Discord Export Audit: CPU Core Unlock, New Repos, New Benchmarks
 
 ### 1. CPU Core Unlock Now Functional (MAJOR)
