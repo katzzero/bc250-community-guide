@@ -25,7 +25,7 @@
 | [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) | SSDT tables for CPU C-States (P-States experimental per repo README) |
 | [bc250-collective/amd_smu_reverse_engineering](https://github.com/bc250-collective/amd_smu_reverse_engineering) | SMU firmware reverse engineering — Ghidra scripts, message tables, BIOS extraction tools | [ded811, big_trov, keroppl_wizard, Jul 2026]
 | [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) | CPU SMU overclocking tool (4 GHz+) |
-| [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) | GPU governor (original repo, SMU + TT branches) |
+| [filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) | GPU governor (original repo, SMU + TT branches; `fix-freq = true` option for 8-core GPU clock reporting, commit `be9537f` Aug 2026) |
 | [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor) | GPU governor (community fork, v0.4.0+ adds CPU-based memory clock control) |
 | [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock) | 40 CU unlock kernel patch (legacy) |
 | [WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) | 40 CU live manager — no kernel patch needed. Interactive TUI (UMR-based) |
@@ -89,6 +89,11 @@
 | [huzhekun/bt-dongle-with-pc-wake](https://github.com/huzhekun/bt-dongle-with-pc-wake) | Pi Pico 2W as BT dongle with controller wake (Linux, early stage) |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [peterdk31/bc250_ws2812b_controller](https://github.com/peterdk31/bc250_ws2812b_controller) | WS2812B LED controller for BC-250 | — upstream for Debian builds |
+| [GabriWar/bc250-core-cu-unlock](https://github.com/GabriWar/bc250-core-cu-unlock) | Linux SMU mailbox 0x98 unlock — 8 CPU cores + 40 CU, systemd unit, core test script, bundled 8-core BIOS + ACPI fix (Aug 2026) |
+| [higorprado/bc250-8core-telemetry-report](https://github.com/higorprado/bc250-8core-telemetry-report) | 8-core SMU metrics layout — maps the per-core arrays that displace GPU clock reporting (Aug 2026) |
+| [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) | 8-core ACPI tables (SSDT C-states extended to 16 threads) — required after CPU core unlock (Aug 2026) |
+| [onlinermm/BC250-Telemetry](https://github.com/onlinermm/BC250-Telemetry) | VRM telemetry daemon + web dashboard — PMBus over I2C (per-rail voltage/current/power/temp), 2-wire hardware mod (Aug 2026) |
+| [DryhoppedIPA/bc250-gfx1013-fix](https://github.com/DryhoppedIPA/bc250-gfx1013-fix) | Async compute queue (ACE) fix for GFX1013 — kernel + Mesa/RADV patches, +25% FPS (Aug 2026) |
 
 ---
 

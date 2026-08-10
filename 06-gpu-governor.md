@@ -221,6 +221,20 @@ enabled = false               # D-Bus service
 
 Note: SMU-plus has known issues on CachyOS — the regular SMU governor is more stable.
 
+### 8-Core GPU Clock Reporting Fix (Aug 2026)
+
+Unlocking all 8 CPU cores breaks GPU clock reporting (`pp_dpm_sclk` shows nonsense like `1: 15Mhz` instead of `1500Mhz` — the GPU still clocks correctly, it's a reporting bug). Two fixes exist:
+
+1. **`fix-freq = true`** (filippor, commit `be9537f`, Aug 2026) — fixes reporting in userspace via bind mounts, **no kernel patch needed**. Add it next to `fix-metrics` in the governor config:
+   ```toml
+   fix-metrics = true
+   fix-freq = true
+   ```
+   ⚠️ Arch repo version may lag behind — if `fix-freq` isn't available, build from the `filippor/cyan-skillfish-governor` repo directly (e.g. `yay -S --editmenu cyan-skillfish-governor-smu`, update version/URL, stub b2sums with SKIP — hexxeh, Aug 2026).
+2. **Kernel patch** (keroppl_wizard) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) 8-core metrics fix options.
+
+Reported working on 8-core boards — GPU frequency reads correctly again (community reports, Aug 2026; hexxeh and lordantares confirmed the config option and the AUR build workaround on kernel 7.1-era CachyOS).
+
 ### Governor v0.4.0 (May 2026)
 
 Released to the bc250-collective organization. Key new feature: **CPU-based control of memory clocks** — lowers memory controller and Infinity Fabric clocks at idle for additional power savings (codyrainy, May 2026). See [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor).
@@ -331,6 +345,19 @@ sudo systemctl enable bc250-smu-oc
 | 3800 MHz | 1250 mV | 27,919 | 72C | +7.1% |
 | 3900 MHz | 1275 mV | 28,410 | 75C | +9.0% |
 | 4000 MHz | -- | Throttles | 77C | Not stable |
+
+---
+
+## Async Compute Queue Fix (GFX1013, Aug 2026)
+
+By DryhoppedIPA. Linux hard-disables the BC-250 GPU's dedicated compute queues (ACE, the hardware behind *async compute*) — enabling them on stock software corrupts frames. Root cause is three separate problems: (1) the chip powers on with ACE dispatches in threadgroup-dimension mode mis-executing `PARTIAL_TG_EN` (RADV's internal copy shaders hit this, corrupting their own copies — the exact defect was known since the GCN3 era and never added to GFX1013's workaround list), (2) stock kernels break the compute-queue lifecycle (repeated teardown wedges the queue), and (3) RADV misdetects the chip as RDNA2 instead of RDNA1-class.
+
+The fix is a 3-patch kernel side + 3-patch Mesa/RADV side:
+
+- **Results (DryhoppedIPA):** Cyberpunk 2077 1440p Medium native, 40-CU unlock, 3 runs each — **6-core 46.4 → 58.0 fps (+25%), 8-core 47.8 → 57.7 fps (+20.8%)**. Vulkan CTS `dEQP-VK.synchronization2.*` (81,617 tests): zero regressions; the 7,384 compute-queue cases that stock can't run all pass.
+- **Repo:** [DryhoppedIPA/bc250-gfx1013-fix](https://github.com/DryhoppedIPA/bc250-gfx1013-fix). Option 1 is an `install.sh` (Fedora 43, built from source — kernel module + Mesa, first patched boot is one-shot, your stock entry stays default until `sudo ./install.sh activate`). Option 2 applies patches manually on any distro.
+- ⚠️ The bundled mesh/task shader + Vulkan 1.4 patches (0002/0003) are **disabled by default — they can hang the GPU**.
+- **Ready-made: included in [bc250-toolkit v1.1.0](https://github.com/redbeard1083/bc250-toolkit)** (rpf16rj, menu 11, Aug 2026) — the simplest path for CachyOS/Arch users.
 
 ---
 

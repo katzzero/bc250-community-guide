@@ -4,7 +4,33 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
-## August 4, 2026 — Controller Wake & BLE Power Control Documentation
+## August 10, 2026 — CPU Core Unlock Matures: Linux SMU Tool, Metrics Fix, ACPI, Field Reports
+
+### 1. CPU Core Unlock (02-bios-and-firmware.md)
+- **New Option 4: SMU Mailbox 0x98 Tool (GabriWar/bc250-core-cu-unlock, Aug 2026)** — Linux tool for 8 cores + 40 CU without BIOS flash. Mechanism: core-enable bitmask register `SMN 0x0115A870` (0x77 = 6 cores, 0xFF = 8 cores) via SMU mailbox message `0x98`, reached through PCI config index/data pair `0xB8`/`0xBC` on `00:00.0`
+- **Warm vs cold boot:** warm reboot preserves the unlock, cold boot reverts to 0x77 (guaranteed escape hatch); systemd unit handles cold-boot re-apply
+- **test-cores.sh:** stress-ng --verify per core (~3 min) — author's cores 3 & 7 healthy, 7-zip +26.9% (53,610 → 68,039 MIPS)
+- **OC re-tuning warning:** two extra cores change load-line droop, thermals (82.4°C Tctl at stock, 16 threads) and CPU/GPU shared power budget
+- **8-core GPU metrics fix options:** keroppl_wizard kernel patch (Jul 30), new `fix-freq` governor option (filippor commit `be9537f`, Aug 2026, userspace bind-mount fix, no kernel patch), higorprado SMU metrics layout mapping (8-core per-core arrays displace `GfxclkFrequency` in the 116-byte metrics table)
+- **8-core ACPI fix (mendesrr/bc250-acpi-fix-updated-8c):** 6-core SSDTs stop at `C00B` (12 threads); CPUs 12–15 get no C-states at 16 threads. Updated tables extend to `C00F`. Bundled in gabriwar `bc250-acpi-fix.sh`
+- **Bundled 8-core BIOS:** gabriwar ships P5.00_clv base with unlock driver + custom boot logo (ready to flash)
+- **Credits updated** with gabriwar, filippor, punsh, higorprado, mendesrr
+
+### 2. GPU Governor (06-gpu-governor.md)
+- **New "8-Core GPU Clock Reporting Fix" section** — `fix-freq = true` in governor config; AUR build note when Arch repo version lags (hexxeh, Aug 2026); confirmed working by hexxeh, lordantares
+
+### 3. Async Compute Queue Fix (06-gpu-governor.md)
+- **New "Async Compute Queue Fix (GFX1013)" section (DryhoppedIPA/bc250-gfx1013-fix)** — kernel (3) + Mesa/RADV (3) patches enable ACE async compute; Cyberpunk 2077 1440p Medium: 6-core 46.4→58.0 fps (+25%), 8-core 47.8→57.7 fps (+20.8%); Vulkan CTS zero regressions. Mesh/task shader patches disabled (can hang GPU). Included in bc250-toolkit v1.1.0 (rpf16rj, menu 11)
+
+### 4. VRM Telemetry via I2C (03-power-supply-guide.md)
+- **New "VRM Telemetry via I2C (PMBus) + Web Dashboard" section (punsh1734 / onlinermm/BC250-Telemetry)** — 2-wire mod bridging I2C_HEADER1 ↔ TPMS1 (SCL→pin 4, SDA→pin 6); ISL69247 PMBus chip at address 0x60; daemon + web dashboard on :8090 (classic + animated v2)
+- **elektricM pinout doc correction:** SDA/SCL were swapped/mislabeled in the old doc — fixed mapping documented in hardware.md (punsh1734)
+- **1900 MHz found to be GPU sweet spot** for temp/power balance (punsh1734)
+
+### 5. Community Resources (11-community-and-resources.md)
+- Added 5 new repos: GabriWar/bc250-core-cu-unlock, higorprado/bc250-8core-telemetry-report, mendesrr/bc250-acpi-fix-updated-8c, onlinermm/BC250-Telemetry, DryhoppedIPA/bc250-gfx1013-fix
+
+---
 
 ### 1. New Section in 03-power-supply-guide.md
 - Expanded "ATX Power Control Community Projects" into comprehensive "Controller Wake & BLE Power Control" section

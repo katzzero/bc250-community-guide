@@ -261,6 +261,19 @@ By iamdarkyoshi: Allows full ATX PSU standby and sleep/wake support.
 
 ---
 
+## VRM Telemetry via I2C (PMBus) + Web Dashboard
+
+By punsh1734. Monitor per-rail VRM/PMIC voltage, current, power and temperature in real time with a live web dashboard, plus a small 2-wire hardware mod.
+
+- **Software:** [onlinermm/BC250-Telemetry](https://github.com/onlinermm/BC250-Telemetry) — telemetry daemon + bundled web server. Merges hardware (PMBus over I2C) and software (hwmon/sysfs: die temps, clocks, PPT, fan RPM) into one JSON snapshot every ~700 ms, written to `/run/apu_telemetry.json`. Two dashboard variants: `/` (classic HUD) and `/v2/` (animated board diagram), served on port 8090. Runs on Bazzite, SteamOS and CachyOS from the same binary.
+  - Install: `sudo ./install.sh` (compiles daemon, sets up the `nct6683` fan-controller module, installs both systemd units; `--dashboard=v2` to skip the prompt). If the I2C bus isn't found it logs and retries every ~10 s while still serving everything that doesn't depend on I2C.
+  - The VRM chip is an **Intersil ISL69247 PMBus controller at address `0x60`**, read via the kernel's built-in i2c-dev support — no custom hardware, no extra chips. The bus number isn't fixed, so the daemon scans `/dev/i2c-*` to find it.
+- **Hardware mod (required):** `I2C_HEADER1` and `TPMS1` are **not connected to each other on the board** — you must bridge them with two jumper wires. **SCL → TPMS1 pin 4 (`SMB_CLK_MAIN`), SDA → TPMS1 pin 6 (`SMB_DATA_MAIN`)**. No separate GND jumper needed. ⚠️ Wiring on a bare PCB with power disconnected; double-check pinouts before powering back on.
+  - 📌 Note: the community hardware docs on elektricm were **wrong about this pinout** (SDA/SCL swapped and/or mislabeled) — punsh1734 fixed the correct mapping while developing the mod (Aug 2026). Use the header table in [hardware.md](https://github.com/onlinermm/BC250-Telemetry/blob/main/hardware.md), not the old pinout doc.
+- **Practical use (Aug 2026):** lets you see per-rail VRM power draw and temps while tuning GPU overclocks — punsh1734 found **1900 MHz to be the GPU sweet spot** for balancing temperature vs power. Once the 8-core CPU unlock is active, VRM monitoring is especially useful for re-tuning (see [02-bios-and-firmware.md](02-bios-and-firmware.md)).
+
+---
+
 ## Purchase Links
 
 | Item | Source | Link/ASIN |

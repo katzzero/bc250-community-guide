@@ -432,11 +432,33 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - ⚠️ Does not survive hard shutdown — if the board crashes, it reverts to 6 cores (dizzey0709, Jul 30 2026)
 - Best for verifying your cores work before committing to the permanent BIOS mod
 
+**Option 4: SMU Mailbox 0x98 Tool (gabriwar, Aug 2026)** — [GabriWar/bc250-core-cu-unlock](https://github.com/GabriWar/bc250-core-cu-unlock)
+- Full Linux tool for unlocking **8 CPU cores AND 40 CU** without a BIOS flash: `status`/`apply`/`install` subcommands, plus a systemd unit that re-applies the mask after cold boot
+- Mechanism: writes the core-enable bitmask register **`SMN 0x0115A870`** (factory `0x77` = 6 cores, `0xFF` = 8 cores) through an **SMU mailbox message `0x98`**, reached via the PCI config index/data pair `0xB8`/`0xBC` on device `00:00.0`. Same register/primitive family as the Python script, packaged with validation
+- **Warm vs cold reset:** a warm reboot (`reboot`) preserves the unlock; a cold boot (`poweroff`, PSU switch) reverts to `0x77` — a guaranteed escape hatch. The systemd unit handles the cold-boot case (never auto-reboots; an early version that did bootlooped a board)
+- **`test-cores.sh`** runs per-core `stress-ng --verify` (20s/core, ~3 min) — on the author's board the two unlocked cores (3 and 7) were 100% healthy, spread ±0.3% (7-zip +26.9%: 53,610 → 68,039 MIPS)
+- ⚠️ **Re-tune overclocks after unlocking** — two extra cores change load-line droop, thermals (82.4°C Tctl at stock under 16-thread load), and the CPU/GPU shared power budget. An old curve is no longer valid; a voltage stable at 6 cores can be marginal at 8
+- ⚠️ **GPU clock monitoring breaks after 8-core unlock** — see the metrics fix notes below. The repo bundles higorprado's SMU telemetry patch under `kernel/`
+- Also ships a **ready-to-flash 8-core BIOS** (`bios/`, P5.00_clv base with the unlock driver and a custom boot logo) and an ACPI fix installer — see the ACPI section below
+
+**8-core GPU metrics fix options (Aug 2026):**
+- **keroppl_wizard patch (Jul 30 2026):** [bc250-cyan-skillfish-8core-metrics.patch](https://github.com/keyboardspecialist/bc250-steamos/blob/master/bc250-audio-fix/bc250-cyan-skillfish-8core-metrics.patch) — kernel-level fix, compatible with 6 and 8 core configs
+- **`fix-freq` governor option (filippor, commit `be9537f`, Aug 2026):** the `cyan-skillfish-governor` gained a userspace `fix-freq = true` option that fixes the 8-core GPU clock reporting via bind mounts — no kernel patch needed (thanks to punsh). See [06-gpu-governor.md](06-gpu-governor.md)
+- **higorprado telemetry mapping:** [higorprado/bc250-8core-telemetry-report](https://github.com/higorprado/bc250-8core-telemetry-report) — reverse-engineered the 8-core SMU metrics layout (the 8-core per-core arrays displace `GfxclkFrequency` in the fixed 116-byte metrics table, so the driver reads a residency counter instead of a clock)
+
+**8-core ACPI fix required after unlock (Aug 2026):** The community ACPI fix (`bc250-acpi-fix`) declares one processor object per *thread*, and the 6-core tables stop at `C00B` (12 threads). Once all 8 cores are active you have 16 threads, so **CPUs 12–15 get no cpuidle states at all** — they cannot enter any C-state and burn power at idle. [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) rebuilt the tables to extend the declarations to `C00F` (16 threads). The gabriwar tool wraps this in `bc250-acpi-fix.sh` (`status`/`install`/`revert`), which fetches the 8-core SSDTs, backs up your tables and rebuilds the initramfs (Arch/CachyOS/mkinitcpio). For Bazzite/SteamOS, follow the README in the source repo. Verify with `cpupower idle-info` or check for missing C-states.
+
+**Field reports (Aug 2026):**
+- **glide_2026 (03/08):** temporary unlock, Elden Ring gained ~10 fps ("definitely added 10ish frames", still fluctuates around 60). Ratchet & Clank Rift Apart "incredible with 8 cores and 40 CUs" with the gfx1013-fix
+- **crazy_t0176 (03/08):** flashed the 8-core BIOS (Forbidden-Darkness UEFI script) — great FPS, but GPU clocks read only 20–100 MHz. bigmedi's reply: "Not yet" (the metrics fix landed days later — see the metrics options above)
+- **seb061492 (04/08):** OC that was stable at 6 cores (4000 MHz) crashes in Unigine with 8 cores unlocked, even at 3500 MHz, unless the SMU service/governor is disabled entirely — likely a marginal unlocked core (baalah: "bad cpu core"). His 40 CU @ 2200 MHz kept working
+- **dmoraza (03–04/08):** 0x7B mask works for some boards, but 8-core + governor on kernel 7.1 gives a black screen; OK on 6.18 (see [10-troubleshooting.md](10-troubleshooting.md) for the governor kernel note)
+- **fforduck (03/08):** CPU 4 and 5 pass stress tests yet misbehave in some games — he sets Steam to use all cores *except* 4 and 5 rather than fully disabling them. Partial core masks are supported (see alternate bitmasks above)
+- **Silicon lottery update (xseol, 06/08):** ~80% chance for 40 CU, 8 cores still new — estimate 50–60% for 8-core + 40-CU together ("you need to win two silicon lotteries")
+
 **Auto-activation script (qwert9811, Jul 2026):** A community script checks for 8 active cores on cold boot, runs the unlock Python script if needed, and reboots (with a reboot counter to prevent infinite loops). Works on CachyOS desktop.
 
 **Game mode shortcut (dbkretro, Aug 1 2026):** The unlock script can be added as a non-Steam game in game mode — tap the icon, it runs the unlock steps and reboots. Requires sudoers entry to avoid password prompts.
-
-**8-core metrics fix (keroppl_wizard, Jul 30 2026):** The BC-250 metrics overlay driver (`cyan-skillfish-governor-smu`) reports incorrect GPU clock speeds after CPU unlock. keroppl_wizard published a patch: [bc250-cyan-skillfish-8core-metrics.patch](https://github.com/keyboardspecialist/bc250-steamos/blob/master/bc250-audio-fix/bc250-cyan-skillfish-8core-metrics.patch). Compatible with both 6 and 8 core configurations.
 
 **Silicon lottery (0xcats, Jul 30 2026):** Of 5 boards tested, 1 could not reliably boot with all 8 cores (crashes or hangs during POST). That board had core mask 0x7E — core 0 defective. Roughly **80% success rate** in this small sample. Boards that fail POST with the unlock typically need an external programmer to recover.
 
@@ -452,7 +474,7 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 
 **VCN unlock discussion (Jul 30 2026):** thelamer proposed using the same register exploit for VCN (video codec) hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests the hardware is present but disabled. yrouel86 notes this would still need the firmware blob, and it would most likely need to be signed. VCN unlock remains an open research question.
 
-*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior).*
+*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior), gabriwar (SMU mailbox 0x98 unlock tool), filippor (fix-freq governor option), punsh (fix-freq discovery), higorprado (8-core SMU metrics layout), mendesrr (8-core ACPI tables).*
 
 ### SMU Firmware Reverse Engineering (Jul 2026)
 

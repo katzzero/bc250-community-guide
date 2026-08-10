@@ -101,14 +101,15 @@ Full guide: [02-BIOS & Firmware](02-bios-and-firmware.md#40-cu-unlock). Benchmar
 
 ### 8 CPU Core Unlock (Zen 2 — New!)
 
-Board ships with 6 of 8 Zen 2 cores active. As of **Jul 30, 2026**, two working methods exist:
+Board ships with 6 of 8 Zen 2 cores active. As of **Aug 2026**, three working methods exist:
 
 | Method | Type | Risk |
 |--------|------|------|
 | **RescueMei/BC250-DXE-SMU-Core-Unlock** | Patched BIOS (DXE/SMU) — permanent unlock | ⚠️ If cores don't work, need external flash programmer to recover |
 | **Hexxeh/bc250-efi-core-unlock** | EFI shim at boot — semi-permanent, no BIOS modification | ✅ Safer option |
+| **GabriWar/bc250-core-cu-unlock** | Linux SMU mailbox 0x98 tool — 8 cores + 40 CU, no BIOS flash, systemd unit re-applies after cold boot | ✅ Reverts on cold boot (guaranteed escape hatch) |
 
-8-core benchmark in Cyberpunk 2077: **+5-14% FPS** (6 cores → 8 cores: 72→93 fps Low FSR2). Total build cost adds $0 for the unlock itself.
+8-core benchmark in Cyberpunk 2077: **+5-14% FPS** (6 cores → 8 cores: 72→93 fps Low FSR2). Total build cost adds $0 for the unlock itself. After unlocking, apply the **8-core ACPI fix** (CPUs 12-15 need C-states) and the **8-core metrics fix** (`fix-freq = true` governor option, no kernel patch needed) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) and [06-gpu-governor.md](06-gpu-governor.md).
 
 ### Stock Performance Baseline
 
@@ -132,7 +133,7 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 
 ## What's New
 
-**August 2026:** Patched BIOS now includes unlock option in CPU config + SteamOS boot logo · 8-core metrics patch · VCN unlock research active · Game mode unlock shortcut · Controller wake & BLE power control documented (ESP32 + Pi Pico projects)
+**August 2026:** CPU core unlock matures — Linux SMU mailbox 0x98 tool (GabriWar) with systemd re-apply, warm/cold boot behavior, core test script (+26.9% 7-zip) · `fix-freq` governor option fixes 8-core GPU clock reporting (no kernel patch) · 8-core ACPI fix (mendesrr) · Async compute queue fix (DryhoppedIPA, +25% FPS Cyberpunk, in Toolkit v1.1.0) · VRM telemetry via I2C/PMBus + web dashboard (punsh1734, 2-wire mod) · Patched BIOS unlock option + SteamOS boot logo · VCN unlock research active
 
 **July 2026:** CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script) · Alternate bitmask testing (7-of-8 cores possible) · OS-independent SMN/PSP mechanism proven · 8-core benchmark: +5-14% FPS in Cyberpunk · jwagnervaz independent BIOS rev eng (4700S BIOS testing)
 
