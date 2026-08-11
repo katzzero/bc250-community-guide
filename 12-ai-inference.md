@@ -18,13 +18,24 @@
 | **LM Studio** | Confirmed, suboptimal (Discord community) | VRAM/system RAM balancing issues on UMA. |
 | **Stable Diffusion (stablediffusion.cpp + Vulkan)** | Confirmed (Discord community) | 2x performance vs RX 6600 in one user's test. |
 | **vLLM** | Does not work (Discord community) | Not supported. Use llama.cpp RPC for multi-board. |
-| **PyTorch / ComfyUI** | Does not work (Discord community) | Vulkan support for torch does not extend to torchvision/torchaudio. |
+| **PyTorch / ComfyUI** | Partial — working via ROCm/HIP (gabriwar, Aug 2026) | Requires custom kernel patches + rocBLAS gfx1013 kernels. See [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working) for complete setup guide. Caveats: kernel warm-up required before generating; VRAM OOM on larger batches (gabriwar, Aug 2026). |
 
 ### Why Vulkan and Not ROCm
 
 The BC-250 GPU is identified as **gfx1013** (Cyan Skillfish), a hybrid RDNA 1.5 architecture. ROCm does not officially support gfx1013 -- the GPU is absent from AMD's compatibility matrix (ROCm docs). The open-source TheRock project tracks gfx1010/gfx1011/gfx1012 but not gfx1013 (ROCm/TheRock). This means rocBLAS lacks pre-compiled kernels for this architecture, requiring manual compilation or workarounds (elektricM radv.md).
 
 For most users, the Vulkan backend via RADV is the reliable path. Recent llama.cpp Vulkan improvements (Wave32 flash attention PR #19625, graphics queue PR #20551) have closed much of the performance gap between Vulkan and HIP backends on AMD hardware (llama.cpp issue #15601).
+
+### ROCm/HIP Setup Guide (gabriwar, Aug 2026)
+
+**Repository:** [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working)
+
+Stable Diffusion via ComfyUI with **PyTorch ROCm native backend** is now possible — the first published complete working guide. Requires kernel patches + rocBLAS gfx1013 kernels (the n3oney GPU patch is required for this to work). Published by gabriwar on Aug 5, 2026 with full investigation notes.
+
+- **Benchmarks (SD 1.5, 512×512, dpmpp_2m + karras):** Sampler runs at **1.50 it/s** (24 steps in 16.0s). Full pipeline: **35.3 seconds** with VAE decode on CPU, **17.9 seconds** without decode (load + sample only). ~17 seconds per image reported by gabriwar (Aug 2026); repo later measured 14.1-14.5s warm with VAE on GPU.
+- **Performance scaling:** 8-core unlock gives ~15-20% more performance; 40 CU gives marginal gains in shader computation (gabriwar, Aug 2026).
+- **Caveats:** Early versions required a GPU warmup before generation (first-gen could produce trash output); the later runlist TLB fix removed that need. VRAM OOM on larger workloads. System freezes possible under heavy compute loads (see ROCm #6313 regression — geenight, May 2026).
+- **Limitation:** Unlike Vulkan which works out of box, ROCm still requires kernel modifications and manual compilation for gfx1013.
 
 ---
 

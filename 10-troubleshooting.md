@@ -60,6 +60,17 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 
 ---
 
+
+---
+
+## SteamOS 3.9 Bootloop After Upgrade from 3.8
+
+**Symptoms:** System loops at SteamOS intro video immediately after upgrading from 3.8. Occurs when selecting "main channel" in updates and rebooting. Tested with UGreen 8K DP adapter and direct DP to board — no output. Reproduced on a fresh SteamOS install (generic 3.8 image, then set update channel to MAIN to get wifi adapter working) (uba2615, Aug 3-4 2026).
+
+**Status:** No confirmed workaround as of Aug 8 2026. Suggested alternatives include using a fresh Bazzite install or reverting to SteamOS 3.8.x (j0shm1lls: "don't get 3.9 yet, not ready for mainstream, 3.8.24 works great though").
+
+---
+
 ## Black Screen After BIOS Flash
 
 **Cause:** CMOS settings didn't persist (source: display.md, boot.md).

@@ -127,6 +127,10 @@
 > Changing resolution/settings may not help.
 > Fix skybox artifacts: `RADV_DEBUG=nohiz` in Steam launch options.
 
+**8-core GPU unlock boost (glide_2026, Aug 3 2026):** Temporary unlock of extra cores gave **~10 more FPS** ("definitely added 10ish frames"), though still fluctuates around 60 — gains are CPU-dependent and vary by scene.
+
+> *Source: [glide_2026], Discord chat; also confirmed in-field reports.*
+
 ---
 
 ### The Crew Motorfest
@@ -256,6 +260,11 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 |------|-------------|-------|
 | Half-Life: Alyx | ~80 FPS | CachyOS | [confirmed: @nataliezaki, 27/05/2026]
 | Hellblade: Senua's Sacrifice | ~180 FPS | High FPS, well-optimized |
+| Hellblade II: Senua's Saga | 60fps FSR4 Quality / 65 balance / 73 performance | Medium settings, 1080p. 60fps on FSR4 Quality requires the gfx1013 compute queue patch. [lonewolf05849, Aug 8 2026] |
+| Mortal Kombat 1 | Struggles to stay locked at 60 FPS | GPU refuses to fully boost (felingreenleaf, Aug 6 2026). [verified: Steam appid 1971870] |
+| Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. |
+| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT. Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
+| Resident Evil 4 (2023 Remake) | ~60 FPS stable — dbkretro, Aug 9 2026 | Bazzite + governor + 8-core/40 CU at 1750 MHz. Previously reported crashes (May 2026) no longer reproducible. [Steam appid 2050650] |
 | Arc Raiders | 60+ (Discord user) | Medium, FSR Quality — 60+ FPS, ~69C |
 | Ghost of Tsushima [Discord user] | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
 | Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs) | [confirmed: @dwtoledo, 12/10/2025]
@@ -492,11 +501,44 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 | **FF7 Remake** | **1080p High** | **80-90 FPS** | **nataliezaki (Jun 2026)** |
 | **FF7 Remake** | **1440p, 120 FPS cap** | **Solid, rare stutter to 50** | **zerosumpr (Jun 2026)** |
 | Helldivers 2 | 40 CU, 2350 MHz | Stable | Community report |
-| RE4 Remake | 40 CU, any config | Crashes | Community report |
+| RE4 Remake (2023) | 40 CU, 1750 MHz | ~60 FPS stable (dbkretro, Aug 9 2026 — Bazzite + governor + 8-core/40 CU unlock). |
 
 > **Efficiency insight (big_trov):** More CUs at lower clocks match the performance of fewer CUs at higher clocks, at lower temperature and power. 40 CU @ 1200 MHz = 60 FPS (73C, 30W less than 24 CU @ 2000 MHz achieving same FPS).
 > **OCP hard lockup (big_trov, codyrainy, cralant):** 2400 MHz at 40 CU causes hard lockup where reset and power buttons do nothing -- requires pulling power cable. Likely Over Current Protection triggering. Consistent across multiple boards regardless of cooling. One user with AIO reported 2400 MHz stable at 1120 mV.
 > **CPU OC affects GPU stability (big_trov, hojnikb):** Increasing CPU from 3500 to 4000 MHz lowered the GPU voltage threshold for hard lockup. Total system power draw matters -- undervolt CPU when pushing GPU limits.
-> **Game-specific instability (May 2026):** RE4 Remake crashes even with stable stress tests. Games need more voltage on GPU than synthetic benchmarks to be stable. If benchmarks pass but games crash, increase voltage by 10-15 mV.
+> **Game-specific instability (May 2026):** RE4 Remake crashes even with stable stress tests (nataliezaki, May 21 2026). Games need more voltage on GPU than synthetic benchmarks to be stable. If benchmarks pass but games crash, increase voltage by 10-15 mV.
 > **Voltage wall at 40 CU (big_trov, May 2026):** Two limit curves govern 40 CU stability -- a voltage ceiling and a power limit. These curves intersect at approximately 2200 MHz, creating a hard stability ceiling. Above this point, diminishing returns are severe regardless of cooling. Power consumption: ~250W from wall during gaming, ~350W during Furmark at 40 CU (bytepond, May 2026).
 > **Hard limit:** 2300 MHz at 40 CU = ~288W. Stay at or below 2200 MHz for safety with 40 CU.
+
+---
+
+## Games Mentioned in Community (Limited Data)
+
+Games with verified community mentions but limited sample size — use with caution. Sources cross-checked against export scans (2025-11 to 2026-08). "perf" = number of performance-context mentions.
+
+| Game | Report | Notes |
+|------|--------|-------|
+| Genshin Impact | 60 FPS constant, ultra, 65-68C (4h session) | |
+| Warframe | 120 FPS @ 1440p | |
+| Borderlands 3 | 68 → 82 FPS @ 1080p Ultra with 2 GHz OC | |
+| Starfield | Stable 60 FPS on ultra with frame gen | Better mid-high without FG |
+| GTA V Enhanced | 1440p High FSR3 Quality, 65C, 40 CU @ 1500 MHz | |
+| Tomb Raider (2013) | High FPS | |
+| Lies of P | 90 FPS @ 1440p on high | |
+| RoboCop: Rogue City | Picked up FPS after tweaks | |
+| Overwatch | Drops to ~30 FPS on low with heavy effects | |
+| Rocket League | 1080p locked 60 FPS max settings | |
+| Forza Horizon 4 | Suspected memory leak; VRAM never frees | |
+| Diablo IV | 1440p max + FSR rolling FPS | |
+| Resident Evil 9 | 60 FPS w/ 1080p high manual + hair strands, FSR quality (dbkretro) | Frame gen crashes on Bazzite with REFramework |
+| Resident Evil 7 | Runs very well, everything high, ~64C | |
+| Mortal Kombat 1 | GPU refuses to fully boost (felingreenleaf, Aug 6 2026) | Struggles to stay locked at 60 |
+| Assassin's Creed IV: Black Flag – Resynced | 45-50 FPS city / 60+ sea, TAA Native 1080p | Also 2K FSR Quality + FG max details (dmoraza) |
+| Hellblade II: Senua's Saga | 60 FPS @ 1080p FSR4 Quality w/ compute queue patch | 65 balance / 73 performance (lonewolf05849) |
+| Final Fantasy VII Remake | Crashing reports on 512MB BIOS allocation | Match entry in main table |
+| The Last of Us Part I | FSR caps GPU clock at 1000 MHz | Workaround in elektricM docs |
+| Horizon Forbidden West | Low GPU usage @ 1080p; settings changes didn't help | |
+| Ghost of Tsushima | Crashes fixed via game update v1053.5+ | |
+| Stardew Valley | Runs fine at 4K 60 FPS | |
+| Hollow Knight | 4K playable (lighter game) | |
+| Half-Life: Alyx | ~80 FPS (CachyOS) | |

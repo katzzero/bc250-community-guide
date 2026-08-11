@@ -10,7 +10,8 @@
 |------|---------|--------|
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
 | `P4.00` (stock) | P4.00 | ❌ **Unstable** — undocumented version found on some boards; 3D apps crash (faithy2386) |
-| `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE) but **easy to brick** | [confirmed: @etho2520, 24/02/2026]
+| `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE) but **easy to brick** | [confirmed: @etho2520, 24/02/2026] |
+| **gabriwar P5.00 Toggle BIOS** | P5.00 + cores | ⚠️ Experimental — all settings unlocked **plus harvested CPU cores as a toggleable option** (enable/disable from BIOS without reflashing). Known as "megabias" / `allthecoolshit.rom`. Not yet widely released; keroppl_wizard, j0shm1lls testing Aug 2026–present. |
 
 Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
 

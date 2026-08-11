@@ -361,6 +361,9 @@ The fix is a 3-patch kernel side + 3-patch Mesa/RADV side:
 
 ---
 
+
+**32-bit games fallback fix (keroppl_wizard, Aug 8 2026):** Originally cidhems reported "+10% extra on Expanse Telltale with kernel-mesa patch in Debian; not working on 32bits games" — keroppl_wizard fixed the 32-bit fallback after that: "alright i fixed it. 32bit fallback should just work now. also made it build in release mode" and "robocop rogue city picked up some fps now" (keroppl_wizard, Aug 8 2026).
+
 ## PS5GPU-BC250 (GUI Controller)
 
 A visual Qt-based GPU controller like MSI Afterburner for Windows:

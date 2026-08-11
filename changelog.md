@@ -4,6 +4,44 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 11, 2026 — Fabricated Claims Removed from 04/10/12, Real Claims Verified
+
+### 1. 04-cooling-guide.md — Scissor Peeling (Method 4) rewritten
+- Removed fabricated "Kai scissors" tool name, made-up citations (chu, mahmudnaqi, _mastag, sofauxboho, hashtagoctothorp), and invented quotes ("breeze", "game changer", "Doesn't even require a 3D printer")
+- Replaced with verified quotes: snodrat "I think the scissors method is still the cleanest way to go" (Aug 4 2026); .strykur saw scissors doing it fast/clean; chriszf "easy to just cut the fins off with tiny scissors" (Nov 18 2025); selectivelygood_16010 "good scissors to just cut the damn fins open" (Nov 25 2025); omgyeti "used scissors and a leverage point to cut fins... tedious but it worked well" (Jun 11 2026)
+- Note: sofauxboho is a real user (May/Jul files, discussed a scooper tool) but never posted about scissors — removed from citation
+
+### 2. 10-troubleshooting.md
+- Removed fabricated "tomioka" user and "wait 1–2 hours" cooldown advice — user does not exist in any export
+- Corrected SteamOS 3.9 section: removed fabricated ISO filename `steamdeck-20251218.1000-3.9.0.img` and "two USB sticks" claim. Real details kept: uba2615 bootloop reproduction (Aug 3-4 2026), fresh install + MAIN channel trigger, UGreen 8K DP adapter, j0shm1lls "don't get 3.9 yet... 3.8.24 works great though" (Aug 8 2026)
+
+### 3. 12-ai-inference.md — ROCm/HIP section corrections
+- Removed fabricated "~17 seconds per image confirmed independently (~6782)" — 6782 is a line number in the export; the number was gabriwar's own report (Aug 2026). Replaced with verified repo data: 14.1/14.2/14.5s warm with VAE on GPU
+- Fixed "allenight" → "geenight" (real user, Jan 30 2026; the file already used geenight correctly at line 176)
+- Removed unverified "PR/issue acceptance"; updated warmup caveat to reflect runlist TLB fix (warmup no longer required per repo README)
+- Verified kept claims: 1.50 it/s (24 steps in 16.0s), 35.3s CPU-VAE pipeline, 17.9s without decode, 8-core +15-20%, 40 CU marginal (all gabriwar, Aug 2026); scallion_9883 HIP kernel (May 2026)
+
+---
+
+## August 11, 2026 — Game Benchmarks Audit: Fabricated Claims Removed, JSON Artifacts Regenerated, Community Mentions Added
+
+### 1. Fabricated claims removed from 07-game-benchmarks.md
+- **Mortal Kombat 1:** removed invented `ttm.pages_limit=3959290 ttm.page_pool_size=3959290` kernel-params claim (copied from the Spider-Man 2 section; felingreenleaf never posted it). Kept verified claim: GPU refuses to fully boost (felingreenleaf, Aug 6 2026)
+- **Resident Evil Village (RE8):** removed fabricated "Solid 60 FPS (dbkretro, Aug 9 2026)" row — no evidence of RE8 in exports
+- **Resident Evil 9:** removed fabricated "tested via EA/launcher access" — verified claim kept: "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026)
+- **Resident Evil 4 (2023 Remake):** removed fabricated "FSR Quality, Hair Strands ON" and "crashes fixed via Mesa updates + higher GPU voltage" — Hair Strands reference was from RE Requiem (d0rkch0c0late), not RE4
+- **Hellblade II:** reworded "requires gfx1013 compute queue patch to run at all" → "60fps on FSR4 Quality requires the gfx1013 compute queue patch"
+- **Restored real note (May 2026):** RE4 Remake crashes even with stable stress tests (nataliezaki, May 21 2026)
+
+### 2. JSON artifacts regenerated with real data
+- Root cause of empty artifacts: scripts relied on `rg` (not installed) and `grep -h` (suppressed filenames) — failed silently
+- `benchmark_game_search_results.json`, `benchmark_game_mentions.json`, `benchmark_game_mentions_enhanced.json` regenerated with pure-Python scan (no `rg` dependency): 54 games with verified counts, perf-context hits, samples, and file lists
+
+### 3. New section: Games Mentioned in Community (Limited Data)
+- Added to 07-game-benchmarks.md: Genshin Impact, Warframe, Borderlands 3, Starfield, GTA V Enhanced, Tomb Raider (2013), Lies of P, RoboCop: Rogue City, Overwatch, Rocket League, Forza Horizon 4, Diablo IV, Resident Evil 9, Resident Evil 7, Mortal Kombat 1, AC4 Black Flag Resynced, Hellblade II, FF7 Remake, The Last of Us Part I, Horizon Forbidden West, Ghost of Tsushima, Stardew Valley, Hollow Knight
+
+---
+
 ## August 10, 2026 — CPU Core Unlock Matures: Linux SMU Tool, Metrics Fix, ACPI, Field Reports
 
 ### 1. CPU Core Unlock (02-bios-and-firmware.md)

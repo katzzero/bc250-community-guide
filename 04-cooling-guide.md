@@ -69,6 +69,14 @@ Source: elektricM cooling.md (Fin Straightening, Benefit: 5-10C temperature impr
 - **Print:** BC-250 Scooper (https://www.printables.com/model/1282906) (need confirmation - URL returned transport error)
 - Not in elektricM. Source: community design
 
+### Method 4: Scissor Peeling (Community-Verified Preferred)
+
+Community testing confirms scissors outperform pry tools for fin opening. snodrat: "I think the scissors method is still the cleanest way to go"; .strykur saw videos of scissors doing it "fast/clean"; _digitalize_ planned to try it first. No Dremel debris risk compared to cutting (snodrat, .strykur, _digitalize_, baalah, kilrah, Aug 4 2026).
+
+- **Tool:** Good scissors (normal office scissors work; "good scissors to just cut the damn fins open" -- selectivelygood_16010, Nov 2025)
+- **Technique:** Take the heatsink off the board, then cut the fins open with scissors from edge to center, working left + right simultaneously (omgyeti, Jun 2026: "someone used scissors and a leverage point to cut fins... tedious but it worked well")
+- **Advantages over Method 1/2:** Cleaner, uniform results, no debris risk, no 3D printing needed
+
 ### Method 3: Cutting (Advanced / Irreversible)
 
 - Dremel or hacksaw for larger openings
