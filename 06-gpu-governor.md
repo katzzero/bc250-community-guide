@@ -233,7 +233,9 @@ Unlocking all 8 CPU cores breaks GPU clock reporting (`pp_dpm_sclk` shows nonsen
    ⚠️ Arch repo version may lag behind — if `fix-freq` isn't available, build from the `filippor/cyan-skillfish-governor` repo directly (e.g. `yay -S --editmenu cyan-skillfish-governor-smu`, update version/URL, stub b2sums with SKIP — hexxeh, Aug 2026).
 2. **Kernel patch** (keroppl_wizard) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) 8-core metrics fix options.
 
-Reported working on 8-core boards — GPU frequency reads correctly again (community reports, Aug 2026; hexxeh and lordantares confirmed the config option and the AUR build workaround on kernel 7.1-era CachyOS).
+Reported working on 8-core boards — GPU frequency reads correctly again (community reports, Aug 2026; hexxeh and lordantares confirmed the config option and the AUR build workaround on kernel 7.1-era CachyOS; dizzey0709 confirmed the updated governor restores GPU freq reporting "without kernel changes", Aug 9 2026).
+
+> Note: some users on the metrics rabbit hole found that reading SMU "table 3" is unstable — the GPU triggers "graphics reset" events constantly (keroppl_wizard, Aug 4 2026). keroppl investigated filling table 3 with full per-core metrics data ("Supposedly theres a table 3 that can be filled out with full unabridged data") but the mailboxes are blocked (Aug 6 2026). The userspace `fix-freq`/`fix-metrics` approach (or higorprado's mapping) is the practical fix rather than reading table 3 directly.
 
 ### Governor v0.4.0 (May 2026)
 

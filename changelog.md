@@ -4,6 +4,28 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 11, 2026 — New Core Unlock & BIOS Findings Integrated (02/06/10/11)
+
+### 1. 02-bios-and-firmware.md
+- Added **RescueMei/BC250-DXEv2-BIOSMOD** (MeiMeiDXE V2.1, Aug 7 2026): 8-core toggle + ACPI options in BIOS menu, themed boot images, auto cold boot via RTC (standby power required); rescuemei builds/flashes BIOS roms on a BC-250
+- Added ForbiddenDarkness 8-core BIOS row (via UEFI v2.2 menu script) to the recommended-BIOS table; recommended by rescuemei ("they do nicer releases")
+- Added **Option 5: movacx/bc250-control-center** and **Option 6: rpf16rj/bc250-steamos-real-toolkit** (8-core + 40 CU surviving cold boot and SteamOS updates, no BIOS flash — luciud)
+- New field reports: EFI-vs-BIOS no consensus (midlifediy, keroppl_wizard "I'll flash when the final megabios is released"); bad cores j0shm1lls ("cores dont b workin gud") + vadym557 (boot stuck at Steam logo, "cores are cooked"); unlock survives OS reinstall, only BIOS reflash clears it (skcanss); power draw rises with core unlock (buzzynoob); stock P3.00 BIOS hash mismatch (alexxxor_); SMU mailbox bypasses signing (thelamer)
+- Credits extended for all new contributors
+
+### 2. 06-gpu-governor.md
+- fix-freq confirmed by dizzey0709 (Aug 9 2026) — updated governor restores GPU freq reporting "without kernel changes"
+- Added SMU table-3 note (keroppl_wizard, Aug 4-6 2026): reading table 3 is unstable (graphics reset events), mailboxes blocked — userspace fix-freq/metrics or higorprado mapping is the practical path
+
+### 3. 10-troubleshooting.md
+- New section: 8-Core Unlock Boot Failure — stuck at boot logo / Bazzite kernel panic caused by defective unlocked cores (vadym557); test cores before flashing permanent BIOS; related GPU errors after unlock commands with Wayland glitches (h00man._., isolation advice from filippor); service-install OC-test hang (krystlih)
+
+### 4. 11-community-and-resources.md
+- Added repos: RescueMei/BC250-DXEv2-BIOSMOD, movacx/bc250-control-center, rw-r-r-0644/bc250-core-unlock
+- Updated entries: ForbiddenDarkness UEFI script (8-core BIOS support), rpf16rj SteamOS toolkit (persistent 8-core unlock)
+
+---
+
 ## August 11, 2026 — Fabricated Claims Removed from 04/10/12, Real Claims Verified
 
 ### 1. 04-cooling-guide.md — Scissor Peeling (Method 4) rewritten

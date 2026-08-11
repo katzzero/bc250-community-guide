@@ -71,6 +71,23 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 
 ---
 
+## 8-Core Unlock Boot Failure (Stuck at Boot Logo / No POST)
+
+**Symptoms (vadym557, Aug 2 & 8 2026):** After flashing an 8-core BIOS and enabling the unlock, the board gets stuck at the boot logo with a small spinner (SteamOS), or Bazzite won't start and sometimes crashes with a "kernel panic". Disabling the cores in the BIOS boots fine. Multiple attempts with the unlock enabled all fail.
+
+**Cause:** The unlocked cores are defective ("bad cores" — vadym557: "Guess my extra cores are cooked"). The core-unlock BIOS and the EFI/Python methods expose the same silicon; if the two extra cores can't POST, no boot method will fix it.
+
+**Fix:**
+1. Disable the 8-core unlock in BIOS (the toggle BIOSes make this a menu option; otherwise clear CMOS — yrouel86) and verify the board boots at 6 cores
+2. Before flashing any permanent BIOS, **always test the cores first** with the software unlock (`test-cores.sh` or the Python script) — if they fail, do NOT flash the permanent BIOS, or you'll need an external programmer to recover (yrouel86)
+3. On Bazzite with an 8-core BIOS, test with the unlock disabled before blaming the OS — a Bazzite-specific panic may actually be a bad-core POST failure
+
+**Related GPU errors (h00man._., Aug 1 2026):** Applying the CPU unlock commands produced AMD GPU errors — the board booted but Wayland glitched or didn't turn on at all (yet htop confirmed all 8c/16t present at 100% in one boot). Suggested isolation (filippor): disable the governor, CPU overclock/undervolt, and the 40 CU enable to test the unlock on its own.
+
+**Related service hang (krystlih, Aug 6 2026):** The `bc250-cpu-service` install can hang while testing overclocks on an unlocked board. If the 8-core unlock is already working (via EFI) and Furmark/gaming are stable, the hang is in the service's OC validation — skip the service or run it with the OC test disabled.
+
+---
+
 ## Black Screen After BIOS Flash
 
 **Cause:** CMOS settings didn't persist (source: display.md, boot.md).

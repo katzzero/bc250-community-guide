@@ -61,21 +61,24 @@
 | [katzzero/250mon](https://github.com/katzzero/250mon) | Lightweight hardware monitor for BC-250 — temperature, frequency, power stats |
 | [suapapa/rusty-bc250-atx](https://github.com/suapapa/rusty-bc250-atx) | ATX PSU power control (Rust) |
 | [Koloses/Solarflare](https://github.com/Koloses/Solarflare) | Moonlight/Sunshine fork with Pyrowave for BC-250 |
-| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 flash with themed menus |
+| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 (incl. 8-core unlock BIOS) flash with themed menus |
 | [tmghd272/bc250-toolkit-lite](https://github.com/tmghd272/bc250-toolkit-lite) | Lighter toolkit variant |
 | [tmghd272/bc250-custom-bios-logo](https://github.com/tmghd272/bc250-custom-bios-logo) | BC250 BIOS boot logo theme — AMI OEM "ChangeLogo.exe" for DIY mods |
 | [tmghd272/bc250-custom-overlays](https://github.com/tmghd272/bc250-custom-overlays) | Custom overlays/logos (Turzx, MangoHud presets, BIOS) |
 | [thelamer/bc250-ollama-openwebui](https://github.com/thelamer/bc250-ollama-openwebui) | Ollama + OpenWebUI setup guide |
 | [keyboardspecialist/bc250-steamos](https://github.com/keyboardspecialist/bc250-steamos) | SteamOS setup for BC-250 |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
-| [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit |
+| [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit — 40 CU + 8-core unlock surviving cold boot and SteamOS updates without a BIOS flash |
 | [akandr/bc250](https://github.com/akandr/bc250) | Ollama + Vulkan inference guide for BC-250 |
 | [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Decky Loader plugin — GPU clock slider + telemetry overlay in Quick Access Menu |
 | [cachenetics/bc250-nixos](https://github.com/cachenetics/bc250-nixos) | NixOS configuration for BC-250 |
 | [cachenetics/project-ariel](https://github.com/cachenetics/project-ariel) | Project Ariel |
 | [ded811/BC250-Power-Adapter](https://github.com/ded811/BC250-Power-Adapter) | BC-250 J2000/J2001 Micro-Fit power adapter PCB (UNTESTED — waiting for fab boards, build at own risk) |
 | [RescueMei/BC250-DXE-SMU-Core-Unlock](https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock) | Patched BIOS (DXE/SMU) that unlocks all 8 CPU cores — permanent, needs external programmer for recovery (Jul 2026) |
+| [RescueMei/BC250-DXEv2-BIOSMOD](https://github.com/RescueMei/BC250-DXEv2-BIOSMOD) | MeiMeiDXE V2.1 BIOS mod — 8-core unlock toggle + ACPI options in BIOS menu, themed boot images, auto cold boot via RTC (compatible boards with standby power) (Aug 2026) |
 | [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock) | EFI boot shim that unlocks extra CPU cores without BIOS modification (semi-permanent, Jul 2026) |
+| [rw-r-r-0644/bc250-core-unlock](https://github.com/rw-r-r-0644/bc250-core-unlock) | Original CPU core unlock Python script — SMU mailbox, userspace, no BIOS flash (Jul 2026) |
+| [movacx/bc250-control-center](https://github.com/movacx/bc250-control-center) | Linux control center for BC-250 — monitoring, GPU SMU control, CPU OC, fan PWM, 40 CU tools + one-click 8-core unlock (Aug 2026) |
 | [F5GO/bc250-cu-live-manager-SteamOS](https://github.com/F5GO/bc250-cu-live-manager-SteamOS) | CU live manager variant for real SteamOS |
 | [SamSkjord/ubazzite600](https://github.com/SamSkjord/ubazzite600) | TP-Link UB600 (RTL8761BU) Bluetooth fix for Bazzite / atomic Fedora via out-of-tree btusb rebuild |
 | [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | ESP32-C3 power switch — BLE controller wake, WiFi config portal, boot watchdog (ATX PSU) |

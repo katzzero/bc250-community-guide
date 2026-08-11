@@ -11,7 +11,8 @@
 | **BC250_3.00_CHIPSETMENU.ROM** | P3.00 | ✅ **Recommended** — most stable, tested widely (source: elektricM flashing.md; mod by Segfault) |
 | `P4.00` (stock) | P4.00 | ❌ **Unstable** — undocumented version found on some boards; 3D apps crash (faithy2386) |
 | `P5.00_clv` variants | P5.00 | ⚠️ Advanced — unlocks everything (ReBAR, PXE) but **easy to brick** | [confirmed: @etho2520, 24/02/2026] |
-| **gabriwar P5.00 Toggle BIOS** | P5.00 + cores | ⚠️ Experimental — all settings unlocked **plus harvested CPU cores as a toggleable option** (enable/disable from BIOS without reflashing). Known as "megabias" / `allthecoolshit.rom`. Not yet widely released; keroppl_wizard, j0shm1lls testing Aug 2026–present. |
+| **gabriwar P5.00 Toggle BIOS** | P5.00 + cores | ⚠️ Experimental — all settings unlocked **plus harvested CPU cores as a toggleable option** (enable/disable from BIOS without reflashing). Known as "megabias" / `allthecoolshit.rom`. Not yet widely released; keroppl_wizard, j0shm1lls testing Aug 2026–present. keroppl_wizard: "I'll flash when the final megabios is released" (Aug 5 2026). |
+| **ForbiddenDarkness 8-core BIOS** (via UEFI v2.2 menu script) | P3.00 + cores | ⚠️ Widely used Aug 2026 — modded P3.00 with 8-core unlock option + selectable themed boot images (CachyOS, Bazzite, SteamOS logo). Flashed via [AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script). Recommended over plain RescueMei images by some users ("they do nicer releases" — rescuemei, Aug 7 2026). One report of boot failure after flashing (dmoraza, Aug 8 2026) — test and keep a backup. |
 
 Stock P3.00 already includes standard fan control and IOMMU toggle — `_fanoush_` confirmed this on a pristine P3.00 board. The modded P3.00 adds the chipset menu (Unlock Cache, ReBAR) but the stock BIOS already covers cooling and IOMMU needs.
 
@@ -423,6 +424,8 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - **Now includes unlock option in the CPU configuration section** and official SteamOS boot logo at boot (yrouel86, Aug 1 2026)
 - ⚠️ **Verify your cores work first with the Python script** — if cores don't work and you flash the modded BIOS, you're stuck and need an external programmer to recover (yrouel86, Jul 2026)
 - RescueMei bought a second BC-250 specifically as an open benchtest for BIOS development (Jul 31 2026)
+- **MeiMeiDXE V2.1 (Aug 7 2026):** the [RescueMei/BC250-DXEv2-BIOSMOD](https://github.com/RescueMei/BC250-DXEv2-BIOSMOD) successor adds **auto cold boot** — on compatible boards with constant/standby power (native ATX mod), it powers off the board via RTC-wake scheduling into S5 when a config change (e.g. disabling the 8-core option) requires a cold boot to take effect. Builds custom ROMs with themed boot images; rescuemei now builds and flashes BIOS roms directly on a BC-250 (Jul-Aug 2026)
+- **Recommended BIOS (Aug 7 2026):** ForbiddenDarkness' variants of the same firmware are widely recommended — "I would go with @NY's ForbiddenDarkness's version... they do nicer releases" (rescuemei), and they're used by the [AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) installer with selectable boot images
 
 **Option 2: EFI Shim (Semi-Permanent, No BIOS Modification)** — [Hexxeh/bc250-efi-core-unlock](https://github.com/Hexxeh/bc250-efi-core-unlock)
 - EFI boot shim that unlocks cores at every boot without touching the BIOS
@@ -441,6 +444,13 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - ⚠️ **Re-tune overclocks after unlocking** — two extra cores change load-line droop, thermals (82.4°C Tctl at stock under 16-thread load), and the CPU/GPU shared power budget. An old curve is no longer valid; a voltage stable at 6 cores can be marginal at 8
 - ⚠️ **GPU clock monitoring breaks after 8-core unlock** — see the metrics fix notes below. The repo bundles higorprado's SMU telemetry patch under `kernel/`
 - Also ships a **ready-to-flash 8-core BIOS** (`bios/`, P5.00_clv base with the unlock driver and a custom boot logo) and an ACPI fix installer — see the ACPI section below
+- The SMU mailbox mechanism bypasses the signing requirement — "you can make arbitrary modifications without signing" (thelamer, Aug 6 2026)
+
+**Option 5: movacx/bc250-control-center (Aug 2026)** — [movacx/bc250-control-center](https://github.com/movacx/bc250-control-center)
+- Linux control center bundling monitoring, GPU SMU control, CPU OC, fan PWM control and 40 CU tools — includes a one-click 8-core unlock (skcanss used it for the core unlock, Aug 2 2026). Single install for most unlock needs
+
+**Option 6: SteamOS Real Toolkit (Aug 2026)** — [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit)
+- Bundles the SteamOS 40 CU unlock together with the 8-core unlock; the 8-core state **survives a cold boot without a BIOS flash** and survives SteamOS updates (luciud, Aug 7 2026: "It nice especially since the SteamOS 40CU unlock comes with the 8core and survives a cold boot without needing a bios flash... It even survives steamos updates too")
 
 **8-core GPU metrics fix options (Aug 2026):**
 - **keroppl_wizard patch (Jul 30 2026):** [bc250-cyan-skillfish-8core-metrics.patch](https://github.com/keyboardspecialist/bc250-steamos/blob/master/bc250-audio-fix/bc250-cyan-skillfish-8core-metrics.patch) — kernel-level fix, compatible with 6 and 8 core configs
@@ -456,6 +466,11 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - **dmoraza (03–04/08):** 0x7B mask works for some boards, but 8-core + governor on kernel 7.1 gives a black screen; OK on 6.18 (see [10-troubleshooting.md](10-troubleshooting.md) for the governor kernel note)
 - **fforduck (03/08):** CPU 4 and 5 pass stress tests yet misbehave in some games — he sets Steam to use all cores *except* 4 and 5 rather than fully disabling them. Partial core masks are supported (see alternate bitmasks above)
 - **Silicon lottery update (xseol, 06/08):** ~80% chance for 40 CU, 8 cores still new — estimate 50–60% for 8-core + 40-CU together ("you need to win two silicon lotteries")
+- **EFI vs BIOS — no consensus yet (Aug 5 2026):** midlifediy: "doesn't seem to be a consensus on EFI vs BIOS core unlock quite yet? (ive stayed put while this plays out)". keroppl_wizard: "I'm running EFI. I'll flash when the final megabios is released" (referring to gabriwar's `allthecoolshit.rom`)
+- **Bad cores do happen (Aug 2026):** j0shm1lls flashed the 8-core BIOS on his 2nd board *before* testing the unlock: "WHOOPS. (spoiler alert: cores dont b workin gud)". vadym557 tried 3 times with the cores-unlock option — stuck at Steam logo with a spinner; booted only when cores were disabled ("Guess my extra cores are cooked)" (Aug 8 2026). ⚠️ Always `test-cores.sh` / the Python script first — if the unlocked cores are defective, you must recover via external programmer
+- **Unlock survives OS reinstall — only a BIOS reflash clears it (skcanss, Aug 2 2026):** selecting the revert option and restarting still showed 8c/16t; even `blkdiscard` + fresh CachyOS install kept the cores unlocked; BIOS reset didn't clear it either — only reflashing the BIOS did. The mask lives in the SMU/BIOS, not the OS
+- **Power draw rises with core unlock (buzzynoob, Aug 6 2026):** "Since the new core unlocks the power draw has increased" — factor in extra margin on the original power delivery method (see [03-Power Supply Guide](03-power-supply-guide.md))
+- **Stock P3.00 BIOS hash mismatch (alexxxor_, Aug 4 2026):** a board with a P3.00 sticker produced a backup ROM whose `sha256sum` (`56c548afb8ac3147793f1254ee71f414f4a0002d39196edc98e3a28cd05862c3`) differs from the listed stock hash — boards ship with slightly different images, always back up before flashing
 
 **Auto-activation script (qwert9811, Jul 2026):** A community script checks for 8 active cores on cold boot, runs the unlock Python script if needed, and reboots (with a reboot counter to prevent infinite loops). Works on CachyOS desktop.
 
@@ -475,7 +490,7 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 
 **VCN unlock discussion (Jul 30 2026):** thelamer proposed using the same register exploit for VCN (video codec) hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests the hardware is present but disabled. yrouel86 notes this would still need the firmware blob, and it would most likely need to be signed. VCN unlock remains an open research question.
 
-*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior), gabriwar (SMU mailbox 0x98 unlock tool), filippor (fix-freq governor option), punsh (fix-freq discovery), higorprado (8-core SMU metrics layout), mendesrr (8-core ACPI tables).*
+*Credits: RescueMei (@The Mei™, patched BIOS), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior), gabriwar (SMU mailbox 0x98 unlock tool), filippor (fix-freq governor option), punsh (fix-freq discovery), higorprado (8-core SMU metrics layout), mendesrr (8-core ACPI tables), movacx (control center), rpf16rj (SteamOS toolkit), luciud (SteamOS persistence report), skcanss (unlock persistence testing), buzzynoob (power draw), alexxxor_ (BIOS hash mismatch), midlifediy (EFI-vs-BIOS observation), j0shm1lls (bad-core report), vadym557 (boot failure with bad cores).*
 
 ### SMU Firmware Reverse Engineering (Jul 2026)
 
