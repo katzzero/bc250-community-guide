@@ -441,6 +441,21 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 - Mechanism: writes the core-enable bitmask register **`SMN 0x0115A870`** (factory `0x77` = 6 cores, `0xFF` = 8 cores) through an **SMU mailbox message `0x98`**, reached via the PCI config index/data pair `0xB8`/`0xBC` on device `00:00.0`. Same register/primitive family as the Python script, packaged with validation
 - **Warm vs cold reset:** a warm reboot (`reboot`) preserves the unlock; a cold boot (`poweroff`, PSU switch) reverts to `0x77` — a guaranteed escape hatch. The systemd unit handles the cold-boot case (never auto-reboots; an early version that did bootlooped a board)
 - **`test-cores.sh`** runs per-core `stress-ng --verify` (20s/core, ~3 min) — on the author's board the two unlocked cores (3 and 7) were 100% healthy, spread ±0.3% (7-zip +26.9%: 53,610 → 68,039 MIPS)
+
+**Quick start (unlock + verify):**
+
+```bash
+git clone https://github.com/GabriWar/bc250-core-cu-unlock
+cd bc250-core-cu-unlock
+
+sudo ./bc250-8core-unlock.sh status     # show current core mask (factory 0x77 = 6 cores)
+sudo ./bc250-8core-unlock.sh apply      # unlock now (then: sudo reboot — warm reset preserves it)
+./test-cores.sh          # per-core health sweep, 20s/core (~3 min)
+./test-cores.sh 60       # longer, more thorough sweep
+sudo ./bc250-8core-unlock.sh install    # persist across cold boots via systemd unit
+```
+
+Requires `stress-ng` and 8 cores already visible (run the unlock first). Interpretation: `failed > 0` on any core → that core produces WRONG results, do not use; one core far below the median → marginal silicon, re-test at stock clocks; spread within ~1% → normal binning.
 - ⚠️ **Re-tune overclocks after unlocking** — two extra cores change load-line droop, thermals (82.4°C Tctl at stock under 16-thread load), and the CPU/GPU shared power budget. An old curve is no longer valid; a voltage stable at 6 cores can be marginal at 8
 - ⚠️ **GPU clock monitoring breaks after 8-core unlock** — see the metrics fix notes below. The repo bundles higorprado's SMU telemetry patch under `kernel/`
 - Also ships a **ready-to-flash 8-core BIOS** (`bios/`, P5.00_clv base with the unlock driver and a custom boot logo) and an ACPI fix installer — see the ACPI section below

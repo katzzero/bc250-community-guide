@@ -80,7 +80,16 @@ See [11-community-and-resources](11-community-and-resources.md) for latest statu
 
 **Fix:**
 1. Disable the 8-core unlock in BIOS (the toggle BIOSes make this a menu option; otherwise clear CMOS — yrouel86) and verify the board boots at 6 cores
-2. Before flashing any permanent BIOS, **always test the cores first** with the software unlock (`test-cores.sh` or the Python script) — if they fail, do NOT flash the permanent BIOS, or you'll need an external programmer to recover (yrouel86)
+2. Before flashing any permanent BIOS, **always test the cores first** with the software unlock (`test-cores.sh` or the Python script) — if they fail, do NOT flash the permanent BIOS, or you'll need an external programmer to recover (yrouel86). Run the sweep with the 8 cores visible:
+
+```bash
+git clone https://github.com/GabriWar/bc250-core-cu-unlock
+cd bc250-core-cu-unlock
+sudo ./bc250-8core-unlock.sh apply && sudo reboot   # or use the Python script/EFI shim
+./test-cores.sh      # stress-ng --verify, 20s per physical core
+```
+
+Pass: `failed` = 0 on every core and spread within ~1% of the median. **Fail:** any `failed` > 0 means that core returns wrong results (bad silicon — vadym557: "Guess my extra cores are cooked"); do not flash the permanent BIOS, and re-test at stock clocks if one core sits far below the median.
 3. On Bazzite with an 8-core BIOS, test with the unlock disabled before blaming the OS — a Bazzite-specific panic may actually be a bad-core POST failure
 
 **Related GPU errors (h00man._., Aug 1 2026):** Applying the CPU unlock commands produced AMD GPU errors — the board booted but Wayland glitched or didn't turn on at all (yet htop confirmed all 8c/16t present at 100% in one boot). Suggested isolation (filippor): disable the governor, CPU overclock/undervolt, and the 40 CU enable to test the unlock on its own.

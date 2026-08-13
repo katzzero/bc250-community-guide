@@ -4,6 +4,16 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 13, 2026 — Direct Core-Test Instructions Added (02/10)
+
+### 1. 02-bios-and-firmware.md
+- Added **Quick start (unlock + verify)** block to Option 4 (bc250-core-cu-unlock): `status`/`apply`/`reboot`/`test-cores.sh`/`test-cores.sh 60`/`install` commands with prerequisites (stress-ng, 8 cores visible) and interpretation criteria (failed > 0 = bad core, far below median = marginal, ±1% spread = normal binning) — sourced from the repo README and `test-cores.sh` header
+
+### 2. 10-troubleshooting.md
+- Expanded the "test cores before flashing" step (bad-core section) with the direct commands: clone → `apply` + reboot → `./test-cores.sh`, plus pass/fail criteria tied to the vadym557 bad-core case
+
+---
+
 ## August 13, 2026 — ROCm Verification + Benchmark Table Audit (07/11/12)
 
 ### 1. 12-ai-inference.md
