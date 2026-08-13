@@ -93,6 +93,7 @@
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
 | [peterdk31/bc250_ws2812b_controller](https://github.com/peterdk31/bc250_ws2812b_controller) | WS2812B LED controller for BC-250 | — upstream for Debian builds |
 | [GabriWar/bc250-core-cu-unlock](https://github.com/GabriWar/bc250-core-cu-unlock) | Linux SMU mailbox 0x98 unlock — 8 CPU cores + 40 CU, systemd unit, core test script, bundled 8-core BIOS + ACPI fix (Aug 2026) |
+| [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working) | Stable Diffusion on BC-250 via ROCm/HIP — kernel patches, rocBLAS gfx1013 kernels, runlist TLB flush fix, full investigation (Aug 2026) |
 | [higorprado/bc250-8core-telemetry-report](https://github.com/higorprado/bc250-8core-telemetry-report) | 8-core SMU metrics layout — maps the per-core arrays that displace GPU clock reporting (Aug 2026) |
 | [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) | 8-core ACPI tables (SSDT C-states extended to 16 threads) — required after CPU core unlock (Aug 2026) |
 | [onlinermm/BC250-Telemetry](https://github.com/onlinermm/BC250-Telemetry) | VRM telemetry daemon + web dashboard — PMBus over I2C (per-rail voltage/current/power/temp), 2-wire hardware mod (Aug 2026) |

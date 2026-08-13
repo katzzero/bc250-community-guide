@@ -541,4 +541,5 @@ Games with verified community mentions but limited sample size — use with caut
 | Ghost of Tsushima | Crashes fixed via game update v1053.5+ | |
 | Stardew Valley | Runs fine at 4K 60 FPS | |
 | Hollow Knight | 4K playable (lighter game) | |
-| Half-Life: Alyx | ~80 FPS (CachyOS) | |
+| Half-Life: Alyx | VR via Monado — runs well but not at max settings (ithinkibrokeit_, Apr 2026) | Also tested at ~120W TDP cap (kilrah) |
+| Star Wars Battlefront II | 80-85 → 120-130 FPS after SMU governor + kernel patch (juancarlos24691, Aug 2025) | |

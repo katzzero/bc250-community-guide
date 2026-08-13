@@ -11,7 +11,7 @@
 | Tool | Status | Notes |
 |------|--------|-------|
 | **llama.cpp (Vulkan)** | Confirmed (elektricM radv.md) | Primary path. Pre-built Vulkan binaries work. Use `-ngl 999`. |
-| **llama.cpp (ROCm/HIP)** | Partial (Discord community) | hammercoral achieved 2.5-3x speedup over Vulkan but no guide published. As of May 2026, n3oney got partial results. |
+| **llama.cpp (ROCm/HIP)** | Partial (Discord community) | hammercoral achieved 2.5-3x speedup over Vulkan but no guide published. As of May 2026, neoney got partial results. |
 | **llama.cpp (RPC/distributed)** | Confirmed (xseol, Discord) | Multi-board via Ethernet. Performance limited by 1GbE. |
 | **Ollama (Vulkan)** | Confirmed (Discord community) | Works but lags behind standalone llama.cpp (~56% slower due to vendored old version akandr/bc250). |
 | **KoboldCPP** | Confirmed (Discord community) | Uses stablediffusion.cpp / GGML-Vulkan. |
@@ -30,7 +30,7 @@ For most users, the Vulkan backend via RADV is the reliable path. Recent llama.c
 
 **Repository:** [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working)
 
-Stable Diffusion via ComfyUI with **PyTorch ROCm native backend** is now possible — the first published complete working guide. Requires kernel patches + rocBLAS gfx1013 kernels (the n3oney GPU patch is required for this to work). Published by gabriwar on Aug 5, 2026 with full investigation notes.
+Stable Diffusion via ComfyUI with **PyTorch ROCm native backend** is now possible — the first published complete working guide. Requires kernel patches + rocBLAS gfx1013 kernels (gabriwar: "the kernel patch from neoney IS needed", 04/08/2026). Published by gabriwar on Aug 5, 2026 with full investigation notes. Root cause of prior failures identified: `hipFree` requests a TLB invalidation the board never performs, so reused virtual addresses keep translating through their previous mapping; the `bc250_flush_by_runlist=1` patch (rebuild the runlist on unmap) fixed it — 13/18 dirty runs → 0/18 (p = 3.7e-06).
 
 - **Benchmarks (SD 1.5, 512×512, dpmpp_2m + karras):** Sampler runs at **1.50 it/s** (24 steps in 16.0s). Full pipeline: **35.3 seconds** with VAE decode on CPU, **17.9 seconds** without decode (load + sample only). ~17 seconds per image reported by gabriwar (Aug 2026); repo later measured 14.1-14.5s warm with VAE on GPU.
 - **Performance scaling:** 8-core unlock gives ~15-20% more performance; 40 CU gives marginal gains in shader computation (gabriwar, Aug 2026).
@@ -172,7 +172,7 @@ xseol's multi-board data (Discord):
 ROCm on gfx1013 (Cyan Skillfish) is **partial and has known regressions**:
 
 - **hammercoral** achieved working ROCm/HIP/PyTorch compute with "firmware on MEC changed, bios settings, recompiling multiple software stacks" but published no setup guide (Discord).
-- **n3oney** (May 2026): Got a single token via ROCm but failed when attempting to offload more layers (Discord).
+- **neoney** (May 2026): Got a single token via ROCm but failed when attempting to offload more layers (Discord).
 - **ROCm regression (geenight, May 2026):** Issue filed as ROCm #6313. BC-250 system freezes completely after compute workloads. Worked with ROCm 5.2 on Ubuntu 20.04, but newer versions cause full system freezes requiring power cycle. scallion_9883 confirmed building a custom HIP kernel and warned that memcpy + worker reaping can wedge the board.
 - rocBLAS aborts on detection because gfx1013 is not in the GPU list (elektricM radv.md).
 - RDNA1 architectures gfx1010/gfx1011 are build-passing in TheRock but gfx1013 is absent (ROCm/TheRock SUPPORTED_GPUS.md).
@@ -237,6 +237,6 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). These can be re-
 
 ---
 
-*Sources: elektricM radv.md (primary), Discord bc250-chat (hammercoral, __nightfox, xseol, _fanoush_, steinbeks, deathstalkerjr, adaptive__manipulator, birdetta, machinezer0, n3oney), llama.cpp GitHub benchmark thread #10879, Ollama issue #15601, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix coverage.*
+*Sources: elektricM radv.md (primary), Discord bc250-chat (hammercoral, __nightfox, xseol, _fanoush_, steinbeks, deathstalkerjr, adaptive__manipulator, birdetta, machinezer0, neoney), llama.cpp GitHub benchmark thread #10879, Ollama issue #15601, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix coverage.*
 
-Last modified: 2026-06-14
+Last modified: 2026-08-13

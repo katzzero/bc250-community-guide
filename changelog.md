@@ -4,6 +4,22 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 13, 2026 — ROCm Verification + Benchmark Table Audit (07/11/12)
+
+### 1. 12-ai-inference.md
+- **"n3oney" corrected to "neoney"** (3 occurrences): verified against exports — the actual Discord username is `neoney` (part 320, 03/04/2026); "n3oney" never existed. Also in changelog ROCm status row
+- **ROCm status claim verified**: "the kernel patch from neoney IS needed" confirmed — gabriwar, 04/08/2026 (after-2026-08-03.txt line 6946); added root-cause detail: `hipFree` requests a TLB invalidation the board never performs; `bc250_flush_by_runlist=1` patch (rebuild runlist on unmap) fixed it — 13/18 dirty runs → 0/18 (p = 3.7e-06)
+
+### 2. 11-community-and-resources.md
+- Added [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working) — Stable Diffusion via ROCm/HIP, kernel patches, rocBLAS gfx1013 kernels, runlist TLB flush fix (Aug 2026)
+
+### 3. 07-game-benchmarks.md
+- **Half-Life: Alyx row corrected**: fabricated "~80 FPS (CachyOS)" removed; replaced with verified evidence — ithinkibrokeit_: "Alyx and Fallout 4 both run well but not at max settings" via VR/Monado (04/04/2026, part 320) + kilrah tested at ~120W TDP cap (10/04/2026, part 327)
+- **Star Wars Battlefront II added** to Limited Data table: 80-85 → 120-130 FPS after SMU governor + kernel patch (juancarlos24691, 11/08/2025, bc250-resources)
+- Cross-checked all 54 benchmark JSON entries against the doc: only Deadlock (weak evidence — no performance report, no benchmark channel) and Battlefront (now added) were missing; MK1 verified directly (felingreenleaf, 06/08/2026)
+
+---
+
 ## August 11, 2026 — Cooling Guide Deep Audit (04/10)
 
 ### 1. 04-cooling-guide.md
@@ -540,7 +556,7 @@ Created `12-ai-inference.md` with cross-verified data from Discord exports and i
 |---------|-------------------|
 | llama.cpp Vulkan (quick start) | Pre-built vulkan zips, `-ngl 999`, `-cram`, `GGML_VK_FORCE_MAX_ALLOCATION_SIZE` |
 | Performance benchmarks | Discord data (hammercoral, __nightfox, xseol) + llama.cpp GitHub benchmark thread #10879 |
-| ROCm status | Confirmed gfx1013 not in ROCm matrix; partial work (hammercoral, n3oney) |
+| ROCm status | Confirmed gfx1013 not in ROCm matrix; partial work (hammercoral, neoney) |
 | Model compatibility | Fits Qwen-9B, Gemma-12B, MoE-30B; needs 5+ boards for 70B |
 | Ollama limitations | ~56% slower due to vendored llama.cpp b7437 (Ollama issue #15601) |
 | Multi-board RPC | Only PP, not TP; 1GbE bottleneck (xseol data) |
