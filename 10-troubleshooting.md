@@ -42,13 +42,14 @@
 
 **Symptoms:** Board powers on for about 1 second, red and blue LEDs blink, then immediately shuts off with a distinctive click from the PSU. No display, no USB power.
 
-**Cause:** PSU detecting a short circuit and triggering over-current protection. Most commonly a faulty PSU. A Metalfish 500W unit was confirmed as the cause in one case -- swapping to a Corsair SF750 resolved it immediately (gredzikk). Metalfish 600W units also confirmed to trigger false short-circuit detection (fuzzy_dux, big_trov, Jun 2026).
+**Cause:** PSU detecting a short circuit and triggering over-current protection. Most commonly a faulty PSU. In one documented case the PSU was confirmed as the root cause: with a Metalfish 500W Flex the board shut off after ~1 second every boot, and swapping to a different known-working PSU fixed it (gredzikk, help-thread "No POST, auto power off after 1 second"). Note the sequence in that thread: the Corsair SF750 also failed to boot it -- the fix was a third, known-good PSU. **Metalfish 600W (BD650M) caveat:** multiple users report the 600W model will not boot the BC-250 when only the PCIe 8-pin is connected -- the protection circuit cuts power (dmsgod., pay2win5858, nexgen3d, Nov-Dec 2025). **Alternative cause:** plastic washers on the wrong side of the mounting screws causing thermal shutdown -- ntimd8r: "Mine did that after a repaste...I put the plastic washers on the wrong side. It was thermally shutting down" (17/04/2026).
 
 **Fix:** Try a different known-working PSU before assuming the board is dead. Also check:
 1. No 12V wires mixed up with GND
 2. Remove any metal debris from cutting heatsink fins (shavings can short pins)
-3. Try a different PCIe port on the PSU
-4. BIOS reflash via CH341 programmer did not help in one confirmed case -- the PSU was the root cause.
+3. Check plastic washers are on the correct side of the mounting screws (thermally shutting down)
+4. Try a different PCIe port on the PSU
+5. BIOS reflash via CH341 programmer did not help in the documented case above -- the PSU was the root cause (gredzikk, 23/04/2026).
 
 ---
 

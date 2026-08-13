@@ -4,6 +4,24 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 11, 2026 — Cooling Guide Deep Audit (04/10)
+
+### 1. 04-cooling-guide.md
+- **J4003 section rewritten**: replaced unsupported "4 additional fan control circuits" with verified data from [mothenjoyer69/bc250-documentation](hardware.md#j4003) — up to 5 fans (F1P/F1T-F5P/F5T), NCT6686D supports main fan + any connected via J4003, CoolerControl + nct6687d for individual curves (essdee4336, 26/05/2026); +12V missing on header (danielemorr, 06/02/2026); BIOS-to-Linux fan numbering mapping
+- **Orientation section**: removed fabricated juliuuscaesar 10°C and big_trov 1-2°C claims; replaced with nexgen3d: "If you can sit it on its side while it's on the bench, it cools better like that" (23/12/2025)
+- **CPU cooler table**: removed fabricated pepituwu (never discussed coolers) and odinforrest Bykski claim; MSI AIO corrected to nexgen3d MSI MAG CoreLiquid A15 + LGA 1851 adapter (Jan 2026); Bykski corrected to manya4090 "Surprised bykski doesn't have a block for this thing" (Dec 2025); removed "$45 AIO version" for Peerless Assassin
+- **Liquid cooling section**: removed fabricated sousapro attribution; Aqua Elite V2/V4 (gennro, 11/04/2026), V6 (telefragger, 25/05/2026); mounting corrected to clip-style + printed adapters with LGA mount note (skcanss, 12/06/2026); power draw claims corrected (filippor up to 370W, astrocast peak on FurMark, skcanss 340W wall); OC targets corrected (jpvgaster 4GHz+2300MHz, gennro 3.85/2.4, 1_gec 4100MHz@1287mV)
+- **Router quote corrected** (Method 3): snodrat's actual quotes "routers do like to chew you up and spit you out" (07/12/2025) and "routers love to grab your workpiece" (04/08/2026)
+- **Aluminum HVAC tape**: resolved need-confirmation with widdlemama P12 test, 75→62°C in Clair Obscur (flex-chat, 09/06/2026)
+- **Backplate pads (jayawesome)**: removed fabricated "0.5/1.0/1.5/2.0mm pads on hand, stackable"; corrected to Arctic TP-3 replacement + heatsink pad markers (17/03/2026)
+- **Budget fans**: corrected "Xbox One fan" to Xbox 360 delta fan (frostfire83, 25/11/2025); TL-C12C static pressure caveat (astrocast, 18/11/2025)
+- **Scissor peeling**: added kilrah metal-dust caution quote (04/08/2026)
+
+### 2. 10-troubleshooting.md
+- **Power On For 1 Second section rewritten**: removed fabricated "Corsair SF750 resolved it immediately" (the thread shows the SF750 ALSO failed) and fabricated fuzzy_dux/big_trov 600W claim; corrected to gredzikk's actual help-thread sequence (Metalfish 500W → third known-good PSU fixed it); added real Metalfish 600W BD650M protection-circuit reports (dmsgod., pay2win5858, nexgen3d, Nov-Dec 2025); added ntimd8r plastic-washer thermal-shutdown alternative cause (17/04/2026)
+
+---
+
 ## August 11, 2026 — New Core Unlock & BIOS Findings Integrated (02/06/10/11)
 
 ### 1. 02-bios-and-firmware.md

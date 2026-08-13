@@ -71,7 +71,7 @@ Source: elektricM cooling.md (Fin Straightening, Benefit: 5-10C temperature impr
 
 ### Method 4: Scissor Peeling (Community-Verified Preferred)
 
-Community testing confirms scissors outperform pry tools for fin opening. snodrat: "I think the scissors method is still the cleanest way to go"; .strykur saw videos of scissors doing it "fast/clean"; _digitalize_ planned to try it first. No Dremel debris risk compared to cutting (snodrat, .strykur, _digitalize_, baalah, kilrah, Aug 4 2026).
+Community testing confirms scissors outperform pry tools for fin opening. snodrat: "I think the scissors method is still the cleanest way to go"; .strykur saw videos of scissors doing it "fast/clean"; _digitalize_ planned to try it first (snodrat, .strykur, _digitalize_, baalah, kilrah, Aug 4 2026). Caution from the same thread: always remove the cooler and clean all metal dust after dremeling -- kilrah: "do remove that cooler and clean all the metal dust after dremeling... wouldn't do it with it mounted" (04/08/2026).
 
 - **Tool:** Good scissors (normal office scissors work; "good scissors to just cut the damn fins open" -- selectivelygood_16010, Nov 2025)
 - **Technique:** Take the heatsink off the board, then cut the fins open with scissors from edge to center, working left + right simultaneously (omgyeti, Jun 2026: "someone used scissors and a leverage point to cut fins... tedious but it worked well")
@@ -81,7 +81,7 @@ Community testing confirms scissors outperform pry tools for fin opening. snodra
 
 - Dremel or hacksaw for larger openings
 - **WARNING:** Creates metal debris - dangerous near electronics
-- Router method possible but "the router bit will eat your heatsink for lunch" (snodrat, bc250-flex-chat, Jan 2026)
+- Router method possible but "routers do like to chew you up and spit you out, so I chickened out on that approach" (snodrat, 07/12/2025); "routers love to grab your workpiece and chew it up" (snodrat, 04/08/2026)
 - Fin removal is irreversible
 
 Source: elektricM cooling.md (Fin Removal - High Risk Modification)
@@ -127,17 +127,17 @@ Community members are using standard CPU tower coolers with 3D-printed brackets:
 
 | Cooler | Notes | User |
 |--------|-------|------|
-| **Thermalright Peerless Assassin 120** | Best non-liquid cooler for the money. Requires 3D-printed bracket. Quiet, excellent cooling. Also available as $45 AIO version. | dartzon, pepituwu, May 2026 |
-| **Thermalright AIO** | Aqua Elite 240 V2, V4, V6 all confirmed working. V4 ASIN: B0DHZ5LSNP. V6: `B0F98KYG6X` (Amazon CA). | gennro, sousapro, telefragger, May 2026 |
-| **MSI AIO** | Used by FrenchHardware YouTube builds | Community, May 2026 |
-| **Bykski Custom Waterblock** | Possible future option for extreme AIO/water builds | odinforrest, May 2026 |
+| **Thermalright Peerless Assassin 120** | Best non-liquid cooler for the money. Requires 3D-printed bracket. Quiet, excellent cooling. | dartzon, May 2026 |
+| **Thermalright AIO** | Aqua Elite 240 V2, V4, V6 all confirmed working. V4 ASIN: B0DHZ5LSNP. V6: `B0F98KYG6X` (Amazon CA). | gennro (11/04/2026), telefragger (25/05/2026) |
+| **MSI AIO** | MSI MAG CoreLiquid A15 240mm. nexgen3d designed an LGA 1851 adapter bracket for the BC-250 bolt pattern ("AIO Mount design complete, this will adapt the LGA 1851 to the BC250 bolt pattern, specifically designed for the MSI Mag AIO, but may fit others"). | nexgen3d, Jan 2026 |
+| **Bykski Custom Waterblock** | No block exists yet -- "Surprised bykski doesn't have a block for this thing" (manya4090, Dec 2025). | manya4090, Dec 2025 |
 
 dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mounting bracket, coupled with a GPU backplate cooler with fans for VRAM chips. With 36 CU unlocked, Death Stranding 2 ran at ultrawide 1440p@60fps on high settings and temps never exceeded 72C.
 
 ### Budget Options
 
-- **Xbox One fan** (3300 RPM) - creative repurposing (need confirmation - not in elektricM)
-- **Thermalright TL-C12C** - works but much lower static pressure than P12 Pro (need confirmation - not in elektricM)
+- **Xbox 360 delta fan** - creative repurposing; "To my surprise these little fans move significant amount of air!" (frostfire83, 25/11/2025); another user managed fan speed control with an Xbox 360 E fan (10/12/2025)
+- **Thermalright TL-C12C** - works but "an odd choice given its low static pressure rating even compared to a regular Arctic P12" (astrocast, 18/11/2025)
 
 ---
 
@@ -147,7 +147,7 @@ dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mou
 |--------|------|------|
 | **Zip ties** | Simplest, no mods | Can slip; less secure |
 | **Screws (factory holes)** | Most secure | Requires drilling/cutting (elektricM warns NOT to drill heatsink) |
-| **Aluminum HVAC tape** | Seals air leaks, good contact | Hard to remove (need confirmation - not in elektricM) |
+| **Aluminum HVAC tape** | Seals air leaks, good contact | Hard to remove. Real result: widdlemama "attach my P12 to the heatsink using aluminium foil tape and my temps in Clair Obscur went from 75 to 62" (flex-chat, 09/06/2026) |
 | **CPU cooler brackets** | Repurposed arms | May not fit perfectly (need confirmation - not in elektricM) |
 | **3D printed shroud** | Best airflow, clean look | Requires 3D printer |
 
@@ -170,7 +170,7 @@ Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from el
 |----------|-------------|-----------|-------|
 | **APU Die** | PTM7950 Phase Change Pad | 0.2-0.25 mm | Recommended in elektricM and prerequisites. 4-15C improvement claimed. ASIN `B0F9Y5SCK2`. | [confirmed: @deathstalkerjr, 09/03/2026]
 | **Front (VRAM/VRMs)** | Thermal pads | 1.5 mm | elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026) |
-| **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026). jayawesome (17 Mar 2026) confirmed having 0.5/1.0/1.5/2.0mm pads on hand and that they are stackable. |
+| **Back (VRAM)** | Thermal pads | 2.0 mm | 8x GDDR6 chips. elektricM cooling.md + community consensus (vicomte.me, 12 Jan 2026). jayawesome (17 Mar 2026) replaced pads with Arctic TP-3 and noted the heatsink has markers for additional pads. |
 
 Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of board, 2.0mm on back"). Community corroboration: vicomte.me (12 Jan 2026) cited Snarks Domain "BC250 Thermal Putty Job" video with the same thickness recommendation. Note: prerequisites.md recommends "1mm or 1.5mm thickness" for backplate VRAM - discrepancy with cooling.md's 2.0mm back spec; the 2.0mm community consensus aligns with cooling.md.
 
@@ -238,21 +238,21 @@ Source: elektricM cooling.md (Safe Operating Temperatures table)
 ### Orientation Considerations (May 2026)
 
 Board orientation affects cooling performance:
-- juliuuscaesar reported a **10°C difference** between horizontal and vertical orientation
-- big_trov found only 1-2°C difference on his board, with power-plugs-down orientation slightly cooler
+- "If you can sit it on its side while it's on the bench, it cools better like that" (nexgen3d, 23/12/2025)
+- No quantitative community consensus on orientation differences exists yet
 - Test your specific board and mounting orientation for optimal thermals
 
 ### With Liquid Cooling (240mm AIO)
 
-Confirmed working models: Thermalright Aqua Elite 240 V2, V4, V6; MSI AIO series. Uses standard AM4 clip mounting with 3D-printed bracket (NexGen3D mount). (gennro, sousapro, telefragger, May 2026)
+Confirmed working models: Thermalright Aqua Elite 240 V2, V4, V6; MSI MAG CoreLiquid A15. Mounting uses a standard clip-style bracket with 3D-printed adapters; note many AIOs/coolers are hook-mount AM5 style, while "the LGA mount would work" (skcanss, 12/06/2026). nexgen3d designed an LGA 1851 adapter for the BC-250 bolt pattern, "specifically designed for the MSI Mag AIO, but may fit others" (10/01/2026). (Aqua Elite: gennro, 11/04/2026 -- "you may get a V2 or a V4 ordering that, but either work"; telefragger V6, 25/05/2026)
 
-- Gaming power draw: ~340W (Furmark + CPU stress)
-- GPU stable up to 4.1 GHz CPU / 2300 MHz GPU
-- AM4 clip-style AIOs with printed adapters are the standard approach
+- Wall power draw under heavy stress (FurMark / LLM): "up to 370w" (filippor, 16/12/2025); "peak draw... only seen it that high on stress tests like furmark" (astrocast, 14/11/2025); skcanss: "when i see 340w from the wall its slightly worrisome" (15/06/2026)
+- Stable OC targets: "overclocked to 4ghz + 2300mhz GPU... I'm pretty sure that's as far the hardware can go in a stable manner" (jpvgaster, 14/01/2026); gennro runs "3.85ghz cpu and 2.4ghz gpu" (11/04/2026); 4100MHz @ 1287mV passing stress tests (1_gec, 10/01/2026)
+- Mounting: AMD spring clip mounts + 3D-printed adapters are the standard approach; some AIOs with built-in VRM fans are not compatible with spring clip mounts (james_28091_70948, 19/12/2025)
 
 ### Multi-Fan Control (J4003 Header)
 
-The NCT6686D chip supports **4 additional fan control circuits** via the J4003 header on the board. These can be controlled by software such as [CoolerControl](https://gitlab.com/coolercontrol/coolercontrol) (essdee4336, May 2026). Reference pinout: [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation/blob/main/hardware.md#j4003).
+The J4003 header connects to the power distribution board and provides PWM/tach pins for up to **five** fans (F1P/F1T through F5P/F5T), per [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation/blob/main/hardware.md#j4003). The NCT6686D SuperIO chip "supports control for the main fan and any others that have their PWM/tach signal connected via J4003" and, "assuming that the nct6687d module is loaded, you can control the individual fans with something like CoolerControl" (essdee4336, 26/05/2026). Note: the connector is not a standard 3-4 pin header and is missing the +12V pin, so fans need 12V from elsewhere (danielemorr, 06/02/2026); BIOS fan numbering maps to Linux differently (BIOS 1-5 -> Linux 2,3,4,5,1).
 
 ---
 
