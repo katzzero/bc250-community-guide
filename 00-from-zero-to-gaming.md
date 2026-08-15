@@ -20,7 +20,7 @@
 11. [Display and Audio](#11-display-and-audio)
 12. [WiFi and Peripherals](#12-wifi-and-peripherals)
 13. [Steam and Games](#13-steam-and-games)
-14. [40 CU Unlock (Optional)](#14-40-cu-unlock-optional)
+14. [Performance Unlocks (Optional)](#14-performance-unlocks-optional)
 15. [Benchmarks](#15-benchmarks)
 16. [Quick Troubleshooting](#16-quick-troubleshooting)
 17. [Next Steps](#17-next-steps)
@@ -266,7 +266,7 @@ Boot → Boot Mode:
 | Distro | Difficulty | Verdict |
 |--------|-----------|---------|
 | **CachyOS** | Intermediate | Community default — best stability + performance, kernel 6.19+ out of box |
-| **Bazzite** | Easy | ⚠ Needs testing branch (stable is kernel 6.17.7 — too old for 40 CU). See rebase instructions below. |
+| **Bazzite** | Easy | Needs testing branch (stable is kernel 6.17.7 — too old for 40 CU). See rebase instructions below. |
 | **Fedora 43+** | Easy | Most documented, Mesa 25.1+ native |
 | **Nobara** | Intermediate | Fedora-based, non-immutable, easy governor setup |
 | **Arch Linux** | Advanced | Full control, requires manual configuration |
@@ -295,7 +295,7 @@ Boot → Boot Mode:
 
 ### Bazzite (requires testing branch)
 
-**⚠ Important:** Bazzite stable ships kernel 6.17.7 which is too old. After install, immediately rebase to testing branch:
+**Important:** Bazzite stable ships kernel 6.17.7 which is too old. After install, immediately rebase to testing branch:
 
 ```bash
 rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/bazzite-deck:testing
@@ -367,8 +367,8 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 **Fedora / GRUB:**
 ```bash
 sudo nano /etc/default/grub
-# Mude: GRUB_CMDLINE_LINUX_DEFAULT="quiet nomodeset"
-# Para:  GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+# Change: GRUB_CMDLINE_LINUX_DEFAULT="quiet nomodeset"
+# To:     GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 sudo reboot
 ```
@@ -537,11 +537,15 @@ The Handheld Daemon (HHD) on Bazzite restarts constantly if it doesn't find expe
 
 ---
 
-## 14. 40 CU Unlock (Optional)
+## 14. Performance Unlocks (Optional)
+
+The board ships with the PS5 "Oberon" APU cut down to 6 CPU cores and 24 Compute Units. Both are unlockable with community tools. Both unlocks are optional — the board is fully usable stock.
+
+### 40 CU GPU Unlock
 
 > Unlocks 16 harvested CUs — 24 CU → 40 CU. ~60% more compute performance.
 
-### Recommended Method: bc250-cu-live-manager
+**Recommended Method: bc250-cu-live-manager**
 
 **No kernel patch, no reboot.** Works on any distro:
 
@@ -551,20 +555,41 @@ cd bc250-cu-live-manager
 # Follow the README — interactive TUI to toggle CUs individually
 ```
 
+### 8 CPU Core Unlock
+
+The board ships with 6 of 8 Zen 2 cores active. As of Aug 2026, working unlocks exist via multiple methods — see [02 — BIOS & Firmware](02-bios-and-firmware.md) for the full comparison (patched BIOS, EFI shim, Python script, SMU mailbox tool).
+
+**Recommended Method: gabriwar/bc250-core-cu-unlock** — unlocks 8 cores AND 40 CU from Linux, no BIOS flash:
+
+```bash
+git clone https://github.com/GabriWar/bc250-core-cu-unlock
+cd bc250-core-cu-unlock
+sudo ./bc250-8core-unlock.sh status     # show current core mask (factory 0x77 = 6 cores)
+sudo ./bc250-8core-unlock.sh apply      # unlock now (then: sudo reboot — warm reset preserves it)
+./test-cores.sh          # per-core health sweep, 20s/core (~3 min)
+sudo ./bc250-8core-unlock.sh install    # persist across cold boots via systemd unit
+```
+
 ### Verification
 
 ```bash
 dmesg | grep active_cu_number        # Expected: 40
 RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu  # Expected: 40
+# 8 cores visible
+nproc   # Expected: 8
+lscpu | grep "CPU(s)"   # Expected: 16 threads (8c/16t)
 ```
 
 ### Required Adjustments
 
+- **Run the 8-core ACPI fix** — the stock 6-core tables leave CPUs 12-15 without C-states (burn power at idle). The gabriwar tool wraps this (`bc250-acpi-fix.sh install`)
+- **Fix 8-core GPU clock reporting** — set `fix-freq = true` in the governor config (no kernel patch) — see [06 — GPU Governor](06-gpu-governor.md)
 - **Reduce the governor max clock** to ~1850 MHz (40 CU generates more heat)
-- **Test stability** — some boards have defective CUs (visual artifacts)
-- Use `bc250-cu-live-manager` to enable CUs individually and test
+- **Re-tune overclocks** — a curve stable at 6 cores can be marginal at 8 (extra cores change load-line droop and thermals)
+- **Test stability** — some boards have defective CUs or unlocked cores; always run `test-cores.sh` first, enable CUs individually
+- **Test cores before flashing a patched BIOS** — if unlocked cores are defective, you need an external programmer to recover (yrouel86, Jul 2026)
 
-> See [02 — BIOS & Firmware](02-bios-and-firmware.md) for health testing, selective masking, crash behavior, and 40 CU troubleshooting.
+> See [02 — BIOS & Firmware](02-bios-and-firmware.md) for health testing, selective masking, crash behavior, and unlock troubleshooting.
 
 ---
 
@@ -573,7 +598,7 @@ RADV_DEBUG=info vulkaninfo --summary 2>&1 | grep num_cu  # Expected: 40
 After everything is configured, test your board:
 
 ```bash
-# Temperaturas
+# Temperatures
 sensors
 
 # GPU load
@@ -597,7 +622,7 @@ vulkaninfo --summary
 | **7zip benchmark** | `7z b` | CPU compression |
 | **pp512 (LLM)** | Python script | AI inference |
 
-> See [07 — Game Benchmarks](07-game-benchmarks.md) for FPS of 80+ community-tested games.
+> See [07 — Game Benchmarks](07-game-benchmarks.md) for FPS of 60+ community-tested games.
 
 ---
 
@@ -647,7 +672,7 @@ Your BC-250 is running. Now you can:
 
 - [ ] **Optimize cooling** — water cooling, 3D printed fan shrouds, push-pull
 - [ ] **Tune the governor** — GPU overclock, perf profiles, undervolt
-- [ ] **Run CU health test** — if unlocking 40 CU
+- [ ] **Run CU + core health tests** — if unlocking 40 CU or 8 cores
 - [ ] **Run benchmarks** — compare with the [community leaderboard](07-game-benchmarks.md)
 - [ ] **Set up AI inference** — Ollama, pp512, ROCm
 - [ ] **Print a custom case** — 145+ designs on Printables
@@ -660,4 +685,4 @@ Your BC-250 is running. Now you can:
 ---
 
 *Guide generated from Revised/01-13 documents, export/elektricM-docs, and BC-250 Discord community data.*
-*Last updated: June 2026.*
+*Last updated: August 2026.*

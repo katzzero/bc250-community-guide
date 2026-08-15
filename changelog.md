@@ -4,6 +4,25 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 15, 2026 — Doc 00 rework: merged Performance Unlocks section + copy fixes (00)
+
+Design/writer pass on 00-from-zero-to-gaming.md — no factual changes beyond the unlock methods already cited in 02-bios-and-firmware.md.
+
+### 1. Section 14 merged into "Performance Unlocks (Optional)"
+- Renamed from "40 CU Unlock (Optional)" — now covers both unlocks under one roof, mirroring README's Performance Unlocks structure
+- Added **8 CPU Core Unlock** subsection (previously absent from doc 00): 6-of-8 cores, pointer to full method comparison in 02, recommended method gabriwar/bc250-core-cu-unlock with quick-start commands (status/apply/test-cores.sh/install)
+- Verification block extended: `nproc` = 8, `lscpu` = 8c/16t
+- Required Adjustments now include: 8-core ACPI fix (CPUs 12-15 C-states, mendesrr/gabriwar `bc250-acpi-fix.sh install`), 8-core metrics fix (`fix-freq = true`, no kernel patch — filippor), re-tune overclocks note (load-line droop/thermals), and test-cores-before-BIOS-flash warning (yrouel86, Jul 2026)
+
+### 2. Copy fixes (docs style: English only, no emojis)
+- Removed ⚠ emojis (Bazzite table row, "Important:" callout)
+- Translated leftover Portuguese comments: `# Mude:`/`# Para:` → `# Change:`/`# To:`; `# Temperaturas` → `# Temperatures`
+- "80+ community-tested games" → "60+" to match README (07-game-benchmarks.md section count)
+- "Next Steps" checklist updated: "Run CU + core health tests — if unlocking 40 CU or 8 cores"
+- `*Last updated:* June 2026 → August 2026` (body cited July 2026 content)
+
+---
+
 ## August 15, 2026 — README restructure & copy edits (README)
 
 Design/writer pass on README.md — no factual content removed, price history documented with community citations.
