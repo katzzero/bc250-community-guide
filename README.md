@@ -1,8 +1,10 @@
 # BC-250 Unofficial Community Guide
 
-> **Turn a $50-150 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores (up to 8 unlockable), 24 RDNA 2 CUs (up to 40 unlockable), 16 GB GDDR6. Performance: RX 6600–RX 6700 level with unlocks. Total build: **~$150-250**.
+> **Turn a $100-175 mining board into a Linux gaming PC.** The BC-250 carries a cut-down PS5 "Oberon" APU — 6 Zen 2 cores (up to 8 unlockable), 24 RDNA 2 CUs (up to 40 unlockable), 16 GB GDDR6. Performance: RX 6600–RX 6700 level with CU/core unlocks (see price history below). Total build: **~$150-275**.
 >
-> **Linux only** — no Windows GPU drivers *officially* but multiple parallel projects exist. Maintained by katzzero from community Discord data. [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
+> **Linux only** — no Windows GPU drivers exist; only experimental WIP projects (see [11 — Community & Resources](11-community-and-resources.md)).
+>
+> [Discord](https://discord.gg/8eZfFWhczz) · [Wiki](https://github.com/katzzero/bc250-unofficial-community-guide/wiki) · [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md)
 
 ---
 
@@ -10,9 +12,16 @@
 
 If you just bought a BC-250, follow this step-by-step guide:
 
-### [00 -- From Zero to Gaming](00-from-zero-to-gaming.md)
+### [00 — From Zero to Gaming](00-from-zero-to-gaming.md)
 
 Linear walkthrough: purchase → assembly → BIOS flash → OS install → first game running. Takes about 2 hours.
+
+---
+
+## Is This Guide for You?
+
+- **Yes, if** you're comfortable in Linux (or willing to learn) and want maximum performance per dollar on a tinkering project.
+- **No, if** you need Windows, plug-and-play setup, or warranty support — this is niche, community-maintained hardware.
 
 ---
 
@@ -66,11 +75,13 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 | **Display cable** | Passive DP-to-HDMI adapter | ~$5 |
 | **WiFi adapter** | TP-Link Archer TX10UB Nano (WiFi 6 + BT 5.3) | ~$20 |
 | **SSD** | Any M.2 NVMe (PCIe 2.0 x2 — cheap drives saturate the bus) | ~$25 |
-| | **Total (approx)** | **~$150–250** |
+| | **Total (approx)** | **~$150–275** |
+
+**Board price history** (community data): Dec 2025 ~$62–125 (new $125, used $65, some $62 — gadgetgeek., 29/11–19/12/2025) → Dec 2025 ~$175 (gennro, 28/12/2025) → Jan 2026 settled at **$150–200** (iambryan_x1, 24/01/2026; predicted $200–250 new / $150 used — vicomte.me, 10/01/2026) → Apr 2026 still under $150 (essdee4336, 23/04/2026) → Aug 2026 back down to ~$100–125 (strykur, 03/08/2026). Prices are volatile — verify current listings before buying.
 
 ---
 
-## ⚠️ Important Warnings
+## Important Warnings
 
 1. **Linux only** — no Windows GPU drivers exist
 2. **Always clear CMOS** after BIOS flash — settings won't stick otherwise
@@ -81,7 +92,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 7. **Never use Smokeless_UMAF** — can permanently damage the board
 8. **Don't lose the 4 nylon washers** under heatsink screws — missing = 90–100°C idle
 9. **VRAM has no temperature sensor** — must cool backplate actively
-10. **No hardware video encode/decode** — VCN 2.0.3 present but power-gated; active research (not fused off)
+10. **No hardware video encode/decode** — VCN 2.0.3 present but power-gated; active research (not fused off) — [see troubleshooting](10-troubleshooting.md#vcn-still-not-working)
 
 ---
 
@@ -105,17 +116,17 @@ Board ships with 6 of 8 Zen 2 cores active. As of **Aug 2026**, three working me
 
 | Method | Type | Risk |
 |--------|------|------|
-| **RescueMei/BC250-DXE-SMU-Core-Unlock** | Patched BIOS (DXE/SMU) — permanent unlock | ⚠️ If cores don't work, need external flash programmer to recover |
-| **Hexxeh/bc250-efi-core-unlock** | EFI shim at boot — semi-permanent, no BIOS modification | ✅ Safer option |
-| **GabriWar/bc250-core-cu-unlock** | Linux SMU mailbox 0x98 tool — 8 cores + 40 CU, no BIOS flash, systemd unit re-applies after cold boot | ✅ Reverts on cold boot (guaranteed escape hatch) |
+| **RescueMei/BC250-DXE-SMU-Core-Unlock** | Patched BIOS (DXE/SMU) — permanent unlock | If cores don't work, need external flash programmer to recover |
+| **Hexxeh/bc250-efi-core-unlock** | EFI shim at boot — semi-permanent, no BIOS modification | Safer option |
+| **GabriWar/bc250-core-cu-unlock** | Linux SMU mailbox 0x98 tool — 8 cores + 40 CU, no BIOS flash, systemd unit re-applies after cold boot | Reverts on cold boot (guaranteed escape hatch) |
 
-8-core benchmark in Cyberpunk 2077: **+5-14% FPS** (6 cores → 8 cores: 72→93 fps Low FSR2). Total build cost adds $0 for the unlock itself. After unlocking, apply the **8-core ACPI fix** (CPUs 12-15 need C-states) and the **8-core metrics fix** (`fix-freq = true` governor option, no kernel patch needed) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) and [06-gpu-governor.md](06-gpu-governor.md).
+8-core benchmark in Cyberpunk 2077: **+5-14% FPS** (6 cores → 8 cores: 72→93 fps Low FSR2). The unlock itself costs nothing. After unlocking, apply the **8-core ACPI fix** (CPUs 12-15 need C-states) and the **8-core metrics fix** (`fix-freq = true` governor option, no kernel patch needed) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) and [06-gpu-governor.md](06-gpu-governor.md).
 
 ### Stock Performance Baseline
 
 | Config | Game Level | Notes |
 |--------|-----------|-------|
-| **6 CU, 24 CU stock** | RX 6600–6600 XT level | Solid 1080p gaming baseline |
+| **6 cores, 24 CU stock** | RX 6600–6600 XT level | Solid 1080p gaming baseline |
 | **40 CU unlocked** | RX 6700 / GTX 1080 Ti | See [game benchmarks](07-game-benchmarks.md) for details |
 | **40 CU + 8 cores** | ~60 FPS Cyberpunk 2077 (dbkretro) | ~10 FPS gain in CPU-heavy areas (Dogtown, qwert9811) |
 
@@ -125,27 +136,51 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 
 ## Join the Community
 
-- **[BC250 Community Discord](https://discord.gg/8eZfFWhczz)** — 3,500+ members, active daily
-- **[elektricM Docs](https://elektricm.github.io/amd-bc250-docs/)** — source-of-truth documentation (33+ pages)
-- **[bc250-collective](https://github.com/bc250-collective)** — ACPI fix, SMU OC, governor
+- **[BC250 Community Discord](https://discord.gg/8eZfFWhczz)** — the hub: setup help, benchmarks, WIP research (member count fluctuates; typically thousands)
+- **Reference links & repos** (elektricM Docs, bc250-collective, drivers, tools): see [11 — Community & Resources](11-community-and-resources.md)
 
 ---
 
 ## What's New
 
-**August 2026:** CPU core unlock matures — Linux SMU mailbox 0x98 tool (GabriWar) with systemd re-apply, warm/cold boot behavior, core test script (+26.9% 7-zip) · `fix-freq` governor option fixes 8-core GPU clock reporting (no kernel patch) · 8-core ACPI fix (mendesrr) · Async compute queue fix (DryhoppedIPA, +25% FPS Cyberpunk, in Toolkit v1.1.0) · VRM telemetry via I2C/PMBus + web dashboard (punsh1734, 2-wire mod) · Patched BIOS unlock option + SteamOS boot logo · VCN unlock research active
+**August 2026:**
+- CPU core unlock matures — Linux SMU mailbox 0x98 tool (GabriWar) with systemd re-apply, warm/cold boot behavior, core test script (+26.9% 7-zip)
+- `fix-freq` governor option fixes 8-core GPU clock reporting (no kernel patch)
+- 8-core ACPI fix (mendesrr)
+- Async compute queue fix (DryhoppedIPA, +25% FPS Cyberpunk, in Toolkit v1.1.0)
+- VRM telemetry via I2C/PMBus + web dashboard (punsh1734, 2-wire mod)
+- Patched BIOS unlock option + SteamOS boot logo
+- VCN unlock research active
 
-**July 2026:** CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script) · Alternate bitmask testing (7-of-8 cores possible) · OS-independent SMN/PSP mechanism proven · 8-core benchmark: +5-14% FPS in Cyberpunk · jwagnervaz independent BIOS rev eng (4700S BIOS testing)
+**July 2026:**
+- CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script)
+- Alternate bitmask testing (7-of-8 cores possible)
+- OS-independent SMN/PSP mechanism proven
+- 8-core benchmark: +5-14% FPS in Cyberpunk
+- jwagnervaz independent BIOS rev eng (4700S BIOS testing)
 
-**June 2026:** Black Myth: Wukong benchmark (edges RX 6700) · Binary search artifact hunting · Live-manager stock WGP disabling · OCP power limit documented · VCN confirmed NOT fused off (partial decode) · Kernel 6.19.x recommended · Mesa 26.x standard
+**June 2026:**
+- Black Myth: Wukong benchmark (edges RX 6700)
+- Binary search artifact hunting
+- Live-manager stock WGP disabling
+- OCP power limit documented
+- VCN confirmed NOT fused off (partial decode)
+- Kernel 6.19.x recommended · Mesa 26.x standard
 
-**May 2026:** CU Live Manager (toggle 40 CUs without kernel patch) · Cyberpunk 2077 38 CU record (matches RTX 3060) · BIOS P4.00 discovered · AIOs confirmed (Thermalright Aqua Elite 240) · Micro-Fit power mod · Dell DA2 220W undervolted success · Mesa 26 + VRR on CachyOS/Bazzite
+**May 2026:**
+- CU Live Manager (toggle 40 CUs without kernel patch)
+- Cyberpunk 2077 38 CU record (matches RTX 3060)
+- BIOS P4.00 discovered
+- AIOs confirmed (Thermalright Aqua Elite 240)
+- Micro-Fit power mod
+- Dell DA2 220W undervolted success
+- Mesa 26 + VRR on CachyOS/Bazzite
 
 ---
 
 ## How This Guide Is Maintained
 
-Updated continuously from BC-250 Discord community data using a semi-automated pipeline: export → RAG indexing → audit → cross-reference → edit → commit. Every claim verified against [elektricM docs](https://elektricm.github.io/amd-bc250-docs/) and Discord exports.
+Maintained by **katzzero** from BC-250 Discord community data using a semi-automated pipeline: export → RAG indexing → audit → cross-reference → edit → commit. Every claim verified against [elektricM docs](https://elektricm.github.io/amd-bc250-docs/) and Discord exports.
 
 ---
 

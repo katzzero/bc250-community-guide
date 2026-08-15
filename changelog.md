@@ -4,13 +4,24 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
-## August 13, 2026 — Direct Core-Test Instructions Added (02/10)
+## August 15, 2026 — README restructure & copy edits (README)
 
-### 1. 02-bios-and-firmware.md
-- Added **Quick start (unlock + verify)** block to Option 4 (bc250-core-cu-unlock): `status`/`apply`/`reboot`/`test-cores.sh`/`test-cores.sh 60`/`install` commands with prerequisites (stress-ng, 8 cores visible) and interpretation criteria (failed > 0 = bad core, far below median = marginal, ±1% spread = normal binning) — sourced from the repo README and `test-cores.sh` header
+Design/writer pass on README.md — no factual content removed, price history documented with community citations.
 
-### 2. 10-troubleshooting.md
-- Expanded the "test cores before flashing" step (bad-core section) with the direct commands: clone → `apply` + reboot → `./test-cores.sh`, plus pass/fail criteria tied to the vadym557 bad-core case
+### 1. README.md — hero + structure
+- Hero board price corrected to current range: `$50-150` → `$100-175`; total build `~$150-250` → `~$150-275`
+- Added **Board price history** with citations: Dec 2025 ~$62–125 (gadgetgeek., 29/11–19/12/2025) → Dec 2025 ~$175 (gennro, 28/12/2025) → Jan 2026 settled $150–200 (iambryan_x1, 24/01/2026; prediction $200–250 new/$150 used — vicomte.me, 10/01/2026) → Apr 2026 <$150 (essdee4336, 23/04/2026) → Aug 2026 ~$100–125 (strykur, 03/08/2026)
+- Hero "Linux only" claim verified + tightened: no Windows GPU drivers exist; only experimental WIP projects (doc 11 links Keshas-dev, ZEROAESQUERDA, gottmoz) — sourced from Win 11 Drivers thread (project-forums, May-Jun 2026)
+- Moved "Maintained by katzzero" from hero into "How This Guide Is Maintained" section
+- Split the mixed hero sentence into separate logical blocks (hook / Linux-only / nav links)
+- Fixed `## ⚠️ Important Warnings` → `## Important Warnings`; removed ⚠️/✅ emojis (docs style: no emojis)
+- New "Is This Guide for You?" section (Yes, if / No, if)
+- "Join the Community" reduced to Discord entry point + pointer to doc 11 (removed unverifiable "3,500+ members"; elektricM Docs + bc250-collective already covered in 11)
+- Fixed typo `**6 CU, 24 CU stock**` → `**6 cores, 24 CU stock**`
+- "Total build cost adds $0 for the unlock itself" → "The unlock itself costs nothing"
+- VCN warning now links to troubleshooting `#vcn-still-not-working`
+- "What's New" converted from run-on month paragraphs to bulleted lists
+- Heading `00 --` → `00 —` (em-dash consistency)
 
 ---
 
@@ -45,6 +56,16 @@ Sourced from the new 09–15/08/2026 Discord export (bc250-chat, benchmarks, bc2
 ### 6. 11-community-and-resources.md — resources
 - Added repos: [dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4) (FSR 4 on GFX1013 via i24 fallback, 64k→37k instructions, "huge performance improvement" in CP2077, Aug 14 2026), [MastaG/linux-cachyos-bc250](https://github.com/MastaG/linux-cachyos-bc250) (kernel-7.1 + Mesa repo, requires `amdgpu.sched_policy=2`), [rpf16rj/steamos-led-wled](https://github.com/rpf16rj/steamos-led-wled) (LED bar from Game Mode)
 - Timeline: added Aug 2026 milestones (BIOS mod dominance, VCN power-path diagnosis, SMU arb code execution, FSR4)
+
+---
+
+## August 13, 2026 — Direct Core-Test Instructions Added (02/10)
+
+### 1. 02-bios-and-firmware.md
+- Added **Quick start (unlock + verify)** block to Option 4 (bc250-core-cu-unlock): `status`/`apply`/`reboot`/`test-cores.sh`/`test-cores.sh 60`/`install` commands with prerequisites (stress-ng, 8 cores visible) and interpretation criteria (failed > 0 = bad core, far below median = marginal, ±1% spread = normal binning) — sourced from the repo README and `test-cores.sh` header
+
+### 2. 10-troubleshooting.md
+- Expanded the "test cores before flashing" step (bad-core section) with the direct commands: clone → `apply` + reboot → `./test-cores.sh`, plus pass/fail criteria tied to the vadym557 bad-core case
 
 ---
 
