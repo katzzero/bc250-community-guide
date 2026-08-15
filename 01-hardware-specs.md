@@ -28,7 +28,7 @@
 | GPU CUs | 24 | 36 |
 | GPU Clock | 2000 MHz max (stock) | 2230 MHz (variable) |
 | Memory | 16 GB GDDR6 shared | 16 GB GDDR6 unified |
-| VCN (HW encode/decode) | Blocked (NOT fused off — research active) | Enabled |
+| VCN (HW encode/decode) | Blocked (VCN 2.0.3 present, NOT fused off — power-path research active Aug 2026) | Enabled |
 
 ---
 
@@ -65,7 +65,7 @@
 - Bluetooth (use USB adapter)
 - Thunderbolt
 - Secure Boot
-- Hardware video encode/decode (VCN firmware blocked by Sony; NOT fused off — active community research, partial decode achieved via SMU commands: holde, Angablade)
+- Hardware video encode/decode (VCN 2.0.3 present and NOT fused off, but physically power-gated; active community research Aug 2026 — see [10 — Troubleshooting](10-troubleshooting.md) VCN section)
 
 ---
 
@@ -89,7 +89,7 @@ A GPU governor saves 20-30W at idle alone. See [06-GPU Governor](06-gpu-governor
 ## Known Hardware Limitations
 
 1. **IOMMU is broken** -- always disable in BIOS or face display failures
-2. **No VCN firmware** -- hardware video encode/decode blocked by Sony, but VCN block is NOT fused off. Active research: holde and Angablade achieved partial decode via SMU commands (May 2026). Not functional for end users yet.
+2. **VCN not functional** -- VCN 2.0.3 is present in IP discovery and NOT fused off, but physically power-gated; the driver skips its registration and touching the block hard-locks the board. Active research (Aug 2026) diagnosed the missing power-on mechanism — see [10 — Troubleshooting](10-troubleshooting.md). Not functional for end users yet.
 3. **PCIe 2.0 x2 only** -- SSD limited to ~1 GB/s (don't overspend on NVMe)
 4. **A68H southbridge** (discovered by pops1cl) -- low-end chipset; Ethernet and USB 2.0 run through it, not the GPU (GPU is direct to APU)
 5. **GDDR6 runs hot** -- backplate VRAM has no temperature sensor; ensure case airflow and backplate cooling with a fan on the rear of the board (essdee4336, thecoolmagnet) [confirmed: @tominkz2137, 12/01/2026]

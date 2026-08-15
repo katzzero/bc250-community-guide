@@ -102,6 +102,8 @@
 
 **8-core 40CU RDR2 (dbkretro, Jul 30 2026):** 1080p, decent quality settings — near 60 FPS with main dip during snow scenes. GPU bound in most scenarios but less stutter in city areas with extra cores.
 
+**8-core 38CU RDR2 benchmark (sho.ta, Aug 13 2026):** ~65 FPS in benchmark, 55–85 real FPS, High-Ultra 1080p on Bazzite with **0.5/15.5 memory split** (38 CU @ 1900 MHz 900 mV, 8 cores @ 3.85 GHz 1150 mV). "Timegraph is smooth most of the time" — FPS drops significantly in Saint Denis (~40–45 FPS) with spiky timegraph due to poor CPU performance.
+
 ---
 
 ### Spider-Man 2
@@ -190,6 +192,22 @@
 | 1080p Medium, no scaling | 38–42 | |
 
 **Fix:** Use Proton Experimental Bleeding-Edge branch with VKD3D RDNA1 fix. Version 1.02 works. [confirmed: @nohanmv, 01/04/2026]
+
+### Space Marine 2
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 8 cores unlocked | ~2x vs 6 cores | smcelrea, Aug 10 2026 — "almost double the perf in space marine 2, in the rippers section of the campaign, with 8 cores unlocked" |
+
+> Severely CPU-bound on this board; the 8-core unlock is the single biggest win for this title.
+
+### Pragmata
+
+| Settings | FPS | Notes |
+|----------|-----|-------|
+| 8 cores + governor tweaks | High | lovelifetrustfaith, Aug 10 2026 — "pragmata ran pretty good before the cpu core unlock and additional tweakings"; later "pragmata now on stock governor values, just insane..." |
+
+> First launched unreliably ("For some weird reason it won't start") — resolved after additional tweaks from MastaG's GitHub (see [11-community-and-resources](11-community-and-resources.md)).
 
 ### Death Stranding 2
 
@@ -465,13 +483,19 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 |------|------|-------|-----------|-----------|-----|-------|------|
 | 1 | gennro | ~5900 | — | — | — | — | May 2026 |
 | 2 | big_trov | 5759 | 2300 MHz | 3500 MHz UV | — | — | May 2026 |
-| 3 | dznuts | 5300 | 2200 MHz | — | 1060 | 38 CU, CachyOS | May 2026 |
+| 3 | pm_me_kitsunemimi | 5320 | 2250 MHz | 4000 MHz | — | 36 CU, 8 cores, Bazzite, OpenGL; "76 max iirc" | Aug 2026 |
 | 4 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | 40 CU | May 2026 |
 | 5 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | 40 CU | May 2026 |
 | 6 | dznuts | 5300 | 2270 MHz | 4000 MHz | — | 38 CU | May 2026 |
-| 7 | land_and_air | — | 2000 MHz | stock | — | — | May 2026 |
+| 7 | dznuts | 5300 | 2200 MHz | — | 1060 | 38 CU, CachyOS | May 2026 |
+| 8 | mitchthepreacher | 5150 | — | — | — | Redux case; "Temps are 75 but its a jet engine" | Aug 2026 |
+| 9 | land_and_air | — | 2000 MHz | stock | — | — | May 2026 |
 
 40 CU Extreme already surpasses the 24 CU record (4713) by 22%+ at lower clocks (2300 vs 2530 MHz). Theoretically should reach ~6500+ at equivalent clocks. More scores expected as community adopts the unlock. Post your results in the Discord `#benchmarks` channel.
+
+**Aug 2026 updates:** big_trov confirmed the current record is "5800 or so" (Aug 12 2026). pm_me_kitsunemimi hit 5320 @ 2250 MHz GPU / 4 GHz CPU on Bazzite with 8 cores unlocked — "Not sure what the average score is but 5320 is good" (rocksalt_, Aug 12 2026), max temps "76 max iirc". mitchthepreacher reached 5150 after a CachyOS update with no unlock/OC changes, in a Redux case, "Temps are 75 but its a jet engine" (Aug 13 2026).
+
+**38 CU = 36 CU (Aug 12 2026):** a "38 CU" config is effectively 36 CU — the Shader Engines (SE0/SE1) must have symmetric WGP counts. fforduck: "You have 36 unlocked 😉 SE0 and SE01 need the same amount. If you have disabled one in SE0 it will automatically disable one in SE1" — and per hashtagoctothorp, disabling another WGP in SE1 gives the *same* score. The only meaningful CU counts are 24/28/32/36/40 (counting full pairs); the dznuts "38 CU" runs above are the same silicon configuration as 36 CU.
 
 **Max clock findings:** 2400 MHz at 40 CU causes hard OCP lockup requiring power cable pull (reset/power buttons unresponsive) across multiple boards (big_trov, codyrainy, cralant). 2100-2300 MHz is the stable range for most boards. Trimming CUs for higher clocks is not advantageous: big_trov's 32CU @ 2400 MHz scored worse than 40CU @ 2300 MHz, with similar power draw (~270W).
 

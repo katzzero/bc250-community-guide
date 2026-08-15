@@ -237,6 +237,10 @@ Reported working on 8-core boards — GPU frequency reads correctly again (commu
 
 > Note: some users on the metrics rabbit hole found that reading SMU "table 3" is unstable — the GPU triggers "graphics reset" events constantly (keroppl_wizard, Aug 4 2026). keroppl investigated filling table 3 with full per-core metrics data ("Supposedly theres a table 3 that can be filled out with full unabridged data") but the mailboxes are blocked (Aug 6 2026). The userspace `fix-freq`/`fix-metrics` approach (or higorprado's mapping) is the practical fix rather than reading table 3 directly.
 
+> **Open question (Aug 13 2026):** yrouel86 hypothesizes the "stuck at 1500 MHz" behavior may come from a **GFX DPM feature bit missing in the SMU features mask** — if so, setting the feature bit (e.g. via the SMU core-mask write primitive, now that arbitrary mask writes are possible) might make the card clock normally *without* the governor. Untested speculation as of Aug 2026 ("this if Claude isn't hallucinating it") — flagged for future research.
+
+> **Power profiles measured (filippor, Aug 10 2026):** governor profile setting changes wall power substantially — profile 3→1 drops 82 W → 65 W → 59 W at 500 MHz GPU, and under Furmark (2100 MHz / 1030 mV) 350 W → 280 W → 210 W with frame rate 148 → 85 → 45 FPS. Board-level shutdown limit ~12 W over, PSU-level ~4 W over. Useful reference for choosing a power-vs-performance profile.
+
 ### Governor v0.4.0 (May 2026)
 
 Released to the bc250-collective organization. Key new feature: **CPU-based control of memory clocks** — lowers memory controller and Infinity Fabric clocks at idle for additional power savings (codyrainy, May 2026). See [bc250-collective/cyan-skillfish-governor](https://github.com/bc250-collective/cyan-skillfish-governor).

@@ -81,7 +81,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 7. **Never use Smokeless_UMAF** — can permanently damage the board
 8. **Don't lose the 4 nylon washers** under heatsink screws — missing = 90–100°C idle
 9. **VRAM has no temperature sensor** — must cool backplate actively
-10. **No hardware video encode/decode** — VCN blocked by Sony (NOT fused off — research active)
+10. **No hardware video encode/decode** — VCN 2.0.3 present but power-gated; active research (not fused off)
 
 ---
 

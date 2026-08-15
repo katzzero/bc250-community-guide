@@ -14,7 +14,48 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 15, 2026 — VCN Research + 8-Core Process + Benchmark/Resource Updates (01/02/06/07/10/11/12/README)
+
+Sourced from the new 09–15/08/2026 Discord export (bc250-chat, benchmarks, bc250-resources, project-forums).
+
+### 1. 10-troubleshooting.md — VCN section rewritten
+- Removed the false "blocked by Sony" attribution — holde (Aug 14 2026): firmware is signed **by AMD, not Sony**
+- Documented the root cause (thelamer, Aug 14 2026): VCN 2.0.3 is present and **not harvested**; Cyan Skillfish has **no `dpm_set_vcn_enable` callback**, SMU returns success when it's missing, and `vcn_v2_0_start()` touches the physically power-gated block → hard lock
+- Added the two-part working theory (Job 1: recover the power-on mechanism; Job 2: re-enable the 2.0.3 driver path)
+- Added progress: paul_lionking got amdgpu to register VCN 2.0.3 + load Navi 2.0 firmware; extracted the BC-250 SMU/MP1 PMFW from the BIOS (Xtensa v88.6.0) and found raw command `0x2A` is NULL in the dispatcher; bjaan identified `PPSMC_MSG_PowerUpVcn 0x9` / `PowerDownVcn 0x8` as unimplemented on 11.8
+- Added rw_r_r_0644's SMU arbitrary-code-execution breakthrough (Aug 15 2026): "We have fully arb code execution on the SMU at runtime via a bug in one of the message handlers" — Cyan Skillfish only (PS5/coreboot have the bound check); can set arbitrary clocks/voltages and write core masks — a possible VCN power-up path
+
+### 2. 01-hardware-specs.md + README.md — VCN status corrected
+- Updated all three VCN mentions: VCN 2.0.3 present in IP discovery, NOT fused off, physically power-gated; research link to 10-troubleshooting; removed "blocked by Sony" from README
+
+### 3. 02-bios-and-firmware.md — new "8 Cores ≠ 6 Cores: The Full Process" section
+- Documented the community consensus process (Aug 2026): 1) test cores first with rw-r-r-0644's script before flashing the BIOS mod ("TEST YOUR CORES WITH @rw-r-r-0644'S SCRIPT BEFORE FLASHING THE BIOS TO ENABLE THEM" — rescuemei, Aug 13 2026); 2) apply the ACPI fix and accept a small FPS cost (dbkretro: RE4 solid 60 → 52–55 FPS, Aug 10 2026; "a few of us have found it can hit the frame rate", Aug 13 2026); 3) re-tune the CPU OC (seb061492: 6-core-stable 4 GHz crashes at 8 cores even at 3.5 GHz; typical 8-core configs 3.5–3.85 GHz vs 4.0–4.1 GHz at 6); 4) expect +10–12°C and higher power draw (felingreenleaf, Aug 12 2026); 5) re-enable GPU metrics via `fix-freq`; 6) defective-core contingency (fforduck partial masks)
+- Added credits: rescuemei (test-before-flash), felingreenleaf, seb061492, mitchthepreacher, sho.ta
+
+### 4. 06-gpu-governor.md — governor updates
+- Added the GFX DPM feature-mask hypothesis (yrouel86, Aug 13 2026) as an open question
+- Added filippor's power-profile measurements (Aug 10 2026): profile 1/2/3 wall power at 500 MHz GPU = 57/64/80 W; Furmark 2100 MHz = 210/280/350 W with 45/85/148 FPS; shutdown limits
+
+### 5. 07-game-benchmarks.md — benchmarks
+- Superposition leaderboard (40 CU): added **pm_me_kitsunemimi 5320** (36 CU, 8 cores, 2250 MHz GPU / 4 GHz CPU, Bazzite, ~76°C max, Aug 12 2026) and **mitchthepreacher 5150** (Redux case, CachyOS update, "Temps are 75 but its a jet engine", Aug 13 2026); record confirmed "5800 or so" (big_trov, Aug 12 2026)
+- Added the **38 CU = 36 CU** finding: SE0/SE1 must be symmetric, so only 24/28/32/36/40 matter (fforduck, hashtagoctothorp, Aug 12 2026)
+- RDR2: added sho.ta's 8-core 38CU benchmark (Aug 13 2026, 0.5/15.5 memory split, 38CU @ 1900 MHz 900 mV, 8 cores @ 3.85 GHz)
+- New game sections: **Space Marine 2** ("almost double the perf... with 8 cores unlocked" — smcelrea, Aug 10 2026) and **Pragmata** (lovelifetrustfaith, Aug 10 2026)
+
+### 6. 11-community-and-resources.md — resources
+- Added repos: [dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4) (FSR 4 on GFX1013 via i24 fallback, 64k→37k instructions, "huge performance improvement" in CP2077, Aug 14 2026), [MastaG/linux-cachyos-bc250](https://github.com/MastaG/linux-cachyos-bc250) (kernel-7.1 + Mesa repo, requires `amdgpu.sched_policy=2`), [rpf16rj/steamos-led-wled](https://github.com/rpf16rj/steamos-led-wled) (LED bar from Game Mode)
+- Timeline: added Aug 2026 milestones (BIOS mod dominance, VCN power-path diagnosis, SMU arb code execution, FSR4)
+
+---
+
 ## August 13, 2026 — ROCm Verification + Benchmark Table Audit (07/11/12)
+
+### 1. 12-ai-inference.md
+- **"n3oney" corrected to "neoney"** (3 occurrences): verified against exports — the actual Discord username is `neoney` (part 320, 03/04/2026); "n3oney" never existed. Also in changelog ROCm status row
+- **ROCm status claim verified**: "the kernel patch from neoney IS needed" confirmed — gabriwar, 04/08/2026 (after-2026-08-03.txt line 6946); added root-cause detail: `hipFree` requests a TLB invalidation the board never performs; `bc250_flush_by_runlist=1` patch (rebuild runlist on unmap) fixed it — 13/18 dirty runs → 0/18 (p = 3.7e-06)
+
+### 2. 11-community-and-resources.md
+- Added [GabriWar/bc250-rocm-working](https://github.com/GabriWar/bc250-rocm-working) — Stable Diffusion via ROCm/HIP, kernel patches, rocBLAS gfx1013 kernels, runlist TLB flush fix (Aug 2026)
 
 ### 1. 12-ai-inference.md
 - **"n3oney" corrected to "neoney"** (3 occurrences): verified against exports — the actual Discord username is `neoney` (part 320, 03/04/2026); "n3oney" never existed. Also in changelog ROCm status row

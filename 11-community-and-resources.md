@@ -98,6 +98,9 @@
 | [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) | 8-core ACPI tables (SSDT C-states extended to 16 threads) — required after CPU core unlock (Aug 2026) |
 | [onlinermm/BC250-Telemetry](https://github.com/onlinermm/BC250-Telemetry) | VRM telemetry daemon + web dashboard — PMBus over I2C (per-rail voltage/current/power/temp), 2-wire hardware mod (Aug 2026) |
 | [DryhoppedIPA/bc250-gfx1013-fix](https://github.com/DryhoppedIPA/bc250-gfx1013-fix) | Async compute queue (ACE) fix for GFX1013 — kernel + Mesa/RADV patches, +25% FPS (Aug 2026) |
+| [dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4) | Experimental FSR 4 optimization for GFX1013 — Mesa/RADV INT8 dot-product fallback via i24 instead of broken native DP4A; FSR 4.1.1 shader dropped 64k→37k instructions, ~306k→104k throughput; "huge performance improvement" in Cyberpunk 2077 (Aug 2026) |
+| [MastaG/linux-cachyos-bc250](https://github.com/MastaG/linux-cachyos-bc250) | CachyOS BC-250 kernel + Mesa repo — kernel-7.1 patches (audio, compute queue fix), updated Mesa, requires `amdgpu.sched_policy=2` kernel cmdline for GPU perf (Aug 2026) |
+| [rpf16rj/steamos-led-wled](https://github.com/rpf16rj/steamos-led-wled) | DIY LED bar replica for BC-250 controlled from SteamOS Game Mode via WLED (Aug 2026) |
 
 ---
 
@@ -144,6 +147,11 @@ When searching for help, try these identifiers:
 | Mar 2026 | All docs updated to latest state |
 | May 2026 | VRR working on Bazzite Deck via custom kernel patch image (fforduck) | [confirmed: @fforduck, 14/04/2026]
 | May 2026 | VCN partial decode achieved via SMU poking (holde, Angablade) - active research |
+| Jul-Aug 2026 | 8-core CPU unlock (SMU mailbox exploit), 40 CU unlock, BIOS mods, gfx1013-fix — major performance unlocks |
+| Aug 2026 | BIOS mod becomes the dominant 8-core method; ACPI fix extended to 16 threads; `fix-freq` governor option for 8-core GPU clock reporting |
+| Aug 2026 | VCN 2.0.3 confirmed present and NOT fused off; power-path root cause identified (no `dpm_set_vcn_enable`); "VCN: The final boss" research thread opened (thelamer, Aug 14 2026) |
+| Aug 2026 | rw_r_r_0644 achieves arbitrary code execution on the SMU at runtime (Cyan Skillfish only) — possible VCN power-up path (Aug 15 2026) |
+| Aug 2026 | dmorazasanchez/bc250-fsr4 published — FSR 4 running on GFX1013 with i24 fallback (Aug 14 2026) |
 
 ---
 

@@ -55,7 +55,19 @@
 
 ## VCN Still Not Working
 
-**Status:** Active research underway. Users Angablade and holde have successfully engaged the VCN block via SMU commands and achieved partial decode (one frame before crash). The VCN block is confirmed NOT fused off. Work continues via cyan-skillfish-governor-smu as injection point.
+**Status:** Active research — major progress in Aug 2026. VCN 2.0.3 is confirmed **present and NOT harvested** (IP discovery, instance 0, harvest=0), but the Linux driver deliberately skips its registration. The problem is now diagnosed as a **power-path issue, not a codec or firmware issue**.
+
+**Root cause (thelamer, Aug 14 2026):** On Cyan Skillfish (GC 10.1.3) `adev->pg_flags = 0`, the board has **no `dpm_set_vcn_enable` callback**, and generic SMU code returns success when that callback is absent. `vcn_v2_0_start()` then proceeds into VCN PGFSM/MMIO accesses assuming power-up succeeded — but **VCN is still physically powered down**, so touching the block hard-locks the machine. "This is increasingly looking less like 'VCN fused off' and more like unused IP that AMD simply didn't wire up in the BC250 software stack" (thelamer, 14/08/2026).
+
+**Working theory (Jobs, per thelamer):**
+- **Job 1:** recover the missing BC250/Cyan Skillfish VCN power-on mechanism — an omitted SMU message mapping or a direct power/isolation register sequence. Success criterion: keep the machine alive and get VCLK to move from 0.
+- **Job 2:** once provably powered, re-enable the VCN 2.0.3 driver/firmware path and bring up rings/decoding.
+
+**Progress (Aug 13-15 2026):**
+- paul_lionking got amdgpu to recognize VCN 2.0.3 and load Navi VCN 2.0 firmware (`navi10_vcn.bin` aliased as `vcn_2_0_3.bin`; Navi10/12/14 blobs are byte-for-byte identical); the machine stays stable when init stops before `amdgpu_vcn_resume()`. On a normal boot SMU reports: VCN Powered down, VCLK = 0, DCLK = 1111.
+- paul_lionking extracted the resident BC250 SMU/MP1 PMFW from the BIOS (Xtensa, v88.6.0) and reverse-engineered the message dispatcher: raw SMU command `0x2A` is NULL in the BC250 table; undocumented public commands are `0x1F`, `0x20`, `0x26` (none looks like a VCN power switch). `smu_v11_5_ppsmc.h` defines `PPSMC_MSG_PowerDownVcn 0x8` / `PowerUpVcn 0x9` — bjaan: "most probably 0x8 and 0x9 are the messages to disable & enable power to the VCN block... they're just not implemented for the BC-250 version 11.8".
+- rw_r_r_0644 (Aug 15 2026): "We have fully arb code execution on the SMU at runtime via a bug in one of the message handlers" — appears exclusive to Cyan Skillfish (PS5/coreboot have an extra bound check). Can set arbitrary clocks/voltages (incl. ~2 GHz GDDR6) and write core masks. Possible path to power-up the VCN from the SMU; exploit cleanup pending.
+- Historical context: holde and Angablade got the SMU to wake the VCN block ~a year ago (one malformed frame via ffmpeg) but did not publish the SMU command. holde (Aug 14 2026): firmware is signed **by AMD, not Sony** — corrects earlier doc statements blaming Sony.
 
 See [11-community-and-resources](11-community-and-resources.md) for latest status.
 
