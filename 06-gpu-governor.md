@@ -230,12 +230,16 @@ Unlocking all 8 CPU cores breaks GPU clock reporting (`pp_dpm_sclk` shows nonsen
    fix-metrics = true
    fix-freq = true
    ```
+   Now available in a tagged release: **v0.4.12** — release notes list "add fix-freq option for 8 core reporting problem (be9537f)" (filippor/cyan-skillfish-governor releases, referenced by jmexp, 16/08/2026).
    ⚠️ Arch repo version may lag behind — if `fix-freq` isn't available, build from the `filippor/cyan-skillfish-governor` repo directly (e.g. `yay -S --editmenu cyan-skillfish-governor-smu`, update version/URL, stub b2sums with SKIP — hexxeh, Aug 2026).
 2. **Kernel patch** (keroppl_wizard) — see [02-bios-and-firmware.md](02-bios-and-firmware.md) 8-core metrics fix options.
 
 Reported working on 8-core boards — GPU frequency reads correctly again (community reports, Aug 2026; hexxeh and lordantares confirmed the config option and the AUR build workaround on kernel 7.1-era CachyOS; dizzey0709 confirmed the updated governor restores GPU freq reporting "without kernel changes", Aug 9 2026).
 
 > Note: some users on the metrics rabbit hole found that reading SMU "table 3" is unstable — the GPU triggers "graphics reset" events constantly (keroppl_wizard, Aug 4 2026). keroppl investigated filling table 3 with full per-core metrics data ("Supposedly theres a table 3 that can be filled out with full unabridged data") but the mailboxes are blocked (Aug 6 2026). The userspace `fix-freq`/`fix-metrics` approach (or higorprado's mapping) is the practical fix rather than reading table 3 directly.
+
+> **SMU read-concurrency crashes (higorevop, 17/08/2026):** theory that many crashes came from read concurrency within the SMU (governor + kernel patch both polling). gabriwar: "governor hogs smu … create races on gpu related operations". FilippoR's kernel patch makes the governor read directly from the kernel instead; higorevop ran OCCT in 12-hour sessions on it and reports "the system is much more stable even without the settings that reduced the readings". Related: in the [CachyOS] BC-250 kernel+Mesa repository (_mastag), the kernel patches already fix telemetry at source (`gpu_metrics` `average_gfx_activity`, `gpu_busy_percent`, real `GetGfxclkFrequency` reads for `freq1_input`), so enabling fix-freq/fix-metrics there only adds redundant bind mounts (repo docs, Aug 2026).
+> ⚠️ Known regression to watch (fforduck, 14/08/2026): latest Skillfish governor update via AUR — with Kernel metrics mode the min frequency shows 1000 MHz vs 300 MHz in SMU mode.
 
 > **Open question (Aug 13 2026):** yrouel86 hypothesizes the "stuck at 1500 MHz" behavior may come from a **GFX DPM feature bit missing in the SMU features mask** — if so, setting the feature bit (e.g. via the SMU core-mask write primitive, now that arbitrary mask writes are possible) might make the card clock normally *without* the governor. Untested speculation as of Aug 2026 ("this if Claude isn't hallucinating it") — flagged for future research.
 

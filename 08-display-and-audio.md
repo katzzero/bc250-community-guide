@@ -35,7 +35,9 @@ If you can't see the BIOS screen but the OS boots fine:
 
 Audio is transmitted natively through DisplayPort. If your monitor has speakers or you use a DP-to-HDMI passive adapter, audio should work automatically.
 
-**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS, available in Bazzite desktop testing branch). Fix contributed by TheFloW (PS5 Linux developer), relayed by _fanoush_. 
+**DP audio fix:** Fixed in **Linux 6.19.10+** (included in CachyOS, available in Bazzite desktop testing branch). Fix contributed by TheFloW (PS5 Linux developer), relayed by _fanoush_. The spread-spectrum audio disable has also landed in the **7.1 stable** kernel line (big_trov, 20/08/2026); kernel 7.2 is expected to carry the latest DP audio patch, which also fixes some display issues (essdee4338, 16/08/2026).
+
+**Dolby Digital 5.1 via HDMI/eARC on SteamOS (rpf16rj, 17/08/2026):** if your BC-250 connects to a receiver/soundbar through the TV, TVs downmix multichannel audio to PCM stereo over eARC. SteamOS never enabled its built-in AC-3 profile because the board identifies as "AMD BC-250" in DMI instead of Valve's "OEM F7F". The toolkit ([rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) **v1.3.0**) adds a udev rule + WirePlumber config that activates it: real-time Dolby Digital 5.1 encoding for all system audio (~1–2% CPU, zero latency), automatic stereo upmix, works with any active DP-to-HDMI adapter. Setup: run the toolkit → option 13 inside option 2 (manual) → Install AC-3 Surround Encoding; in KDE audio settings select "HD-Audio Generic Digital Surround 5.1 (HDMI/AC3)". Tested on SteamOS v3.18.25 (kernel 6.18.42-valve2). 
 
 **Adapter audio status (May 2026):**
 - **Passive adapters:** Audio works correctly, no issues reported with kernel 6.19+.

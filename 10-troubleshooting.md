@@ -69,6 +69,13 @@
 - rw_r_r_0644 (Aug 15 2026): "We have fully arb code execution on the SMU at runtime via a bug in one of the message handlers" — appears exclusive to Cyan Skillfish (PS5/coreboot have an extra bound check). Can set arbitrary clocks/voltages (incl. ~2 GHz GDDR6) and write core masks. Possible path to power-up the VCN from the SMU; exploit cleanup pending.
 - Historical context: holde and Angablade got the SMU to wake the VCN block ~a year ago (one malformed frame via ffmpeg) but did not publish the SMU command. holde (Aug 14 2026): firmware is signed **by AMD, not Sony** — corrects earlier doc statements blaming Sony.
 
+**Progress (Aug 17-24 2026):**
+- bjaan (14/08/2026) mapped the CH3 SMU message-handler table and found an unused message `0xA4` slot plus a dormant PMFW handler at offset `0x1c1a0` that feeds `0x309b4` — a substantial platform/power transition routine. Registering the handler alone (without sending A4) hung the machine during boot — rules out that activation route but confirms a genuine dormant control path exists.
+- bjaan (15/08/2026): direct VCN firmware loads (`navi10_vcn.bin`, bypassing PSP) all end in system hang. His traced builds show the direct-load patch bypasses PSP authentication, places firmware in the VCN buffer, and initialization progresses all the way into `vcn hw_init` — it still hangs when the decoder ring is first exercised.
+- dantistnfs (18/08/2026), power-on validation criteria: status register reports powered on + VCN operating frequency enabled + firmware loading no longer crashes (firmware gets rejected by PSP with error `0xffff0008` for others). rw_r_r_0644 built an RPC-style patch that can call any SMU function from Python (published in [bc250-smu-unlock](https://github.com/rw-r-r-0644/bc250-smu-unlock)).
+- thelamer (19/08/2026): shipped unlock + the new power-on method as helpers in [bc250-lab-image v0.3.0](https://github.com/thelamer/bc250-lab-image/releases/tag/v0.3.0) as a dedicated POC platform ("if this works it will be a combination of smu commands, custom kernel, and possibly customization to libva").
+- **Status summary (yrouel86, 24/08/2026):** "Firmware loading has been solved AFAIK, the issue that remain is to properly turn on and initialize the VCN, powering it seems to have been solved but there's another gate to solve" — the full chain is not complete yet.
+
 See [11-community-and-resources](11-community-and-resources.md) for latest status.
 
 ---
@@ -465,6 +472,22 @@ sudo journalctl -u cyan-skillfish-governor-smu --no-pager -n 20
 ```
 
 ---
+
+## smu_oc Can't Install or Uninstall ("service not found" / "no module named bc250_detect")
+
+**Symptoms:** redbeard's script says "already installed", applying a config gives "CPU service failed to start, and bc250-smu-oc.service not found"; BC250 Control Center reports `No module named bc250_detect` even though the file exists in `.local/bin`. Uninstall reports success but changes nothing (jmexp, 16/08/2026, CachyOS with 8-core unlock).
+
+**Fix:** wipe the pipx environment and reinstall from the script — completely deleting `~/.local/share/pipx` allowed reinstalling smu_oc again (aethelbarry, 17/08/2026). ⚠️ This removes other pipx-installed tools too; reinstall anything else you had.
+
+---
+
+## Cyberpunk 2077 Instant Crash — gfxhub Page Fault (TCP client) on Mesa 26.x
+
+**Symptoms:** game flatlines seconds after launch (before fully loading): screen freezes, audio trails off, process dies. dmesg shows repeating `[gfxhub]` page fault from `vkd3d_queue`, always **TCP client (0x8), write fault (RW=1), 0x8003xxxxxxxx range**, ending in `gfx_0.0.0 ring timeout/reset` (alessio_m, 17/08/2026).
+
+**Context:** Nobara, Mesa 26.1.1–26.2.0 (25.3.6 no longer packaged), kernel 7.1.8, no unlocks applied, default governor config. Ruled out one-by-one: IOMMU disable, zswap→zram switch, GE-Proton11-5, static 6GB/6GB VRAM split, GTT/TTM params, `radv_enable_unified_heap_on_apu` (game wouldn't launch at all with it). Other DX12/vkd3d titles stable.
+
+**Suspected cause / first thing to try:** stock governor config may be too **undervolted** for your particular card — hashtagoctothorp hit the same on his board ("the default gpu governor config is too undervolted for your card. (It was for mine)", 17/08/2026). Test with less aggressive UV or stock voltages before deeper debugging. Resolution still open as of Aug 2026.
 
 ## GPU Locked at 1500 MHz
 

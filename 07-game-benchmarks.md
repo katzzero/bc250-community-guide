@@ -60,6 +60,8 @@
 | dbkretro | 8 core + 40 CU | 1080p | ~60 | Up from ~52 with 6 core — "8 core 40cu gang" |
 | qwert9811 | 8 core unlocked | Dogtown (CPU-heavy area) | Early 50s | Up from early 40s — ~10 FPS gain in most demanding area |
 
+**Optimized FSR 4 RADV build (rescuemei/dmoraza, Aug 14 2026):** a community-patched RADV (Mesa 26.1.6 base) optimizing the FSR 4.1.1 INT8 fallback with i24 arithmetic reaches **~82–85 FPS vs ~70–75 with the previous "Golden" build** in a high-FPS test scene — shader dropped from 64k → 37k instructions ([github.com/dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4)). See [11-community-and-resources](11-community-and-resources.md).
+
 **Tips:** Enable FSR Quality for a significant boost. DLSS/FSR Frame Generation works well. (elektricM docs)
 
 ---
@@ -82,6 +84,7 @@
 |----------|-----|-------|
 | 1080p Medium | ~60 (Discord user) | Needs zram enabled (16 GB RAM is tight) |
 | With FSR4 on Proton GE | Playable [confirmed: @lonewolf05849, 16/01/2026]
+| 4K, 60 FPS | Playable | "Playing Hogwarts at 4k 60fps on the bc250" [confirmed: @cubehacker8107, 19/08/2026] — settings not shared |
 
 > Game needs ~16.5 GB RAM. Enable zram: `zram-size = ram x 0.75` and close background apps. [confirmed: @hojnikb, 08/03/2026]
 > Use 6 GB static VRAM allocation to avoid OOM crashes. [confirmed: @big_trov, 28/02/2026]
@@ -190,8 +193,11 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | 1080p Medium, no scaling | 38–42 | |
+| Ultra (textures High), 4K + FG | ~60 solid | Open world with fast-flight mod; drops in dense towns [confirmed: @dmoraza, 14/08/2026] |
 
 **Fix:** Use Proton Experimental Bleeding-Edge branch with VKD3D RDNA1 fix. Version 1.02 works. [confirmed: @nohanmv, 01/04/2026]
+
+> The **v1.18.00 game update broke launch on Proton 11** for some users; `proton-cachy` and Proton Experimental work (.crotch, 19/08/2026). VRAM split: fixed 3–4 GB works best — games detect 6 GB and can use up to 8 GB; forcing 6 GB static broke some games, and dynamic 512 MB loads lowest-quality textures in this title (@cubehacker8107, @h00man._., @_mastag, Aug 16 2026).
 
 ### Space Marine 2
 
@@ -295,6 +301,8 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Valheim | 40–80 FPS | 80 FPS with mitigations=off (Discord user) |
 | GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26) |
 | Oblivion Remaster [Discord user] | 30–75 FPS at 3440x1440 | With/without frame gen |
+| Oblivion Remastered — no FG | 25–30 FPS in forest; cities/dungeons run well | Frame gen helps a lot but forest stutters remain [confirmed: @zerosumpr, 23/08/2026] |
+| No Man's Sky (40 CU) | Playable, rendering artifacts | Missing specular highlights vs NVIDIA reference even with GTAO off [confirmed: @cubehacker8107, 16/08/2026] |
 | Marvel Rivals [Discord user] | 100–190 FPS | |
 | Warframe | 75 FPS at 1080p | V-Sync ON, no FSR | [confirmed: @whomstdv, 02/12/2025]
 | War Thunder | Playable at 1080p High | Max GPU OC, no RT |
@@ -333,8 +341,10 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | System / Game | FPS | Notes |
 |---------------|-----|-------|
 | Ryujinx (Switch) — TOTK | 20 FPS consistent | Appears to be board limitation (elektricM docs) |
+| Eden (Switch) — TOTK, 36 CU + 8 core | ~35 FPS @ 4K (Kakariko Village) | With NX Optimizer applied [confirmed: @mitchthepreacher, 18/08/2026] — "miles more playable than my Legion Go" |
+| Eden (Switch) — general | 4K 60 in most titles | Switch emulation is CPU-bound; render high since CPU limits anyway (@loris_kujo, @jackjt8, Aug 2026); Xenoblade-class games are the exception |
 | Ratchet & Clank (RPCS3) | 45–60 | Playable | [confirmed: @whomstdv, 25/11/2025]
-| Breath of the Wild (Cemu) | Works | |
+| Breath of the Wild (Cemu) | Works | With 8 cores at stock clocks: ~50 FPS in open-field combat, dips to 40; dungeons smooth 60 [confirmed: @loris_kujo, 18/08/2026] |
 | Xenia (Xbox 360) | Does not work — freezes system | |
 | PCSX2 (PS2) | Excellent | elektricM docs |
 | Dolphin (GameCube/Wii) | Excellent | elektricM docs |
@@ -368,6 +378,7 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | Final Fantasy VII Rebirth | "DX12 is not supported on your system" -- game checks for specific GPU compatibility, no fix for BC-250 yet | elektricM docs |
 | Spider-Man 2 | Out-of-memory crash with 512MB VRAM. Fixes (help-thread): set 6GB static VRAM in BIOS (_nk10), add TTM kernel params (hojnikb), run 32GB swap script from NexGen3D repo, lower in-game settings (zerosumpr), or add DXVK config overrides (newgbaxl) |
 | Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz` | Community report | [confirmed: @fforduck, 12/05/2026]
+| Expedition 33 (Clair Obscur) — 40 CU | 35 → 60 FPS | "40cu boosted my expedition 33 35 fps to 60" [confirmed: @josuee34, 14/08/2026] |
 | Palia | Crashes without workaround (swap may help) (Discord user) | Community report |
 
 ---
@@ -442,6 +453,7 @@ Community-tested by big_trov and essdee4336 (May 2026). All runs with P12 Pro fa
 | 40 CU, 1920 MHz / 960 mV (MX-7, triple fan) | — | throttled | — | linepanda (May 2026) |
 | **38/40 CU, 1900 MHz** | **130** | **84C** | **336W wall** | **pijuli.** |
 | **24/40 CU, 2130 MHz (same board)** | **95** | **84C** | **320W wall** | **pijuli.** |
+| 38 CU, 2100 MHz / 920 mV — **FurMark score 8000+** | — | — | — | shibly_91236, 17/08/2026 (score metric, not FPS) |
 
 pijuli. tested a 38/40 CU board (2 harvested in SE1 SH0). At 1900 MHz with 38 CUs: 130 FPS, 84C, 336W from wall. Same board at 24 CU/2130 MHz: 95 FPS, 84C, 320W. **35% FPS increase** at equivalent temps with only 16W more from wall. Cooling: P12 Max, middle fins removed, PTM7950, new thermal pads, no cage/no back fan.
 
@@ -555,6 +567,7 @@ Games with verified community mentions but limited sample size — use with caut
 | Forza Horizon 4 | Suspected memory leak; VRAM never frees | |
 | Diablo IV | 1440p max + FSR rolling FPS | |
 | Resident Evil 9 | 60 FPS w/ 1080p high manual + hair strands, FSR quality (dbkretro) | Frame gen crashes on Bazzite with REFramework |
+| Resident Evil series incl. Requiem | 60 FPS no problems | "Every Resi game inc Requiem is 60fps no probs" [confirmed: @dbkretro, 18/08/2026] |
 | Resident Evil 7 | Runs very well, everything high, ~64C | |
 | Mortal Kombat 1 | GPU refuses to fully boost (felingreenleaf, Aug 6 2026) | Struggles to stay locked at 60 |
 | Assassin's Creed IV: Black Flag – Resynced | 45-50 FPS city / 60+ sea, TAA Native 1080p | Also 2K FSR Quality + FG max details (dmoraza) |

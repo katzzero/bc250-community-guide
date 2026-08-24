@@ -419,6 +419,10 @@ The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be s
 
 **Non-0x77 core masks (fforduck, Jul 30 2026):** fforduck tested a board with core mask 0x7B (instead of the standard 0x77). The Python script was edited to target this mask and all 8 cores work correctly. If your board has a non-standard disabled-core layout, the script can be modified to match.
 
+**Non-0x77 masks usually mean defective cores (nobulletsfound case, Aug 17 2026):** a board reporting core presence mask **0xB7** triggered the unlock script's warning ("high probability of defective cores - STOPPING!"). Overriding with `-f` booted but produced graphical glitches and crashes — the enabled cores were indeed defective (@caredil_bg, @dizzey0709: the non-standard factory mask likely maps out defective cores). Custom per-core masks (e.g. running only 7 healthy cores) are an in-progress community effort — not available yet (dizzey0709, 17/08/2026).
+
+**Bad-core workaround without reflashing (h00man._., 16/08/2026):** on a board where core 3 fails under load, boot with kernel param `isolcpus=6,7` plus a small systemd script that offlines those two threads (core 3) at boot — keeps the 8-core BIOS usable while avoiding the bad core.
+
 **Option 1: Patched BIOS (Permanent)** — [RescueMei/BC250-DXE-SMU-Core-Unlock](https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock)
 - DXE/SMU patched BIOS that enables all 8 cores permanently
 - **Now includes unlock option in the CPU configuration section** and official SteamOS boot logo at boot (yrouel86, Aug 1 2026)
@@ -473,6 +477,8 @@ Requires `stress-ng` and 8 cores already visible (run the unlock first). Interpr
 - **higorprado telemetry mapping:** [higorprado/bc250-8core-telemetry-report](https://github.com/higorprado/bc250-8core-telemetry-report) — reverse-engineered the 8-core SMU metrics layout (the 8-core per-core arrays displace `GfxclkFrequency` in the fixed 116-byte metrics table, so the driver reads a residency counter instead of a clock)
 
 **8-core ACPI fix required after unlock (Aug 2026):** The community ACPI fix (`bc250-acpi-fix`) declares one processor object per *thread*, and the 6-core tables stop at `C00B` (12 threads). Once all 8 cores are active you have 16 threads, so **CPUs 12–15 get no cpuidle states at all** — they cannot enter any C-state and burn power at idle. [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) rebuilt the tables to extend the declarations to `C00F` (16 threads). The gabriwar tool wraps this in `bc250-acpi-fix.sh` (`status`/`install`/`revert`), which fetches the 8-core SSDTs, backs up your tables and rebuilds the initramfs (Arch/CachyOS/mkinitcpio). For Bazzite/SteamOS, follow the README in the source repo. Verify with `cpupower idle-info` or check for missing C-states.
+
+**Unified ACPI fix repo (e_tho, 15/08/2026):** [e-tho/bc250-acpi-fix](https://github.com/e-tho/bc250-acpi-fix) consolidates the unmaintained original plus the forks, and adds fixes none of them had: enables **C1/C2 idle states**, **8 frequency-scaling steps from 800 MHz to 3.2 GHz**, stubs the undefined control methods that throw errors at boot, and replaces the broken idle state table (rw_r_r-0644's approach) instead of adding a second one alongside it. Works on 6-core *and* 8-core boards on every BIOS release; tested idle at 800 MHz → boost ~3.5 GHz. Note: if running a BIOS with built-in ACPI tables (The Mei™'s), disable ACPI injection in firmware setup first. C1 does real work (core halting); no measurable power saving from C2 (e_tho, 16/08/2026).
 
 **Field reports (Aug 2026):**
 - **glide_2026 (03/08):** temporary unlock, Elden Ring gained ~10 fps ("definitely added 10ish frames", still fluctuates around 60). Ratchet & Clank Rift Apart "incredible with 8 cores and 40 CUs" with the gfx1013-fix

@@ -86,7 +86,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 1. **Linux only** — no Windows GPU drivers exist
 2. **Always clear CMOS** after BIOS flash — settings won't stick otherwise
 3. **Disable IOMMU** in BIOS — broken, causes display failures
-4. **Use kernel 6.19.x** (recommended) or 6.18.18 LTS — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10
+4. **Use kernel 7.1.x (current CachyOS standard) or 6.18 LTS** — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10; roll back via boot menu if an update breaks display (Aug 2026)
 5. **Governor voltage: minimum 700 mV** — below that GPU locks to 1500 MHz
 6. **Never use 6-pin to 8-pin PCIe adapters** — fire hazard
 7. **Never use Smokeless_UMAF** — can permanently damage the board
@@ -144,6 +144,13 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 ## What's New
 
 **August 2026:**
+- VCN research advances — SMU arbitrary code execution (rw-r-r-0644), firmware loading solved, power-on partially working; one gate remains
+- Optimized FSR 4 RADV build (dmoraza/rescuemei) — ~82–85 FPS vs ~70–75 in Cyberpunk high-FPS test
+- CachyOS standard kernel now 7.1.x-based; 7.2 imminent with DP audio + display fixes
+- Unified ACPI fix repo (e-tho): C1/C2 idle states + 8 P-state steps, 6c/8c, all BIOS releases
+- Native Mesh Shaders V1 works for mesh-only games (lonewolf0622)
+- Dolby Digital 5.1 via HDMI/eARC on SteamOS (rpf16rj toolkit v1.3.0)
+- Governor v0.4.12 tagged release with `fix-freq`
 - CPU core unlock matures — Linux SMU mailbox 0x98 tool (GabriWar) with systemd re-apply, warm/cold boot behavior, core test script (+26.9% 7-zip)
 - `fix-freq` governor option fixes 8-core GPU clock reporting (no kernel patch)
 - 8-core ACPI fix (mendesrr)

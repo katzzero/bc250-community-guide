@@ -61,14 +61,14 @@
 | [katzzero/250mon](https://github.com/katzzero/250mon) | Lightweight hardware monitor for BC-250 — temperature, frequency, power stats |
 | [suapapa/rusty-bc250-atx](https://github.com/suapapa/rusty-bc250-atx) | ATX PSU power control (Rust) |
 | [Koloses/Solarflare](https://github.com/Koloses/Solarflare) | Moonlight/Sunshine fork with Pyrowave for BC-250 |
-| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 (incl. 8-core unlock BIOS) flash with themed menus |
+| [Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script](https://github.com/Forbidden-Darkness/AMD-BC-250-UEFI-v2.2-Firmware-Menu-Script) | Interactive UEFI flashing script — automated BIOS backup + modded P3.00 (incl. 8-core unlock BIOS) flash with themed menus. **Release v0.5.0** (Aug 2026) — prerequisite: "Deploy only on AMD BC-250 platforms verified 100% stable with all 8 CPU silicon cores active under legacy validation methods" |
 | [tmghd272/bc250-toolkit-lite](https://github.com/tmghd272/bc250-toolkit-lite) | Lighter toolkit variant |
 | [tmghd272/bc250-custom-bios-logo](https://github.com/tmghd272/bc250-custom-bios-logo) | BC250 BIOS boot logo theme — AMI OEM "ChangeLogo.exe" for DIY mods |
 | [tmghd272/bc250-custom-overlays](https://github.com/tmghd272/bc250-custom-overlays) | Custom overlays/logos (Turzx, MangoHud presets, BIOS) |
 | [thelamer/bc250-ollama-openwebui](https://github.com/thelamer/bc250-ollama-openwebui) | Ollama + OpenWebUI setup guide |
 | [keyboardspecialist/bc250-steamos](https://github.com/keyboardspecialist/bc250-steamos) | SteamOS setup for BC-250 |
 | [tmghd272/bc250-batocera-tools](https://github.com/tmghd272/bc250-batocera-tools) | Batocera Linux tools for BC-250 |
-| [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit — 40 CU + 8-core unlock surviving cold boot and SteamOS updates without a BIOS flash |
+| [rpf16rj/bc250-steamos-real-toolkit](https://github.com/rpf16rj/bc250-steamos-real-toolkit) | Real SteamOS toolkit — 40 CU + 8-core unlock surviving cold boot and SteamOS updates without a BIOS flash. **v1.3.0** adds Dolby Digital 5.1 via HDMI/eARC (option 13, Aug 2026) |
 | [akandr/bc250](https://github.com/akandr/bc250) | Ollama + Vulkan inference guide for BC-250 |
 | [mix3d/bc250-perf-profile-switcher](https://github.com/mix3d/bc250-perf-profile-switcher) | Decky Loader plugin — GPU clock slider + telemetry overlay in Quick Access Menu |
 | [cachenetics/bc250-nixos](https://github.com/cachenetics/bc250-nixos) | NixOS configuration for BC-250 |
@@ -82,6 +82,7 @@
 | [F5GO/bc250-cu-live-manager-SteamOS](https://github.com/F5GO/bc250-cu-live-manager-SteamOS) | CU live manager variant for real SteamOS |
 | [SamSkjord/ubazzite600](https://github.com/SamSkjord/ubazzite600) | TP-Link UB600 (RTL8761BU) Bluetooth fix for Bazzite / atomic Fedora via out-of-tree btusb rebuild |
 | [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | ESP32-C3 power switch — BLE controller wake, WiFi config portal, boot watchdog (ATX PSU) |
+| [1mathp/ESP32C3-ATX-Blynk](https://github.com/1mathp/ESP32C3-ATX-Blynk) | ESP32-C3 remote power-on via Blynk app — works outside local network (Aug 2026) |
 | [ProjectSomnacin/somnacin-hardware](https://github.com/ProjectSomnacin/somnacin-hardware) | Somnacin project hardware |
 | [awalol/DS5Dongle](https://github.com/awalol/DS5Dongle) | Pico2W DualSense bridge — HD haptics, headset audio, wireless BT bridging |
 | [djanice1980/DS5_Bridge](https://github.com/djanice1980/DS5_Bridge) | DS5 Bridge Linux/CachyOS port — PipeWire audio, audio-driven haptics, uinput chord injection |
@@ -99,7 +100,11 @@
 | [onlinermm/BC250-Telemetry](https://github.com/onlinermm/BC250-Telemetry) | VRM telemetry daemon + web dashboard — PMBus over I2C (per-rail voltage/current/power/temp), 2-wire hardware mod (Aug 2026) |
 | [DryhoppedIPA/bc250-gfx1013-fix](https://github.com/DryhoppedIPA/bc250-gfx1013-fix) | Async compute queue (ACE) fix for GFX1013 — kernel + Mesa/RADV patches, +25% FPS (Aug 2026) |
 | [dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4) | Experimental FSR 4 optimization for GFX1013 — Mesa/RADV INT8 dot-product fallback via i24 instead of broken native DP4A; FSR 4.1.1 shader dropped 64k→37k instructions, ~306k→104k throughput; "huge performance improvement" in Cyberpunk 2077 (Aug 2026) |
-| [MastaG/linux-cachyos-bc250](https://github.com/MastaG/linux-cachyos-bc250) | CachyOS BC-250 kernel + Mesa repo — kernel-7.1 patches (audio, compute queue fix), updated Mesa, requires `amdgpu.sched_policy=2` kernel cmdline for GPU perf (Aug 2026) |
+| [MastaG/linux-cachyos-bc250](https://github.com/MastaG/linux-cachyos-bc250) | CachyOS BC-250 kernel + Mesa repo — kernel-7.1 patches (audio, compute queue fix), updated Mesa, telemetry fixed at source in-kernel (`gpu_metrics`, `gpu_busy_percent`, real `freq1_input`). On this kernel, governor `fix-freq`/`fix-metrics` are redundant bind mounts (Aug 2026). |
+| [e-tho/bc250-acpi-fix](https://github.com/e-tho/bc250-acpi-fix) | Unified ACPI fix — C1/C2 idle states, 8 P-state steps 800 MHz–3.2 GHz, stubs undefined methods, replaces broken idle table; works 6c and 8c on every BIOS (Aug 2026) |
+| [lonewolf0622/BC250-Native-Mesh-Shaders-](https://github.com/lonewolf0622/BC250-Native-Mesh-Shaders-) | Native Mesh Shader support — V1 works for mesh-only games; V2 complete but unshipped pending Task Shader implementation ("on the verge of being complete", Aug 2026) |
+| [rw-r-r-0644/bc250-smu-unlock](https://github.com/rw-r-r-0644/bc250-smu-unlock) | Fully arbitrary read/write and code execution on the BC-250 SMU — RPC-style patches from Python (Aug 2026); foundation of current VCN power-on research |
+| [thelamer/bc250-lab-image](https://github.com/thelamer/bc250-lab-image) | Dedicated experiment image — v0.3.0 ships the SMU unlock plus rw_r_r_0644's power-on method as helpers for VCN research (Aug 2026) |
 | [rpf16rj/steamos-led-wled](https://github.com/rpf16rj/steamos-led-wled) | DIY LED bar replica for BC-250 controlled from SteamOS Game Mode via WLED (Aug 2026) |
 
 ---
@@ -164,6 +169,7 @@ When searching for help, try these identifiers:
 | Oct 2025 | $100-130 | YouTube coverage increased demand | [confirmed: @dapping, 20/03/2026]
 | Early 2026 | $150-200+ | Current -- still climbing | [confirmed: @dartzon, 10/06/2026]
 | May 2026 | ~$130-140 | Some deals at $130-140, trending up | [confirmed: @Discord]
+| Aug 2026 | $150-200 (AliExpress) | Active listings: $166.54 US / AUD$211 AU (~$150); users report seeing $188–196 with occasional $166 flash listings [confirmed: @chu, @j0shm1lls, @alexxxor_, @dderps, 14-17/08/2026]
 
 > Prices continue to rise as supply dwindles and demand grows from the gaming community. Expect $150-200+ in active listings. [confirmed: @iambryan_x1, 24/01/2026]
 

@@ -130,6 +130,7 @@ Community members are using standard CPU tower coolers with 3D-printed brackets:
 | **Thermalright Peerless Assassin 120** | Best non-liquid cooler for the money. Requires 3D-printed bracket. Quiet, excellent cooling. | dartzon, May 2026 |
 | **Thermalright AIO** | Aqua Elite 240 V2, V4, V6 all confirmed working. V4 ASIN: B0DHZ5LSNP. V6: `B0F98KYG6X` (Amazon CA). | gennro (11/04/2026), telefragger (25/05/2026) |
 | **MSI AIO** | MSI MAG CoreLiquid A15 240mm. nexgen3d designed an LGA 1851 adapter bracket for the BC-250 bolt pattern ("AIO Mount design complete, this will adapt the LGA 1851 to the BC250 bolt pattern, specifically designed for the MSI Mag AIO, but may fit others"). | nexgen3d, Jan 2026 |
+| **JiuShark JF13K (top-blow, dual 120mm)** | CPU tower cooler alternative for well-overclocked boards — Old Lamer video demonstrates it on the BC-250 with 3D-printed mounting parts ([video](https://www.youtube.com/watch?v=hfJSzgiWb40), [Printables mount](https://www.printables.com/model/1574416-amd-bc-250-with-cpu-cooler)) | capt.cat_13, 22/08/2026 |
 | **Bykski Custom Waterblock** | No block exists yet -- "Surprised bykski doesn't have a block for this thing" (manya4090, Dec 2025). | manya4090, Dec 2025 |
 
 dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mounting bracket, coupled with a GPU backplate cooler with fans for VRAM chips. With 36 CU unlocked, Death Stranding 2 ran at ultrawide 1440p@60fps on high settings and temps never exceeded 72C.

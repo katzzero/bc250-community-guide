@@ -2,7 +2,8 @@
 
 > Step-by-step guides for installing Linux on the BC-250.
 > **BIOS must be flashed first** - see [02-BIOS](02-bios-and-firmware.md).
-> **Kernel**: Community has moved to **6.19.x** which has VRR and DP audio fixes (gennro). **6.18.18 LTS** is the stable fallback. 40 CU unlock no longer requires a kernel patch — use `bc250-cu-live-manager` on stock kernel. **Mesa 26** is now current with significant RT and performance improvements.
+> **Kernel**: As of mid-Aug 2026 the CachyOS standard kernel is **7.1.x-based** (e.g. 7.1.8-1) and kernel **7.2 is expected shortly** — it will carry the latest DP audio patch, which also fixes some display issues (essdee4338, 16/08/2026). The **6.18 LTS branch** (6.18.42-1-cachyos-lts) remains available for stability. 40 CU unlock no longer requires a kernel patch — use `bc250-cu-live-manager` on stock kernel. **Mesa 26** is now current with significant RT and performance improvements.
+> After kernel updates, if you get a blank screen, boot the previous kernel from the boot menu and remove the broken one (rocksalt_, 16/08/2026).
 
 ---
 
@@ -28,7 +29,7 @@ CachyOS has become the community default as of July 2026 due to Bazzite's stable
 | **Performance** | Behind — stable branch on kernel 6.17.7, old Mesa (fforduck, Jul 2026) | Best — kernel 6.19+, Mesa 26, optimized packages, BORE scheduler (dznuts, gennro) |
 | **Stability** | ⚠ Unstable with 40 CU — green screen on idle/download, random freezes. "A bunch of people moved from Bazzite to CachyOS" (community, Jul 2026). | Rock solid — "5 days no crashes after switching from Bazzite" (evo9899). Several users report identical experience. |
 | **Ease of setup** | Easiest — pre-patched kernel, Game Mode included. But outdated kernel causes governor install issues. | Moderate — Arch-based, manual setup. More flexible, fewer surprises. |
-| **Kernel** | ⚠ Stable: **6.17.7** (OLD!). Testing: kernel 7.0+ Mesa 26 — not yet released. **⚠ Kernel 7.1+ causes black screen with governor — dmoraza (Aug 3 2026).** Stay on 6.19.x or 6.18 LTS for governor use. | Latest 6.19+ out of box. No waiting for updates. |
+| **Kernel** | ⚠ Stable: **6.17.7** (OLD!). Testing: kernel 7.0+ Mesa 26 — not yet released. **⚠ Kernel 7.1+ causes black screen with governor — dmoraza (Aug 3 2026).** Stay on 6.19.x or 6.18 LTS for governor use. Bazzite deck 44 update reported working fine by early adopters (ntimd8r, dbkretro, 22/08/2026). | Standard kernel now **7.1.x-based**; 7.2 imminent with DP audio + display fixes (essdee4338, 16/08/2026). Some users saw blank screens on 7.x and 6.18 after updates — roll back via boot menu if hit (@bencraft3204, @rocksalt_, 16/08/2026). |
 | **40 CU unlock** | CU live manager works. Legacy kernel patch available (ba29 Deck kernel only). OGC desktop kernel packages not yet available. | CU live manager works on stock kernel. Full toolkit support (redbeard1083, gennro). |
 | **Governor install** | `dnf copr` + `rpm-ostree install`. Can be tricky on old kernel. Rebase to `bazzite:testing` or `bazzite:stable` helps (zerosumpr). | `yay -S` or AUR helper. Straightforward. |
 | **Updates** | Immutable — safer rollbacks, but updates are slow. BC-250 needs bleeding-edge kernel which conflicts with Bazzite's philosophy. | Rolling — bleeding edge. May break occasionally but quick fixes. |

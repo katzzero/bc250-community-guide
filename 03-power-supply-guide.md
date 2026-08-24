@@ -173,6 +173,7 @@ ________________________
 - Avoid **CCA** (Copper-Clad Aluminum) and steel cables — some cheap PSUs (Apevia) use steel
 - Be wary of Chinese cables that fake AWG (painted copper or iron)
 - Verify the wire is **pure copper** before using
+- Magnet test your cables: shibly_91236's Thermaltake TR2 S 550 PCIe cable ran "slightly hot" under benchmark load — the magnet test showed it is likely steel wire, not copper (17/08/2026)
 - Do NOT use SATA-to-PCIe adapters — fire hazard (SATA is rated 54W, board draws 235W)
 - Do NOT use cheap 6-pin to 8-pin PCIe adapters for power delivery — they will melt
 - Avoid Apevia PSUs — reports of steel wires in cables (essdee4336)
@@ -228,6 +229,9 @@ These projects use an ESP32 microcontroller to detect a Bluetooth controller pow
 **BC250 ESP32 Power Switch** (Thunkar) — ESP32-C3 firmware for ATX PSU control via PS_ON# line. Push-button power (tap on, hold 5s force off), boot watchdog (releases PSU if board does not come up in 10s), optional BLE controller wake for bound controllers (e.g. 8BitDo), WiFi setup portal for configuring the bound controller from a phone without reflashing. Powered from ATX 5V standby. Reads board power state from TPMS1 pin 9.
 *GitHub: [Thunkar/bc250-esp32-switch](https://github.com/Thunkar/bc250-esp32-switch) | Discord project-forums.*
 
+**ESP32C3-ATX-Blynk** (math.p / 1mathp) — ESP32-C3 remote power-on for the BC-250 controlled through the Blynk app, works from outside the local network. Author notes Wake-on-LAN should also be possible with a network cable. Early project — no controller-wake integration yet.
+*GitHub: [1mathp/ESP32C3-ATX-Blynk](https://github.com/1mathp/ESP32C3-ATX-Blynk) | Discord bc250-chat, 22/08/2026.*
+
 ### Pi Pico Controller Wake Projects
 
 **BT Dongle with PC Wake** (huzhekun / victorhu) — Pi Pico 2W used as a USB Bluetooth dongle that also wakes the PC. When the board is off, the Pico stops being a dongle and listens for Bluetooth connections. If it sees a connection attempt from a paired controller, it pulses the power button to boot the PC and returns to dongle mode. Requires ATX power control mod (IAMDarkyoshi) and soldering to power button + LED leads. Linux only (emulates HCI dongle). Early stage — creator noted "a lot of jank" with full dongle emulation.
@@ -271,6 +275,7 @@ By punsh1734. Monitor per-rail VRM/PMIC voltage, current, power and temperature 
 - **Hardware mod (required):** `I2C_HEADER1` and `TPMS1` are **not connected to each other on the board** — you must bridge them with two jumper wires. **SCL → TPMS1 pin 4 (`SMB_CLK_MAIN`), SDA → TPMS1 pin 6 (`SMB_DATA_MAIN`)**. No separate GND jumper needed. ⚠️ Wiring on a bare PCB with power disconnected; double-check pinouts before powering back on.
   - 📌 Note: the community hardware docs on elektricm were **wrong about this pinout** (SDA/SCL swapped and/or mislabeled) — punsh1734 fixed the correct mapping while developing the mod (Aug 2026). Use the header table in [hardware.md](https://github.com/onlinermm/BC250-Telemetry/blob/main/hardware.md), not the old pinout doc.
 - **Practical use (Aug 2026):** lets you see per-rail VRM power draw and temps while tuning GPU overclocks — punsh1734 found **1900 MHz to be the GPU sweet spot** for balancing temperature vs power. Once the 8-core CPU unlock is active, VRM monitoring is especially useful for re-tuning (see [02-bios-and-firmware.md](02-bios-and-firmware.md)).
+- **PSU sag diagnosis (alexxxor_, 23/08/2026):** after checking voltages with the dashboard, he found his PSU sagging to **11.6 V under a ~200 W load** — the OC limits he blamed on "bad silicon" were actually PSU voltage sag, not VRM limits ("I'd just assumed I was a victim of bad silicon... it's the PSU that is the issue"). A concrete example of why per-rail telemetry matters before blaming the board.
 
 ---
 

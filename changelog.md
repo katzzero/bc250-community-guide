@@ -4,6 +4,65 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## August 24, 2026 — Aug 14-24 export cycle: kernel landscape, VCN progress, FSR4 optimization, new repos (02, 03, 05, 06, 07, 08, 10, 11, README)
+
+Full-scan update against fresh exports (Aug 14-24): bc250-chat (21.8k lines), VCN thread, help-thread cluster, benchmarks (15 threads), bc250-resources, project-forums. All claims cited to export messages.
+
+### 1. Kernel / OS landscape (05, README)
+- CachyOS standard kernel now **7.1.x-based** (7.1.8-1 in field reports); **kernel 7.2 expected within days** carrying the latest DP audio patch that "also fixes some display issues" (@essdee4338, 16/08/2026, bc250-chat). 6.18 LTS branch remains (6.18.42-1-cachyos-lts).
+- Blank screens after kernel updates on both 7.x and 6.18 for some users; rollback advice via boot menu (@bencraft3204, @rocksalt_, 16/08/2026, bc250-chat)
+- Bazzite deck 44 early reports fine (@ntimd8r, @dbkretro, 22/08/2026, help-thread)
+
+### 2. VCN status (10, 11)
+- bjaan mapped CH3 SMU handler table: unused message `0xA4` slot + dormant PMFW handler `0x1c1a0` → `0x309b4` platform/power transition; registering alone hangs boot (14/08/2026, VCN thread)
+- Direct navi10_vcn.bin load bypasses PSP auth and reaches `vcn hw_init`, still hangs at decoder ring exercise (bjaan, 15/08/2026, VCN thread)
+- rw_r_r_0644 published [bc250-smu-unlock](https://github.com/rw-r-r-0644/bc250-smu-unlock) (arbitrary SMU r/w + code exec, RPC from Python); thelamer shipped unlock + power-on helpers in lab-image v0.3.0 (18-19/08/2026, VCN thread)
+- Status: "Firmware loading has been solved AFAIK... powering it seems to have been solved but there's another gate to solve" (@yrouel86, 24/08/2026, VCN thread)
+
+### 3. Benchmarks (07)
+- Cyberpunk: optimized FSR4 RADV ~82–85 FPS vs ~70–75 "Golden" build, high-FPS test scene (rescuemei, 14/08/2026, bc250-chat); repo dmorazasanchez/bc250-fsr4 already listed
+- Hogwarts Legacy 4K 60 FPS playable (@cubehacker8107, 19/08/2026, bc250-chat — settings not shared)
+- Expedition 33: 35 → 60 FPS with 40 CU (@josuee34, 14/08/2026, bc250-chat)
+- RE series incl. Requiem: "60fps no probs" (@dbkretro, 18/08/2026, bc250-chat)
+- Oblivion Remastered: 25–30 FPS forest no FG; cities/dungeons fine; FG helps but forest stutters remain (@zerosumpr, 23/08/2026, benchmarks)
+- Crimson Desert: Ultra 4K FG ~60 solid open world (@dmoraza, 14/08/2026); v1.18.00 broke launch on Proton 11, works with proton-cachy/experimental (.crotch, 19/08/2026); VRAM split guidance 3–4 GB fixed (@cubehacker8107/@h00man._./@_mastag, 16/08/2026)
+- Emulation: Eden TOTK ~35 FPS @ 4K Kakariko w/ NX Optimizer, 36 CU + 8 core (@mitchthepreacher, 18/08/2026); BotW Cemu ~50 FPS open-field combat with 8 cores stock (@loris_kujo, 18/08/2026); switch emu is CPU-bound (@jackjt8, 19/08/2026)
+- NMS: missing specular highlights vs NVIDIA even with GTAO off (@cubehacker8107, 16/08/2026, bc250-chat)
+- FurMark score 8000+ on 38 CU @ 2100 MHz / 920 mV (@shibly_91236, 17/08/2026, bc250-chat — score metric, not FPS)
+
+### 4. BIOS / cores (02)
+- Non-standard mask **0xB7** observed in the wild: script warning "high probability of defective cores"; `-f` override boots but glitches/crashes → factory masks likely map out defective cores (@nobulletsfound, @caredil_bg, @dizzey0709, 17/08/2026, help-thread). Custom per-core masks in progress, not available yet
+- Bad-core workaround without reflash: `isolcpus=6,7` + boot script offlining core 3's threads (@h00man._., 16/08/2026, help-thread)
+- Unified ACPI fix repo [e-tho/bc250-acpi-fix](https://github.com/e-tho/bc250-acpi-fix): C1/C2 idle states, 8 P-state steps 800 MHz–3.2 GHz, stubs undefined methods, replaces broken idle table; works 6c/8c every BIOS (@e_tho, 15/08/2026, bc250-resources). C1 does real work, no measurable saving from C2 (16/08/2026)
+- ⚠️ Rejected claim: "official signed 20GB BIOS" — context check shows it refers to Chinese-modded RTX 3080 cards for AI (cancelled NVIDIA 3080 20GB variant), NOT the BC-250 (@rescuemei, 21/08/2026, bc250-chat)
+
+### 5. Governor (06)
+- v0.4.12 tagged release includes fix-freq ("add fix-freq option for 8 core reporting problem be9537f") — release notes referenced by jmexp, 16/08/2026, help-thread
+- SMU read-concurrency crash theory: governor "hogs smu", races on GPU ops (@gabriwar, @higorevop, 17/08/2026, bc250-resources kernel+Mesa thread); higorevop: FilippoR's kernel patch makes governor read from kernel — 12h OCCT sessions "much more stable"
+- _mastag's kernel patches fix telemetry at source → fix-freq/fix-metrics redundant bind mounts there; README rewritten to "test sched_policy yourself" after mixed results (+2–3% policy 2 Cyberpunk @felingreenleaf; policy 0 better FF7 Rebirth @dmoraza; no difference Doom TDA @hojnikb) (14/08/2026)
+- Regression watch: AUR governor latest — Kernel metrics mode min freq 1000 MHz vs 300 MHz SMU mode (@fforduck, 14/08/2026)
+
+### 6. Power (03)
+- Magnet test confirms Thermaltake TR2 S 550 PCIe cable likely steel wire; ran "slightly hot" under benchmark (@shibly_91236, 17/08/2026, bc250-chat)
+- PSU sag diagnosis case: VRM telemetry showed 11.6 V under ~200 W — OC limits blamed on silicon were PSU sag (@alexxxor_, 23/08/2026, project-forums VRM Telemetry)
+
+### 7. Display/audio (08)
+- DP audio spread-spectrum disable landed in 7.1 stable (@big_trov, 20/08/2026, project-forums); Dolby Digital 5.1 via HDMI/eARC on SteamOS via rpf16rj toolkit v1.3.0 option 13 — udev + WirePlumber AC-3 activation, tested SteamOS v3.18.25 (17/08/2026, bc250-resources)
+
+### 8. Troubleshooting (10)
+- New entry: Cyberpunk instant crash — gfxhub page fault TCP client (0x8) write faults, Mesa 26.x Nobara/kernel 7.1.8; suspected undervolted stock governor config (@alessio_m, @hashtagoctothorp, 17-18/08/2026, help-thread)
+- New entry: smu_oc install/uninstall broken ("service not found"/"no module named bc250_detect") — wipe `~/.local/share/pipx` and reinstall (@jmexp, @aethelbarry, 16-17/08/2026, help-thread)
+
+### 9. Resources (11, README)
+- New repos: e-tho/bc250-acpi-fix, lonewolf0622/BC250-Native-Mesh-Shaders (V1 works for mesh-only games; V2 complete but unshipped pending task shader — posted by @lonewolf05849, 19/08/2026), rw-r-r-0644/bc250-smu-unlock, thelamer/bc250-lab-image v0.3.0, 1mathp/ESP32C3-ATX-Blynk (remote power-on via Blynk app, @math.p, 22/08/2026)
+- Doc 04: JiuShark JF13K top-blow dual 120mm CPU cooler added to adapter table — Old Lamer video + Printables mount (@capt.cat_13, 22/08/2026, project-forums)
+- Forbidden-Darkness UEFI script v0.5.0 release noted w/ stability prerequisite; rpf16rj toolkit v1.3.0 AC-3 feature
+- MastaG/linux-cachyos-bc250 description corrected (telemetry fixed in-kernel; sched_policy mixed results)
+- Price history row added: Aug 2026 $150-200 AliExpress ($166.54 US listing, AUD$211 AU ≈ $150; users seeing $188–196 with $166 flash listings) (@chu 14/08, @j0shm1lls 16/08, @alexxxor_ 16/08, @cubehacker8107 17/08, @dderps 17/08, bc250-chat)
+- README What's New updated (VCN progress, FSR4 build, kernel 7.1.x, e-tho ACPI, mesh shaders, Dolby 5.1, v0.4.12); Important Warnings #4 kernel guidance updated
+
+---
+
 ## August 15, 2026 — Doc 00 rework: merged Performance Unlocks section + copy fixes (00)
 
 Design/writer pass on 00-from-zero-to-gaming.md — no factual changes beyond the unlock methods already cited in 02-bios-and-firmware.md.
