@@ -27,7 +27,7 @@
 | 1080p High + FSR, no RT | 70–90 | elektricM docs |
 | 1080p High + FSR + RT (lighting only) | 50–60 | elektricM docs |
 | 1080p Ultra + FSR3.1 | 100+ | elektricM docs |
-| 1080p CPU-bound areas | <60 even at lowest (Discord user) | CPU bottleneck in dense areas |
+| 1080p CPU-bound areas | <60 even at lowest (attribution pending) | CPU bottleneck in dense areas — "heavily CPU bound, graphic settings do not matter" (hecto_77113, 09/07/2026) |
 | Power draw | Up to 235W | Most demanding game in the library (elektricM docs) |
 
 **Benchmark scores:**
@@ -84,7 +84,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Medium | ~60 (Discord user) | Needs zram enabled (16 GB RAM is tight) |
+| 1080p Medium | ~60 (attribution pending) | Needs zram enabled (16 GB RAM is tight) |
 | With FSR4 on Proton GE | Playable [confirmed: @lonewolf05849, 16/01/2026]
 | 4K, 60 FPS | Playable | "Playing Hogwarts at 4k 60fps on the bc250" [confirmed: @cubehacker8107, 19/08/2026] — settings not shared |
 
@@ -98,8 +98,8 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | Full graphics (DX11) | Smooth (45+ FPS min — elektricM docs) | Heatsink barely warm with 120mm fan |
-| 2230 MHz GPU | Crashes (Discord user) | Reduce to 2150 MHz for stability (Discord user) |
-| 10/6 VRAM split | Fixed crash (Discord user) | Static allocation avoids ZRAM conflicts | [confirmed: @xseol, 12/07/2025]
+| 2230 MHz GPU | Crashes (i_guess_im_a_girl, 20/11/2025) | Reduce to 2150 MHz for stability (i_guess_im_a_girl, 20/11/2025) |
+| 10/6 VRAM split | Fixed crash | Static allocation avoids ZRAM conflicts [confirmed: @xseol, 12/07/2025] |
 
 **Launch flag:** `-useMaximumSettings` — elektricM docs
 **Adapter fix:** May detect as software rendering — change adapter in graphics settings to match `vulkaninfo --summary` output (elektricM docs)
@@ -128,7 +128,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| Any settings | 45–51 (Discord user) | CPU-bound — elektricM docs report expected 60 FPS with settings adjustments |
+| Any settings | 45–50 (mzk10, 06/11/2025: "hangs around 45fps... nothing gets it above 50fps") | CPU-bound — elektricM docs report expected 60 FPS with settings adjustments |
 | 4K | 30–40 | Playable but choppy | [confirmed: @imeden, 09/12/2025]
 
 > Changing resolution/settings may not help.
@@ -146,14 +146,15 @@
 |----------|-----|-------|
 | 1080p High | 60 capped | GPU OC 2100 MHz, CachyOS with Proton-Cachy |
 
-### Borderlands 3 [Discord user]
+### Borderlands 3
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Medium, 8x AA | ~62 | Eden-6 benchmark; inventory has black box background (cosmetic only) |
-| 1080p Ultra, 2 GHz OC | 68 → 82 | OC uplift (community) |
+| 1080p Medium, 8x AA | ~62 | Eden-6 benchmark (attribution pending); inventory has black box background (cosmetic only) |
+| 1080p Ultra, 2 GHz OC | 68 → 82 | OC uplift (attribution pending) |
+| Default (low/medium mix) | ~60 | (selectivelygood_16010, 27/11/2025) |
 
-### Starfield [Discord user]
+### Starfield (vvaaron, Dec 2025 - Jan 2026)
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
@@ -162,7 +163,7 @@
 | 1080p Ultra | 35–60 | FG: 58–60 FPS, temps 64C max |
 | 1080p Medium (New Atlantis) | 48–53 | Most demanding location |
 
-> Starfield is surprisingly playable with frame gen. Medium or High preset with FG gives a smooth 60 FPS experience; some users prefer mid-high settings without FG (community). GPU OC 1000–2220 MHz, P12 Pro fan.
+> vvaaron (08/12/2025): "playing Starfield at 1080 stock ultra settings. With frame gen enabled (gpu intensive). Getting a really good experience at a capped 60fps"; (06/01/2026): "holds a stable 60fps on ultra with frame gen (although a slightly nicer experience at mid-high without frame gen)". GPU OC 1000–2220 MHz, P12 Pro fan.
 
 ---
 
@@ -256,7 +257,7 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Ultra | 60 locked (Discord user) | 65–68C after 4 hours (Discord user). Runs great. |
+| 1080p Ultra | 60 locked | 65–68C after 4 hours. Runs great. [confirmed: @daniifreitas, 08/12/2025] |
 
 ---
 
@@ -291,32 +292,32 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Hellblade: Senua's Sacrifice | ~180 FPS | High FPS, well-optimized |
 | Hellblade II: Senua's Saga | 60fps FSR4 Quality / 65 balance / 73 performance | Medium settings, 1080p. 60fps on FSR4 Quality requires the gfx1013 compute queue patch. [lonewolf05849, Aug 8 2026] |
 | Mortal Kombat 1 | Struggles to stay locked at 60 FPS | GPU refuses to fully boost (felingreenleaf, Aug 6 2026). [verified: Steam appid 1971870] |
-| Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. 1080p high manual + hair strands, FSR quality; frame gen crashes on Bazzite with REFramework (community) |
-| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT; TAA native 1080p: 45–50 FPS city / 60+ sea (community). Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
+| Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. 1080p high manual + hair strands, FSR quality (dbkretro); frame gen crashes on Bazzite with REFramework (.strykur, 25/05/2026) |
+| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT; TAA native 1080p: 45–50 FPS city / 60+ sea (attribution pending). Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
 | Resident Evil 4 (2023 Remake) | ~60 FPS stable — dbkretro, Aug 9 2026 | Bazzite + governor + 8-core/40 CU at 1750 MHz. Previously reported crashes (May 2026) no longer reproducible. [Steam appid 2050650] |
-| Arc Raiders | 60+ (Discord user) | Medium, FSR Quality — 60+ FPS, ~69C |
-| Ghost of Tsushima [Discord user] | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
-| Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs). 512 MB allocation: crashing reports (community) [confirmed: @dwtoledo, 12/10/2025] |
+| Arc Raiders | 60+ | Medium, FSR Quality — 60+ FPS, ~69C (maty99, 26/03/2026 benchmark post) |
+| Ghost of Tsushima | 45–60 at 1080p Low | Crashes without game update v1053.5+ (dryadalis5392, 13/12/2025; no crash on v1053.0718+ — sinh_28065, 12/02/2026); 1.7–1.9 GHz GPU OC (attribution pending). Check ProtonDB for AMD GPU fixes. |
+| Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs). 512 MB allocation: "ff7 tend to crash while playing on 512mb" (lonewolf05849, 11/01/2026) [confirmed: @dwtoledo, 12/10/2025] |
 | Horizon: Zero Dawn | Great at 1080p High | No upscaling needed [confirmed: @nexgen3d, 09/12/2025] |
-| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings; low GPU usage at 1080p — settings changes don't help (community) [confirmed: @_nk10, 15/12/2025] |
+| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings; low GPU usage at 1080p — settings changes don't help (attribution pending) [confirmed: @_nk10, 15/12/2025] |
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without | |
-| Forza Horizon 5 [Discord user] | 40–100 FPS | Varies heavily by settings |
+| Forza Horizon 5 | 40–100 FPS | "40fps" → "now I have 100 fps" depending on settings (ungamead, 21/02/2026); 1440p TAA High hovers 50–60 (antmagl, 16/05/2026) |
 | Stellar Blade [fforduck, Discord user] | 50–80 FPS at 1440p | Medium settings, FSR4 |
-| Helldivers 2 [Discord user] | 40–60 FPS | |
-| Valheim | 40–80 FPS | 80 FPS with mitigations=off (Discord user) |
-| GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26); 1440p High FSR3 Quality, 65C, 40 CU @ 1500 MHz (community) |
-| Oblivion Remaster [Discord user] | 30–75 FPS at 3440x1440 | With/without frame gen |
+| Helldivers 2 | 40–60 FPS | "frames around the 40-60fps" (eurobirb, 27/11/2025) |
+| Valheim | 40–80 FPS | "solid 100% boost by disabling mitigations" (imeden, 05/12/2025) |
+| GTA V Enhanced (RT) | Smooth on Mesa 26 | "go from 70fps to 3-5fps abruptly" before Mesa 26 (soulnull, 14/02/2026); 1440p High FSR3 Quality, 65C, 40 CU @ 1500 MHz (fontanedo, 29/05/2026) |
+| Oblivion Remaster | 30–75 FPS at 3440x1440 | "30fps+ with fsr set to balance and no framegen" / "75fps with frame gen" (gennro, 28/03/2026) |
 | Oblivion Remastered — no FG | 25–30 FPS in forest; cities/dungeons run well | Frame gen helps a lot but forest stutters remain [confirmed: @zerosumpr, 23/08/2026] |
 | No Man's Sky (40 CU) | Playable, rendering artifacts | Missing specular highlights vs NVIDIA reference even with GTAO off [confirmed: @cubehacker8107, 16/08/2026] |
-| Marvel Rivals [Discord user] | 100–190 FPS | Season 8 perf mod on NexusMods (graytl) |
-| Warframe | 75 FPS at 1080p | V-Sync ON, no FSR [confirmed: @whomstdv, 02/12/2025]; 120 FPS @ 1440p also reported (community) |
+| Marvel Rivals | 100–190 FPS | "went from like 190fps ➡️ 100fps" (jainator, 10/05/2026); Season 8 perf mod on NexusMods (graytl) |
+| Warframe | 75 FPS at 1080p | V-Sync ON, no FSR [confirmed: @whomstdv, 02/12/2025]; 120 FPS @ 1440p — "cruising at 120fps 1440p no issues" (discombobulateddunce, 04/06/2026) |
 | War Thunder | Playable at 1080p High | Max GPU OC, no RT |
 | The Last of Us Part I | 60 FPS locked, 1080p Medium-High | elektricM docs; FSR caps GPU clock at 1000 MHz — workaround in elektricM docs |
-| The Callisto Protocol | 60–85 at 1080p Medium (Discord user) | 60 locked, hits 85 frequently |
+| The Callisto Protocol | 60–85 at 1080p Medium | 60 locked, hits 85 frequently (nexgen3d, 04/12/2025 benchmark) |
 | Tomb Raider (2013) | 100–140 FPS at 1080p Max | |
 | Death Stranding | 40–50 FPS at 1080p Max | [confirmed: @pijuli., 24/03/2026] |
-| Zenless Zone Zero | Crashes with "Memory shortage" error (Discord user) | May need workaround |
-| Diablo IV | Playable | Medium-high settings; 1440p max + FSR with rolling FPS (community) |
+| Zenless Zone Zero | Crashes with "Memory shortage" error (pm_me_kitsunemimi, 31/03/2026) | May need workaround |
+| Diablo IV | Playable | Medium-high settings; 1440p max + FSR "rolling that fps" (bobafettm, 16/02/2026) |
 | Baldur's Gate 3 | Playable at 1080p | Lower settings in cities |
 | Detroit: Become Human | 60 FPS capped, 1080p Medium | elektricM docs |
 | Devil May Cry 5 | 100 FPS, 1080p High | elektricM docs |
@@ -378,7 +379,7 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | Spider-Man 2 | Out-of-memory crash with 512MB VRAM. Fixes (help-thread): set 6GB static VRAM in BIOS (_nk10), add TTM kernel params (hojnikb), run 32GB swap script from NexGen3D repo, lower in-game settings (zerosumpr), or add DXVK config overrides (newgbaxl) |
 | Expedition 33 (Clair Obscur) | Crashes with 512 MB VRAM -- use 6 GB static allocation or `RADV_DEBUG=nohiz` | Community report | [confirmed: @fforduck, 12/05/2026]
 | Expedition 33 (Clair Obscur) — 40 CU | 35 → 60 FPS | "40cu boosted my expedition 33 35 fps to 60" [confirmed: @josuee34, 14/08/2026] |
-| Palia | Crashes without workaround (swap may help) (Discord user) | Community report |
+| Palia | Crashes without workaround (swap may help) (dillydilly_91, 23/02/2026) | Community report |
 
 ---
 

@@ -4,6 +4,23 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+---
+
+## September 3, 2026 — Attribution pass: 26 anonymous claims credited or flagged (07, 10)
+
+Maintainer directive: no citation may go without credit. All "(Discord user)" placeholders and "(community)" markers recovered against exports (message headers `[date] username`); 07 "Limited Data" section sources located.
+
+### Credited (recovered from exports)
+- Cyberpunk CPU-bound: hecto_77113 (09/07/2026). Hogwarts ~60: pending. RDR2 2230/2150: i_guess_im_a_girl (20/11/2025). Elden Ring 45–50 (was 45–51, corrected to quote): mzk10 (06/11/2025). Borderlands 3 default ~60: selectivelygood_16010 (27/11/2025). Starfield section: vvaaron (08/12/2025, 06/01/2026). Genshin 60 locked/65–68C: daniifreitas (08/12/2025). Arc Raiders: maty99 (26/03/2026). Ghost of Tsushima: dryadalis5392 (13/12/2025) + sinh_28065 (12/02/2026, v1053.0718+ no crash). Forza H5 40→100: ungamead (21/02/2026); 1440p TAA 50–60: antmagl (16/05/2026). Helldivers 2 40–60: eurobirb (27/11/2025). Valheim 100% mitigations boost: imeden (05/12/2025). GTA V Enhanced Mesa 26 fix: soulnull (14/02/2026); 1440p FSR3 65C: fontanedo (29/05/2026). Oblivion Remaster 30–75 @3440x1440: gennro (28/03/2026). Marvel Rivals 190→100: jainator (10/05/2026). Callisto 60–85: nexgen3d (04/12/2025). ZZZ memory shortage: pm_me_kitsunemimi (31/03/2026). Palia swapfile: dillydilly_91 (23/02/2026). Warframe 120@1440p: discombobulateddunce (04/06/2026). Diablo IV 1440 FSR: bobafettm (16/02/2026). RE9 settings credit restored to dbkretro + REFramework FG crash: .strykur (25/05/2026). FF7 512MB crash: lonewolf05849 (11/01/2026). GameScope artifacts: i.am.brantastic + safwyl (13/05/2026).
+
+### Flagged (attribution pending — legacy, source not recorded)
+- Cyberpunk "<60 even at lowest"; Hogwarts "~60 1080p Medium"; BL3 "~62 Eden-6" and "68→82 OC"; AC IV "TAA native 45–50/60+ sea"; Horizon FW "low GPU usage"; Tsushima "1.7–1.9 GHz OC".
+
+### Rule
+- DOC_STANDARDS.md §6 updated: anonymous attribution banned ("community report" markers now require a name); `(attribution pending)` introduced for legacy rows; merging catalog rows must preserve existing credits.
+
+---
+
 ## September 3, 2026 — Editorial restructure (reader-experience pass): canonical kernel matrix, unlock decision table, dedup, catalog merges (00, 02, 04, 05, 07, 10, 11, README)
 
 Full-guide editorial audit (tutorial/catalog/reader-experience review) plus first compliance pass against the new `DOC_STANDARDS.md` (project root, maintainer-local — not committed). **No new Discord claims were added**; every citation below already existed in the files. Content was moved or merged, never deleted.

@@ -369,7 +369,7 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 
 ## Gamescope Artifacts / Visual Glitches
 
-**Symptoms:** Artifacts on GameScope windows and games; not visible in desktop mode. -- (community report)
+**Symptoms:** Artifacts on GameScope windows and games; not visible in desktop mode. -- (i.am.brantastic, 13/05/2026; also safwyl, same thread)
 
 **Fixes:**
 1. Enable **Force Composition** in Steam GameScope settings (disables direct scan-out)
