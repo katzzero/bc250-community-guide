@@ -86,7 +86,7 @@ Linear walkthrough: purchase → assembly → BIOS flash → OS install → firs
 1. **Linux only** — no Windows GPU drivers exist
 2. **Always clear CMOS** after BIOS flash — settings won't stick otherwise
 3. **Disable IOMMU** in BIOS — broken, causes display failures
-4. **Use kernel 7.1.x (current CachyOS standard) or 6.18 LTS** — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10; roll back via boot menu if an update breaks display (Aug 2026)
+4. **Use kernel 7.1.x (current CachyOS standard) or 6.18 LTS** — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10; roll back via boot menu if an update breaks display (Aug 2026). Canonical table: [Kernel Support Matrix (05)](05-os-installation.md#kernel-support-matrix-canonical--as-of-2026-09-03)
 5. **Governor voltage: minimum 700 mV** — below that GPU locks to 1500 MHz
 6. **Never use 6-pin to 8-pin PCIe adapters** — fire hazard
 7. **Never use Smokeless_UMAF** — can permanently damage the board
@@ -144,9 +144,10 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 ## What's New
 
 **August 2026:**
-- VCN research advances — SMU arbitrary code execution (rw-r-r-0644), firmware loading solved, power-on partially working; one gate remains
+- VCN research advances — register map + PSP decode (daveconde), CVE-2023-31316 protected-memory write primitive (mergeconflicted), cold-reset register identified (SMN 0x0900c004)
 - Optimized FSR 4 RADV build (dmoraza/rescuemei) — ~82–85 FPS vs ~70–75 in Cyberpunk high-FPS test
-- CachyOS standard kernel now 7.1.x-based; 7.2 imminent with DP audio + display fixes
+- FSR4 vs XeSS RT comparison: XeSS Balanced 78 FPS > FSR2/3 75 FPS > FSR4 73 FPS (RT Low)
+- CachyOS standard kernel now 7.1.x-based; 7.2 imminent; Linux 7.3 rc1 expected ~30 Aug
 - Unified ACPI fix repo (e-tho): C1/C2 idle states + 8 P-state steps, 6c/8c, all BIOS releases
 - Native Mesh Shaders V1 works for mesh-only games (lonewolf0622)
 - Dolby Digital 5.1 via HDMI/eARC on SteamOS (rpf16rj toolkit v1.3.0)
@@ -156,8 +157,11 @@ Full benchmark suite: [07 — Game Benchmarks](07-game-benchmarks.md) (60+ commu
 - 8-core ACPI fix (mendesrr)
 - Async compute queue fix (DryhoppedIPA, +25% FPS Cyberpunk, in Toolkit v1.1.0)
 - VRM telemetry via I2C/PMBus + web dashboard (punsh1734, 2-wire mod)
-- Patched BIOS unlock option + SteamOS boot logo
-- VCN unlock research active
+- Forbidden-Darkness V3 DXE BIOS — ACPI patching, SMU Unlock, Core Unlock, manual core selection (RescueMei)
+- Unified toolkit orchestrator (chelmooz) — wraps community tools behind one config-driven script
+- QuarkStar inference engine — Qwen3.8-27b support, 20+ t/s, 100k context (Ninnix)
+- Pump-out warning: repaste without over-tightening to avoid thermal paste ejection (sametklou)
+- VCN research consolidated into doc 02 (Research & Active Projects section)
 
 **July 2026:**
 - CPU core unlock functional (RescueMei patched BIOS + Hexxeh EFI shim + rw-r-r-0644 Python script)
@@ -192,3 +196,5 @@ Maintained by **katzzero** from BC-250 Discord community data using a semi-autom
 ---
 
 *Unofficial — not endorsed by AMD or any community. Prices change often, verify before buying. [Changelog](changelog.md) · [Contribute](CONTRIBUTING.md) · [Discord](https://discord.gg/8eZfFWhczz)*
+
+**Last verified: 2026-09-03**

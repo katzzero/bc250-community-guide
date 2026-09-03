@@ -12,7 +12,7 @@
 | 1080p | Low | 100–144+ | Esports, older titles |
 | 1080p | Medium | 80–120+ | Sweet spot for most games (elektricM docs) |
 | 1080p | High | 60–100+ | Most titles (elektricM docs) |
-| 1080p + FSR Quality | High + FSR | 70–100+ | Free performance boost | [confirmed: @1_gec, 04/12/2025]
+| 1080p + FSR Quality | High + FSR | 70–100+ | Free performance boost [confirmed: @1_gec, 04/12/2025]
 | 1440p | Medium + FSR | 50–80 | Playable with upscaling (elektricM docs) |
 | 4K | Low + FSR | 30–40 | Older/less demanding titles only |
 
@@ -61,6 +61,8 @@
 | qwert9811 | 8 core unlocked | Dogtown (CPU-heavy area) | Early 50s | Up from early 40s — ~10 FPS gain in most demanding area |
 
 **Optimized FSR 4 RADV build (rescuemei/dmoraza, Aug 14 2026):** a community-patched RADV (Mesa 26.1.6 base) optimizing the FSR 4.1.1 INT8 fallback with i24 arithmetic reaches **~82–85 FPS vs ~70–75 with the previous "Golden" build** in a high-FPS test scene — shader dropped from 64k → 37k instructions ([github.com/dmorazasanchez/bc250-fsr4](https://github.com/dmorazasanchez/bc250-fsr4)). See [11-community-and-resources](11-community-and-resources.md).
+
+**FSR4 vs XeSS vs FSR2/3 RT comparison (Aug 2026):** in RT Low tests (game unspecified), native = 56 FPS, FSR2/3 Quality = 75 FPS, FSR4 = 73 FPS, XeSS Balanced = 78 FPS. XeSS balanced outperforms both FSR2 and FSR4 in RT but image quality is worse. FSR4 balanced/performance is preferred for solid 60 FPS with frame generation, though input latency equals base FPS (e.g. FG from 30→60 has 30 FPS latency). Async compute patch alone gave ~10 FPS uplift (70→80 native) (dmoraza, community, Aug 2026).
 
 **Tips:** Enable FSR Quality for a significant boost. DLSS/FSR Frame Generation works well. (elektricM docs)
 
@@ -149,6 +151,7 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | 1080p Medium, 8x AA | ~62 | Eden-6 benchmark; inventory has black box background (cosmetic only) |
+| 1080p Ultra, 2 GHz OC | 68 → 82 | OC uplift (community) |
 
 ### Starfield [Discord user]
 
@@ -159,7 +162,7 @@
 | 1080p Ultra | 35–60 | FG: 58–60 FPS, temps 64C max |
 | 1080p Medium (New Atlantis) | 48–53 | Most demanding location |
 
-> Starfield is surprisingly playable with frame gen. Medium or High preset with FG gives a smooth 60 FPS experience. GPU OC 1000–2220 MHz, P12 Pro fan.
+> Starfield is surprisingly playable with frame gen. Medium or High preset with FG gives a smooth 60 FPS experience; some users prefer mid-high settings without FG (community). GPU OC 1000–2220 MHz, P12 Pro fan.
 
 ---
 
@@ -198,6 +201,7 @@
 **Fix:** Use Proton Experimental Bleeding-Edge branch with VKD3D RDNA1 fix. Version 1.02 works. [confirmed: @nohanmv, 01/04/2026]
 
 > The **v1.18.00 game update broke launch on Proton 11** for some users; `proton-cachy` and Proton Experimental work (.crotch, 19/08/2026). VRAM split: fixed 3–4 GB works best — games detect 6 GB and can use up to 8 GB; forcing 6 GB static broke some games, and dynamic 512 MB loads lowest-quality textures in this title (@cubehacker8107, @h00man._., @_mastag, Aug 16 2026).
+> At 38–40 CU: ~55 FPS FHD no scaling — +10–15 FPS over 24 CU (pijuli.); CPU-limited in some areas (vfxmz).
 
 ### Space Marine 2
 
@@ -246,6 +250,7 @@
 | Settings | FPS | Notes |
 |----------|-----|-------|
 | 1080p High + FSR 3.1.5 | 40–60 | Preset High, FSR helped fix pixelated textures |
+| Proton (CachyOS) | Playable | Low memory warning after prologue — try 512MB split + zswap (antmagl, jeffr7814); menu FPS drops to 15 (capt.cat_13) |
 
 ### Genshin Impact
 
@@ -282,36 +287,36 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 
 | Game | Performance | Notes |
 |------|-------------|-------|
-| Half-Life: Alyx | ~80 FPS | CachyOS | [confirmed: @nataliezaki, 27/05/2026]
+| Half-Life: Alyx | ~80 FPS | CachyOS [confirmed: @nataliezaki, 27/05/2026]; VR via Monado runs well but not at max settings (ithinkibrokeit_, Apr 2026); ~120W TDP cap tested (kilrah) |
 | Hellblade: Senua's Sacrifice | ~180 FPS | High FPS, well-optimized |
 | Hellblade II: Senua's Saga | 60fps FSR4 Quality / 65 balance / 73 performance | Medium settings, 1080p. 60fps on FSR4 Quality requires the gfx1013 compute queue patch. [lonewolf05849, Aug 8 2026] |
 | Mortal Kombat 1 | Struggles to stay locked at 60 FPS | GPU refuses to fully boost (felingreenleaf, Aug 6 2026). [verified: Steam appid 1971870] |
-| Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. |
-| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT. Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
+| Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. 1080p high manual + hair strands, FSR quality; frame gen crashes on Bazzite with REFramework (community) |
+| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT; TAA native 1080p: 45–50 FPS city / 60+ sea (community). Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
 | Resident Evil 4 (2023 Remake) | ~60 FPS stable — dbkretro, Aug 9 2026 | Bazzite + governor + 8-core/40 CU at 1750 MHz. Previously reported crashes (May 2026) no longer reproducible. [Steam appid 2050650] |
 | Arc Raiders | 60+ (Discord user) | Medium, FSR Quality — 60+ FPS, ~69C |
 | Ghost of Tsushima [Discord user] | 45–60 at 1080p Low | Crashes without game update v1053.5+; runs at 1.7–1.9 GHz GPU OC. Check ProtonDB for AMD GPU fixes. |
-| Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs) | [confirmed: @dwtoledo, 12/10/2025]
-| Horizon: Zero Dawn | Great at 1080p High | No upscaling needed | [confirmed: @nexgen3d, 09/12/2025]
-| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings | [confirmed: @_nk10, 15/12/2025]
+| Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs). 512 MB allocation: crashing reports (community) [confirmed: @dwtoledo, 12/10/2025] |
+| Horizon: Zero Dawn | Great at 1080p High | No upscaling needed [confirmed: @nexgen3d, 09/12/2025] |
+| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings; low GPU usage at 1080p — settings changes don't help (community) [confirmed: @_nk10, 15/12/2025] |
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without | |
 | Forza Horizon 5 [Discord user] | 40–100 FPS | Varies heavily by settings |
 | Stellar Blade [fforduck, Discord user] | 50–80 FPS at 1440p | Medium settings, FSR4 |
 | Helldivers 2 [Discord user] | 40–60 FPS | |
 | Valheim | 40–80 FPS | 80 FPS with mitigations=off (Discord user) |
-| GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26) |
+| GTA V Enhanced (RT) [Discord user] | Smooth on Mesa 26 | Went from 3-5fps crash to smooth with Mesa 26 (CachyOS ships Mesa 26); 1440p High FSR3 Quality, 65C, 40 CU @ 1500 MHz (community) |
 | Oblivion Remaster [Discord user] | 30–75 FPS at 3440x1440 | With/without frame gen |
 | Oblivion Remastered — no FG | 25–30 FPS in forest; cities/dungeons run well | Frame gen helps a lot but forest stutters remain [confirmed: @zerosumpr, 23/08/2026] |
 | No Man's Sky (40 CU) | Playable, rendering artifacts | Missing specular highlights vs NVIDIA reference even with GTAO off [confirmed: @cubehacker8107, 16/08/2026] |
-| Marvel Rivals [Discord user] | 100–190 FPS | |
-| Warframe | 75 FPS at 1080p | V-Sync ON, no FSR | [confirmed: @whomstdv, 02/12/2025]
+| Marvel Rivals [Discord user] | 100–190 FPS | Season 8 perf mod on NexusMods (graytl) |
+| Warframe | 75 FPS at 1080p | V-Sync ON, no FSR [confirmed: @whomstdv, 02/12/2025]; 120 FPS @ 1440p also reported (community) |
 | War Thunder | Playable at 1080p High | Max GPU OC, no RT |
-| The Last of Us Part I | 60 FPS locked, 1080p Medium-High | elektricM docs |
+| The Last of Us Part I | 60 FPS locked, 1080p Medium-High | elektricM docs; FSR caps GPU clock at 1000 MHz — workaround in elektricM docs |
 | The Callisto Protocol | 60–85 at 1080p Medium (Discord user) | 60 locked, hits 85 frequently |
 | Tomb Raider (2013) | 100–140 FPS at 1080p Max | |
-| Death Stranding | 40–50 FPS at 1080p Max | | [confirmed: @pijuli., 24/03/2026]
+| Death Stranding | 40–50 FPS at 1080p Max | [confirmed: @pijuli., 24/03/2026] |
 | Zenless Zone Zero | Crashes with "Memory shortage" error (Discord user) | May need workaround |
-| Diablo IV | Playable | Medium-high settings |
+| Diablo IV | Playable | Medium-high settings; 1440p max + FSR with rolling FPS (community) |
 | Baldur's Gate 3 | Playable at 1080p | Lower settings in cities |
 | Detroit: Become Human | 60 FPS capped, 1080p Medium | elektricM docs |
 | Devil May Cry 5 | 100 FPS, 1080p High | elektricM docs |
@@ -359,13 +364,7 @@ Runs on CachyOS with Proton Experimental, 40 CU, lower settings (biohazardv2.0).
 | Hitman 2 (40 CU, 1500 MHz) | 160 FPS vs 120 FPS stock | 1.33x CU scaling (itsanarse) |
 | Fatal Frame 2 (40 CU) | 60 FPS at 1400-1500 MHz | 24 CU needed 1850-2000 MHz for same -- lower temps/power (maskofsin) |
 | MGS3 Delta (40 CU) | 66% FPS boost over 24 CU | big_trov |
-| Forza Horizon 6 | Playable via Proton (CachyOS) | Low memory warning after prologue; try 512MB split + zswap (antmagl, jeffr7814); menu FPS drops to 15 (capt.cat_13); works on Proton CachyOS |
-| Crimson Desert (38-40 CU) | ~55 FPS FHD, no scaling | +10-15 FPS over 24 CU (pijuli.); CPU-limited in some areas (vfxmz) |
-| Marvel Rivals | Playable | Season 8 perf mod on NexusMods (graytl); up to 190 FPS |
 | Returnal | Heavy artifacts on marginal 40 CU boards | Good test game for CU health (capt.cat_13) |
-| Death Stranding 2 | 36 CU, ultrawide 1440p High + FG: 60 | Well-optimized; CPU bottleneck without FG. See detailed entry above. |
-| S.T.A.L.K.E.R. 2 | 24 CU stock: ~55 FPS; 36 CU: ~60; +FG: 110-120 | Big uplift from more CUs. See detailed entry above. |
-| Subnautica 2 | Playable at lower settings | Proton Experimental, CachyOS, 40 CU (biohazardv2.0) |
 | New Batman (2026) | Runs, GPU bound | 40 CU (codyrainy) |
 
 ---
@@ -495,9 +494,9 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 |------|------|-------|-----------|-----------|-----|-------|------|
 | 1 | gennro | ~5900 | — | — | — | — | May 2026 |
 | 2 | big_trov | 5759 | 2300 MHz | 3500 MHz UV | — | — | May 2026 |
-| 3 | pm_me_kitsunemimi | 5320 | 2250 MHz | 4000 MHz | — | 36 CU, 8 cores, Bazzite, OpenGL; "76 max iirc" | Aug 2026 |
-| 4 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | 40 CU | May 2026 |
-| 5 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | 40 CU | May 2026 |
+| 3 | codyrainy | ~5400 | 2100 MHz | 4000 MHz | 1020 | 40 CU | May 2026 |
+| 4 | cralant | ~5400 | 2150 MHz | 3800 MHz -15 | 1035 | 40 CU | May 2026 |
+| 5 | pm_me_kitsunemimi | 5320 | 2250 MHz | 4000 MHz | — | 36 CU, 8 cores, Bazzite, OpenGL; "76 max iirc" | Aug 2026 |
 | 6 | dznuts | 5300 | 2270 MHz | 4000 MHz | — | 38 CU | May 2026 |
 | 7 | dznuts | 5300 | 2200 MHz | — | 1060 | 38 CU, CachyOS | May 2026 |
 | 8 | mitchthepreacher | 5150 | — | — | — | Redux case; "Temps are 75 but its a jet engine" | Aug 2026 |
@@ -550,33 +549,17 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 
 ## Games Mentioned in Community (Limited Data)
 
-Games with verified community mentions but limited sample size — use with caution. Sources cross-checked against export scans (2025-11 to 2026-08). "perf" = number of performance-context mentions.
+Games with verified community mentions but limited sample size — use with caution. Sources cross-checked against export scans (2025-11 to 2026-08). Games with fuller data live in the sections above; each game appears exactly once in this file (DOC_STANDARDS.md §5).
 
 | Game | Report | Notes |
 |------|--------|-------|
-| Genshin Impact | 60 FPS constant, ultra, 65-68C (4h session) | |
-| Warframe | 120 FPS @ 1440p | |
-| Borderlands 3 | 68 → 82 FPS @ 1080p Ultra with 2 GHz OC | |
-| Starfield | Stable 60 FPS on ultra with frame gen | Better mid-high without FG |
-| GTA V Enhanced | 1440p High FSR3 Quality, 65C, 40 CU @ 1500 MHz | |
-| Tomb Raider (2013) | High FPS | |
 | Lies of P | 90 FPS @ 1440p on high | |
 | RoboCop: Rogue City | Picked up FPS after tweaks | |
 | Overwatch | Drops to ~30 FPS on low with heavy effects | |
-| Rocket League | 1080p locked 60 FPS max settings | |
 | Forza Horizon 4 | Suspected memory leak; VRAM never frees | |
-| Diablo IV | 1440p max + FSR rolling FPS | |
-| Resident Evil 9 | 60 FPS w/ 1080p high manual + hair strands, FSR quality (dbkretro) | Frame gen crashes on Bazzite with REFramework |
 | Resident Evil series incl. Requiem | 60 FPS no problems | "Every Resi game inc Requiem is 60fps no probs" [confirmed: @dbkretro, 18/08/2026] |
 | Resident Evil 7 | Runs very well, everything high, ~64C | |
-| Mortal Kombat 1 | GPU refuses to fully boost (felingreenleaf, Aug 6 2026) | Struggles to stay locked at 60 |
-| Assassin's Creed IV: Black Flag – Resynced | 45-50 FPS city / 60+ sea, TAA Native 1080p | Also 2K FSR Quality + FG max details (dmoraza) |
-| Hellblade II: Senua's Saga | 60 FPS @ 1080p FSR4 Quality w/ compute queue patch | 65 balance / 73 performance (lonewolf05849) |
-| Final Fantasy VII Remake | Crashing reports on 512MB BIOS allocation | Match entry in main table |
-| The Last of Us Part I | FSR caps GPU clock at 1000 MHz | Workaround in elektricM docs |
-| Horizon Forbidden West | Low GPU usage @ 1080p; settings changes didn't help | |
-| Ghost of Tsushima | Crashes fixed via game update v1053.5+ | |
 | Stardew Valley | Runs fine at 4K 60 FPS | |
 | Hollow Knight | 4K playable (lighter game) | |
-| Half-Life: Alyx | VR via Monado — runs well but not at max settings (ithinkibrokeit_, Apr 2026) | Also tested at ~120W TDP cap (kilrah) |
 | Star Wars Battlefront II | 80-85 → 120-130 FPS after SMU governor + kernel patch (juancarlos24691, Aug 2025) | |
+**Last verified: 2026-09-03**

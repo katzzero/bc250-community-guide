@@ -139,6 +139,12 @@ sudo flashrom -p internal -w BC250_3.00_CHIPSETMENU.ROM
 
 Bash script providing an interactive text menu that automates firmware backup and flashing. Backs up your existing BIOS before flashing the modded P3.00 firmware. Themed menus available (CachyOS, Bazzite, PS5Linux, etc.). Screenshots confirmed working (Forbidden-Darkness, Jul 2026). Useful for users who want a guided flashing experience without manual EFI shell commands.
 
+### Method 5: Forbidden-Darkness V3 DXE BIOS (Aug 2026)
+
+**Project:** [RescueMei/BC250-DXEv3-BIOSMOD](https://github.com/RescueMei/BC250-DXEv3-BIOSMOD)
+
+Full V3 BIOS mod with DXE drivers for ACPI patching, SMU Unlock, Core Unlock, and manual core selection. Companion repo [RescueMei/BC250-DXEv3-SMU-Patch](https://github.com/RescueMei/BC250-DXEv3-SMU-Patch) provides a DXE driver that fixes 8-core reporting by changing the `[6]` fields to `[8]` in `smu11_driver_if_cyan_skillfish.h` (requires SMU unlock to apply). Pushed 23/08/2026 (Forbidden-Darkness). Experimental — test on a backup board first.
+
 ---
 
 ## ⛔ CMOS Clear (Critical — Do Not Skip)
@@ -413,6 +419,19 @@ The BC-250 40 CU unlock patch (`bc250-40cu-amdgpu.patch`) also works on **PS5 Li
 
 The BC-250 has 6 active Zen 2 CPU cores; the disabled cores are believed to be software/firmware-blocked, not physically fused off. As of late July 2026, functional unlocks now exist via multiple approaches:
 
+**Which method should you use? (decision table)**
+
+| Method | Type | Persistence | Risk | Best for | Details |
+|--------|------|-------------|------|----------|---------|
+| **4. SMU mailbox tool (gabriwar)** | Userspace + systemd | Re-applied after cold boot by systemd unit | Low — no BIOS flash, warm reboot reverts | **Recommended all-rounder**: 8 cores + 40 CU, ships `test-cores.sh` + ACPI fix installer | Option 4 below |
+| 3. Python script (rw-r-r-0644) | Userspace SMU write | Lost on hard shutdown/cold boot | Low | Verifying your cores work before committing to anything permanent | Option 3 below |
+| 2. EFI shim (Hexxeh) | Boot shim | Re-applied at every boot | Low — BIOS untouched | Semi-permanent unlock without flashing | Option 2 below |
+| 1. Patched BIOS (RescueMei / Forbidden-Darkness) | BIOS flash | Permanent (survives everything; only a reflash clears it) | **Highest** — defective cores require an external programmer to recover | Set-and-forget, AFTER cores are verified | Option 1 below |
+| 5. Control center (movacx) | GUI app | — | — | One-click unlock + monitoring in one install | Option 5 below |
+| 6. SteamOS toolkit (rpf16rj) | Toolkit | Survives cold boot + SteamOS updates | — | SteamOS users | Option 6 below |
+
+⚠️ **Regardless of method: test the unlocked cores FIRST** (Option 3 script or Option 4 `test-cores.sh`). If the extra cores are defective and you already flashed a permanent BIOS, you need an external programmer to recover (yrouel86, Jul 2026).
+
 **How the unlock works (porocyon, Jul 30 2026):** The Python script sends a mailbox message to the SMN/PSP (Platform Security Processor) through PCIe, which makes the PSP unlock all cores on the next boot. This is **entirely OS-independent** — the same mechanism works on any OS. The exploit bypasses the security check and writes an arbitrary bitmask to the core presence register.
 
 **Alternate bitmasks (0xcats, Jul 30 2026):** The write primitive is not limited to 0xFF. 0xcats tested writing other bitmasks: 0x7F (enables core 3, disables core 7), 0xF7 (enables core 7, disables core 3). This means **7 out of 8 core unlocks are possible** on boards where one specific core is defective — the interconnect to cache may be wrong on that core. Not all boards have the same bad core.
@@ -480,19 +499,6 @@ Requires `stress-ng` and 8 cores already visible (run the unlock first). Interpr
 
 **Unified ACPI fix repo (e_tho, 15/08/2026):** [e-tho/bc250-acpi-fix](https://github.com/e-tho/bc250-acpi-fix) consolidates the unmaintained original plus the forks, and adds fixes none of them had: enables **C1/C2 idle states**, **8 frequency-scaling steps from 800 MHz to 3.2 GHz**, stubs the undefined control methods that throw errors at boot, and replaces the broken idle state table (rw_r_r-0644's approach) instead of adding a second one alongside it. Works on 6-core *and* 8-core boards on every BIOS release; tested idle at 800 MHz → boost ~3.5 GHz. Note: if running a BIOS with built-in ACPI tables (The Mei™'s), disable ACPI injection in firmware setup first. C1 does real work (core halting); no measurable power saving from C2 (e_tho, 16/08/2026).
 
-**Field reports (Aug 2026):**
-- **glide_2026 (03/08):** temporary unlock, Elden Ring gained ~10 fps ("definitely added 10ish frames", still fluctuates around 60). Ratchet & Clank Rift Apart "incredible with 8 cores and 40 CUs" with the gfx1013-fix
-- **crazy_t0176 (03/08):** flashed the 8-core BIOS (Forbidden-Darkness UEFI script) — great FPS, but GPU clocks read only 20–100 MHz. bigmedi's reply: "Not yet" (the metrics fix landed days later — see the metrics options above)
-- **seb061492 (04/08):** OC that was stable at 6 cores (4000 MHz) crashes in Unigine with 8 cores unlocked, even at 3500 MHz, unless the SMU service/governor is disabled entirely — likely a marginal unlocked core (baalah: "bad cpu core"). His 40 CU @ 2200 MHz kept working
-- **dmoraza (03–04/08):** 0x7B mask works for some boards, but 8-core + governor on kernel 7.1 gives a black screen; OK on 6.18 (see [10-troubleshooting.md](10-troubleshooting.md) for the governor kernel note)
-- **fforduck (03/08):** CPU 4 and 5 pass stress tests yet misbehave in some games — he sets Steam to use all cores *except* 4 and 5 rather than fully disabling them. Partial core masks are supported (see alternate bitmasks above)
-- **Silicon lottery update (xseol, 06/08):** ~80% chance for 40 CU, 8 cores still new — estimate 50–60% for 8-core + 40-CU together ("you need to win two silicon lotteries")
-- **EFI vs BIOS — no consensus yet (Aug 5 2026):** midlifediy: "doesn't seem to be a consensus on EFI vs BIOS core unlock quite yet? (ive stayed put while this plays out)". keroppl_wizard: "I'm running EFI. I'll flash when the final megabios is released" (referring to gabriwar's `allthecoolshit.rom`)
-- **Bad cores do happen (Aug 2026):** j0shm1lls flashed the 8-core BIOS on his 2nd board *before* testing the unlock: "WHOOPS. (spoiler alert: cores dont b workin gud)". vadym557 tried 3 times with the cores-unlock option — stuck at Steam logo with a spinner; booted only when cores were disabled ("Guess my extra cores are cooked)" (Aug 8 2026). ⚠️ Always `test-cores.sh` / the Python script first — if the unlocked cores are defective, you must recover via external programmer
-- **Unlock survives OS reinstall — only a BIOS reflash clears it (skcanss, Aug 2 2026):** selecting the revert option and restarting still showed 8c/16t; even `blkdiscard` + fresh CachyOS install kept the cores unlocked; BIOS reset didn't clear it either — only reflashing the BIOS did. The mask lives in the SMU/BIOS, not the OS
-- **Power draw rises with core unlock (buzzynoob, Aug 6 2026):** "Since the new core unlocks the power draw has increased" — factor in extra margin on the original power delivery method (see [03-Power Supply Guide](03-power-supply-guide.md))
-- **Stock P3.00 BIOS hash mismatch (alexxxor_, Aug 4 2026):** a board with a P3.00 sticker produced a backup ROM whose `sha256sum` (`56c548afb8ac3147793f1254ee71f414f4a0002d39196edc98e3a28cd05862c3`) differs from the listed stock hash — boards ship with slightly different images, always back up before flashing
-
 ### 8 Cores ≠ 6 Cores: The Full Process (Aug 2026)
 
 Unlocking to 8 cores is not a drop-in change — the board, ACPI, governor and OC all need rework. The community consensus process that emerged this week:
@@ -516,18 +522,6 @@ Unlocking to 8 cores is not a drop-in change — the board, ACPI, governor and O
 **Game mode shortcut (dbkretro, Aug 1 2026):** The unlock script can be added as a non-Steam game in game mode — tap the icon, it runs the unlock steps and reboots. Requires sudoers entry to avoid password prompts.
 
 **Silicon lottery (0xcats, Jul 30 2026):** Of 5 boards tested, 1 could not reliably boot with all 8 cores (crashes or hangs during POST). That board had core mask 0x7E — core 0 defective. Roughly **80% success rate** in this small sample. Boards that fail POST with the unlock typically need an external programmer to recover.
-
-**Background:** duggasco and mrfrakes previously decompiled and extracted bootrom and understood how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory was that cores are controlled by a ROM array written during manufacturing rather than physically fused off — now validated by the working unlocks. Early speculation: unlocking BC-250 cores could theoretically apply to other low-end Ryzen CPUs with disabled cores, but that's uncharted territory.
-
-**jwagnervaz BIOS Rev Eng (Jul 09-11, 2026):** Another independent modder is reverse engineering a custom BIOS for the BC-250:
-- "Working in rev eng to make a better bios to bc 250" — posted progress photos from Jun 20, 2026 (Jul 2026)
-- Already fixed ACPI tables and made optimizations; prior experience modding X99 Chinese boards
-- Tested ALL available 4700S BIOS images found: **none boot** on BC-250 — different memory lithography and different ABL SMU between the two chips (Jul 11, 2026)
-- Boot stops at UART-debuggable point "in another place" after partial adjustment — working toward next breakthrough with UART debug tools
-- Goal: "port bootsec/tpm and find some solution to windows drivers. one step at a time."
-- Note: mrfrakes claims to have booted 4700S C08 BIOS on BC-250 with external GPU — may require specific BIOS version and external GPU like the original 4700S setup (Jul 11, 2026)
-
-**VCN unlock discussion (Jul 30 2026):** thelamer proposed using the same register exploit for VCN (video codec) hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests the hardware is present but disabled. yrouel86 notes this would still need the firmware blob, and it would most likely need to be signed. VCN unlock remains an open research question.
 
 *Credits: RescueMei (@The Mei™, patched BIOS, test-before-flash guidance), Hexxeh (EFI shim), qwert9811 (auto-activation script), rw-r-r-0644 (Python unlock script), 0xcats (alternate bitmask testing), fforduck (0x7B mask testing, partial-mask gaming workaround), keroppl_wizard (8-core metrics patch), dbkretro (game mode shortcut, ACPI FPS cost report), jwagnervaz (independent BIOS rev eng, 4700S testing), yrouel86 (verification guidance), zedan015 (non-standard core layout testing), porocyon (SMN/PSP mechanism explanation), dizzey0709 (hard shutdown behavior), gabriwar (SMU mailbox 0x98 unlock tool), filippor (fix-freq governor option), punsh (fix-freq discovery), higorprado (8-core SMU metrics layout), mendesrr (8-core ACPI tables), movacx (control center), rpf16rj (SteamOS toolkit), luciud (SteamOS persistence report), skcanss (unlock persistence testing), buzzynoob (power draw), alexxxor_ (BIOS hash mismatch), midlifediy (EFI-vs-BIOS observation), j0shm1lls (bad-core report), vadym557 (boot failure with bad cores), felingreenleaf (8-core temp delta), seb061492 (8-core OC regression report), mitchthepreacher (combined stress report), sho.ta (8-core RDR2 config).*
 
@@ -557,3 +551,84 @@ Key findings so far:
 ### Credits
 
 duggasco (research, repo), filippor (independent testing, ignore_cu_harvest), scallion_9883 (benchmarks), vinnijs.dev (bc250-cu-live-manager), faithy2386 (P4.00 BIOS discovery, flashrom testing), meee (CU artifact detection), pm_me_kitsunemimi (game-based CU testing), Claude/Codex (SPI register discovery), kilrah (disable_cu masking), hojnikb (harvest maps), koloses (bad CU testing), essdee4336 (thermal), big_trov (stable verify), codyrainy (build test).
+
+---
+
+## Research & Active Projects
+
+### VCN Hardware Video Decode
+
+**Status:** Active research — major progress Aug-Sep 2026. VCN 2.0.3 is confirmed **present and NOT harvested** (IP discovery, instance 0, harvest=0), but the Linux driver deliberately skips its registration. The problem is diagnosed as a **power-path issue, not a codec or firmware issue**.
+
+**Root cause (thelamer, Aug 14 2026):** On Cyan Skillfish (GC 10.1.3) `adev->pg_flags = 0`, the board has **no `dpm_set_vcn_enable` callback**, and generic SMU code returns success when that callback is absent. `vcn_v2_0_start()` then proceeds into VCN PGFSM/MMIO accesses assuming power-up succeeded — but **VCN is still physically powered down**, so touching the block hard-locks the machine. "This is increasingly looking less like 'VCN fused off' and more like unused IP that AMD simply didn't wire up in the BC250 software stack" (thelamer, 14/08/2026).
+
+**Working theory (Jobs, per thelamer):**
+- **Job 1:** recover the missing BC250/Cyan Skillfish VCN power-on mechanism — an omitted SMU message mapping or a direct power/isolation register sequence. Success criterion: keep the machine alive and get VCLK to move from 0.
+- **Job 2:** once provably powered, re-enable the VCN 2.0.3 driver/firmware path and bring up rings/decoding.
+
+**Progress (Aug 13-15 2026):**
+- paul_lionking got amdgpu to recognize VCN 2.0.3 and load Navi VCN 2.0 firmware (`navi10_vcn.bin` aliased as `vcn_2_0_3.bin`; Navi10/12/14 blobs are byte-for-byte identical); the machine stays stable when init stops before `amdgpu_vcn_resume()`. On a normal boot SMU reports: VCN Powered down, VCLK = 0, DCLK = 1111.
+- paul_lionking extracted the resident BC250 SMU/MP1 PMFW from the BIOS (Xtensa, v88.6.0) and reverse-engineered the message dispatcher: raw SMU command `0x2A` is NULL in the BC250 table; undocumented public commands are `0x1F`, `0x20`, `0x26` (none looks like a VCN power switch). `smu_v11_5_ppsmc.h` defines `PPSMC_MSG_PowerDownVcn 0x8` / `PowerUpVcn 0x9` — bjaan: "most probably 0x8 and 0x9 are the messages to disable & enable power to the VCN block... they're just not implemented for the BC-250 version 11.8".
+- rw_r_r_0644 (Aug 15 2026): "We have fully arb code execution on the SMU at runtime via a bug in one of the message handlers" — appears exclusive to Cyan Skillfish (PS5/coreboot have an extra bound check). Can set arbitrary clocks/voltages (incl. ~2 GHz GDDR6) and write core masks. Possible path to power-up the VCN from the SMU; exploit cleanup pending.
+- Historical context: holde and Angablade got the SMU to wake the VCN block ~a year ago (one malformed frame via ffmpeg) but did not publish the SMU command. holde (Aug 14 2026): firmware is signed **by AMD, not Sony** — corrects earlier doc statements blaming Sony.
+
+**Progress (Aug 17-24 2026):**
+- bjaan (14/08/2026) mapped the CH3 SMU message-handler table and found an unused message `0xA4` slot plus a dormant PMFW handler at offset `0x1c1a0` that feeds `0x309b4` — a substantial platform/power transition routine. Registering the handler alone (without sending A4) hung the machine during boot — rules out that activation route but confirms a genuine dormant control path exists.
+- bjaan (15/08/2026): direct VCN firmware loads (`navi10_vcn.bin`, bypassing PSP) all end in system hang. His traced builds show the direct-load patch bypasses PSP authentication, places firmware in the VCN buffer, and initialization progresses all the way into `vcn hw_init` — it still hangs when the decoder ring is first exercised.
+- dantistnfs (18/08/2026), power-on validation criteria: status register reports powered on + VCN operating frequency enabled + firmware loading no longer crashes (firmware gets rejected by PSP with error `0xffff0008` for others). rw_r_r_0644 built an RPC-style patch that can call any SMU function from Python (published in [bc250-smu-unlock](https://github.com/rw-r-r-0644/bc250-smu-unlock)).
+- thelamer (19/08/2026): shipped unlock + the new power-on method as helpers in [bc250-lab-image v0.3.0](https://github.com/thelamer/bc250-lab-image/releases/tag/v0.3.0) as a dedicated POC platform ("if this works it will be a combination of smu commands, custom kernel, and possibly customization to libva").
+- **Status summary (yrouel86, 24/08/2026):** "Firmware loading has been solved AFAIK, the issue that remain is to properly turn on and initialize the VCN, powering it seems to have been solved but there's another gate to solve" — the full chain is not complete yet.
+
+**Progress (Aug 24 - Sep 1 2026):**
+- rukkusireland / daveconde (24/08/2026): created [bc250-vcn-enable](https://github.com/daveconde/bc250-vcn-enable) with a full [VCN2 register map](https://github.com/daveconde/bc250-vcn-enable/blob/main/vcn2_register_map.md). Decoded the PSP t28 firmware blob: fw_type 13 = VCN0, fw_type 58 = VCN1. On a working card, loading VCN firmware makes the PSP write 1 to SMN `0x0900c004` (cold reset register for UVD) via `svc #0x7c` — on the BC250 the fw_type-13 load is rejected (`ITEM_NOT_FOUND`), so this write never happens and the island stays clamped. This is "the best candidate yet for the root clamp release" (rukkusireland, 24/08/2026).
+- rukkusireland (29-30/08/2026): VCN1 is a dead end — no 2nd IP discovery entry for HWID 12. Type 58 in the t28 blob may be leftover code from another chipset. PS5 has multiple VCN instances, so the missing discovery data hypothesis remains open.
+- mergeconflicted (01/09/2026): investigating CVE-2023-31316 against the BC-250 PSP type-13 save/restore path. Experimentally confirmed: during restore, attacker-controlled data is copied into the PSP-protected GPU firmware region before HMAC validation — a verified protected-memory write primitive. However, the PSP's `saved_len` variable is never properly initialized (contains garbage instead of `0x62940`), so restore faults before reaching firmware-release/activation. Updated to P5 BIOS and PSP reload files were accepted, but the clamp still did not release.
+- mergeconflicted (02/09/2026): the random values in the CVE were related to a fix in P5 — using P5 BIOS allowed PSP reload files to be accepted, but the clamp persists. Current investigation: how to correct or bypass `saved_len` so the restore can complete after planting the Navi VCN firmware.
+
+### GPU Unlock Research (40 CU)
+
+The 40 CU unlock went through multiple research phases before reaching the current stable state:
+
+- **Phase 1 — BIOS-level (Jul 2026):** RescueMei patched the P3.00 BIOS to expose hidden SMU commands (`PPSMC_MSG_SetConfig` 0x29) that enable harvested CUs. Requires hardware programmer or EFI shell flashing. First community confirmation of 40 working CUs.
+- **Phase 2 — Kernel patch (Jul-Aug 2026):** duggasco created a kernel patch (`bc250-40cu-unlock`) that disables the CU harvest check at driver load time. Works on any distro but requires rebuilding the kernel after updates.
+- **Phase 3 — Live manager (May 2026):** vinnijs.dev / `bc250-cu-live-manager` uses UMR to write the WGP disable register at runtime — no kernel patch, no reboot. Currently recommended method. Supports selective CU masking for cards with defective CUs.
+- **Open question:** GPU unlock stability depends on CU health. `cu_health_check.sh` (duggasco) and `cu_check.sh` (nonu0038) test each CU individually. Some boards have 1-2 defective CUs that must be masked (typically CU 3 or CU 7 on bad boards).
+
+### CPU Core Unlock Research (8 Cores)
+
+- **Phase 1 — BIOS modding (Jul 2026):** RescueMei / Forbidden-Darkness added core-unlock DXE drivers to the P3.00 BIOS. First boards booted with 8 cores confirmed via `nproc` and `lscpu`.
+- **Phase 2 — SMU mailbox (Jul 2026):** GabriWar created `bc250-core-cu-unlock` — a Python script that writes the core enable mask directly to the SMU via the mailbox interface (`0x98`). Works from userspace, persists across warm reboots but not cold boots (SMU resets on power-off). systemd service re-applies on boot.
+- **Phase 3 — ACPI + metrics fix (Aug 2026):** 8-core boards need ACPI tables for CPUs 12-15 (mendesrr / gabriwar `bc250-acpi-fix.sh`) and GPU metrics fix (`fix-freq` in governor or kernel patch from _mastag) to correct the 8-core frequency reporting.
+- **Known issue:** Core 3 is defective on some boards (h00man._., Aug 2026). Workaround: `isolcpus=6,7` + boot script to disable the bad cores. Not all boards affected — lottery dependent.
+
+See [10-troubleshooting](10-troubleshooting.md) for known issues and [11-community-and-resources](11-community-and-resources.md) for related repositories.
+
+### Core Unlock — Field Reports & History (Jul-Aug 2026)
+
+Community field reports and research history, moved here from the unlock procedure section (DOC_STANDARDS.md §3). Actionable conclusions from these reports are already reflected in the procedure above.
+
+**Field reports (Aug 2026):**
+- **glide_2026 (03/08):** temporary unlock, Elden Ring gained ~10 fps ("definitely added 10ish frames", still fluctuates around 60). Ratchet & Clank Rift Apart "incredible with 8 cores and 40 CUs" with the gfx1013-fix
+- **crazy_t0176 (03/08):** flashed the 8-core BIOS (Forbidden-Darkness UEFI script) — great FPS, but GPU clocks read only 20–100 MHz. bigmedi's reply: "Not yet" (the metrics fix landed days later — see the metrics options above)
+- **seb061492 (04/08):** OC that was stable at 6 cores (4000 MHz) crashes in Unigine with 8 cores unlocked, even at 3500 MHz, unless the SMU service/governor is disabled entirely — likely a marginal unlocked core (baalah: "bad cpu core"). His 40 CU @ 2200 MHz kept working
+- **dmoraza (03–04/08):** 0x7B mask works for some boards, but 8-core + governor on kernel 7.1 gives a black screen; OK on 6.18 (see [10-troubleshooting.md](10-troubleshooting.md) for the governor kernel note)
+- **fforduck (03/08):** CPU 4 and 5 pass stress tests yet misbehave in some games — he sets Steam to use all cores *except* 4 and 5 rather than fully disabling them. Partial core masks are supported (see alternate bitmasks above)
+- **Silicon lottery update (xseol, 06/08):** ~80% chance for 40 CU, 8 cores still new — estimate 50–60% for 8-core + 40-CU together ("you need to win two silicon lotteries")
+- **EFI vs BIOS — no consensus yet (Aug 5 2026):** midlifediy: "doesn't seem to be a consensus on EFI vs BIOS core unlock quite yet? (ive stayed put while this plays out)". keroppl_wizard: "I'm running EFI. I'll flash when the final megabios is released" (referring to gabriwar's `allthecoolshit.rom`)
+- **Bad cores do happen (Aug 2026):** j0shm1lls flashed the 8-core BIOS on his 2nd board *before* testing the unlock: "WHOOPS. (spoiler alert: cores dont b workin gud)". vadym557 tried 3 times with the cores-unlock option — stuck at Steam logo with a spinner; booted only when cores were disabled ("Guess my extra cores are cooked)" (Aug 8 2026). ⚠️ Always `test-cores.sh` / the Python script first — if the unlocked cores are defective, you must recover via external programmer
+- **Unlock survives OS reinstall — only a BIOS reflash clears it (skcanss, Aug 2 2026):** selecting the revert option and restarting still showed 8c/16t; even `blkdiscard` + fresh CachyOS install kept the cores unlocked; BIOS reset didn't clear it either — only reflashing the BIOS did. The mask lives in the SMU/BIOS, not the OS
+- **Power draw rises with core unlock (buzzynoob, Aug 6 2026):** "Since the new core unlocks the power draw has increased" — factor in extra margin on the original power delivery method (see [03-Power Supply Guide](03-power-supply-guide.md))
+- **Stock P3.00 BIOS hash mismatch (alexxxor_, Aug 4 2026):** a board with a P3.00 sticker produced a backup ROM whose `sha256sum` (`56c548afb8ac3147793f1254ee71f414f4a0002d39196edc98e3a28cd05862c3`) differs from the listed stock hash — boards ship with slightly different images, always back up before flashing
+
+**Background:** duggasco and mrfrakes previously decompiled and extracted bootrom and understood how the PSP (Platform Security Processor) checks and initializes cores from fuses. The working theory was that cores are controlled by a ROM array written during manufacturing rather than physically fused off — now validated by the working unlocks. Early speculation: unlocking BC-250 cores could theoretically apply to other low-end Ryzen CPUs with disabled cores, but that's uncharted territory.
+
+**jwagnervaz BIOS Rev Eng (Jul 09-11, 2026):** Another independent modder is reverse engineering a custom BIOS for the BC-250:
+- "Working in rev eng to make a better bios to bc 250" — posted progress photos from Jun 20, 2026 (Jul 2026)
+- Already fixed ACPI tables and made optimizations; prior experience modding X99 Chinese boards
+- Tested ALL available 4700S BIOS images found: **none boot** on BC-250 — different memory lithography and different ABL SMU between the two chips (Jul 11, 2026)
+- Boot stops at UART-debuggable point "in another place" after partial adjustment — working toward next breakthrough with UART debug tools
+- Goal: "port bootsec/tpm and find some solution to windows drivers. one step at a time."
+- Note: mrfrakes claims to have booted 4700S C08 BIOS on BC-250 with external GPU — may require specific BIOS version and external GPU like the original 4700S setup (Jul 11, 2026)
+
+**VCN unlock discussion (Jul 30 2026):** thelamer proposed using the same register exploit for VCN (video codec) hardware decode — `VCN feature version: 0, firmware version: 0x00000000` suggests the hardware is present but disabled. yrouel86 notes this would still need the firmware blob, and it would most likely need to be signed. VCN unlock remains an open research question.
+**Last verified: 2026-09-03**

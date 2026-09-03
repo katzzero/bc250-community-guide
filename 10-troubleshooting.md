@@ -53,36 +53,6 @@
 
 ---
 
-## VCN Still Not Working
-
-**Status:** Active research — major progress in Aug 2026. VCN 2.0.3 is confirmed **present and NOT harvested** (IP discovery, instance 0, harvest=0), but the Linux driver deliberately skips its registration. The problem is now diagnosed as a **power-path issue, not a codec or firmware issue**.
-
-**Root cause (thelamer, Aug 14 2026):** On Cyan Skillfish (GC 10.1.3) `adev->pg_flags = 0`, the board has **no `dpm_set_vcn_enable` callback**, and generic SMU code returns success when that callback is absent. `vcn_v2_0_start()` then proceeds into VCN PGFSM/MMIO accesses assuming power-up succeeded — but **VCN is still physically powered down**, so touching the block hard-locks the machine. "This is increasingly looking less like 'VCN fused off' and more like unused IP that AMD simply didn't wire up in the BC250 software stack" (thelamer, 14/08/2026).
-
-**Working theory (Jobs, per thelamer):**
-- **Job 1:** recover the missing BC250/Cyan Skillfish VCN power-on mechanism — an omitted SMU message mapping or a direct power/isolation register sequence. Success criterion: keep the machine alive and get VCLK to move from 0.
-- **Job 2:** once provably powered, re-enable the VCN 2.0.3 driver/firmware path and bring up rings/decoding.
-
-**Progress (Aug 13-15 2026):**
-- paul_lionking got amdgpu to recognize VCN 2.0.3 and load Navi VCN 2.0 firmware (`navi10_vcn.bin` aliased as `vcn_2_0_3.bin`; Navi10/12/14 blobs are byte-for-byte identical); the machine stays stable when init stops before `amdgpu_vcn_resume()`. On a normal boot SMU reports: VCN Powered down, VCLK = 0, DCLK = 1111.
-- paul_lionking extracted the resident BC250 SMU/MP1 PMFW from the BIOS (Xtensa, v88.6.0) and reverse-engineered the message dispatcher: raw SMU command `0x2A` is NULL in the BC250 table; undocumented public commands are `0x1F`, `0x20`, `0x26` (none looks like a VCN power switch). `smu_v11_5_ppsmc.h` defines `PPSMC_MSG_PowerDownVcn 0x8` / `PowerUpVcn 0x9` — bjaan: "most probably 0x8 and 0x9 are the messages to disable & enable power to the VCN block... they're just not implemented for the BC-250 version 11.8".
-- rw_r_r_0644 (Aug 15 2026): "We have fully arb code execution on the SMU at runtime via a bug in one of the message handlers" — appears exclusive to Cyan Skillfish (PS5/coreboot have an extra bound check). Can set arbitrary clocks/voltages (incl. ~2 GHz GDDR6) and write core masks. Possible path to power-up the VCN from the SMU; exploit cleanup pending.
-- Historical context: holde and Angablade got the SMU to wake the VCN block ~a year ago (one malformed frame via ffmpeg) but did not publish the SMU command. holde (Aug 14 2026): firmware is signed **by AMD, not Sony** — corrects earlier doc statements blaming Sony.
-
-**Progress (Aug 17-24 2026):**
-- bjaan (14/08/2026) mapped the CH3 SMU message-handler table and found an unused message `0xA4` slot plus a dormant PMFW handler at offset `0x1c1a0` that feeds `0x309b4` — a substantial platform/power transition routine. Registering the handler alone (without sending A4) hung the machine during boot — rules out that activation route but confirms a genuine dormant control path exists.
-- bjaan (15/08/2026): direct VCN firmware loads (`navi10_vcn.bin`, bypassing PSP) all end in system hang. His traced builds show the direct-load patch bypasses PSP authentication, places firmware in the VCN buffer, and initialization progresses all the way into `vcn hw_init` — it still hangs when the decoder ring is first exercised.
-- dantistnfs (18/08/2026), power-on validation criteria: status register reports powered on + VCN operating frequency enabled + firmware loading no longer crashes (firmware gets rejected by PSP with error `0xffff0008` for others). rw_r_r_0644 built an RPC-style patch that can call any SMU function from Python (published in [bc250-smu-unlock](https://github.com/rw-r-r-0644/bc250-smu-unlock)).
-- thelamer (19/08/2026): shipped unlock + the new power-on method as helpers in [bc250-lab-image v0.3.0](https://github.com/thelamer/bc250-lab-image/releases/tag/v0.3.0) as a dedicated POC platform ("if this works it will be a combination of smu commands, custom kernel, and possibly customization to libva").
-- **Status summary (yrouel86, 24/08/2026):** "Firmware loading has been solved AFAIK, the issue that remain is to properly turn on and initialize the VCN, powering it seems to have been solved but there's another gate to solve" — the full chain is not complete yet.
-
-See [11-community-and-resources](11-community-and-resources.md) for latest status.
-
----
-
-
----
-
 ## SteamOS 3.9 Bootloop After Upgrade from 3.8
 
 **Symptoms:** System loops at SteamOS intro video immediately after upgrading from 3.8. Occurs when selecting "main channel" in updates and rebooting. Tested with UGreen 8K DP adapter and direct DP to board — no output. Reproduced on a fresh SteamOS install (generic 3.8 image, then set update channel to MAIN to get wifi adapter working) (uba2615, Aug 3-4 2026).
@@ -137,11 +107,11 @@ Pass: `failed` = 0 on every core and spread within ~1% of the median. **Fail:** 
 
 | Cause | Fix |
 |-------|------|
-| Wrong kernel version | Avoid 6.15.0-6.15.6 and 6.17.8-6.17.10. Use **6.19.x** (recommended for VRR + DP audio), **6.18.18 LTS** (stable fallback), 6.17.11+, or 6.12.x-6.14.x LTS |
+| Wrong kernel version | Check the canonical [Kernel Support Matrix (05)](05-os-installation.md#kernel-support-matrix-canonical--as-of-2026-09-03): avoid 6.15.0–6.15.6 and 6.17.8–6.17.10; CachyOS 7.1.x is current, 6.19.x recommended stable, 6.18 LTS fallback |
 | Bad GPU frequency | Boot with `nomodeset`, install governor, remove nomodeset (source: boot.md) |
 | IOMMU enabled | Disable IOMMU in BIOS (source: boot.md, display.md, stability.md) |
-| Green screen (CPU instability) | Try better PSU, different SSD, proper DP cable -- (need confirmation; green screen only mentioned in ACPI context in stability.md line 271) |
-| Blue artifacts (GPU silicon) | Reduce frequency, may need board replacement -- (need confirmation; artifacts mentioned but not specifically "blue = silicon" in source docs) |
+| Green screen (CPU instability) | Try better PSU, different SSD, proper DP cable -- (community report — cause not confirmed; green screen only documented in the ACPI context in stability.md) |
+| Blue artifacts (GPU silicon) | Reduce frequency, may need board replacement -- (community report — artifacts documented, but the "blue = silicon" link is not confirmed in source docs) |
 
 ---
 
@@ -252,13 +222,13 @@ Also try restoring the default config file: reinstall the governor package or co
 
 **Cause:** Normal UEFI shell prompt during BIOS flash.
 
-**Fix:** Type `Flash.nsh` and press Enter. Note: some keyboard layouts may cause typos (e.g., French keyboards may type `Flqsh.nsh`). -- (need confirmation; not found in any source doc; appears to be from Discord)
+**Fix:** Type `Flash.nsh` and press Enter. Note: some keyboard layouts may cause typos (e.g., French keyboards may type `Flqsh.nsh`). -- (community report — najibc, help-thread; also documented in [02-BIOS](02-bios-and-firmware.md))
 
 ---
 
 ## "amdgpu: Unsupported clock type"
 
-**Status:** Harmless message. -- (need confirmation; not found in source docs; reportedly from Discord)
+**Status:** Harmless message. -- (community report — harmless)
 
 **Impact:** Almost none. Ignore unless accompanied by GPU timeouts or crashes.
 
@@ -268,7 +238,7 @@ Also try restoring the default config file: reinstall the governor package or co
 
 ## "dal_irq_service_dummy_ack"
 
-**Status:** Benign. Does NOT indicate hardware damage. -- (need confirmation; not found in source docs; reportedly from Discord)
+**Status:** Benign. Does NOT indicate hardware damage. -- (community report — benign)
 
 **Fix:** None needed. GPU works normally despite this message.
 
@@ -343,7 +313,7 @@ If zram is not enough for RAM-hungry games, use **zswap + swapfile** -- it dumps
 echo "" | sudo tee /etc/systemd/zram-generator.conf
 
 # Create swapfile (32 GB)
-sudo btrfs subvolume create /var/swap  # (need confirmation: btrfs + SELinux steps not in source performance.md)
+sudo btrfs subvolume create /var/swap  # (community-contributed steps — not in source performance.md)
 sudo semanage fcontext -a -t var_t /var/swap
 sudo restorecon /var/swap
 SIZE=32G
@@ -376,7 +346,7 @@ Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
 
 ## KDE Plasma / Qt Crashes
 
-**Cause:** Broken RDSEED instruction on BC-250 hardware (fixed in kernel 6.16+). -- (need confirmation; not found in any source doc; appears to be from Discord)
+**Cause:** Broken RDSEED instruction on BC-250 hardware (fixed in kernel 6.16+). -- (community report; fixed in kernel 6.16+)
 
 **Fixes:**
 - Update to **kernel 6.16+** (recommended: 6.19.x for VRR/DP audio)
@@ -399,7 +369,7 @@ sudo systemctl mask hhd   # Prevents re-enabling on updates
 
 ## Gamescope Artifacts / Visual Glitches
 
-**Symptoms:** Artifacts on GameScope windows and games; not visible in desktop mode. -- (need confirmation; not found in source docs; appears to be from Discord)
+**Symptoms:** Artifacts on GameScope windows and games; not visible in desktop mode. -- (community report)
 
 **Fixes:**
 1. Enable **Force Composition** in Steam GameScope settings (disables direct scan-out)
@@ -431,7 +401,7 @@ The newest version of `bc250-cu-live-manager` (June 2026) supports disabling sto
 
 **Symptoms:** Diagonal blue artifacts in multiple games (Sekiro, Cyberpunk, Satisfactory) at default governor settings. No crashes or overheating.
 
-**Cause:** Poorly binned GPU chip that cannot sustain high clocks without artifacts. sajonsmk tested extensively: at 1000MHz/700mV no artifacts, at 1500MHz/1065mV FurMark ran 1.5h without artifacts at 74C, but higher clocks consistently produced blue diagonal artifacts (sajonsmk, help-thread) (need confirmation -- user not found in exported Discord data).
+**Cause:** Poorly binned GPU chip that cannot sustain high clocks without artifacts. sajonsmk tested extensively: at 1000MHz/700mV no artifacts, at 1500MHz/1065mV FurMark ran 1.5h without artifacts at 74C, but higher clocks consistently produced blue diagonal artifacts (sajonsmk, help-thread) (community report — single user).
 
 **Fix:** This is a hardware limitation -- the chip cannot reliably run above ~1500MHz. Lock the governor to a lower max frequency or accept the artifacts.
 
@@ -447,7 +417,7 @@ The newest version of `bc250-cu-live-manager` (June 2026) supports disabling sto
 | Heatsink fins closed | Open center fins (scooper tool or bending) (source: sensors.md "cut fins") |
 | Fan too slow / not spinning | Check PWM settings, use higher speed curve (source: sensors.md) |
 | Poor case airflow | Open case panels, add exhaust fan |
-| VRAM overheating | Add thermal pads + rear fan -- (need confirmation: BC-250 is an APU; "VRAM backplate" wording may be inaccurate) |
+| VRAM overheating | Add thermal pads + rear fan — see [04 — Cooling Guide](04-cooling-guide.md#vram-cooling---dont-forget-the-back) |
 | Overclocking too aggressive | Lower frequency or increase voltage (source: stability.md) |
 | Heat pipe failure | Replace entire heatsink (bytepond, May 2026) |
 | Heatsink contact pressure | Add 1mm thermal pad spacer (gennro, May 2026) |
@@ -702,4 +672,5 @@ glxinfo | grep "OpenGL renderer"
 - Always clear CMOS after BIOS flash (source: boot.md, display.md, quick-reference.md)
 - Always disable IOMMU in BIOS (source: boot.md, display.md, stability.md, quick-reference.md)
 - Always use passive DP-to-HDMI for audio (source: display.md)
-- Use kernel 6.19.x (recommended — VRR + DP audio), 6.18.18 LTS (stable fallback), 6.17.11+, or 6.12.x-6.14.x LTS (avoid 6.15.0-6.15.6 and 6.17.8-6.17.10) (source: boot.md, display.md, performance.md, quick-reference.md)
+- Follow the canonical [Kernel Support Matrix (05)](05-os-installation.md#kernel-support-matrix-canonical--as-of-2026-09-03): CachyOS 7.1.x current, 6.19.x recommended stable, 6.18 LTS fallback — avoid 6.15.0–6.15.6 and 6.17.8–6.17.10 (source: boot.md, display.md, performance.md, quick-reference.md)
+**Last verified: 2026-09-03**

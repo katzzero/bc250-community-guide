@@ -2,8 +2,22 @@
 
 > Step-by-step guides for installing Linux on the BC-250.
 > **BIOS must be flashed first** - see [02-BIOS](02-bios-and-firmware.md).
-> **Kernel**: As of mid-Aug 2026 the CachyOS standard kernel is **7.1.x-based** (e.g. 7.1.8-1) and kernel **7.2 is expected shortly** — it will carry the latest DP audio patch, which also fixes some display issues (essdee4338, 16/08/2026). The **6.18 LTS branch** (6.18.42-1-cachyos-lts) remains available for stability. 40 CU unlock no longer requires a kernel patch — use `bc250-cu-live-manager` on stock kernel. **Mesa 26** is now current with significant RT and performance improvements.
-> After kernel updates, if you get a blank screen, boot the previous kernel from the boot menu and remove the broken one (rocksalt_, 16/08/2026).
+> 40 CU unlock no longer requires a kernel patch — use `bc250-cu-live-manager` on stock kernel. **Mesa 26** is current with significant RT and performance improvements.
+
+## Kernel Support Matrix (canonical — as of 2026-09-03)
+
+This table is the **single source of truth** for kernel recommendations (see `DOC_STANDARDS.md` §1). Other files link here instead of restating it.
+
+| Kernel line | Status | Notes |
+|-------------|--------|-------|
+| **CachyOS standard (7.1.x)** | ✅ Current default | e.g. 7.1.8-1. DP audio spread-spectrum disable landed in the 7.1 stable line (big_trov, 20/08/2026). |
+| **7.2 (CachyOS)** | Upcoming | Expected to carry the latest DP audio patch, which also fixes some display issues (essdee4338, 16/08/2026). |
+| **7.3 rc1** | Upcoming | Expected ~30 Aug 2026; _mastag preparing a CachyOS-flavored 7.3 rc with async compute shaders + extended GPU frequency patches (~1–2 weeks after rc1) (_mastag, 25–26/08/2026). |
+| **6.19.x** | ✅ Recommended stable | VRR + DP audio fixes (TheFloW patch, 6.19.10+). |
+| **6.18 LTS** (6.18.42-1-cachyos-lts) | ✅ Stable fallback | |
+| **6.15.0–6.15.6 and 6.17.8–6.17.10** | ❌ Broken — avoid | GPU initialization failures / kernel panics. |
+
+After kernel updates, if you get a blank screen, boot the previous kernel from the boot menu and remove the broken one (rocksalt_, 16/08/2026).
 
 ---
 
@@ -11,6 +25,7 @@
 
 | Distro | Best For | Difficulty | Notes |
 |--------|----------|------------|-------|
+| **SteamOS** | Console experience, seamless gaming | Easy | Valve's official OS. Immutable Arch-based. Boots into Gamescope. Requires toolkit for full BC-250 support. Gaining popularity. |
 | **CachyOS** | Maximum performance, stability | Intermediate | Arch-based, optimized packages, latest kernel + Mesa 26. Most stable for 40 CU and governor. Community default (Jul 2026). |
 | **Bazzite** | Console-like experience | Easy | Steam Deck UI out of box. **⚠ Stable kernel is 6.17.7 — too old for BC-250 (needs 6.19+).** Use testing branch or expect instability with 40 CU (see below). |
 | **Fedora 43+** | Most tested, general use | Easy | Mesa 25.1+ in official repos, most tested distro |
@@ -37,13 +52,110 @@ CachyOS has become the community default as of July 2026 due to Bazzite's stable
 | **VRR / Audio** | Audio issues persist for some users (Jul 2026). VRR works with custom image. | Native 6.19+ kernel support for VRR + DP audio. Working out of box. |
 | **Best for** | Console experience with fully working Game Mode — IF on testing branch. Good for users willing to rebase. | Raw performance, stability, tuners, desktop use, AI/LLM. Community default. |
 
-**Community consensus (July 2026):**
-- Bazzite stable is **not recommended** for 40 CU builds due to outdated kernel (6.17.7). BC-250 needs 6.19+.
-- If you want Bazzite, rebase to the **testing branch** which has kernel 7.0 + Mesa 26 (not yet in stable).
-- CachyOS has become the de-facto recommendation for stability + performance: "definitely better in terms of stability and features" (community, Jul 2026).
-- The performance gap is real — Bazzite stable's old kernel causes tangible issues with 40 CU, governor, and audio.
-- For non-technical users who want a console experience: Bazzite desktop testing branch or CachyOS Handheld Edition.
-- Several users explicitly recommended CachyOS over Bazzite after experiencing instability: "5 days no crashes" (evo9899), "rock solid reliable" (multiple users).
+**Community consensus (July 2026):** CachyOS is the de-facto recommendation — "definitely better in terms of stability and features" (community, Jul 2026); "5 days no crashes after switching from Bazzite" (evo9899), with several users reporting the same after switching. Bazzite stable (kernel 6.17.7) is **not recommended** for 40 CU builds — rebase to the testing branch first if you want Bazzite. For non-technical users who want a console experience: Bazzite desktop testing branch or CachyOS Handheld Edition. The performance gap is real: Bazzite stable's old kernel causes tangible issues with 40 CU, governor, and audio.
+
+---
+
+## SteamOS (Console Experience — Official Valve OS)
+
+> Valve's immutable Arch-based gaming OS. Boots directly into Gamescope (Steam Gaming Mode). Two community toolkits provide BC-250 support. Gaining traction over Bazzite — "SteamOS is my long game plan" (multiple users, Aug 2026).
+
+### SteamOS Versions on BC-250
+
+| Version | Kernel | Mesa | Status | Notes |
+|---------|--------|------|--------|-------|
+| **3.8.x** | 6.18 (valve) | 26.1.x | Stable | Base version. Audio fix + EDID patch required. |
+| **3.9 Preview** | 7.2 (valve) | 26.1.99 | Preview channel | Major update — kernel 7.2 fixes display/audio sync. EDID patch no longer needed. |
+| **3.10 Main** | 7.2 (valve) | 26.1.99 | Main channel | Same kernel as 3.9 preview. Toolkit v1.8.0+ required. |
+
+**How to update to 3.9/3.10:** Enable Developer Mode > Advanced Update Channels > switch to Main or Preview channel. After update, run "Install All" in the toolkit ([rpf16rj, 29/08/2026, help-thread]).
+
+### Installation
+
+1. Download SteamOS recovery image from [Valve's official site](https://store.steampowered.com/steamos/download) or use the recovery USB creator
+2. Flash to USB with **balenaEtcher** or **Rufus** (UEFI/FAT32)
+3. Boot from USB — standard installer
+4. **Known gotcha:** Some users report issues with partitioning during SteamOS setup — may need to modify a line in the installation script (community, bc250-chat). SATA M.2 drives can confuse the installer ([community, bc250-chat]).
+5. Complete installation, reboot
+
+### Post-Install: BC-250 Toolkits
+
+SteamOS on the BC-250 requires a toolkit for governor, CU unlock, audio fix, and WiFi drivers. Two toolkits exist:
+
+#### rpf16rj/bc250-steamos-real-toolkit (Recommended)
+
+Primary toolkit — TUI menu interface, most actively maintained. ([rpf16rj, GitHub](https://github.com/rpf16rj/bc250-steamos-real-toolkit))
+
+```bash
+git clone https://github.com/rpf16rj/bc250-steamos-real-toolkit.git
+cd bc250-steamos-real-toolkit
+chmod +x install.sh
+./install.sh
+```
+
+**Features (v1.8.2, Aug 2026):**
+- CPU governor + GPU governor (SMU) with undervolt/overclock
+- 8-core CPU unlock (EFI + SMU mailbox)
+- 40 CU GPU unlock (UMR-based, runtime)
+- Audio fix (DP audio clock patch — wrong DP refclk for DCN 2.0.1)
+- AIC8800 USB WiFi/BT driver
+- EDID patch for 4K@120Hz (not needed on kernel 7.2+)
+- DP-HDMI YCbCr 4:4:4 deep color + HDMI 2.1 FRL (v1.8.1+)
+- HDMI-CEC support
+- SteamOS boot logo (Steam Graphic Wordmark)
+- Telemetry fix for 8-core metrics reporting
+- All features install to update-proof paths (`/etc`, `/var`, `$HOME`) and self-heal across SteamOS updates
+
+**Important:** On kernel 7.2 (SteamOS 3.9/3.10), some audio/display patches are already upstream. The toolkit auto-detects kernel version and skips redundant patches ([keroppl_wizard, 29/08/2026, Yet Another SteamOS Toolkit]).
+
+#### keyboardspecialist/bc250-steamos
+
+Developer-focused toolkit with more granular control. ([keroppl_wizard, GitHub](https://github.com/keyboardspecialist/bc250-steamos))
+
+**Features (v0.20.14, Aug 2026):**
+- Same core features as rpf16rj toolkit (governor, CU unlock, audio fix, WiFi)
+- Decky plugin for Steam Game Mode integration
+- TUI tray control + desktop control
+- "Trainer" app (retro-style OC interface with music)
+- CEC with independent receiver commands + device mapping
+- GPU load target and ramp-up controls
+- More modular — individual scripts per feature
+
+**Known issue:** "keyboardspecialist's ui and usability is a bit of a mess though, I'm new to Linux and I struggled with it for a while" ([help-thread user, Jul 2026]).
+
+### 40 CU Unlock on SteamOS
+
+```bash
+# Via rpf16rj toolkit: Install All > option includes 40 CU
+# Or manual: run the CU unlock step separately, test boot before adding more features
+```
+
+**Warning:** Some boards with defective CUs will black-screen after 40 CU unlock. If this happens, mash ESC during boot to enter SteamOS safe mode (reverts to previous version), then try unlocking CUs one by one to find the defective one ([ininew, 23/08/2026, help-thread]). Test CU unlock alone first without 8-core unlock or telemetry ([rpf16rj, 23/08/2026, help-thread]).
+
+### Performance: SteamOS vs CachyOS
+
+Community reports are mixed but lean toward comparable performance:
+- "SteamOS runs fairly well on this board since 3.8 and 3.9 will be even better" ([community, bc250-chat])
+- "some benchmarks on RX 6600 pretty identical while SteamOS has better lows sometimes" ([community, bc250-chat])
+- "many people here reported much better performance in Elden Ring on SteamOS" (could not replicate — game-specific?) ([community, bc250-chat])
+- "there really isn't anything special SteamOS is doing for our board that would have any meaningful edges over CachyOS" — both Arch-based, SteamOS is more closed and immutable ([community, bc250-resources])
+- SteamOS + toolkit: "Got SteamOS working well... runs Cyberpunk at around 102 average fps high preset" with 8c 40cu at 3.85/2000 ([community, bc250-chat, Aug 2026])
+
+### Known Issues
+
+- **GPU governor not starting on boot:** systemd kills the service on some installs. Restart manually with `sudo systemctl start cyan-skillfish-governor-smu` — it persists until next reboot ([land_and_air, 24/08/2026, help-thread]).
+- **DP→HDMI signal loss on mode switch:** Active DP adapters (e.g. UGREEN) may lose signal when switching between Game Mode and Desktop Mode. Workaround: force-DisplayPort systemd service ([yrouel86, 25/08/2026, Yet Another SteamOS Toolkit]). On kernel 7.2 this is partially fixed.
+- **4K@120Hz instability:** Shimmering and intermittent no-signal with some DP→HDMI adapters. EDID patch helps on kernel 6.18; on 7.2 the adapter firmware update (CH7218) is recommended — requires Windows to flash ([dejan_994, rpf16rj, 26-27/08/2026, help-thread]).
+- **Bad overclock at boot:** Easy to get stuck with a bad OC/undervolt. Recovery requires mounting A/B partitions and disabling the service manually — "the filesystem structure you see on a booted system is pretty much an illusion" on SteamOS ([keroppl_wizard, yrouel86, 31/08/2026, Yet Another SteamOS Toolkit]).
+- **Temperature reporting:** GPU temp may not report after upgrade to 3.9 — install telemetry patch from toolkit with correct 8-core flag ([j0shm1lls, rpf16rj, 30/08/2026, help-thread]).
+
+### SteamOS Tips
+
+- **Update channel:** Stable (3.8) is safest. Preview (3.9) and Main (3.10) have kernel 7.2 with most display fixes upstreamed.
+- **Decky plugins:** Work on SteamOS — Decky Loader install guide at [GamingOnLinux](https://www.gamingonlinux.com/guides/view/how-to-set-up-decky-loader-on-steam-deck-steamos-for-easy-plugins/). rpf16rj toolkit includes a Decky plugin for GPU/CPU control.
+- **Dolby Digital 5.1:** Works via HDMI/eARC with rpf16rj toolkit v1.3.0+ option 13 — udev + WirePlumber AC-3 activation ([rpf16rj, 17/08/2026, bc250-resources]).
+- **Switching to Desktop:** `steamos-session-select plasma-wayland-persistent` or `steamos-session-select desktop` ([bc250-chat]).
+- **BC250 Control Center GUI:** ZEROAESQUERDA's PS5GPU-BC250 Qt app supports SteamOS — GPU frequency/voltage control from a desktop GUI, similar to MSI Afterburner ([ZEROAESQUERDA, bc250-resources]).
 
 ---
 
@@ -143,7 +255,6 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 **Warning:** Rebasing to patched images may remove USB WiFi/Bluetooth drivers. If WiFi stops working: use Ethernet, check available kernel modules (`lsmod | grep <driver>`), install missing drivers, or rollback with `rpm-ostree rollback`.
 
 ### Bazzite Tips
-- **⚠ Important:** Stable branch is on kernel 6.17.7 — too old. Rebase to `bazzite-deck:testing` for kernel 7.0 + Mesa 26 before setting up governor and 40 CU.
 - Install EmuDeck for emulation: use the Bazzite portal
 - Update with `ujust update` (or `rpm-ostree upgrade` + `flatpak update`)
 - Rollback broken updates with `rpm-ostree rollback`
@@ -439,3 +550,4 @@ uname -r
 | **Fedora Media Writer** | All | Fedora's recommended tool |
 | **Rufus** | Windows | Use UEFI / FAT32 mode |
 | **dd** | Linux CLI | `sudo dd if=image.iso of=/dev/sdX status=progress && sync` |
+**Last verified: 2026-09-03**

@@ -4,6 +4,85 @@ This file documents every correction or update discovered by cross-referencing V
 
 ---
 
+## September 3, 2026 — Editorial restructure (reader-experience pass): canonical kernel matrix, unlock decision table, dedup, catalog merges (00, 02, 04, 05, 07, 10, 11, README)
+
+Full-guide editorial audit (tutorial/catalog/reader-experience review) plus first compliance pass against the new `DOC_STANDARDS.md` (project root, maintainer-local — not committed). **No new Discord claims were added**; every citation below already existed in the files. Content was moved or merged, never deleted.
+
+### 1. Canonical kernel recommendation (05, 00, 10, README)
+- 05 now opens with a **Kernel Support Matrix (canonical — as of 2026-09-03)** consolidating what was previously prose in the 05 header: CachyOS 7.1.x current, 7.2/7.3-rc1 upcoming (essdee4338 16/08/2026; _mastag 25–26/08/2026), 6.19.x recommended stable, 6.18 LTS fallback, 6.15.0–6.15.6 / 6.17.8–6.17.10 broken. All prior citations preserved.
+- 00, 10 (black-screen table + Important Reminders) and README warning #4 now link to the matrix instead of restating divergent version lists (previously README said "7.1.x or 6.18 LTS" while 00/10 said "6.19.x recommended").
+
+### 2. Bazzite warning deduplicated (05)
+- The kernel-6.17.7 warning appeared 4x inside 05; now: one banner in the Bazzite section + the comparison-table row. The "Community consensus (July 2026)" bullet list was condensed to one paragraph — all quotes kept ("definitely better in terms of stability and features", "5 days no crashes" evo9899).
+
+### 3. Doc 02 — CPU core unlock restructured
+- New **decision table** at the top of the section (6 methods × persistence/risk/best-for), gabriwar SMU mailbox tool marked recommended; test-cores-first warning consolidated.
+- **Field reports (Aug 2026)** (glide_2026, crazy_t0176, seb061492, dmoraza, fforduck, xseol, midlifediy/keroppl_wizard, j0shm1lls/vadym557, skcanss, buzzynoob, alexxxor_), the **Background** (duggasco/mrfrakes bootrom) and **jwagnervaz BIOS Rev Eng** blocks moved from the procedure into a new "Core Unlock — Field Reports & History" subsection under Research & Active Projects (same pattern as the VCN section). VCN unlock discussion (thelamer/yrouel86, Jul 30 2026) moved with them.
+
+### 4. Catalog hygiene (07)
+- 23 duplicate game rows removed: 17 from "Games Mentioned in Community (Limited Data)" and 6 from "Newly Tested Games (Late May 2026)" — all data first merged into the main per-game entries (Borderlands 3 OC uplift, Crimson Desert 38–40 CU note from pijuli./vfxmz, FH6 memory-warning notes from antmagl/jeffr7814/capt.cat_13, Marvel Rivals Season 8 mod from graytl, RE9 frame-gen crash caveat, AC IV TAA-native FPS, TLOU FSR clock cap, HL:Alyx Monado/kilrah notes, etc.).
+- Superposition 40 CU leaderboard re-sorted by score (codyrainy/cralant ~5400 now correctly above pm_me_kitsunemimi 5320).
+- Fixed 6 malformed table rows where confirmations sat in a phantom extra column (07:15 FSR row; Half-Life: Alyx, FF7 Remake, Horizon ZD, Warframe, Death Stranding in the single-player table).
+
+### 5. Repo catalog regrouped (11)
+- 91 repo rows → **89 unique** grouped into 12 category tables (Core Docs, BIOS/Firmware, Unlocks, SMU/ACPI Research, Governor/Monitoring, OS Toolkits, Power/Remote, Display/Audio/Peripherals, Graphics Fixes, AI Inference, Cases, Windows Experiments). Duplicates removed: `bc250-collective/amd_smu_reverse_engineering` (was rows 26+57, attributions merged) and `tmghd272/bc250-batocera-tools` (was rows 70+94).
+- Fixed copy-paste artifact "— upstream for Debian builds" on the peterdk31 WS2812B row; 26 stray "| [confirmed: …]" phantom-column cells merged into their Notes cells (Primary Documentation, Timeline, Price History tables); Discord channel list flattened; "(98 commits, 85 stars -- need confirmation)" → "commit/star counts not re-verified — community report" (row + footer).
+
+### 6. Confidence vocabulary applied (04, 10)
+- All "(need confirmation …)" audit markers converted to the DOC_STANDARDS §6 vocabulary: 8 Printables links in 04 now covered by ONE table footnote ("community-cited; transport errors during Aug 2026 audit") instead of 8 inline markers; 10 markers in 10 rewritten (e.g. the Flash.nsh French-keyboard note now cites najibc/help-thread, which was already documented in 02); the stale "VRAM backplate wording may be inaccurate" caveat in 10 replaced by a cross-reference to the VRAM cooling section of 04.
+
+### 7. Footers
+- `Last verified: 2026-09-03` added to 00, 02, 04, 05, 07, 10, 11, README (DOC_STANDARDS §7).
+
+### 8. Governance
+- `DOC_STANDARDS.md` created at the project root (binding for all `Revised/` edits): canonical-source map, as-of dating, procedure/research separation, catalog rules, confidence vocabulary, emoji policy (✅/⚠️/❌ table columns only), pre-commit checklist. `AGENTS.md` updated to reference it.
+
+---
+
+## September 3, 2026 — Aug 24 - Sep 3 export cycle: VCN exploit, BIOS v3, CachyOS 7.3, FSR4 RT, new repos (02, 04, 05, 06, 07, 08, 10, 11, 12, README)
+
+Full-scan update against fresh exports (Aug 24 - Sep 3): bc250-chat (21k lines), VCN thread (380 lines), BIOS modding (1.1k lines), CachyOS kernel+Mesa (2.8k lines), FSR4/XeSS (965 lines), bc250-beast (48 lines), QuarkStar (135 lines), Superposition (132 lines), help-threads. All claims cited to export messages.
+
+### 1. VCN research (02, 10, 11)
+- Section moved from doc 10 (troubleshooting) to doc 02 (Research & Active Projects) — VCN is active research, not a troubleshooting issue.
+- daveconde/bc250-vcn-enable repo: full VCN2 register map + PSP t28 decode — fw_type 13 = VCN0, fw_type 58 = VCN1. SMN 0x0900c004 = UVD cold reset register; PSP rejects fw_type-13 load with ITEM_NOT_FOUND, so cold reset never fires (rukkusireland, daveconde, 24/08/2026, VCN thread)
+- VCN1 is a dead end — no 2nd IP discovery entry for HWID 12, type 58 likely leftover from another chipset (rukkusireland, 29-30/08/2026, VCN thread)
+- CVE-2023-31316 exploit: PSP save/restore path allows protected-memory write before HMAC validation, but `saved_len` uninitialized = restore faults before activation. P5 BIOS accepted PSP reload files but clamp persists (mergeconflicted, 01-02/09/2026, VCN thread)
+
+### 2. BIOS / unlock (02)
+- Forbidden-Darkness V3 DXE BIOS released (23/08): RescueMei/BC250-DXEv3-BIOSMOD — ACPI patching, SMU Unlock, Core Unlock, manual core selection. Companion patch: RescueMei/BC250-DXEv3-SMU-Patch fixes 8-core count reporting [6]->[8] (RescueMei, 23/08/2026, BIOS modding thread)
+- Doc 02 restructured: new "Research & Active Projects" section consolidating VCN hardware decode, GPU unlock research (3 phases), CPU unlock research (3 phases)
+
+### 3. Benchmarks (07)
+- FSR4 vs XeSS vs FSR2/3 RT comparison: native 56 FPS, FSR2/3 Quality 75 FPS, FSR4 73 FPS, XeSS Balanced 78 FPS. XeSS outperforms in RT but worse image quality. FG from 30→60 = 30 FPS latency (dmoraza, community, Aug 2026, FSR4/XeSS thread)
+- UNIGINE Superposition 40CU: 5000+ score (.captainwasabi, Aug 2026, benchmarks). Previous 40CU unlock did not persist after update due to 8-core unlock issue.
+
+### 4. OS / kernel (05)
+- Linux 7.3 rc1 expected ~30 Aug. CachyOS 7.3 rc1 in ~1-2 weeks with async compute shaders + extended GPU freq patches (_mastag, 25-26/08/2026, CachyOS thread)
+- Linux 7.4 outlook: amdgpu VRR + ALLM with HDMI 2.1 FRL (_mastag, 25/08/2026)
+- Bazzite 44: Sunshine+Moonlight remote play shows black screen (workaround: v0.28.0-alpha.27) (bc250-chat, 02/09/2026)
+
+### 5. Governor / power (06)
+- 500 MHz idle crash warning: GPU dropping to 500 MHz at idle can hard-lock the system. Min freq >= 1000 MHz recommended; sweet spot ~4 GHz CPU (big_trov, 19/08/2026, bc250-chat)
+
+### 6. Cooling (04)
+- Pump-out warning: repaste with caution — over-tightened screws cause thermal paste ejection (sametklou, 23/08/2026, bc250-chat)
+- Printables "BC250 All In One Frame" by Earstorm added to 3D accessories table (Earstorm, 02/09/2026, bc250-chat)
+
+### 7. Display / audio (08)
+- UGREEN 8K DP to HDMI 2.1 adapter confirmed working (kubevirt, 19/08/2026, bc250-chat)
+- Sunshine+Moonlight black screen on SteamOS/Bazzite — known issue, workaround available (bc250-chat, 02/09/2026)
+
+### 8. AI inference (12)
+- QuarkStar: Qwen3.8-27b support (Ninnix) — 20+ t/s Unsloth Q8/IQ3_S, 100k context, disk KV (project-forums, Sep 2026)
+- audio.cpp minimax3: music inference at Q8 via Vulkan, 14.5 GB VRAM peak for ~4 min songs (0xShug0, bc250-chat, Aug 2026)
+- New llama.cpp forks: TechMakesArt/llama.cpp-bc250, LaurentZuijdwijk/llama.cpp (adaptive speculative decoding)
+
+### 9. Resources (11)
+- New repos: daveconde/bc250-vcn-enable, chelmooz/AMD-BC-250-at-his-Best (unified orchestrator), TechMakesArt/llama.cpp-bc250, Redemp/Interlaced-Linux-amdgpu-Driver, LaurentZuijdwijk/llama.cpp
+
+---
+
 ## August 24, 2026 — Aug 14-24 export cycle: kernel landscape, VCN progress, FSR4 optimization, new repos (02, 03, 05, 06, 07, 08, 10, 11, README)
 
 Full-scan update against fresh exports (Aug 14-24): bc250-chat (21.8k lines), VCN thread, help-thread cluster, benchmarks (15 threads), bc250-resources, project-forums. All claims cited to export messages.

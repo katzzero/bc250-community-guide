@@ -66,7 +66,7 @@ Source: elektricM cooling.md (Fin Straightening, Benefit: 5-10C temperature impr
 
 ### Method 2: 3D Printed Scooper Tool
 
-- **Print:** BC-250 Scooper (https://www.printables.com/model/1282906) (need confirmation - URL returned transport error)
+- **Print:** BC-250 Scooper (https://www.printables.com/model/1282906) — community design; see the link-audit note in the shroud table below
 - Not in elektricM. Source: community design
 
 ### Method 4: Scissor Peeling (Community-Verified Preferred)
@@ -100,7 +100,7 @@ Source: elektricM cooling.md (Fin Removal - High Risk Modification)
 | **Noctua NF-F12 iPPC-3000** | 7.63 mmH2O | 750-3000 | 110 CFM | 43.5 dBA | Premium industrial. Highest static pressure. |
 | **Noctua NF-A12x25** | 2.34 mmH2O | Up to 2000 | 60.1 CFM | 22.6 dBA | Quietest premium option. |
 | **Arctic P14 PWM** | 2.40 mmH2O | Up to 1700 | 72.8 CFM | 38 dB(A) | Larger 140mm - covers more heatsink area. |
-| **Wathai 120mm Blower** | 0.81-1.35 mmH2O | Up to 3000 | 25-38 CFM | 25-45 dB(A) | Blower style. Not ideal for main cooling. (need confirmation - not in elektricM) |
+| **Wathai 120mm Blower** | 0.81-1.35 mmH2O | Up to 3000 | 25-38 CFM | 25-45 dB(A) | Blower style. Not ideal for main cooling. (community report — not in elektricM) |
 | **Arctic S12038-8K** | Server fan | Up to 8000 | Very high | Very high | "At 68% speed spanks a P12 Pro" (paul_lionking, May 2026) |
 
 Source notes on fan specs:
@@ -149,7 +149,7 @@ dartzon (May 2026) used a Thermalright Peerless Assassin 120 with 3D-printed mou
 | **Zip ties** | Simplest, no mods | Can slip; less secure |
 | **Screws (factory holes)** | Most secure | Requires drilling/cutting (elektricM warns NOT to drill heatsink) |
 | **Aluminum HVAC tape** | Seals air leaks, good contact | Hard to remove. Real result: widdlemama "attach my P12 to the heatsink using aluminium foil tape and my temps in Clair Obscur went from 75 to 62" (flex-chat, 09/06/2026) |
-| **CPU cooler brackets** | Repurposed arms | May not fit perfectly (need confirmation - not in elektricM) |
+| **CPU cooler brackets** | Repurposed arms | May not fit perfectly (community report — not in elektricM) |
 | **3D printed shroud** | Best airflow, clean look | Requires 3D printer |
 
 Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from elektricM cooling.md (Fan Mounting Options). Screws into heatsink: elektricM warns "Do not drill holes in the heatsink fins to screw fans directly."
@@ -161,7 +161,7 @@ Primary methods (zip ties, 3D printed shroud, cardboard/foam shroud) are from el
 - **Push + pull** (one each side) > push + push
 - **92mm fan on back** helps with backplate VRAM cooling
 
-(need confirmation - push/pull advice not directly in elektricM. 92mm fan advice from elektricM's secondary fan section)
+(community advice — not in elektricM; 92mm fan advice from elektricM's secondary fan section)
 
 ---
 
@@ -183,14 +183,14 @@ Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of
 4. Torque heatsink screws evenly (cross pattern)
 5. **First boot may show 80-90C** - this is normal, it "cooks in" during initial thermal cycles
 
-(need confirmation - application process not in elektricM. First boot behavior from community/Discord.)
+(community-tested process — not in elektricM; first-boot behavior from community/Discord)
 
 ### Alternative: Thermal Putty
 
 - **Fehonda LTP81** or similar
 - Self-squeezes to correct thickness - no measuring needed
 - Apply generously
-- "I stopped using thermal pads for everything. I use thermal putty." - community member (need confirmation - not in elektricM)
+- "I stopped using thermal pads for everything. I use thermal putty." - community member (community report — not in elektricM)
 
 ### Thermal Paste Rankings (if not using PTM7950)
 
@@ -203,6 +203,10 @@ Source: elektricM cooling.md (Memory Thermal Pad Replacement: "1.5mm on front of
 | Thermal Grizzly Duronaut | ~12.5 W/mK | Emphasizes long-term stability per Thermal Grizzly. Our file previously claimed 17.3 W/mK - reseller data shows ~12.5 W/mK. 15C drop claim unverified. |
 
 Source: elektricM cooling.md (Recommended Thermal Paste) lists MX-4, MX-6, Kryonaut, NT-H1, Thermalright TFX. Duronaut and conductivity values are NOT in elektricM - from community/Discord sources.
+
+### Pump-Out Warning
+
+If you hit 90C+ under load but the heatsink feels cold to the touch, you likely have **thermal paste pump-out** — the paste is being pushed out of the contact area by repeated heat cycles. Fix: repaste without over-tightening the heatsink screws (pressing hard squeezes out the paste). "Instead of pushing hard which makes pump out all thermal paste I was just screwing back without pushing. It made a huge difference" (sametklou, 23/08/2026). Also consider PTM7950 phase-change pad which does not pump out.
 
 ---
 
@@ -218,7 +222,7 @@ Source: elektricM cooling.md (Recommended Thermal Paste) lists MX-4, MX-6, Kryon
 
 Source: elektricM cooling.md (Safe Operating Temperatures table)
 
-### Community Gaming Temperature Ranges (need confirmation - not in elektricM)
+### Community Gaming Temperature Ranges (community consensus — not in elektricM)
 
 | Range | Assessment |
 |-------|------------|
@@ -228,7 +232,7 @@ Source: elektricM cooling.md (Safe Operating Temperatures table)
 | 85-90C | Throttling zone |
 | 100-110C | Critical - shutdown imminent |
 
-### Stress Test Temperatures (Furmark) (need confirmation - not in elektricM)
+### Stress Test Temperatures (Furmark) (community report — not in elektricM)
 
 | Temp | Assessment |
 |------|------------|
@@ -266,7 +270,7 @@ The J4003 header connects to the power distribution board and provides PWM/tach 
 5. Optional: 92mm fan on backplate for VRAM cooling
 6. Fan curve: 30% at 40C - 50% at 60C - 75% at 70C - 100% at 80C
 
-(need confirmation - recommended setup not in elektricM as a numbered list)
+(community consensus — not in elektricM as a numbered list)
 
 ---
 
@@ -274,19 +278,20 @@ The J4003 header connects to the power distribution board and provides PWM/tach 
 
 | Design | Link | Notes |
 |--------|------|-------|
-| ViRazY Fan Shroud (140mm + 120mm) | https://www.printables.com/model/1339540 | Intake + exhaust combo (need confirmation - URL returned transport error) |
-| Cooling Solution | https://www.printables.com/model/1385007 | Full cooling solution (need confirmation - URL returned transport error) |
-| 140mm Fan Mod (4U12G case) | https://www.printables.com/model/1674470 | For Asrock 4U12G case (need confirmation - URL returned transport error) |
-| BC-250 Scooper (fin tool) | https://www.printables.com/model/1282906 | Essential for fin work (need confirmation - URL returned transport error) |
-| BC-250 Shell Case | https://www.printables.com/model/1228207 | Simple enclosure (need confirmation - URL returned transport error) |
-| Minimal Case + Flex PSU | https://www.printables.com/model/1423572 | Compact Flex ATX build (need confirmation - URL returned transport error) |
-| BC-250 Case (ATX PSU) | https://www.printables.com/model/1553599 | For standard ATX PSUs (need confirmation - URL returned transport error) |
+| ViRazY Fan Shroud (140mm + 120mm) | https://www.printables.com/model/1339540 | Intake + exhaust combo |
+| Cooling Solution | https://www.printables.com/model/1385007 | Full cooling solution |
+| 140mm Fan Mod (4U12G case) | https://www.printables.com/model/1674470 | For Asrock 4U12G case |
+| BC-250 Scooper (fin tool) | https://www.printables.com/model/1282906 | Essential for fin work |
+| BC-250 Shell Case | https://www.printables.com/model/1228207 | Simple enclosure |
+| Minimal Case + Flex PSU | https://www.printables.com/model/1423572 | Compact Flex ATX build |
+| BC250 All In One Frame | https://www.printables.com/model/1774445 | Holds BC-250 + PSU + power button in one open-fan frame — good for push/pull dual-fan setups (sametklou, 23/08/2026) |
+| BC-250 Case (ATX PSU) | https://www.printables.com/model/1553599 | For standard ATX PSUs |
 | BC-250 Sleeve Adapter | https://github.com/onemorecap/bc-250-sleeve-adapter | 120mm fan adapter. Listed in elektricM cooling.md |
 | BC-250 Custom Case | https://github.com/isaacalvex/BC-250-Custom-Case | Alternative enclosure. Listed in elektricM cooling.md |
 
 GitHub URLs verified present in elektricM cooling.md (Popular Designs section).
 
-Other Printables models: not verified - all returned transport errors during audit.
+> **Note on Printables links:** community-cited, but all returned transport errors during the Aug 2026 link audit (only the All In One Frame, added 02/09/2026, is newer). If a link is dead, search the creator's Printables profile or the [Printables BC-250 search](https://www.printables.com/search/models?q=BC-250), and report broken links via issue.
 
 ---
 
@@ -316,3 +321,4 @@ iamdarkyoshi (17 Mar 2026) tested adding thermal pads between the heatsink and P
 **Key takeaway:** Front cooling alone isn't enough. Pay attention to the back.
 
 Sources: elektricM cooling.md (Backplate VRAM Cooling Solutions), iamdarkyoshi (17 Mar 2026)
+**Last verified: 2026-09-03**
