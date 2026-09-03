@@ -605,7 +605,7 @@ See [10-troubleshooting](10-troubleshooting.md) for known issues and [11-communi
 
 ### Core Unlock — Field Reports & History (Jul-Aug 2026)
 
-Community field reports and research history, moved here from the unlock procedure section (DOC_STANDARDS.md §3). Actionable conclusions from these reports are already reflected in the procedure above.
+Community field reports and research history, moved here from the unlock procedure section. Actionable conclusions from these reports are already reflected in the procedure above.
 
 **Field reports (Aug 2026):**
 - **glide_2026 (03/08):** temporary unlock, Elden Ring gained ~10 fps ("definitely added 10ish frames", still fluctuates around 60). Ratchet & Clank Rift Apart "incredible with 8 cores and 40 CUs" with the gfx1013-fix

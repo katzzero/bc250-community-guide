@@ -36,6 +36,7 @@ Full-guide editorial audit (tutorial/catalog/reader-experience review) plus firs
 
 ### 8. Governance
 - `DOC_STANDARDS.md` created at the project root (binding for all `Revised/` edits): canonical-source map, as-of dating, procedure/research separation, catalog rules, confidence vocabulary, emoji policy (✅/⚠️/❌ table columns only), pre-commit checklist. `AGENTS.md` updated to reference it.
+- Follow-up: removed the maintainer-local `DOC_STANDARDS.md` references from reader text in 02, 05, 07 and 11 (public readers cannot access the file).
 
 ---
 

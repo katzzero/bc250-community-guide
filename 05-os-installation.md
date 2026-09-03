@@ -6,7 +6,7 @@
 
 ## Kernel Support Matrix (canonical — as of 2026-09-03)
 
-This table is the **single source of truth** for kernel recommendations (see `DOC_STANDARDS.md` §1). Other files link here instead of restating it.
+This table is the **single source of truth** for kernel recommendations. Other files link here instead of restating it.
 
 | Kernel line | Status | Notes |
 |-------------|--------|-------|

@@ -18,7 +18,7 @@
 
 ## GitHub Repositories
 
-Grouped by purpose (DOC_STANDARDS.md §5 — one entry per repo). Alphabetical within each group.
+Grouped by purpose (one entry per repo). Alphabetical within each group.
 
 ### Core Documentation & References
 

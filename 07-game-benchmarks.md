@@ -549,7 +549,7 @@ nexgen3d runs liquid cooling (MSI AIO), CachyOS, SMU governor. 24 CU community t
 
 ## Games Mentioned in Community (Limited Data)
 
-Games with verified community mentions but limited sample size — use with caution. Sources cross-checked against export scans (2025-11 to 2026-08). Games with fuller data live in the sections above; each game appears exactly once in this file (DOC_STANDARDS.md §5).
+Games with verified community mentions but limited sample size — use with caution. Sources cross-checked against export scans (2025-11 to 2026-08). Games with fuller data live in the sections above; each game appears exactly once in this file.
 
 | Game | Report | Notes |
 |------|--------|-------|
