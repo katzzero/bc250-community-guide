@@ -234,9 +234,13 @@ The BC-250 ships with 24 of 40 RDNA2 CUs active (16 harvested). These can be re-
 - **scallion_9883 HIP kernel work** (Discord bc250-chat) -- Custom HIP kernel for BC-250, ROCm debugging
 - **ROCm issue #6313** -- BC-250 system freeze after compute workloads. Filed by geenight, community investigation ongoing
 - **elektricM radv driver guide** -- RADV setup and LLM inference notes (elektricM.github.io/amd-bc250-docs/drivers/radv/)
+- **QuarkStar** (Ninnix, project-forums) -- Native C/Vulkan inference engine for Qwen3.8-27b and Qwen3.6-35B on the BC-250. Supports Unsloth Q8/IQ3_S quants, 20+ t/s on 27B, up to 100k context, disk KV, quantized KV (q8/q4). Performance comparable to vanilla llama.cpp (20-25 t/s on 27B with Vulkan), but aims for better overall UX (project-forums, Sep 2026)
+- **TechMakesArt/llama.cpp-bc250** -- llama.cpp fork tuned for the BC-250 (Aug 2026)
+- **LaurentZuijdwijk/llama.cpp** -- Adaptive speculative decoding (`--spec-draft-adaptive`) + Vulkan backend tuned for AMD Strix Halo -- 4.7x on structured output, 1.9x mainline prefill on MoE (Aug 2026)
+- **0xShug0/audio.cpp** -- minimax3 music inference running at Q8 on BC-250 via Vulkan, peaks at 14.5 GB VRAM for ~4 minute songs. Build: `./build/linux-vulkan-release/bin/audiocpp_server --ui --ui-management --backend vulkan --host 0.0.0.0 --port 8080` (bc250-chat, Aug 2026)
 
 ---
 
 *Sources: elektricM radv.md (primary), Discord bc250-chat (hammercoral, __nightfox, xseol, _fanoush_, steinbeks, deathstalkerjr, adaptive__manipulator, birdetta, machinezer0, neoney), llama.cpp GitHub benchmark thread #10879, Ollama issue #15601, ROCm/TheRock SUPPORTED_GPUS.md, Phoronix coverage.*
 
-Last modified: 2026-08-13
+Last modified: 2026-09-03

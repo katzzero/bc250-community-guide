@@ -198,6 +198,8 @@ Community testing shows CU count has minimal impact on idle power:
 
 Downclocking the GPU to 10 MHz works, but 1 MHz crashes the kernel driver (pops1cl, May 2026). The default minimum frequency in the governor config has been bumped from 400 MHz to 500 MHz.
 
+**Warning:** setting the minimum frequency to 500 MHz can cause crashes at idle (screen goes black with audio still playing) while full load remains stable. Keeping the minimum at 1000 MHz or higher avoids this — likely related to the GPU entering a low-power state the driver cannot recover from (community reports, Aug 2026). For best results, aim for 4 GHz CPU + GPU minimum ≥1000 MHz as the efficiency sweet spot.
+
 ### After Changing Config
 
 ```bash

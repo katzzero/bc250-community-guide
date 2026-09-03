@@ -20,6 +20,7 @@
 | Passive DP-to-HDMI (generic) | Passive adapter | Best value — works at 1080p60/1440p60 with audio, ~$5–10 |
 | AmazonBasics DP to HDMI (`B015OW3M1W`) | Passive | Video works, audio hit-or-miss |
 | UANTIN DP to HDMI (`B0CYHB956B`) | Passive | Confirmed working, Amazon UK | [confirmed: @biohazardv2.0, 13/02/2026]
+| UGREEN DP to HDMI (`B0FCLXJHTX`) | Passive | Recommended by community — 4K@30Hz / 2K@60Hz / 1080P@120Hz; confirmed working with BC-250 (Aug 2026) |
 
 ### BIOS Display Issue — "No Display in BIOS"
 
@@ -116,3 +117,7 @@ cp ./libVulkan_NullVRS.so ~/.local/share/vulkan/implicit_layer.d/
 ```
 
 Steam launch option: `ENABLE_VK_NULLVRS_1=1 %command%`
+
+## Streaming (Sunshine + Moonlight)
+
+**Black screen after Bazzite 44 update (Aug 2026):** multiple users report Sunshine + Moonlight streams show a black screen in game mode after updating to Bazzite deck 44. Issue persists across SteamOS and CachyOS as well. Cause unknown — may be related to hardware encoder/decoder initialization. Workaround: pyrowave (Vulkan-based encoder) is an alternative that bypasses the hardware encoder entirely (autistic_neckbeard, 24/08/2026).
