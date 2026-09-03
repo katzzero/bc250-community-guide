@@ -42,7 +42,7 @@ CachyOS has become the community default as of July 2026 due to Bazzite's stable
 | Factor | Bazzite | CachyOS |
 |--------|---------|---------|
 | **Performance** | Behind — stable branch on kernel 6.17.7, old Mesa (fforduck, Jul 2026) | Best — kernel 6.19+, Mesa 26, optimized packages, BORE scheduler (dznuts, gennro) |
-| **Stability** | ⚠ Unstable with 40 CU — green screen on idle/download, random freezes. "A bunch of people moved from Bazzite to CachyOS" (community, Jul 2026). | Rock solid — "5 days no crashes after switching from Bazzite" (evo9899). Several users report identical experience. |
+| **Stability** | ⚠ Unstable with 40 CU — green screen on idle/download, random freezes. "A bunch of people here moved from Bazzite to CachyOS because Bazzite Handheld is pretty far out of date" (pops1cl, 10/06/2026). | Rock solid — "5 days no crashes" after switching (evo9899, 04/07/2026). Several users report identical experience. |
 | **Ease of setup** | Easiest — pre-patched kernel, Game Mode included. But outdated kernel causes governor install issues. | Moderate — Arch-based, manual setup. More flexible, fewer surprises. |
 | **Kernel** | ⚠ Stable: **6.17.7** (OLD!). Testing: kernel 7.0+ Mesa 26 — not yet released. **⚠ Kernel 7.1+ causes black screen with governor — dmoraza (Aug 3 2026).** Stay on 6.19.x or 6.18 LTS for governor use. Bazzite deck 44 update reported working fine by early adopters (ntimd8r, dbkretro, 22/08/2026). | Standard kernel now **7.1.x-based**; 7.2 imminent with DP audio + display fixes (essdee4338, 16/08/2026). Some users saw blank screens on 7.x and 6.18 after updates — roll back via boot menu if hit (@bencraft3204, @rocksalt_, 16/08/2026). |
 | **40 CU unlock** | CU live manager works. Legacy kernel patch available (ba29 Deck kernel only). OGC desktop kernel packages not yet available. | CU live manager works on stock kernel. Full toolkit support (redbeard1083, gennro). |
@@ -52,13 +52,13 @@ CachyOS has become the community default as of July 2026 due to Bazzite's stable
 | **VRR / Audio** | Audio issues persist for some users (Jul 2026). VRR works with custom image. | Native 6.19+ kernel support for VRR + DP audio. Working out of box. |
 | **Best for** | Console experience with fully working Game Mode — IF on testing branch. Good for users willing to rebase. | Raw performance, stability, tuners, desktop use, AI/LLM. Community default. |
 
-**Community consensus (July 2026):** CachyOS is the de-facto recommendation — "definitely better in terms of stability and features" (community, Jul 2026); "5 days no crashes after switching from Bazzite" (evo9899), with several users reporting the same after switching. Bazzite stable (kernel 6.17.7) is **not recommended** for 40 CU builds — rebase to the testing branch first if you want Bazzite. For non-technical users who want a console experience: Bazzite desktop testing branch or CachyOS Handheld Edition. The performance gap is real: Bazzite stable's old kernel causes tangible issues with 40 CU, governor, and audio.
+**Community consensus (July 2026):** CachyOS is the de-facto recommendation — "definitly CashyOs is better in terms of stability and features" (rpf16rj, 04/07/2026); "5 days. No crashes... Cachyos has been great" after switching from Bazzite (evo9899, 04/07/2026); "a bunch of people here moved from Bazzite to CachyOS" (pops1cl, 10/06/2026). Bazzite stable (kernel 6.17.7) is **not recommended** for 40 CU builds — rebase to the testing branch first if you want Bazzite. For non-technical users who want a console experience: Bazzite desktop testing branch or CachyOS Handheld Edition. The performance gap is real: Bazzite stable's old kernel causes tangible issues with 40 CU, governor, and audio.
 
 ---
 
 ## SteamOS (Console Experience — Official Valve OS)
 
-> Valve's immutable Arch-based gaming OS. Boots directly into Gamescope (Steam Gaming Mode). Two community toolkits provide BC-250 support. Gaining traction over Bazzite — "SteamOS is my long game plan" (multiple users, Aug 2026).
+> Valve's immutable Arch-based gaming OS. Boots directly into Gamescope (Steam Gaming Mode). Two community toolkits provide BC-250 support. Gaining traction over Bazzite — "SteamOS is my long game plan" (dbkretro, 02/09/2026).
 
 ### SteamOS Versions on BC-250
 
@@ -75,7 +75,7 @@ CachyOS has become the community default as of July 2026 due to Bazzite's stable
 1. Download SteamOS recovery image from [Valve's official site](https://store.steampowered.com/steamos/download) or use the recovery USB creator
 2. Flash to USB with **balenaEtcher** or **Rufus** (UEFI/FAT32)
 3. Boot from USB — standard installer
-4. **Known gotcha:** Some users report issues with partitioning during SteamOS setup — may need to modify a line in the installation script (community, bc250-chat). SATA M.2 drives can confuse the installer ([community, bc250-chat]).
+4. **Known gotcha:** Some users report issues with partitioning during SteamOS setup — may need to modify a line in the installation script (essdee4338, 25/08/2026; hit in practice by _wesk, 17/07/2026). SATA M.2 drives can confuse the installer — "I think having a SATA m.2 confuses it" (andrewloomis, 24/08/2026).
 5. Complete installation, reboot
 
 ### Post-Install: BC-250 Toolkits
@@ -135,11 +135,11 @@ Developer-focused toolkit with more granular control. ([keroppl_wizard, GitHub](
 ### Performance: SteamOS vs CachyOS
 
 Community reports are mixed but lean toward comparable performance:
-- "SteamOS runs fairly well on this board since 3.8 and 3.9 will be even better" ([community, bc250-chat])
-- "some benchmarks on RX 6600 pretty identical while SteamOS has better lows sometimes" ([community, bc250-chat])
-- "many people here reported much better performance in Elden Ring on SteamOS" (could not replicate — game-specific?) ([community, bc250-chat])
-- "there really isn't anything special SteamOS is doing for our board that would have any meaningful edges over CachyOS" — both Arch-based, SteamOS is more closed and immutable ([community, bc250-resources])
-- SteamOS + toolkit: "Got SteamOS working well... runs Cyberpunk at around 102 average fps high preset" with 8c 40cu at 3.85/2000 ([community, bc250-chat, Aug 2026])
+- "SteamOS runs fairly well on this board since 3.8 and 3.9 will be even better" (yrouel86, 24/08/2026)
+- "some benchmarks on Rx 6600. pretty identical while steamos has better lows sometimes" (dejan_994, 27/08/2026)
+- "why does Elden ring seem to run so much better on steamos compared to cachy?" (dejan_994, 30/07/2026; reddit report of 60 fps 1080p relayed by matearz, 19/07/2026) — could not replicate, game-specific?
+- "there really isn't anything special steamos is doing for our board, that would have any meaningful edges over cachyos" (hojnikb, 29/08/2026) — both Arch-based, SteamOS is more closed and immutable
+- SteamOS + toolkit: "Ran the SteamOS Real Toolkit and unlocked to 8c 40cu at 3.85 and 2000 respectively. Runs cyberpunk at around 102 average fps high preset" (concerned_c1t1zen, 31/08/2026)
 
 ### Known Issues
 
@@ -154,7 +154,7 @@ Community reports are mixed but lean toward comparable performance:
 - **Update channel:** Stable (3.8) is safest. Preview (3.9) and Main (3.10) have kernel 7.2 with most display fixes upstreamed.
 - **Decky plugins:** Work on SteamOS — Decky Loader install guide at [GamingOnLinux](https://www.gamingonlinux.com/guides/view/how-to-set-up-decky-loader-on-steam-deck-steamos-for-easy-plugins/). rpf16rj toolkit includes a Decky plugin for GPU/CPU control.
 - **Dolby Digital 5.1:** Works via HDMI/eARC with rpf16rj toolkit v1.3.0+ option 13 — udev + WirePlumber AC-3 activation ([rpf16rj, 17/08/2026, bc250-resources]).
-- **Switching to Desktop:** `steamos-session-select plasma-wayland-persistent` or `steamos-session-select desktop` ([bc250-chat]).
+- **Switching to Desktop:** `sudo steamos-session-select plasma-wayland-persistent` (back to Game Mode: `sudo steamos-session-select gamescope-persistent`) (yrouel86, 25/07/2026; renamed from `plasma-persistent` — daddy8437, 17/12/2025).
 - **BC250 Control Center GUI:** ZEROAESQUERDA's PS5GPU-BC250 Qt app supports SteamOS — GPU frequency/voltage control from a desktop GUI, similar to MSI Afterburner ([ZEROAESQUERDA, bc250-resources]).
 
 ---
@@ -260,7 +260,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-pat
 - Rollback broken updates with `rpm-ostree rollback`
 - **VRR:** Testing branch includes VRR support natively. Stable branch does not.
 - **Audio:** DP audio fix in kernel 6.19.10+. Bazzite stable (6.17.7) does NOT include it. Testing branch does.
-- **Instability workaround:** If experiencing green screens, freezes, or crashes on Bazzite, rebase to testing branch first. If issues persist, multiple users report switching to CachyOS resolves them (evo9899, community, Jul 2026).
+- **Instability workaround:** If experiencing green screens, freezes, or crashes on Bazzite, rebase to testing branch first. If issues persist, users report switching to CachyOS resolves them (evo9899, 04/07/2026).
 - **40 CU Unlock on Bazzite:** The [bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager) (UMR-based, no kernel patch) is the preferred method — works on stock Bazzite kernel (auto-detects dri path, vinnijs.dev). For legacy kernel patch: erewego posted pre-built RPMs against the ba29 Deck kernel. Download `bazzite-bc250cu-rpms-ba29.7z` from the Discord project-forums.
   ```bash
   sudo rpm-ostree override replace ./*.rpm
@@ -498,13 +498,13 @@ sudo nano /etc/pacman.conf
 1. Download Manjaro (KDE or GNOME edition - GNOME more stable per source)
 2. Install normally (boots out-of-box, no nomodeset needed)
 3. Mesa in official repos is sufficient
-4. Recommended kernel: `linux618` or `linux619` (kernel 6.19.x preferred for VRR/DP audio; source: Discord)
+4. Recommended kernel: `linux618` or `linux619` (kernel 6.19.x preferred for VRR/DP audio; attribution pending)
    ```bash
    sudo mhwd-kernel -i linux618
    ```
 5. Install governor from AUR
 
-**Community note (source):** "Out of the box after the BIOS flash, Manjaro KDE just booted fine"
+**Community note:** "Out of the box after the BIOS flash, Manjaro KDE just booted fine" (attribution pending)
 
 ---
 

@@ -1,3 +1,7 @@
+## September 3, 2026 — Attribution pass (follow-up): SteamOS/OS section (05) — 13 anonymous claims credited or flagged
+
+Same sweep applied to the SteamOS installation/OS-comparison claims in 05: "long game plan" dbkretro (02/09/2026); SteamOS partitioning gotcha essdee4338 (25/08/2026) + _wesk (17/07/2026); SATA M.2 confusion andrewloomis (24/08/2026); "runs fairly well since 3.8" yrouel86 (24/08/2026); "pretty identical... better lows" dejan_994 (27/08/2026); Elden Ring SteamOS reports dejan_994 (30/07/2026) + matearz (19/07/2026); "nothing special SteamOS is doing" hojnikb (29/08/2026); Cyberpunk ~102 avg SteamOS toolkit concerned_c1t1zen (31/08/2026); "definitly CashyOs is better in terms of stability and features" rpf16rj (04/07/2026); "bunch of people moved from Bazzite to CachyOS" pops1cl (10/06/2026, date corrected from Jul 2026); session-select commands yrouel86 (25/07/2026) + daddy8437 (17/12/2025); evo9899 date corrected to 04/07/2026. Flagged (attribution pending): Manjaro "just booted fine", Manjaro kernel recommendation.
+
 # Changelog — V2 Corrections from Community Discord Data
 
 This file documents every correction or update discovered by cross-referencing V2 documentation against live community Discord exports (bc250-chat, bc250-resources, bc250-flex-chat, benchmarks, and new May 2026 exports). Each item cites the community member who contributed the information.
