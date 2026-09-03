@@ -84,11 +84,11 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Medium | ~60 (attribution pending) | Needs zram enabled (16 GB RAM is tight) |
+| 1080p Medium | ~60 (nexgen3d, 26/12/2025) | Needs zswap or zram enabled (16 GB RAM is tight) |
 | With FSR4 on Proton GE | Playable [confirmed: @lonewolf05849, 16/01/2026]
 | 4K, 60 FPS | Playable | "Playing Hogwarts at 4k 60fps on the bc250" [confirmed: @cubehacker8107, 19/08/2026] — settings not shared |
 
-> Game needs ~16.5 GB RAM. Enable zram: `zram-size = ram x 0.75` and close background apps. [confirmed: @hojnikb, 08/03/2026]
+> Game needs ~16.5 GB RAM. Enable zswap + swapfile (preferred) or zram (`zram-size = ram x 0.75`) and close background apps — see [05-OS Installation → Memory Configuration](05-os-installation.md#memory-configuration-zswap-vs-zram) (zram note: hojnikb, 08/03/2026; zswap preferred: pops1cl/essdee4336, 23/06/2026).
 > Use 6 GB static VRAM allocation to avoid OOM crashes. [confirmed: @big_trov, 28/02/2026]
 
 ---
@@ -150,8 +150,8 @@
 
 | Settings | FPS | Notes |
 |----------|-----|-------|
-| 1080p Medium, 8x AA | ~62 | Eden-6 benchmark (attribution pending); inventory has black box background (cosmetic only) |
-| 1080p Ultra, 2 GHz OC | 68 → 82 | OC uplift (attribution pending) |
+| 1080p Medium, 8x AA | ~62 | Eden-6 benchmark (whomstdv, 26/11/2025); inventory has black box background (cosmetic only) |
+| 1080p Ultra, 2 GHz OC | 68 → 82 | OC uplift (.warlocksyno, 25/05/2026) |
 | Default (low/medium mix) | ~60 | (selectivelygood_16010, 27/11/2025) |
 
 ### Starfield (vvaaron, Dec 2025 - Jan 2026)
@@ -293,13 +293,13 @@ Expected: Technical challenges — anti-cheat may have issues on Linux (elektric
 | Hellblade II: Senua's Saga | 60fps FSR4 Quality / 65 balance / 73 performance | Medium settings, 1080p. 60fps on FSR4 Quality requires the gfx1013 compute queue patch. [lonewolf05849, Aug 8 2026] |
 | Mortal Kombat 1 | Struggles to stay locked at 60 FPS | GPU refuses to fully boost (felingreenleaf, Aug 6 2026). [verified: Steam appid 1971870] |
 | Resident Evil 9 | Solid 60 FPS (dbkretro, Aug 9 2026) | "Solid 60fps on RE4 and RE9" (dbkretro, Aug 9 2026); appears in Old Lamer BC-250 benchmark video. 1080p high manual + hair strands, FSR quality (dbkretro); frame gen crashes on Bazzite with REFramework (.strykur, 25/05/2026) |
-| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT; TAA native 1080p: 45–50 FPS city / 60+ sea (attribution pending). Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
+| Assassin's Creed IV: Black Flag – Resynced | Playable (dmoraza, Aug 5 2026) | 2K FSR Quality + FG, max details no RT; TAA native 1080p: 45–50 FPS city / 60+ sea (g_sh0ck., 15/07/2026). Tested with broken RAM at 1600 MHz. [Steam appid 242050] |
 | Resident Evil 4 (2023 Remake) | ~60 FPS stable — dbkretro, Aug 9 2026 | Bazzite + governor + 8-core/40 CU at 1750 MHz. Previously reported crashes (May 2026) no longer reproducible. [Steam appid 2050650] |
 | Arc Raiders | 60+ | Medium, FSR Quality — 60+ FPS, ~69C (maty99, 26/03/2026 benchmark post) |
 | Ghost of Tsushima | 45–60 at 1080p Low | Crashes without game update v1053.5+ (dryadalis5392, 13/12/2025; no crash on v1053.0718+ — sinh_28065, 12/02/2026); 1.7–1.9 GHz GPU OC (attribution pending). Check ProtonDB for AMD GPU fixes. |
 | Final Fantasy VII Remake | Playable | Rebirth broken: "DX12 is not supported on your system" — game checks for specific GPU compatibility (elektricM docs). 512 MB allocation: "ff7 tend to crash while playing on 512mb" (lonewolf05849, 11/01/2026) [confirmed: @dwtoledo, 12/10/2025] |
 | Horizon: Zero Dawn | Great at 1080p High | No upscaling needed [confirmed: @nexgen3d, 09/12/2025] |
-| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings; low GPU usage at 1080p — settings changes don't help (attribution pending) [confirmed: @_nk10, 15/12/2025] |
+| Horizon: Forbidden West | 45–60 / 70–90 with FG | FSR + frame gen, low settings; low GPU usage at 1080p — settings changes don't help (_titotito, 08/06/2026) [confirmed: @_nk10, 15/12/2025] |
 | Hunt: Showdown 1896 | 90–120 with FSR / 20–40 without | |
 | Forza Horizon 5 | 40–100 FPS | "40fps" → "now I have 100 fps" depending on settings (ungamead, 21/02/2026); 1440p TAA High hovers 50–60 (antmagl, 16/05/2026) |
 | Stellar Blade [fforduck, Discord user] | 50–80 FPS at 1440p | Medium settings, FSR4 |

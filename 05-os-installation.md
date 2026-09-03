@@ -498,15 +498,62 @@ sudo nano /etc/pacman.conf
 1. Download Manjaro (KDE or GNOME edition - GNOME more stable per source)
 2. Install normally (boots out-of-box, no nomodeset needed)
 3. Mesa in official repos is sufficient
-4. Recommended kernel: `linux618` or `linux619` (kernel 6.19.x preferred for VRR/DP audio; attribution pending)
-   ```bash
-   sudo mhwd-kernel -i linux618
-   ```
-5. Install governor from AUR
+4. Install governor from AUR
 
-**Community note:** "Out of the box after the BIOS flash, Manjaro KDE just booted fine" (attribution pending)
+**Community note:** "Out of the box after the BIOS flash, Manjaro KDE just booted fine" (samuelwf4949, 28/06/2025)
 
 ---
+
+## Memory Configuration (zswap vs zram)
+
+The BC-250 has **16 GB system RAM**. Distros differ in how they handle memory pressure: **Bazzite enables zram by default (4 GB)**, using RAM to compress RAM. On a memory-constrained 16 GB board, the community found **zswap + swapfile** generally preferable — it dumps cold pages to disk and keeps available RAM for the game.
+
+**Which to use:**
+
+| Scenario | Recommendation |
+|----------|---------------|
+| Most games / under 16 GB usage | **zswap + swapfile** — leaves more RAM free; zswap "is almost always better than zram, assuming your storage device can handle it" (pops1cl, 23/06/2026) |
+| VRAM-heavy / very RAM-hungry titles | Either; zram helps when you cross the 16 GB line. essdee4336: the board "performs better overall without Zram enabled. It just takes precious CPU cycles away" (23/06/2026) |
+| Slow / heavily-worn storage | **zram** instead — zswap swapfile "might put some strain on your SSD" (nydendard, 12/12/2025) |
+
+**Compression algorithm:** nydendard benchmarked on the BC-250 — **lz4** is the clear winner (fastest decompression at 3692 MB/s vs 3210 MB/s for lz4hc), which matters most for responsiveness (13/12/2025).
+
+**On Bazzite (disable zram → zswap + 32 GB swapfile):**
+```bash
+# Disable zram
+echo "" | sudo tee /etc/systemd/zram-generator.conf
+
+# Create swapfile (32 GB) on btrfs
+sudo btrfs subvolume create /var/swap
+sudo semanage fcontext -a -t var_t /var/swap
+sudo restorecon /var/swap
+SIZE=32G
+sudo btrfs filesystem mkswapfile --size $SIZE /var/swap/swapfile
+sudo semanage fcontext -a -t swapfile_t /var/swap/swapfile
+sudo restorecon /var/swap/swapfile
+sudo swapon /var/swap/swapfile
+
+# Add to fstab
+echo "/var/swap/swapfile none swap defaults,nofail 0 0" | sudo tee -a /etc/fstab
+
+# Enable zswap with lz4
+rpm-ostree initramfs --enable \
+  --arg=--add-drivers \
+  --arg=lz4 \
+  --arg=--add-drivers \
+  --arg=lz4_compress
+
+rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
+sudo reboot
+```
+
+**Verify:**
+```bash
+grep -r . /sys/module/zswap/parameters/
+```
+Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
+
+Original guide: nydendard (12/12/2025, bc250-resources "zswap instead of zram"); adopted into the NexGen3D SteamMachine script (nexgen3d, 13/12/2025). Set swappiness to 180 when using zswap.
 
 ## Verification - After Any Installation
 

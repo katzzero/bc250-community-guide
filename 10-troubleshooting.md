@@ -303,44 +303,14 @@ Failed to quiesce KFD
 
 ---
 
-## High RAM Usage / OOM Crashes (Alternative to zram)
+## High RAM Usage / OOM Crashes
 
-If zram is not enough for RAM-hungry games, use **zswap + swapfile** -- it dumps cold memory pages to disk, freeing RAM for games (source: performance.md).
+If games crash with out-of-memory errors, configure memory correctly for the 16 GB board. Full zswap vs zram instructions (and when to choose each) are in [05-OS Installation → Memory Configuration](05-os-installation.md#memory-configuration-zswap-vs-zram).
 
-**On Bazzite:**
-```bash
-# Disable zram
-echo "" | sudo tee /etc/systemd/zram-generator.conf
-
-# Create swapfile (32 GB)
-sudo btrfs subvolume create /var/swap  # (community-contributed steps — not in source performance.md)
-sudo semanage fcontext -a -t var_t /var/swap
-sudo restorecon /var/swap
-SIZE=32G
-sudo btrfs filesystem mkswapfile --size $SIZE /var/swap/swapfile
-sudo semanage fcontext -a -t swapfile_t /var/swap/swapfile
-sudo restorecon /var/swap/swapfile
-sudo swapon /var/swap/swapfile
-
-# Add to fstab
-echo "/var/swap/swapfile none swap defaults,nofail 0 0" | sudo tee -a /etc/fstab
-
-# Enable zswap with lz4 (source: performance.md)
-rpm-ostree initramfs --enable \
-  --arg=--add-drivers \
-  --arg=lz4 \
-  --arg=--add-drivers \
-  --arg=lz4_compress
-
-rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
-sudo reboot
-```
-
-Verify with (source: performance.md):
-```bash
-grep -r . /sys/module/zswap/parameters/
-```
-Should show `enabled:Y`, `compressor:lz4`, `max_pool_percent:25`.
+Key points:
+- **zswap + swapfile** is the community-preferred option for freeing RAM on 16 GB systems (pops1cl, essdee4336, 23/06/2026) — see the doc 05 section for the Bazzite commands.
+- If your storage is slow or heavily-worn, **zram** avoids SSD wear (nydendard, 12/12/2025).
+- Static VRAM allocation (e.g. 6 GB) avoids the zram/zswap + 512 MB dynamic conflict (xseol, 12/07/2025) — see [02-BIOS](02-bios-and-firmware.md).
 
 ---
 
